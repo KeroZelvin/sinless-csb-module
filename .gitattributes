@@ -1,0 +1,16 @@
+# Treat Foundry compendium packs as binary
+packs/** binary
+
+# Images and audio
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+
+# Prevent line-ending normalization on JSON
+*.json text eol=lf
+
