@@ -1,0 +1,39 @@
+{
+  "id": "sinlesscsb",
+  "title": "SinlessCSB",
+  "description": "Sinless automation and Custom System Builder support (combat hooks, pool refresh, and utilities).",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "KeroZelvin",
+      "email": "kerozelvin@gmail.com",
+      "url": "https://github.com/KeroZelvin",
+      "discord": "kerozelvin",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "flags": {
+    "canUpload": true
+  },
+  "packs": [
+    {
+      "name": "sinlesscsb-macros",
+      "label": "SinlessCSB Macros",
+      "path": "packs/sinlesscsb-macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "custom-system-builder",
+      "flags": {}
+    }
+  ]
+}
