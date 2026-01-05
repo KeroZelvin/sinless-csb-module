@@ -33,6 +33,43 @@ function shouldIncludeActor(actor) {
   return !!actor?.hasPlayerOwner;
 }
 
+/* -------------------------------------------- */
+/*  Canonical Actor Resolution (ActorUuid first) */
+/* -------------------------------------------- */
+
+function normalizeUuid(u) {
+  const s = String(u ?? "").trim();
+  return s.length ? s : null;
+}
+
+/**
+ * Resolve the canonical base Actor for updates.
+ * Priority:
+ *  1) actor.system.props.ActorUuid (sheet-injected canonical Actor.<id>)
+ *  2) token synthetic actor -> TokenDocument.baseActor
+ *  3) actor itself
+ */
+async function resolveCanonicalActor(actor) {
+  if (!actor) return null;
+
+  // 1) Prefer injected canonical ActorUuid
+  const actorUuid = normalizeUuid(readProp(actor, "ActorUuid"));
+  if (actorUuid) {
+    try {
+      const doc = await fromUuid(actorUuid);
+      if (doc?.documentName === "Actor") return doc;
+    } catch (e) {
+      console.warn("SinlessCSB | resolveCanonicalActor fromUuid failed", { actorUuid, e });
+    }
+  }
+
+  // 2) Token synthetic actor -> baseActor
+  if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
+
+  // 3) Fallback
+  return actor;
+}
+
 export async function refreshPoolsForActor(actor) {
   if (!shouldIncludeActor(actor)) return;
 
@@ -97,11 +134,15 @@ export async function refreshPoolsForActor(actor) {
 export async function refreshPoolsForCombat(combat) {
   if (!combat) return;
 
-  // Deduplicate actors in case multiple combatants reference the same actor
+  // Deduplicate canonical actors (ActorUuid first) in case multiple combatants reference the same actor
   const actors = new Set();
+
   for (const c of combat.combatants) {
     const a = c?.actor;
-    if (a) actors.add(a);
+    if (!a) continue;
+
+    const canonical = await resolveCanonicalActor(a);
+    if (canonical) actors.add(canonical);
   }
 
   for (const actor of actors) {
