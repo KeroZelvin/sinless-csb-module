@@ -1,25 +1,38 @@
-Below are canonical, copy-paste code snippets for the three moving parts that matter: (A) CSB anchor placement, (B) module sheet injection + anchor mount, and (C) initiative macro actorUuid-first resolution + speaker.
+Below is an updated **known_good_patterns.md** that preserves your existing structure (A/B/C) and adds the new “canonical actor identity” + “live UI refresh” patterns we validated in this thread. I kept everything copy-pasteable and in the same style as your doc.
 
-You can paste these into your repo docs as “known-good patterns.”
+---
 
-A) CSB Anchor Component (Layout-only)
+## Known-Good Patterns (SinlessCSB / Foundry v13 / CSB v5)
+
+Below are canonical, copy-paste code snippets for the moving parts that matter:
+
+* (A) CSB anchor placement (layout-only)
+* (B) Module sheet injection + anchor mount (Foundry v13 / ActorSheetV2)
+* (C) Initiative macro actorUuid-first resolution + speaker
+* (D) **NEW:** Canonical ActorUuid “ensure” on sheet open (prevents token-synthetic drift)
+* (E) **NEW:** Combat pool refresh canonicalization (ActorUuid-first)
+* (F) **NEW:** DialogV2 live refresh pattern (Pools dialog updates automatically when actor props change)
+
+---
+
+# A) CSB Anchor Component (Layout-only)
 
 In CSB actor sheet editor, add a Text Field component:
 
-Component Key: sinlesscsb_anchor_init (underscores required)
-
-Label: empty (or a single space)
-
-Default value: empty
-
-Place it wherever you want the initiative button
+* Component Key: `sinlesscsb_anchor_init` (underscores required)
+* Label: empty (or a single space)
+* Default value: empty
+* Place it wherever you want the initiative button
 
 This component is the “mount point” only; its value is never used.
 
-B) Module Canonical Snippet (Foundry v13 / CSB v5 / ActorSheetV2)
+---
 
-Use renderCustomActorSheetV2 and mount into the CSB anchor.
+# B) Module Canonical Snippet (Foundry v13 / CSB v5 / ActorSheetV2)
 
+Use `renderCustomActorSheetV2` and mount into the CSB anchor.
+
+```js
 // sheets.js (canonical snippet)
 
 const MOD_ID = "sinlesscsb";
@@ -35,6 +48,7 @@ function getActor(app, context) {
 
 function getRootElement(app, element) {
   if (app?.element instanceof HTMLElement) return app.element;
+  if (Array.isArray(app?.element) && app.element[0] instanceof HTMLElement) return app.element[0];
   if (element instanceof HTMLElement) return element;
   if (element?.[0] instanceof HTMLElement) return element[0]; // safety if something hands jQuery-like
   return null;
@@ -124,11 +138,15 @@ export function registerSheetHooks() {
 
   console.log("SinlessCSB | Initiative anchor injection registered", { anchor: INIT_ANCHOR_KEY });
 }
+```
 
-C) Macro Canonical Snippet (ActorUuid-First + Speaker)
+---
+
+# C) Macro Canonical Snippet (ActorUuid-First + Speaker)
 
 At the top of Sinless Roll Initiative macro:
 
+```js
 // Sinless Roll Initiative (canonical actor resolution + speaker)
 
 const scope = (arguments?.length && typeof arguments[0] === "object") ? arguments[0] : {};
@@ -148,27 +166,205 @@ if (!actor) {
   return;
 }
 
-// If you have a token (for combatant), locate it; then set speaker with actor+token
-// const token = findTokenForActorOnScene(actor); // your helper
-// const speaker = ChatMessage.getSpeaker({ actor, token });
+// Set speaker (token optional; actor-only is stable)
 const speaker = ChatMessage.getSpeaker({ actor });
-
-// If chat header ever uses wrong alias due to token naming, you can force:
-// speaker.alias = actor.name;
 
 console.log("Sinless Roll Initiative | Using actor", { name: actor.name, uuid: actor.uuid, actorUuidParam: actorUuid });
 
-// ...initiative logic continues using `actor`...
-// ChatMessage.create({ speaker, content });
+// ...initiative logic...
+```
 
-Optional: CSS to hide the anchor textbox (if desired)
+Token-name issue reminder (not a macro fix):
+
+* Chat card header may display token name. Fix by setting Actor → Prototype Token “Use Actor Name / Link Actor Data”.
+
+---
+
+# D) NEW: Ensure Canonical ActorUuid on Sheet Open (Prevents Token-Synthetic Drift)
+
+**Problem:** token-synthetic actors (UUID like `Scene...Token...Actor...`) can cause UI/macro drift.
+**Solution:** store canonical base actor UUID in `system.props.ActorUuid` and always prefer it.
+
+**Where to run:** in your sheet render hook (module layer), after resolving the actor.
+
+```js
+function normalizeUuid(u) {
+  const s = String(u ?? "").trim();
+  return s.length ? s : null;
+}
+
+/**
+ * Ensure system.props.ActorUuid exists and equals the canonical base Actor uuid (Actor.<id>).
+ * Important: create system.props object if missing (CSB timing can mean props isn't initialized yet).
+ */
+async function ensureActorUuidOnOpen(actor) {
+  if (!actor) return;
+
+  const baseActor =
+    actor.isToken && actor.parent?.baseActor ? actor.parent.baseActor : actor;
+
+  if (!baseActor || baseActor.documentName !== "Actor") return;
+
+  const canonical = normalizeUuid(baseActor.uuid);
+  if (!canonical) return;
+
+  const current = normalizeUuid(baseActor.system?.props?.ActorUuid);
+  if (current === canonical) return;
+
+  await baseActor.update({
+    system: {
+      props: {
+        ...(baseActor.system?.props ?? {}),
+        ActorUuid: canonical
+      }
+    }
+  });
+
+  console.log("SinlessCSB | ActorUuid ensured", { name: baseActor.name, ActorUuid: canonical });
+}
+```
+
+Call it inside your render hook, before injecting buttons:
+
+```js
+queueMicrotask(async () => {
+  await ensureActorUuidOnOpen(actor);
+  mountInitiativeButton(root, actor);
+});
+```
+
+---
+
+# E) NEW: Canonicalization in Combat Pool Refresh (ActorUuid-first)
+
+**Problem:** combatants often reference token-synthetic actors; pool refresh must target the base actor consistently.
+
+In `scripts/rules/pools.js`, prefer `system.props.ActorUuid`:
+
+```js
+function normalizeUuid(u) {
+  const s = String(u ?? "").trim();
+  return s.length ? s : null;
+}
+
+async function resolveCanonicalActor(actor) {
+  if (!actor) return null;
+
+  const actorUuid = normalizeUuid(actor?.system?.props?.ActorUuid);
+  if (actorUuid) {
+    try {
+      const doc = await fromUuid(actorUuid);
+      if (doc?.documentName === "Actor") return doc;
+    } catch (e) {
+      console.warn("SinlessCSB | resolveCanonicalActor fromUuid failed", { actorUuid, e });
+    }
+  }
+
+  if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
+  return actor;
+}
+
+export async function refreshPoolsForCombat(combat) {
+  if (!combat) return;
+
+  const actors = new Set();
+  for (const c of combat.combatants) {
+    const a = c?.actor;
+    if (!a) continue;
+
+    const canonical = await resolveCanonicalActor(a);
+    if (canonical) actors.add(canonical);
+  }
+
+  for (const actor of actors) {
+    await refreshPoolsForActor(actor);
+  }
+}
+```
+
+---
+
+# F) NEW: DialogV2 Live Refresh Pattern (Pools Dialog Updates Without Reopen)
+
+**Problem:** Dialog displays stale pool values unless closed/reopened, because actor updates occur outside the dialog.
+
+**Solution:** subscribe to `updateActor` and refresh the DOM when `changed.system.props` is present. Unregister on close.
+
+```js
+class MyDialog extends foundry.applications.api.DialogV2 {
+  constructor(...args) {
+    super(...args);
+    this._actorId = actor?.id ?? null;
+    this._actorUpdateHookId = null;
+    this._clickBound = false;
+  }
+
+  async close(options) {
+    if (this._actorUpdateHookId) {
+      Hooks.off("updateActor", this._actorUpdateHookId);
+      this._actorUpdateHookId = null;
+    }
+    return super.close(options);
+  }
+
+  _onRender(context, options) {
+    super._onRender(context, options);
+
+    const root = this.element;
+    if (!(root instanceof HTMLElement)) return;
+
+    const updateAllRows = () => {
+      // recompute from actor.system.props + update DOM elements
+    };
+
+    // Register once per dialog instance (DialogV2 can re-render)
+    if (!this._actorUpdateHookId && this._actorId) {
+      this._actorUpdateHookId = Hooks.on("updateActor", (updatedActor, changed) => {
+        if (updatedActor?.id !== this._actorId) return;
+        if (!changed?.system?.props) return; // cheap filter
+        updateAllRows();
+      });
+    }
+
+    // Bind click handler once if needed
+    if (!this._clickBound) {
+      this._clickBound = true;
+      root.addEventListener("click", async (ev) => {
+        // handle dialog actions
+      });
+    }
+
+    // Initial sync
+    updateAllRows();
+  }
+}
+```
+
+This was applied to **Sinless Pool Roll** so that when combat round refresh refills pools, the dialog updates immediately.
+
+---
+
+# Optional: CSS to hide the anchor textbox (if desired)
 
 If your anchor is a Text Field and you don’t want to see the empty input:
 
+```css
 .custom-system-field[data-key="sinlesscsb_anchor_init"] input,
 .custom-system-field[data-key="sinlesscsb_anchor_init"] label {
   display: none;
 }
 
+/* If CSB uses data-component-key in your build, duplicate selectors accordingly */
+.custom-system-field[data-component-key="sinlesscsb_anchor_init"] input,
+.custom-system-field[data-component-key="sinlesscsb_anchor_init"] label {
+  display: none;
+}
+```
 
-(If CSB uses data-component-key in your build, duplicate the selector accordingly.)
+---
+
+## Operational Note (Debugging “Everything is gone”)
+
+If actors/items/templates vanish after reload, confirm you are logged in as **GM**, not a player. Player permissions can make world content appear missing even though nothing was deleted.
+
+---

@@ -1,6 +1,12 @@
 const MOD_ID = "sinlesscsb";
 
+/**
+ * Parse numbers robustly from CSB props.
+ * CSB sometimes stores numeric fields as strings with trailing newlines.
+ * Examples: "11\n", "21\n\n\n"
+ */
 function num(v, fallback = 0) {
+  if (typeof v === "string") v = v.trim();
   const n = Number(v);
   return Number.isFinite(n) ? n : fallback;
 }
@@ -107,6 +113,7 @@ export async function refreshPoolsForActor(actor) {
   update[writePropUpdate("Focus_Cur")] = focus;
 
   // Only update Max pools if they have changed (attribute changes are rare)
+  // Note: num() now trims strings like "21\n\n" safely.
   const brawnMaxNow = Math.floor(num(readProp(actor, "Brawn_Max"), NaN));
   const finesseMaxNow = Math.floor(num(readProp(actor, "Finesse_Max"), NaN));
   const resolveMaxNow = Math.floor(num(readProp(actor, "Resolve_Max"), NaN));

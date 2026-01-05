@@ -156,16 +156,35 @@ function injectInitiativeButton(rootEl, actor) {
   btn.className = "sinlesscsb-init-btn";
   btn.textContent = "Roll Initiative";
 
-  btn.addEventListener("click", async () => {
-    console.log("SinlessCSB | Initiative click", {
-      actorName: actor.name,
-      actorUuid: actor.uuid
-    });
+btn.addEventListener("click", async () => {
+  // IMPORTANT: Some Foundry v13 contexts do not pass Macro.execute({ ... }) args reliably.
+  // We set a one-shot global handoff as a fallback that the macro can read.
+  game.sinlesscsb = game.sinlesscsb || {};
+  game.sinlesscsb._initActorUuid = String(actor.uuid);
 
-    const m = game.macros.getName("Sinless Roll Initiative");
-    if (!m) return ui.notifications.error("Macro not found: Sinless Roll Initiative");
-    await m.execute({ actorUuid: String(actor.uuid) });
+  console.log("SinlessCSB | Initiative click", {
+    actorName: actor.name,
+    actorUuid: actor.uuid,
+    canonicalUuid: game.sinlesscsb._initActorUuid
   });
+
+  const m = game.macros.getName("Sinless Roll Initiative");
+  if (!m) {
+    ui.notifications.error("Macro not found: Sinless Roll Initiative");
+    return;
+  }
+
+  try {
+    // Still *try* passing args normally; macro will prefer args if present.
+    await m.execute({ actorUuid: String(actor.uuid) });
+  } finally {
+    // Cleanup: prevent stale UUID being reused by a later macro call.
+    // (This is why your macro asked “where do I put the optional cleanup”.)
+queueMicrotask(() => { delete game.sinlesscsb._initActorUuid; });
+
+  }
+});
+
 
   hostEl.appendChild(btn);
 }
