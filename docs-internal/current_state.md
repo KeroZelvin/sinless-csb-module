@@ -422,6 +422,117 @@ Fix:
 * confirm player clients receive pool refresh updates consistently (they should via actor updates)
 
 ---
+Combat Pool Refresh (Status: Working)
+
+Pool refresh on combat start is confirmed working.
+
+refreshPoolsForCombat():
+
+Fires exactly once at Round 1 start
+
+Fires again on subsequent rounds as expected
+
+Uses ActorUuid canonicalization to avoid token-synthetic drift
+
+Double-fire protection is working correctly and does not suppress valid Round 1 refresh.
+
+Player clients receive updated pool values correctly via Actor.update() propagation.
+
+Actor Canonicalization (Critical Architecture)
+
+Canonical Actor identity is now defined as:
+
+actor.system.props.ActorUuid (highest priority)
+
+token.parent.baseActor (token-synthetic fallback)
+
+actor itself (last resort)
+
+ActorUuid is:
+
+Injected automatically when an actor sheet opens (ensureActorUuidOnOpen)
+
+Stored in system.props.ActorUuid
+
+Used consistently across:
+
+Combat pool refresh
+
+Initiative rolling
+
+Pool rolling dialogs
+
+This fully resolves multi-token, multi-scene, and player/GM desync issues.
+
+Initiative System (v1.5, Status: Working)
+
+Initiative can now be rolled:
+
+From the sheet
+
+Without a token selected
+
+Without the actor already in combat
+
+Combatants are actor-only (no tokenId required).
+
+Initiative macro behavior:
+
+Canonical actor resolved via ActorUuid
+
+Actor added to combat automatically if missing
+
+Initiative correctly set and visible in tracker
+
+Chat speaker:
+
+Uses token if present
+
+Falls back to actor safely
+
+Sheet → Macro Argument Passing (Foundry v13 Reality)
+
+Foundry v13 does not reliably pass arguments to Macro.execute({ ... })
+
+Implemented one-shot global handoff:
+
+Sheet sets game.sinlesscsb._initActorUuid
+
+Macro reads it if args are missing
+
+Sheet cleans it up immediately after execution
+
+This pattern is now stable and verified.
+
+Pool Roll Dialog (DialogV2, Status: Working)
+
+Uses DialogV2 (ApplicationV2-safe)
+
+Live updates correctly when:
+
+Combat round refresh runs
+
+Pools are refreshed manually
+
+Pools are spent
+
+Dialog listens to updateActor and refreshes only when:
+
+Actor IDs match
+
+system.props changes
+
+Foundry v13 Compatibility Notes (Important)
+
+Roll.evaluate({ async: true }) is deprecated and errors
+
+Correct v13 usage:
+
+const roll = new Roll("Xd6");
+await roll.evaluate();
+
+
+Added guard for 0d6 rolls to prevent invalid evaluations.
 
 ## Non-Goals (Already Decided)
 

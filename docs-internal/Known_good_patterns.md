@@ -368,3 +368,111 @@ If your anchor is a Text Field and you don’t want to see the empty input:
 If actors/items/templates vanish after reload, confirm you are logged in as **GM**, not a player. Player permissions can make world content appear missing even though nothing was deleted.
 
 ---
+Canonical Actor Resolution (REQUIRED)
+async function resolveCanonicalActor(actor) {
+  const u = actor?.system?.props?.ActorUuid?.trim();
+  if (u) {
+    const doc = await fromUuid(u);
+    if (doc?.documentName === "Actor") return doc;
+  }
+  if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
+  return actor;
+}
+
+
+Use this everywhere actors are resolved.
+
+ActorUuid Injection on Sheet Open
+
+Inject ActorUuid when sheet renders
+
+Safe against CSB multi-render passes
+
+Never overwrite if already correct
+
+This prevents:
+
+Token-synthetic drift
+
+Cross-browser GM/player desync
+
+Combat pool refresh inconsistencies
+
+Safe Sheet → Macro Communication (v13)
+
+Pattern:
+
+// Sheet
+game.sinlesscsb._initActorUuid = actor.uuid;
+await macro.execute({ actorUuid: actor.uuid });
+delete game.sinlesscsb._initActorUuid;
+
+// Macro
+const actorUuid =
+  args?.actorUuid ??
+  game?.sinlesscsb?._initActorUuid ??
+  null;
+
+
+Rationale: Macro args are unreliable in v13; this is the safest bridge.
+
+Actor-Only Combatants
+
+Prefer actorId combatants
+
+Avoid tokenId unless visually required
+
+Prevents duplicate combatants and token-scene coupling
+
+DialogV2 Event Binding Pattern
+
+Dialog roots can change across renders
+
+Always:
+
+Remove old event listeners
+
+Rebind on _onRender
+
+Store handler references on the dialog instance
+
+Live UI Sync via updateActor
+
+Listen only for:
+
+Matching actor ID
+
+changed.system.props
+
+Update UI via queueMicrotask() to avoid render races
+
+Roll API (v13 Safe)
+
+✅ Correct:
+
+await roll.evaluate();
+
+
+❌ Incorrect:
+
+roll.evaluate({ async: true });
+
+Final Notes
+
+This thread resolved three major architectural risks:
+
+Actor identity drift
+
+v13 macro argument loss
+
+DialogV2 re-render instability
+
+All current solutions are:
+
+Tested
+
+Reproducible
+
+Compatible with Foundry v13+
+
+Safe for future module refactors

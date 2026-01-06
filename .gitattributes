@@ -1,7 +1,7 @@
-# Treat Foundry compendium packs as binary
-packs/** binary
+# Foundry compendium packs (LevelDB) – never diff or normalize
+packs/** binary -diff -text
 
-# Images and audio
+# Images and audio assets
 *.png binary
 *.jpg binary
 *.jpeg binary
@@ -11,6 +11,8 @@ packs/** binary
 *.ogg binary
 *.wav binary
 
-# Prevent line-ending normalization on JSON
+# Source files – enforce LF
 *.json text eol=lf
-
+*.js   text eol=lf
+*.css  text eol=lf
+*.html text eol=lf

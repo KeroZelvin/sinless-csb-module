@@ -3,6 +3,8 @@
  * FIX: Do not rely on this.form (DialogV2 may not provide it).
  * PATCH: Resolve canonical Actor via system.props.ActorUuid first (prevents token-synthetic drift).
  * PATCH: Live-refresh dialog when actor pools are updated (combat round refresh, manual refresh, etc.)
+ * PATCH (v13): Remove Roll#evaluate({ async: true }); use await roll.evaluate()
+ * OPTIONAL: Guard against 0d6 rolls
  */
 
 function num(x, fallback = 0) {
@@ -123,7 +125,6 @@ async function refreshPools(actor) {
 
   console.log("Sinless Pool Roll | fallback update", update);
   await actor.update(update);
-  console.log("Sinless Pool Roll | after update (props)", foundry.utils.deepClone(actor.system?.props));
 }
 
 function poolDefs() {
@@ -140,7 +141,6 @@ function poolDefs() {
   const actorUuid = (typeof scope.actorUuid === "string" && scope.actorUuid.length) ? scope.actorUuid : null;
   const boundActor = actorUuid ? await fromUuid(actorUuid) : null;
 
-  // Resolve initial candidate, then canonicalize via ActorUuid/baseActor.
   const actorCandidate =
     boundActor ??
     canvas?.tokens?.controlled?.[0]?.actor ??
@@ -148,7 +148,6 @@ function poolDefs() {
     null;
 
   const actor = await resolveCanonicalActor(actorCandidate);
-
   if (!actor) return ui.notifications.warn("Select a token or set a User Character.");
 
   console.log("Sinless Pool Roll | actor resolved", {
@@ -224,7 +223,7 @@ function poolDefs() {
       super(...args);
       this._sinlessActorUpdateHookId = null;
       this._sinlessActorId = actor?.id ?? null;
-      this._sinlessClickBound = false;
+      this._sinlessBoundClickHandler = null;
     }
 
     async close(options) {
@@ -291,7 +290,17 @@ function poolDefs() {
         const spendClamped = Math.max(0, Math.min(curVal, spend));
         const totalDice = Math.max(0, spendClamped + mod);
 
-        const roll = await (new Roll(`${totalDice}d6`)).evaluate({ async: true });
+        // OPTIONAL (recommended): no-op roll guard
+        if (totalDice <= 0) {
+          ui.notifications.warn("No dice to roll (Spend + Mod is 0).");
+          clearInputs(poolKey);
+          return;
+        }
+
+        // Foundry v13-safe roll evaluation (no { async: true })
+        const roll = new Roll(`${totalDice}d6`);
+        await roll.evaluate();
+
         const results = roll.dice?.[0]?.results ?? [];
         const successes = results.reduce((acc, r) => acc + (r.result >= TN ? 1 : 0), 0);
 
@@ -332,39 +341,41 @@ function poolDefs() {
       if (!this._sinlessActorUpdateHookId && this._sinlessActorId) {
         this._sinlessActorUpdateHookId = Hooks.on("updateActor", (updatedActor, changed) => {
           if (updatedActor?.id !== this._sinlessActorId) return;
-          if (!changed?.system?.props) return; // cheap filter
-          updateAllRows();
+          if (!changed?.system?.props) return;
+          queueMicrotask(() => updateAllRows());
         });
       }
 
-      // Attach click handler once per dialog instance (DialogV2 can re-render)
-      if (!this._sinlessClickBound) {
-        this._sinlessClickBound = true;
-
-        root.addEventListener("click", async (ev) => {
-          const t = ev.target;
-          if (!(t instanceof HTMLElement)) return;
-
-          const action = t.dataset.action;
-          if (!action) return;
-
-          // Optional: keep your click logging
-          console.log("Sinless Pool Roll | click", { action, pool: t.dataset.pool });
-
-          ev.preventDefault();
-
-          try {
-            if (action === "refresh") return await doRefresh();
-            if (action === "clear") return clearInputs(t.dataset.pool);
-            if (action === "roll") return await doRoll(t.dataset.pool);
-          } catch (e) {
-            console.error(e);
-            ui.notifications.error("Sinless Pool Roll failed. See console (F12).");
-          }
-        });
+      // Re-bind click handler on the CURRENT root (root may change across renders)
+      if (this._sinlessBoundClickHandler) {
+        root.removeEventListener("click", this._sinlessBoundClickHandler);
+        this._sinlessBoundClickHandler = null;
       }
 
-      // Ensure display is current at render time (including after live updates)
+      this._sinlessBoundClickHandler = async (ev) => {
+        const t = ev.target;
+        if (!(t instanceof HTMLElement)) return;
+
+        const action = t.dataset.action;
+        if (!action) return;
+
+        console.log("Sinless Pool Roll | click", { action, pool: t.dataset.pool });
+
+        ev.preventDefault();
+
+        try {
+          if (action === "refresh") return await doRefresh();
+          if (action === "clear") return clearInputs(t.dataset.pool);
+          if (action === "roll") return await doRoll(t.dataset.pool);
+        } catch (e) {
+          console.error(e);
+          ui.notifications.error("Sinless Pool Roll failed. See console (F12).");
+        }
+      };
+
+      root.addEventListener("click", this._sinlessBoundClickHandler);
+
+      // Ensure display is current at render time
       updateAllRows();
     }
   }

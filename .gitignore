@@ -14,5 +14,11 @@ worlds/
 systems/
 modules/
 
+# Foundry LevelDB transient lock files
+packs/*/LOCK
+packs/*/LOCK.*
+packs/sinlesscsb-macros/LOCK
+
+
 # Logs
 *.log
