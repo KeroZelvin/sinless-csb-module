@@ -197,9 +197,6 @@ console.log("Sinless Roll Initiative | input", {
     return;
   }
 
-// Cleanup the handoff AFTER we have a real actor (prevents stale reuse)
-if (game?.sinlesscsb?._initActorUuid) delete game.sinlesscsb._initActorUuid;
-
   const scene = canvas?.scene ?? null;
   if (!scene) {
     ui.notifications.error("No active scene found.");
@@ -243,6 +240,8 @@ if (game?.sinlesscsb?._initActorUuid) delete game.sinlesscsb._initActorUuid;
 
   // Update combatant initiative
   await combatant.update({ initiative });
+
+  ui?.combat?.render?.(true);
 
   const diceList = diceResults.length ? diceResults.join(", ") : "—";
 

@@ -1,259 +1,324 @@
 /**
- * Sinless Pool Roller (Foundry v13) — TN from "Session Settings" actor
- * - One dialog table for Brawn/Finesse/Resolve/Focus
- * - Enter Spend + Mod for each row
- * - Click Roll to roll Total d6, count successes >= TN_Global from Session Settings
- * - Spend depletes the pool (Mod does not)
- * - Adds "Refresh Pools" button (top-right) that recalculates pools per PDF:
- *   Brawn   = STR + floor(BOD/2) + floor(WIL/4)
- *   Finesse = REA + floor(BOD/2) + floor(INT/4)
- *   Resolve = WIL + floor(INT/2) + floor(CHA/2)
- *   Focus   = INT + floor(REA/2) + floor(WIL/4)
- *   Plus: add floor(CHA/4) to exactly one pool based on chaQuarterPoolN (1..4).
+ * Sinless Pool Roll (Foundry v13+) — DialogV2 version
+ * FIX: Do not rely on this.form (DialogV2 may not provide it).
+ * PATCH: Resolve canonical Actor via system.props.ActorUuid first (prevents token-synthetic drift).
+ * PATCH: Live-refresh dialog when actor pools are updated (combat round refresh, manual refresh, etc.)
  */
-
-function findKeyPath(obj, targetKey, basePath = "system") {
-  const stack = [{ value: obj, path: basePath }];
-  const seen = new Set();
-  while (stack.length) {
-    const { value, path } = stack.pop();
-    if (!value || typeof value !== "object") continue;
-    if (seen.has(value)) continue;
-    seen.add(value);
-
-    if (Object.prototype.hasOwnProperty.call(value, targetKey)) return `${path}.${targetKey}`;
-    for (const [k, v] of Object.entries(value)) {
-      if (v && typeof v === "object") stack.push({ value: v, path: `${path}.${k}` });
-    }
-  }
-  return null;
-}
-
-function getByPath(root, path) {
-  return path.split(".").reduce((o, k) => (o ? o[k] : undefined), root);
-}
 
 function num(x, fallback = 0) {
   const n = Number(x);
   return Number.isFinite(n) ? n : fallback;
 }
-
 function clampTN(tn, fallback = 4) {
   return [4, 5, 6].includes(tn) ? tn : fallback;
 }
-
-function getSessionSettingsActor() {
-  const a = game.actors?.getName?.("Session Settings");
-  if (a) return a;
-  const lower = "session settings";
-  return (game.actors?.contents ?? []).find(x => (x.name ?? "").trim().toLowerCase() === lower) ?? null;
+function escapeHTML(s) {
+  return String(s ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-async function main() {
-  const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
-  if (!actor) {
-    ui.notifications.warn("Select a token or set a User Character.");
-    return;
+function getSessionSettingsActor() {
+  const exact = game.actors?.getName?.("Session Settings");
+  if (exact) return exact;
+  const lower = "session settings";
+  return (game.actors?.contents ?? []).find(a => (a.name ?? "").trim().toLowerCase() === lower) ?? null;
+}
+
+function readTN(sessionActor) {
+  const tnRaw = num(sessionActor?.system?.props?.TN_Global, NaN);
+  return clampTN(Number.isFinite(tnRaw) ? tnRaw : 4, 4);
+}
+
+function props(actor) {
+  return actor?.system?.props ?? {};
+}
+function readProp(actor, key, fallback = 0) {
+  return num(props(actor)?.[key], fallback);
+}
+function updateKey(key) {
+  return `system.props.${key}`;
+}
+
+/* ------------------------------- */
+/* Canonical Actor resolution patch */
+/* ------------------------------- */
+
+function normalizeUuid(u) {
+  const s = String(u ?? "").trim();
+  return s.length ? s : null;
+}
+
+async function resolveCanonicalActor(actor) {
+  if (!actor) return null;
+
+  // Prefer sheet-injected canonical ActorUuid
+  const u = normalizeUuid(actor?.system?.props?.ActorUuid);
+  if (u) {
+    try {
+      const doc = await fromUuid(u);
+      if (doc?.documentName === "Actor") return doc;
+    } catch (e) {
+      console.warn("Sinless Pool Roll | resolveCanonicalActor fromUuid failed", { ActorUuid: u, e });
+    }
   }
+
+  // Token synthetic actor -> base actor
+  if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
+
+  return actor;
+}
+
+function computePoolsFromAttrs(actor) {
+  const STR = readProp(actor, "STR");
+  const BOD = readProp(actor, "BOD");
+  const WIL = readProp(actor, "WIL");
+  const REA = readProp(actor, "REA");
+  const INT = readProp(actor, "INT");
+  const CHA = readProp(actor, "CHA");
+
+  const qN = readProp(actor, "chaQuarterPoolN", 0);
+  const chaQ = Math.floor(CHA / 4);
+
+  const brawn   = STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
+  const finesse = REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
+  const resolve = WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
+  const focus   = INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
+
+  return { brawn, finesse, resolve, focus };
+}
+
+async function refreshPools(actor) {
+  // Only use module refresh for PC actors (module is PC-only by design)
+  if (actor?.hasPlayerOwner) {
+    try {
+      const mod = game.modules?.get?.("sinlesscsb");
+      if (mod?.active) {
+        const poolsMod = await import("/modules/sinlesscsb/scripts/rules/pools.js");
+        if (typeof poolsMod?.refreshPoolsForActor === "function") {
+          await poolsMod.refreshPoolsForActor(actor);
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn("Sinless Pool Roll | module refresh import failed; using fallback", e);
+    }
+  }
+
+  // Fallback: always refresh (needed for test actors without player ownership)
+  const { brawn, finesse, resolve, focus } = computePoolsFromAttrs(actor);
+
+  const update = {};
+  update[updateKey("Brawn_Max")] = brawn;
+  update[updateKey("Brawn_Cur")] = brawn;
+  update[updateKey("Finesse_Max")] = finesse;
+  update[updateKey("Finesse_Cur")] = finesse;
+  update[updateKey("Resolve_Max")] = resolve;
+  update[updateKey("Resolve_Cur")] = resolve;
+  update[updateKey("Focus_Max")] = focus;
+  update[updateKey("Focus_Cur")] = focus;
+
+  console.log("Sinless Pool Roll | fallback update", update);
+  await actor.update(update);
+  console.log("Sinless Pool Roll | after update (props)", foundry.utils.deepClone(actor.system?.props));
+}
+
+function poolDefs() {
+  return [
+    { name: "Brawn",   curKey: "Brawn_Cur",   maxKey: "Brawn_Max" },
+    { name: "Finesse", curKey: "Finesse_Cur", maxKey: "Finesse_Max" },
+    { name: "Resolve", curKey: "Resolve_Cur", maxKey: "Resolve_Max" },
+    { name: "Focus",   curKey: "Focus_Cur",   maxKey: "Focus_Max" }
+  ];
+}
+
+(async () => {
+  const scope = (arguments && arguments.length && typeof arguments[0] === "object") ? arguments[0] : {};
+  const actorUuid = (typeof scope.actorUuid === "string" && scope.actorUuid.length) ? scope.actorUuid : null;
+  const boundActor = actorUuid ? await fromUuid(actorUuid) : null;
+
+  // Resolve initial candidate, then canonicalize via ActorUuid/baseActor.
+  const actorCandidate =
+    boundActor ??
+    canvas?.tokens?.controlled?.[0]?.actor ??
+    game.user.character ??
+    null;
+
+  const actor = await resolveCanonicalActor(actorCandidate);
+
+  if (!actor) return ui.notifications.warn("Select a token or set a User Character.");
+
+  console.log("Sinless Pool Roll | actor resolved", {
+    name: actor.name,
+    uuid: actor.uuid,
+    ActorUuid: actor.system?.props?.ActorUuid,
+    hasPlayerOwner: actor.hasPlayerOwner,
+    isOwner: actor.isOwner
+  });
 
   const sessionActor = getSessionSettingsActor();
-  if (!sessionActor) {
-    ui.notifications.error('Actor "Session Settings" not found. Create an Actor with that exact name.');
-    return;
-  }
+  if (!sessionActor) return ui.notifications.error('Actor "Session Settings" not found (needed for TN_Global).');
 
-  // TN_Global from Session Settings actor
-  const tnPath = findKeyPath(sessionActor.system, "TN_Global", "system");
-  let tn = clampTN(tnPath ? num(getByPath(sessionActor, tnPath), 4) : 4, 4);
+  const pools = poolDefs();
+  const getCur = (p) => readProp(actor, p.curKey, 0);
+  const getMax = (p) => readProp(actor, p.maxKey, 0);
 
-  const pools = [
-    { name: "Brawn",  key: "Brawn_Cur" },
-    { name: "Finesse", key: "Finesse_Cur" },
-    { name: "Resolve", key: "Resolve_Cur" },
-    { name: "Focus",  key: "Focus_Cur" }
-  ];
-
-  for (const p of pools) p.path = findKeyPath(actor.system, p.key, "system");
-
-  const missingPools = pools.filter(p => !p.path).map(p => p.key);
-  if (missingPools.length) {
-    ui.notifications.error(`Missing pool field(s) on actor: ${missingPools.join(", ")}`);
-    return;
-  }
-
-  // Attribute keys used for refresh (must match your CSB field keys)
-  const attrKeys = ["STR", "BOD", "WIL", "REA", "INT", "CHA", "chaQuarterPoolN"];
-  const attrPaths = {};
-  for (const k of attrKeys) attrPaths[k] = findKeyPath(actor.system, k, "system");
-
-  const missingAttrs = attrKeys.filter(k => !attrPaths[k]);
-  const refreshDisabled = missingAttrs.length > 0;
-
-  function readAttr(k) {
-    const p = attrPaths[k];
-    return p ? num(getByPath(actor, p), 0) : 0;
-  }
-
-  function floorDiv(a, d) {
-    return Math.floor(num(a, 0) / d);
-  }
-
-  async function readTNFromSession($html) {
-    const raw = tnPath ? num(getByPath(sessionActor, tnPath), 4) : 4;
-    tn = clampTN(raw, 4);
-    if ($html) $html.find("span.tn").text(String(tn));
-    return tn;
-  }
-
-  async function refreshPoolsAndUI($html) {
-    if (refreshDisabled) return;
-
-    // Read attributes fresh
-    const STR = readAttr("STR");
-    const BOD = readAttr("BOD");
-    const WIL = readAttr("WIL");
-    const REA = readAttr("REA");
-    const INT = readAttr("INT");
-    const CHA = readAttr("CHA");
-    const qN  = readAttr("chaQuarterPoolN");
-
-const chaQ = Math.floor(CHA / 4);  // floor(CHA/4)
-
-// Text-spec formulas, independent floor:
-const brawn =
-  STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
-
-const finesse =
-  REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
-
-const resolve =
-  WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
-
-const focus =
-  INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
-
-
-    const updates = {
-      [pools.find(p => p.key === "Brawn_Cur").path]: brawn,
-      [pools.find(p => p.key === "Finesse_Cur").path]: finesse,
-      [pools.find(p => p.key === "Resolve_Cur").path]: resolve,
-      [pools.find(p => p.key === "Focus_Cur").path]: focus
-    };
-
-    await actor.update(updates);
-
-    // Update dialog Current column
-    $html.find(`span.cur[data-cur="Brawn_Cur"]`).text(String(brawn));
-    $html.find(`span.cur[data-cur="Finesse_Cur"]`).text(String(finesse));
-    $html.find(`span.cur[data-cur="Resolve_Cur"]`).text(String(resolve));
-    $html.find(`span.cur[data-cur="Focus_Cur"]`).text(String(focus));
-
-    ui.notifications.info("Pools refreshed.");
-  }
-
-  // Initial current values
-  const cur = {};
-  for (const p of pools) cur[p.key] = num(getByPath(actor, p.path), 0);
+  const tn = readTN(sessionActor);
 
   const content = `
-  <form>
-    <div style="display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom: 0.5rem;">
-      <div>
-        <strong>Target Number (Session Settings):</strong> <span class="tn">${tn}</span>+
+    <div class="sinless-pools">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 0.5rem;">
+        <div><strong>Target Number (Session Settings):</strong> <span data-tn>${escapeHTML(tn)}</span>+</div>
+        <div><button type="button" data-action="refresh">Refresh Pools</button></div>
       </div>
-      <div>
-        <button type="button" class="refresh" ${refreshDisabled ? "disabled" : ""}>
-          Refresh Pools
-        </button>
-      </div>
-    </div>
 
-    <table style="width:100%; border-collapse: collapse;">
-      <thead>
-        <tr>
-          <th style="text-align:left; padding: 4px 6px;">Pool</th>
-          <th style="text-align:right; padding: 4px 6px;">Current</th>
-          <th style="text-align:right; padding: 4px 6px;">Spend</th>
-          <th style="text-align:right; padding: 4px 6px;">Mod</th>
-          <th style="text-align:left; padding: 4px 6px;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${pools.map(p => `
-          <tr data-pool="${p.key}">
-            <td style="padding: 4px 6px;"><strong>${p.name}</strong></td>
-            <td style="padding: 4px 6px; text-align:right;">
-              <span class="cur" data-cur="${p.key}">${cur[p.key]}</span>
-            </td>
-            <td style="padding: 4px 6px; text-align:right;">
-              <input type="number" name="${p.key}_spend" value="0" min="0" step="1" style="width: 6em; text-align:right;" />
-            </td>
-            <td style="padding: 4px 6px; text-align:right;">
-              <input type="number" name="${p.key}_mod" value="0" step="1" style="width: 6em; text-align:right;" />
-            </td>
-            <td style="padding: 4px 6px;">
-              <button type="button" class="roll" data-pool="${p.key}">Roll</button>
-              <button type="button" class="clear" data-pool="${p.key}" style="margin-left:6px;">Clear</button>
-            </td>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:4px 6px;">Pool</th>
+            <th style="text-align:right; padding:4px 6px;">Cur / Max</th>
+            <th style="text-align:right; padding:4px 6px;">Spend</th>
+            <th style="text-align:right; padding:4px 6px;">Mod</th>
+            <th style="text-align:left; padding:4px 6px;">Action</th>
           </tr>
-        `).join("")}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          ${pools.map(p => {
+            const cur = getCur(p);
+            const max = getMax(p);
+            return `
+              <tr data-pool="${p.curKey}">
+                <td style="padding:4px 6px;"><strong>${escapeHTML(p.name)}</strong></td>
+                <td style="padding:4px 6px; text-align:right;">
+                  <span data-cur="${p.curKey}">${escapeHTML(cur)}</span>
+                  /
+                  <span data-max="${p.maxKey}">${escapeHTML(max)}</span>
+                </td>
+                <td style="padding:4px 6px; text-align:right;">
+                  <input type="number" name="${p.curKey}_spend" value="0" min="0" step="1" style="width:6em; text-align:right;" />
+                </td>
+                <td style="padding:4px 6px; text-align:right;">
+                  <input type="number" name="${p.curKey}_mod" value="0" step="1" style="width:6em; text-align:right;" />
+                </td>
+                <td style="padding:4px 6px;">
+                  <button type="button" data-action="roll" data-pool="${p.curKey}">Roll</button>
+                  <button type="button" data-action="clear" data-pool="${p.curKey}" style="margin-left:6px;">Clear</button>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
 
-    <p style="margin-top: 0.75rem; opacity: 0.85;">
-      Spend depletes the pool; Mod adds/removes dice but does not deplete.
-      ${refreshDisabled ? `<br><em>Refresh disabled: missing attribute key(s): ${missingAttrs.join(", ")}</em>` : ""}
-    </p>
-  </form>
+      <p style="margin-top:0.75rem; opacity:0.85;">
+        Spend depletes the pool; Mod adds/removes dice but does not deplete.
+      </p>
+    </div>
   `;
 
-  const dialog = new Dialog({
-    title: `Sinless Pools — ${actor.name}`,
-    content,
-    buttons: { close: { label: "Close" } },
-    default: "close",
-    render: (html) => {
-      const $html = html;
+  class SinlessPoolDialog extends foundry.applications.api.DialogV2 {
+    constructor(...args) {
+      super(...args);
+      this._sinlessActorUpdateHookId = null;
+      this._sinlessActorId = actor?.id ?? null;
+      this._sinlessClickBound = false;
+    }
 
-      function getPoolDef(poolKey) {
-        return pools.find(p => p.key === poolKey);
+    async close(options) {
+      if (this._sinlessActorUpdateHookId) {
+        Hooks.off("updateActor", this._sinlessActorUpdateHookId);
+        this._sinlessActorUpdateHookId = null;
       }
+      return super.close(options);
+    }
 
-      async function doRoll(poolKey) {
-        // refresh TN each roll (GM may change mid-session)
-        await readTNFromSession($html);
+    _onRender(context, options) {
+      super._onRender(context, options);
 
-        const p = getPoolDef(poolKey);
+      const root = this.element;
+      if (!(root instanceof HTMLElement)) return;
+
+      const qInput = (name) => root.querySelector(`input[name="${CSS.escape(name)}"]`);
+
+      const updateTNDisplay = () => {
+        const newTN = readTN(sessionActor);
+        const tnEl = root.querySelector("[data-tn]");
+        if (tnEl) tnEl.textContent = String(newTN);
+        return newTN;
+      };
+
+      const updateRow = (p) => {
+        const curEl = root.querySelector(`[data-cur="${CSS.escape(p.curKey)}"]`);
+        const maxEl = root.querySelector(`[data-max="${CSS.escape(p.maxKey)}"]`);
+        if (curEl) curEl.textContent = String(getCur(p));
+        if (maxEl) maxEl.textContent = String(getMax(p));
+      };
+
+      const updateAllRows = () => {
+        updateTNDisplay();
+        for (const p of pools) updateRow(p);
+      };
+
+      const clearInputs = (poolKey) => {
+        const spend = qInput(`${poolKey}_spend`);
+        const mod = qInput(`${poolKey}_mod`);
+        if (spend) spend.value = 0;
+        if (mod) mod.value = 0;
+      };
+
+      const doRefresh = async () => {
+        await refreshPools(actor);
+        updateAllRows();
+        ui.notifications.info("Pools refreshed.");
+      };
+
+      const doRoll = async (poolKey) => {
+        const p = pools.find(x => x.curKey === poolKey);
         if (!p) return;
 
-        const curVal = num(getByPath(actor, p.path), 0);
-        const spend = num($html.find(`[name="${poolKey}_spend"]`).val(), 0);
-        const mod = num($html.find(`[name="${poolKey}_mod"]`).val(), 0);
+        const TN = updateTNDisplay();
+        const curVal = getCur(p);
+
+        const spendEl = qInput(`${poolKey}_spend`);
+        const modEl = qInput(`${poolKey}_mod`);
+
+        const spend = num(spendEl?.value, 0);
+        const mod = num(modEl?.value, 0);
 
         const spendClamped = Math.max(0, Math.min(curVal, spend));
         const totalDice = Math.max(0, spendClamped + mod);
 
         const roll = await (new Roll(`${totalDice}d6`)).evaluate({ async: true });
         const results = roll.dice?.[0]?.results ?? [];
-        const successes = results.reduce((acc, r) => acc + (r.result >= tn ? 1 : 0), 0);
+        const successes = results.reduce((acc, r) => acc + (r.result >= TN ? 1 : 0), 0);
 
         const newCur = Math.max(0, curVal - spendClamped);
-        await actor.update({ [p.path]: newCur });
+        await actor.update({ [updateKey(p.curKey)]: newCur });
 
-        $html.find(`span.cur[data-cur="${poolKey}"]`).text(String(newCur));
-        $html.find(`[name="${poolKey}_spend"]`).val(0);
-        $html.find(`[name="${poolKey}_mod"]`).val(0);
+        updateRow(p);
+        clearInputs(poolKey);
+
+        const diceList = results.map(r => r.result).join(", ") || "—";
 
         const flavor = `
-          <div>
-            <h2>${p.name} Test</h2>
-            <p><strong>Actor:</strong> ${actor.name}</p>
-            <p><strong>TN (Session Settings):</strong> ${tn}+</p>
-            <p><strong>Spend:</strong> ${spendClamped} (depletes) &nbsp; | &nbsp;
-               <strong>Mod:</strong> ${mod} (free) &nbsp; | &nbsp;
-               <strong>Total:</strong> ${totalDice}d6</p>
-            <p><strong>Successes:</strong> ${successes}</p>
-            <p><strong>${p.name}:</strong> ${curVal} → ${newCur}</p>
+          <div class="sinless-pool-roll">
+            <h2 style="margin:0 0 6px 0;">${escapeHTML(p.name)} Test</h2>
+            <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+            <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
+            <p style="margin:0 0 6px 0;">
+              <strong>Spend:</strong> ${escapeHTML(spendClamped)} (depletes) &nbsp;|&nbsp;
+              <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
+              <strong>Total:</strong> ${escapeHTML(totalDice)}d6
+            </p>
+            <p style="margin:0 0 6px 0;"><strong>Successes:</strong> ${escapeHTML(successes)}</p>
+            <p style="margin:0 0 6px 0;"><strong>${escapeHTML(p.name)}:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
+            <details>
+              <summary>Dice Results</summary>
+              <div style="margin-top:6px;">${escapeHTML(diceList)}</div>
+            </details>
           </div>
         `;
 
@@ -261,39 +326,53 @@ const focus =
           { speaker: ChatMessage.getSpeaker({ actor }), flavor },
           { create: true }
         );
+      };
+
+      // Live refresh: update dialog when THIS actor updates its system.props
+      if (!this._sinlessActorUpdateHookId && this._sinlessActorId) {
+        this._sinlessActorUpdateHookId = Hooks.on("updateActor", (updatedActor, changed) => {
+          if (updatedActor?.id !== this._sinlessActorId) return;
+          if (!changed?.system?.props) return; // cheap filter
+          updateAllRows();
+        });
       }
 
-      $html.find("button.refresh").on("click", async (ev) => {
-        ev.preventDefault();
-        try {
-          await refreshPoolsAndUI($html);
-        } catch (e) {
-          console.error(e);
-          ui.notifications.error("Refresh Pools failed. See console (F12).");
-        }
-      });
+      // Attach click handler once per dialog instance (DialogV2 can re-render)
+      if (!this._sinlessClickBound) {
+        this._sinlessClickBound = true;
 
-      $html.find("button.roll").on("click", async (ev) => {
-        ev.preventDefault();
-        const poolKey = ev.currentTarget.dataset.pool;
-        try {
-          await doRoll(poolKey);
-        } catch (e) {
-          console.error(e);
-          ui.notifications.error(`Roll failed for ${poolKey}. See console (F12).`);
-        }
-      });
+        root.addEventListener("click", async (ev) => {
+          const t = ev.target;
+          if (!(t instanceof HTMLElement)) return;
 
-      $html.find("button.clear").on("click", (ev) => {
-        ev.preventDefault();
-        const poolKey = ev.currentTarget.dataset.pool;
-        $html.find(`[name="${poolKey}_spend"]`).val(0);
-        $html.find(`[name="${poolKey}_mod"]`).val(0);
-      });
+          const action = t.dataset.action;
+          if (!action) return;
+
+          // Optional: keep your click logging
+          console.log("Sinless Pool Roll | click", { action, pool: t.dataset.pool });
+
+          ev.preventDefault();
+
+          try {
+            if (action === "refresh") return await doRefresh();
+            if (action === "clear") return clearInputs(t.dataset.pool);
+            if (action === "roll") return await doRoll(t.dataset.pool);
+          } catch (e) {
+            console.error(e);
+            ui.notifications.error("Sinless Pool Roll failed. See console (F12).");
+          }
+        });
+      }
+
+      // Ensure display is current at render time (including after live updates)
+      updateAllRows();
     }
-  });
+  }
 
-  dialog.render(true);
-}
-
-main();
+  new SinlessPoolDialog({
+    window: { title: `Sinless Pools — ${actor.name}` },
+    content,
+    buttons: [{ action: "close", label: "Close", default: true }],
+    submit: () => "close"
+  }).render({ force: true });
+})();
