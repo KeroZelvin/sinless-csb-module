@@ -1,0 +1,2159 @@
+{
+  "name": "Session Settings",
+  "type": "_template",
+  "_id": "DubVcAsia226PlV0",
+  "img": "systems/custom-system-builder/img/template-logo.svg",
+  "system": {
+    "body": {
+      "contents": [
+        {
+          "key": "TN_Global",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "escapeHTML": false,
+          "type": "numberField",
+          "size": "full-size",
+          "label": "Target Number",
+          "defaultValue": "4",
+          "allowDecimal": false,
+          "minVal": "4",
+          "maxVal": "6",
+          "allowRelative": false,
+          "showControls": true,
+          "controlsStyle": "full",
+          "controlsCustomIncrements": "-1,1",
+          "inputStyle": "text"
+        },
+        {
+          "key": "SkillGroups_JSON",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "escapeHTML": false,
+          "type": "textField",
+          "size": "full-size",
+          "label": "SkillGroups_JSON",
+          "defaultValue": "{   \"CloseCombat\": [\"Skill_MeleeWeapons\",\"Skill_UnarmedCombat\",\"Skill_CyberwareCombat\",\"Skill_ThrowingWeapons\"],   \"RangedWeapons\": [\"Skill_Firearms\",\"Skill_Gunnery\",\"Skill_HeavyWeapons\",\"Skill_EnergyWeapons\"],   \"Vehicles\": [\"Skill_Drive\",\"Skill_Fly\"],   \"Hacking\": [\"Skill_ComputerHacking\",\"Skill_LocksmithingSafecracking\",\"Skill_ElectronicWarfare\"],   \"Engineering\": [\"Skill_Mechanical\",\"Skill_Industrial\",\"Skill_Aeronautics\",\"Skill_Armory\",\"Skill_Electronics\",\"Skill_Nautical\"] }",
+          "charList": "",
+          "maxLength": null,
+          "autocomplete": ""
+        },
+        {
+          "key": "SkillMeta_JSON",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "escapeHTML": false,
+          "type": "textField",
+          "size": "full-size",
+          "label": "SkillMeta_JSON",
+          "defaultValue": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }",
+          "charList": "",
+          "maxLength": 100000,
+          "autocomplete": ""
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 64,
+      "pp_height": 64
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "attributeBar": {},
+    "statusEffects": {},
+    "templateSystemUniqueVersion": 2842518243
+  },
+  "prototypeToken": {
+    "name": "Template",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "systems/custom-system-builder/img/template-logo.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": "eJiZ5ojJouMYFr9R",
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.0.2",
+      "templateHistory": [
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "TN_Global",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Target Number",
+                "defaultValue": "4",
+                "allowDecimal": false,
+                "minVal": "4",
+                "maxVal": "6",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "full",
+                "controlsCustomIncrements": "-1,1",
+                "inputStyle": "text"
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "SkillGroups_JSON",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "SkillGroups_JSON",
+                "defaultValue": "{   \"CloseCombat\": [\"Skill_MeleeWeapons\",\"Skill_UnarmedCombat\",\"Skill_CyberwareCombat\",\"Skill_ThrowingWeapons\"],   \"RangedWeapons\": [\"Skill_Firearms\",\"Skill_Gunnery\",\"Skill_HeavyWeapons\",\"Skill_EnergyWeapons\"],   \"Vehicles\": [\"Skill_Drive\",\"Skill_Fly\"],   \"Hacking\": [\"Skill_ComputerHacking\",\"Skill_LocksmithingSafecracking\",\"Skill_ElectronicWarfare\"],   \"Engineering\": [\"Skill_Mechanical\",\"Skill_Industrial\",\"Skill_Aeronautics\",\"Skill_Armory\",\"Skill_Electronics\",\"Skill_Nautical\"] }",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "SkillMeta_JSON",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "",
+                "defaultValue": "",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "label"
+            ],
+            "lhs": "",
+            "rhs": "SkillMeta_JSON"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "defaultValue"
+            ],
+            "lhs": "",
+            "rhs": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "maxLength"
+            ],
+            "lhs": null,
+            "rhs": 100000
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ]
+      ],
+      "templateHistoryRedo": []
+    },
+    "world": {
+      "SkillMeta_JSON": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "Actor.DubVcAsia226PlV0",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.0.2"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.0.2",
+    "createdTime": 1767150690415,
+    "modifiedTime": 1767464982688,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "ownership": {
+    "default": 0
+  }
+}
