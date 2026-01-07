@@ -19,6 +19,7 @@ packs/*/LOCK
 packs/*/LOCK.*
 packs/sinlesscsb-macros/LOCK
 
+dist/
 
 # Logs
 *.log
