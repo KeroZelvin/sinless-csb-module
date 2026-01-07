@@ -1,0 +1,205 @@
+/* =========================================================
+   SinlessCSB — Theme: Crimson (SR5-inspired)
+   Scoped by: html[data-sinless-theme="crimson"]
+   Fonts: uses CSS variables set elsewhere (sinlesscsb-fonts.css)
+   ========================================================= */
+
+:root {
+  /* SR5-like accents */
+  --sl-surface-0: #0b0c0f;   /* page/base */
+  --sl-surface-1: #101218;   /* sheet background */
+  --sl-surface-2: #151824;   /* panels */
+  --sl-surface-3: #1a1f2e;   /* raised panels */
+  --sl-surface-inset: rgba(0,0,0,0.35);
+
+  /* Text */
+  --sl-text-0: #f2f3f5;
+  --sl-text-1: rgba(242,243,245,0.85);
+  --sl-text-2: rgba(242,243,245,0.70);
+  --sl-muted: rgba(242,243,245,0.55);
+
+  /* Crimson accents */
+  --sl-accent: #55101e;     /* SR5 dark red */
+  --sl-accent-2: #ff3b4a;
+  --sl-accent-soft: rgba(85,16,30,0.25);
+
+  /* Lines & shadows */
+  --sl-border: rgba(242,243,245,0.12);
+  --sl-border-strong: rgba(242,243,245,0.18);
+  --sl-shadow: 0 6px 18px rgba(0,0,0,0.55);
+
+  /* Inputs */
+  --sl-input-bg: rgba(0,0,0,0.35);
+  --sl-input-bg-focus: rgba(0,0,0,0.50);
+
+  /* Rounding */
+  --sl-r1: 6px;
+  --sl-r2: 10px;
+
+  /* Typography hooks (set in sinlesscsb-fonts.css) */
+  --sl-font-title: var(--sinless-font-display, "Signika", sans-serif);
+  --sl-font-body: var(--sinless-font-body, "Signika", sans-serif);
+}
+
+/* ---------- Scope ---------- */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .window-content {
+  color: var(--sl-text-1);
+  font-family: var(--sl-font-body);
+}
+
+/* Window content background */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .window-content {
+  background:
+    linear-gradient(180deg, var(--sl-surface-1), var(--sl-surface-0));
+}
+
+/* Sheet header */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sheet-header,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb header.sheet-header {
+  border-bottom: 1px solid var(--sl-border);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sheet-header h1,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sheet-header h2,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .window-title,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sheet-header .charname input {
+  font-family: var(--sl-font-title);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Panels / boxed sections */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sinless-panel,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb section,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .tab,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sheet-body,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .editor,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .prosemirror,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .items-list,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .inventory {
+  background: var(--sl-surface-2);
+  border: 1px solid var(--sl-border);
+  border-radius: var(--sl-r2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.20);
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sinless-panel { padding: 10px; }
+
+/* Sub-headers */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sinless-title,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb h2,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb h3,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .resource-label,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .items-header {
+  font-family: var(--sl-font-title);
+  color: var(--sl-text-0);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .sinless-title {
+  padding: 6px 8px;
+  background: linear-gradient(90deg, rgba(85,16,30,0.35), rgba(85,16,30,0.00));
+  border-left: 3px solid var(--sl-accent);
+  border-radius: var(--sl-r1);
+}
+
+/* Tabs */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb nav.sheet-tabs {
+  border-bottom: 1px solid var(--sl-border);
+  margin-bottom: 10px;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb nav.sheet-tabs a.item {
+  font-family: var(--sl-font-title);
+  color: var(--sl-text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  border-radius: var(--sl-r1) var(--sl-r1) 0 0;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb nav.sheet-tabs a.item.active {
+  color: var(--sl-text-0);
+  background: rgba(85,16,30,0.18);
+  border: 1px solid var(--sl-border);
+  border-bottom: 1px solid transparent;
+  box-shadow: inset 0 -2px 0 0 var(--sl-accent);
+}
+
+/* Inputs */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb input[type="text"],
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb input[type="number"],
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb input[type="password"],
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb select,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb textarea {
+  background: var(--sl-input-bg);
+  color: var(--sl-text-0);
+  border: 1px solid var(--sl-border);
+  border-radius: var(--sl-r1);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb input:focus,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb select:focus,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb textarea:focus {
+  outline: none;
+  border-color: rgba(85,16,30,0.70);
+  box-shadow: 0 0 0 2px rgba(85,16,30,0.30);
+  background: var(--sl-input-bg-focus);
+}
+
+/* Buttons */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb button,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb a.button,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .button,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .dialog-buttons button {
+  background: linear-gradient(180deg, rgba(85,16,30,0.40), rgba(85,16,30,0.16));
+  color: var(--sl-text-0);
+  border: 1px solid rgba(85,16,30,0.70);
+  border-radius: var(--sl-r1);
+  box-shadow: var(--sl-shadow);
+  font-family: var(--sl-font-title);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb button:hover,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb a.button:hover,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb .button:hover {
+  filter: brightness(1.10);
+  border-color: rgba(255,59,74,0.65);
+}
+
+/* Tables */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb table {
+  border-collapse: collapse;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb table th,
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb table td {
+  border-bottom: 1px solid var(--sl-border);
+  padding: 6px 8px;
+}
+
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb table th {
+  font-family: var(--sl-font-title);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--sl-text-0);
+  background: rgba(255,255,255,0.04);
+}
+
+/* Scrollbars */
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb *::-webkit-scrollbar-thumb {
+  background: rgba(85,16,30,0.70);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.35);
+}
+html[data-sinless-theme="crimson"] .custom-system.sinlesscsb *::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}

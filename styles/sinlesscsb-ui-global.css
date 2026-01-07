@@ -1,0 +1,389 @@
+/* =========================================================
+   SinlessCSB — Global UI Theme (Foundry "everything")
+   Applies to: all Foundry UI + all window apps + all systems' sheets
+   Driven by: html[data-sinless-theme="crimson|purple"]
+   ========================================================= */
+
+/* -----------------------------
+   Palette variables per theme
+   ----------------------------- */
+
+/* CRIMSON */
+html[data-sinless-theme="crimson"] {
+  --sl-ui-bg: #0b0c0f;
+  --sl-ui-surface-1: #101218;
+  --sl-ui-surface-2: #151824;
+  --sl-ui-surface-3: #1a1f2e;
+
+  --sl-ui-text-0: #f2f3f5;
+  --sl-ui-text-1: rgba(242,243,245,0.86);
+  --sl-ui-text-2: rgba(242,243,245,0.70);
+
+  --sl-ui-border: rgba(242,243,245,0.12);
+  --sl-ui-border-strong: rgba(242,243,245,0.18);
+
+  --sl-ui-accent: #55101e;
+  --sl-ui-accent-2: #ff3b4a;
+  --sl-ui-accent-soft: rgba(85,16,30,0.18);
+
+  --sl-ui-shadow: 0 10px 22px rgba(0,0,0,0.55);
+}
+
+/* PURPLE (SR6-inspired) */
+html[data-sinless-theme="purple"] {
+  --sl-ui-bg: #0b0c0f;
+  --sl-ui-surface-1: #0f1117;
+  --sl-ui-surface-2: #141826;
+  --sl-ui-surface-3: #1a2032;
+
+  --sl-ui-text-0: #f2f3f5;
+  --sl-ui-text-1: rgba(242,243,245,0.86);
+  --sl-ui-text-2: rgba(242,243,245,0.70);
+
+  --sl-ui-border: rgba(242,243,245,0.14);
+  --sl-ui-border-strong: rgba(242,243,245,0.20);
+
+  /* Purple is identity; Cyan is action/focus */
+  --sl-ui-accent: #960570;        /* purple base */
+  --sl-ui-accent-2: #00c8ff;      /* brighter cyan for actions */
+  --sl-ui-accent-soft: rgba(0,200,255,0.18);
+
+  --sl-ui-shadow: 0 10px 22px rgba(0,0,0,0.55);
+}
+
+/* -----------------------------
+   Typography (global)
+   ----------------------------- */
+html[data-sinless-theme="crimson"] body,
+html[data-sinless-theme="purple"] body {
+  font-family: var(--sinless-font-body, "Signika", sans-serif);
+  color: var(--sl-ui-text-1);
+}
+
+/* Titles / headers across windows */
+html[data-sinless-theme="crimson"] .window-title,
+html[data-sinless-theme="purple"] .window-title,
+html[data-sinless-theme="crimson"] h1,
+html[data-sinless-theme="purple"] h1,
+html[data-sinless-theme="crimson"] h2,
+html[data-sinless-theme="purple"] h2,
+html[data-sinless-theme="crimson"] h3,
+html[data-sinless-theme="purple"] h3 {
+  font-family: var(--sinless-font-display, "Signika", sans-serif);
+}
+
+/* -----------------------------
+   Main canvas chrome
+   ----------------------------- */
+html[data-sinless-theme="crimson"] #interface,
+html[data-sinless-theme="purple"] #interface {
+  background: radial-gradient(1200px 600px at 15% 10%, rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
+              linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg));
+}
+
+/* Top-left nav + scene controls */
+html[data-sinless-theme="crimson"] #navigation,
+html[data-sinless-theme="purple"] #navigation,
+html[data-sinless-theme="crimson"] #controls,
+html[data-sinless-theme="purple"] #controls {
+  color: var(--sl-ui-text-1);
+}
+
+html[data-sinless-theme="crimson"] #controls ol.control-tools > li.active {
+  box-shadow: inset 0 0 0 2px var(--sl-ui-accent);
+}
+
+/* Purple: active tools pop cyan */
+html[data-sinless-theme="purple"] #controls ol.control-tools > li.active {
+  box-shadow: inset 0 0 0 2px var(--sl-ui-accent-2);
+}
+
+/* -----------------------------
+   Sidebar (actors/items/chat/etc.)
+   ----------------------------- */
+html[data-sinless-theme="crimson"] #sidebar,
+html[data-sinless-theme="purple"] #sidebar {
+  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg));
+  border-left: 1px solid var(--sl-ui-border);
+  color: var(--sl-ui-text-1);
+}
+
+html[data-sinless-theme="crimson"] #sidebar-tabs,
+html[data-sinless-theme="purple"] #sidebar-tabs {
+  border-bottom: 1px solid var(--sl-ui-border);
+}
+
+/* Crimson: active tab uses crimson */
+html[data-sinless-theme="crimson"] #sidebar-tabs .item.active {
+  box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent);
+}
+
+/* Purple: active tab uses cyan */
+html[data-sinless-theme="purple"] #sidebar-tabs .item.active {
+  box-shadow: inset 0 -3px 0 0 var(--sl-ui-accent-2);
+}
+
+html[data-sinless-theme="crimson"] #sidebar a,
+html[data-sinless-theme="purple"] #sidebar a {
+  color: var(--sl-ui-text-1);
+}
+
+/* -----------------------------
+   Chat
+   ----------------------------- */
+html[data-sinless-theme="crimson"] #chat-controls,
+html[data-sinless-theme="purple"] #chat-controls {
+  border-bottom: 1px solid var(--sl-ui-border);
+}
+
+html[data-sinless-theme="crimson"] #chat-form textarea,
+html[data-sinless-theme="purple"] #chat-form textarea {
+  background: rgba(0,0,0,0.28);
+  color: var(--sl-ui-text-0);
+  border: 1px solid var(--sl-ui-border);
+}
+
+html[data-sinless-theme="crimson"] #chat-log .chat-message,
+html[data-sinless-theme="purple"] #chat-log .chat-message {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--sl-ui-border);
+  color: var(--sl-ui-text-1);
+}
+
+html[data-sinless-theme="crimson"] #chat-log .chat-message .message-header,
+html[data-sinless-theme="purple"] #chat-log .chat-message .message-header {
+  border-bottom: 1px solid var(--sl-ui-border);
+}
+
+/* Purple: subtle cyan hover on chat messages */
+html[data-sinless-theme="purple"] #chat-log .chat-message:hover {
+  border-color: var(--sl-ui-accent-2);
+  box-shadow: 0 0 0 1px rgba(0,200,255,0.25);
+}
+
+/* -----------------------------
+   ALL windows / sheets / dialogs
+   ----------------------------- */
+html[data-sinless-theme="crimson"] .window-app,
+html[data-sinless-theme="purple"] .window-app {
+  border: 1px solid var(--sl-ui-border);
+  box-shadow: var(--sl-ui-shadow);
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-header,
+html[data-sinless-theme="purple"] .window-app .window-header {
+  background: rgba(0,0,0,0.30);
+  border-bottom: 1px solid var(--sl-ui-border);
+  color: var(--sl-ui-text-1);
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-content,
+html[data-sinless-theme="purple"] .window-app .window-content {
+  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg));
+  color: var(--sl-ui-text-1);
+}
+
+/* Tabs inside any window */
+html[data-sinless-theme="crimson"] .tabs,
+html[data-sinless-theme="purple"] .tabs {
+  border-bottom: 1px solid var(--sl-ui-border);
+}
+
+/* Crimson: active tab underline is crimson */
+html[data-sinless-theme="crimson"] .tabs .item.active {
+  box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent);
+}
+
+/* Purple: active tab underline is cyan */
+html[data-sinless-theme="purple"] .tabs .item.active {
+  box-shadow: inset 0 -3px 0 0 var(--sl-ui-accent-2);
+}
+
+/* -----------------------------
+   Inputs / selects / textareas (global)
+   ----------------------------- */
+html[data-sinless-theme="crimson"] input,
+html[data-sinless-theme="crimson"] select,
+html[data-sinless-theme="crimson"] textarea,
+html[data-sinless-theme="purple"] input,
+html[data-sinless-theme="purple"] select,
+html[data-sinless-theme="purple"] textarea {
+  background: rgba(0,0,0,0.30);
+  color: var(--sl-ui-text-0);
+  border: 1px solid var(--sl-ui-border);
+}
+
+html[data-sinless-theme="crimson"] input:focus,
+html[data-sinless-theme="crimson"] select:focus,
+html[data-sinless-theme="crimson"] textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--sl-ui-accent-soft);
+  border-color: var(--sl-ui-border-strong);
+}
+
+/* Purple: cyan-forward focus ring */
+html[data-sinless-theme="purple"] input:focus,
+html[data-sinless-theme="purple"] select:focus,
+html[data-sinless-theme="purple"] textarea:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--sl-ui-accent-soft),
+    0 0 12px rgba(0,200,255,0.25);
+  border-color: var(--sl-ui-accent-2);
+}
+
+/* -----------------------------
+   Buttons (global)
+   ----------------------------- */
+html[data-sinless-theme="crimson"] button,
+html[data-sinless-theme="crimson"] .button,
+html[data-sinless-theme="purple"] button,
+html[data-sinless-theme="purple"] .button {
+  color: var(--sl-ui-text-0);
+  border: 1px solid var(--sl-ui-border);
+  background: rgba(0,0,0,0.25);
+}
+
+html[data-sinless-theme="crimson"] button:hover,
+html[data-sinless-theme="crimson"] .button:hover,
+html[data-sinless-theme="purple"] button:hover,
+html[data-sinless-theme="purple"] .button:hover {
+  border-color: var(--sl-ui-border-strong);
+}
+
+/* Accent “primary” buttons where Foundry uses .default */
+html[data-sinless-theme="crimson"] button.default {
+  border-color: var(--sl-ui-accent);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25), inset 0 -2px 0 0 var(--sl-ui-accent);
+}
+
+/* Purple: default buttons pop cyan */
+html[data-sinless-theme="purple"] button.default {
+  border-color: var(--sl-ui-accent-2);
+  box-shadow:
+    inset 0 -2px 0 0 var(--sl-ui-accent-2),
+    0 0 10px rgba(0,200,255,0.25);
+}
+
+html[data-sinless-theme="purple"] button.default:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 -2px 0 0 var(--sl-ui-accent-2),
+    0 0 16px rgba(0,200,255,0.35);
+}
+
+/* Links */
+html[data-sinless-theme="crimson"] a,
+html[data-sinless-theme="purple"] a {
+  color: var(--sl-ui-text-1);
+}
+
+html[data-sinless-theme="crimson"] a:hover,
+html[data-sinless-theme="purple"] a:hover {
+  color: var(--sl-ui-text-0);
+}
+
+/* -----------------------------
+   Scrollbars (global)
+   ----------------------------- */
+html[data-sinless-theme="crimson"] *::-webkit-scrollbar,
+html[data-sinless-theme="purple"] *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html[data-sinless-theme="crimson"] *::-webkit-scrollbar-track,
+html[data-sinless-theme="purple"] *::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+html[data-sinless-theme="crimson"] *::-webkit-scrollbar-thumb {
+  background: rgba(85,16,30,0.70);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.35);
+}
+
+html[data-sinless-theme="purple"] *::-webkit-scrollbar-thumb {
+  background: rgba(150,5,112,0.65);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.35);
+}
+
+/* =========================================================
+   SinlessCSB — Hard Overrides (ensure visible changes)
+   ========================================================= */
+
+html[data-sinless-theme="crimson"] #sidebar,
+html[data-sinless-theme="purple"] #sidebar {
+  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
+  border-left: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-content,
+html[data-sinless-theme="purple"] .window-app .window-content {
+  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg)) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] .window-app,
+html[data-sinless-theme="purple"] .window-app {
+  border: 1px solid var(--sl-ui-border) !important;
+}
+
+html[data-sinless-theme="crimson"] #chat-log .chat-message,
+html[data-sinless-theme="purple"] #chat-log .chat-message {
+  background: rgba(0,0,0,0.25) !important;
+  border: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+/* =========================================================
+   SinlessCSB — Hard Overrides
+   Purpose: ensure theme is visibly applied against Foundry core CSS.
+   ========================================================= */
+
+/* Sidebar chrome */
+html[data-sinless-theme="crimson"] #sidebar,
+html[data-sinless-theme="purple"] #sidebar {
+  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
+  border-left: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] #sidebar-tabs,
+html[data-sinless-theme="purple"] #sidebar-tabs {
+  border-bottom: 1px solid var(--sl-ui-border) !important;
+}
+
+/* Window surfaces (ALL sheets/dialogs/apps) */
+html[data-sinless-theme="crimson"] .window-app,
+html[data-sinless-theme="purple"] .window-app {
+  border: 1px solid var(--sl-ui-border) !important;
+  box-shadow: var(--sl-ui-shadow) !important;
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-header,
+html[data-sinless-theme="purple"] .window-app .window-header {
+  background: rgba(0,0,0,0.30) !important;
+  border-bottom: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-content,
+html[data-sinless-theme="purple"] .window-app .window-content {
+  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg)) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+/* Chat messages */
+html[data-sinless-theme="crimson"] #chat-log .chat-message,
+html[data-sinless-theme="purple"] #chat-log .chat-message {
+  background: rgba(0,0,0,0.25) !important;
+  border: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] #chat-log .chat-message .message-header,
+html[data-sinless-theme="purple"] #chat-log .chat-message .message-header {
+  border-bottom: 1px solid var(--sl-ui-border) !important;
+}

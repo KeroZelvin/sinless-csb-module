@@ -8,6 +8,16 @@ const MOD_ID = "sinlesscsb";
  */
 const INIT_ANCHOR_KEY = "sinlesscsb_anchor_init";
 
+/**
+ * Theme marker key:
+ * Place a tiny CSB panel anywhere in the sheet with Additional CSS classes:
+ *   sinlesscsb-marker
+ * This module will detect it and promote `sinlesscsb` onto the sheet root (.custom-system)
+ * so theme CSS can target `.custom-system.sinlesscsb`.
+ */
+const THEME_MARKER_CLASS = "sinlesscsb-marker";
+const THEME_ROOT_CLASS = "sinlesscsb";
+
 function getTemplatePath(app) {
   return String(
     app?.options?.template ??
@@ -116,6 +126,38 @@ function getRootElement(app, element) {
   return null;
 }
 
+/**
+ * Promote theme class to the .custom-system root if marker exists anywhere in the sheet.
+ * This allows CSB templates to add marker classes on a small child panel, without needing
+ * access to the root <form class="custom-system"> element.
+ */
+function promoteThemeRootClass(rootEl) {
+  if (!rootEl) return false;
+
+  const hasMarker = !!rootEl.querySelector?.(`.${THEME_MARKER_CLASS}`);
+  if (!hasMarker) return false;
+
+  // Prefer the nearest `.custom-system` ancestor (usually the <form>)
+  const customSystemRoot =
+    (rootEl.matches?.(".custom-system") ? rootEl : null) ||
+    rootEl.closest?.(".custom-system") ||
+    rootEl.querySelector?.("form.custom-system, .custom-system");
+
+  if (!customSystemRoot) return false;
+
+  if (!customSystemRoot.classList.contains(THEME_ROOT_CLASS)) {
+    customSystemRoot.classList.add(THEME_ROOT_CLASS);
+    console.log("SinlessCSB | Theme root class promoted", {
+      marker: THEME_MARKER_CLASS,
+      addedClass: THEME_ROOT_CLASS,
+      rootTag: customSystemRoot.tagName,
+      rootClasses: customSystemRoot.className
+    });
+  }
+
+  return true;
+}
+
 function injectInitiativeButton(rootEl, actor) {
   if (!rootEl || !actor) return;
 
@@ -156,35 +198,34 @@ function injectInitiativeButton(rootEl, actor) {
   btn.className = "sinlesscsb-init-btn";
   btn.textContent = "Roll Initiative";
 
-btn.addEventListener("click", async () => {
-  // IMPORTANT: Some Foundry v13 contexts do not pass Macro.execute({ ... }) args reliably.
-  // We set a one-shot global handoff as a fallback that the macro can read.
-  game.sinlesscsb = game.sinlesscsb || {};
-  game.sinlesscsb._initActorUuid = String(actor.uuid);
+  btn.addEventListener("click", async () => {
+    // IMPORTANT: Some Foundry v13 contexts do not pass Macro.execute({ ... }) args reliably.
+    // We set a one-shot global handoff as a fallback that the macro can read.
+    game.sinlesscsb = game.sinlesscsb || {};
+    game.sinlesscsb._initActorUuid = String(actor.uuid);
 
-  console.log("SinlessCSB | Initiative click", {
-    actorName: actor.name,
-    actorUuid: actor.uuid,
-    canonicalUuid: game.sinlesscsb._initActorUuid
+    console.log("SinlessCSB | Initiative click", {
+      actorName: actor.name,
+      actorUuid: actor.uuid,
+      canonicalUuid: game.sinlesscsb._initActorUuid
+    });
+
+    const m = game.macros.getName("Sinless Roll Initiative");
+    if (!m) {
+      ui.notifications.error("Macro not found: Sinless Roll Initiative");
+      return;
+    }
+
+    try {
+      // Still *try* passing args normally; macro will prefer args if present.
+      await m.execute({ actorUuid: String(actor.uuid) });
+    } finally {
+      // Cleanup: prevent stale UUID being reused by a later macro call.
+      queueMicrotask(() => {
+        try { delete game.sinlesscsb._initActorUuid; } catch (_e) {}
+      });
+    }
   });
-
-  const m = game.macros.getName("Sinless Roll Initiative");
-  if (!m) {
-    ui.notifications.error("Macro not found: Sinless Roll Initiative");
-    return;
-  }
-
-  try {
-    // Still *try* passing args normally; macro will prefer args if present.
-    await m.execute({ actorUuid: String(actor.uuid) });
-  } finally {
-    // Cleanup: prevent stale UUID being reused by a later macro call.
-    // (This is why your macro asked “where do I put the optional cleanup”.)
-queueMicrotask(() => { delete game.sinlesscsb._initActorUuid; });
-
-  }
-});
-
 
   hostEl.appendChild(btn);
 }
@@ -210,13 +251,20 @@ export function registerSheetHooks() {
       template: tpl,
       actor: actor ? { name: actor.name, uuid: actor.uuid } : null,
       isFirstRender: options?.isFirstRender,
-      anchorKey: INIT_ANCHOR_KEY
+      anchorKey: INIT_ANCHOR_KEY,
+      themeMarker: THEME_MARKER_CLASS
     });
 
-    if (!actor || !root) return;
+    if (!root) return;
 
     // CSB often does multi-pass re-renders; do work after the current microtask so the DOM is settled.
     queueMicrotask(() => {
+      // 0) Promote theme class if marker exists (Actors AND Items)
+      promoteThemeRootClass(root);
+
+      // Actor-only behavior below
+      if (!actor) return;
+
       // 1) Ensure ActorUuid is set on the canonical (base) Actor for cross-token/combat consistency
       ensureActorUuidOnOpen(actor).catch(e =>
         console.error("SinlessCSB | ensureActorUuidOnOpen failed", e)
@@ -239,17 +287,28 @@ export function registerSheetHooks() {
     logFire("renderActorSheetV2", app, element, context, options)
   );
 
+  // Item sheets (CSB items)
+  Hooks.on("renderItemSheetV2", (app, element, context, options) =>
+    logFire("renderItemSheetV2", app, element, context, options)
+  );
+
+  Hooks.on("renderCustomItemSheetV2", (app, element, context, options) =>
+    logFire("renderCustomItemSheetV2", app, element, context, options)
+  );
+
   Hooks.on("renderApplicationV2", (app, element, context, options) => {
-    // Keep this one quieter—log only if it looks actor-sheet-ish
+    // Keep this one quieter—log only if it looks actor/item-sheet-ish
     const ctor = String(app?.constructor?.name ?? "");
     const tpl = getTemplatePath(app);
-    if (ctor.includes("Sheet") || tpl.includes("/actor/")) {
+    if (ctor.includes("Sheet") || tpl.includes("/actor/") || tpl.includes("/item/")) {
       logFire("renderApplicationV2", app, element, context, options);
     }
   });
 
   console.log(
     "SinlessCSB | Sheet injection registered (diagnostic mode) | anchor=",
-    INIT_ANCHOR_KEY
+    INIT_ANCHOR_KEY,
+    "| theme-marker=",
+    THEME_MARKER_CLASS
   );
 }

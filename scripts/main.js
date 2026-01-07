@@ -1,3 +1,74 @@
+/**
+ * SinlessCSB — main.js
+ * Adds client-selectable theme toggle:
+ *   - "Crimson" (default) = SR5-inspired theme
+ *   - "Purple"           = SR6-inspired dark theme
+ *
+ * Theme is applied by setting:
+ *   document.documentElement.dataset.sinlessTheme = "crimson" | "purple"
+ *
+ * Your CSS should scope like:
+ *   html[data-sinless-theme="crimson"] .custom-system.sinlesscsb { ... }
+ *   html[data-sinless-theme="purple"]  .custom-system.sinlesscsb { ... }
+ */
+
+import { registerSheetHooks } from "./hooks/sheets.js";
+import { registerCombatHooks } from "./hooks/combat.js";
+
+const MOD_ID = "sinlesscsb";
+
+/* ===============================
+ * Force-load module CSS (robust)
+ * =============================== */
+function ensureStyleLink(href) {
+  try {
+    const abs = new URL(href, window.location.href).toString();
+
+    // Already present?
+    const existing = [...document.querySelectorAll('link[rel="stylesheet"]')]
+      .some(l => l.href === abs);
+    if (existing) return;
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = href;
+    document.head.appendChild(link);
+
+    console.log("SinlessCSB | stylesheet injected", href);
+  } catch (e) {
+    console.error("SinlessCSB | ensureStyleLink failed", href, e);
+  }
+}
+
+function ensureSinlessStylesLoaded() {
+  // These files are served and reachable; inject them so theme applies even if
+  // Foundry's module "styles" loader doesn't create <link> tags in this runtime.
+  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-fonts.css");
+  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-ui-global.css");
+  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-theme-crimson.css");
+  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-theme-purple.css");
+}
+
+/* ===============================
+ * Client Theme Toggle (per-user)
+ * =============================== */
+function applyThemeToDOM() {
+  const theme = game.settings.get(MOD_ID, "theme") || "crimson";
+  document.documentElement.dataset.sinlessTheme = theme;
+}
+
+function rerenderOpenWindows() {
+  for (const app of Object.values(ui.windows)) {
+    try {
+      app.render?.(false);
+    } catch (_e) {}
+  }
+}
+
+/* ===============================
+ * Debug hook (optional)
+ * =============================== */
 Hooks.on("renderActorSheet", (app, html) => {
   console.log("SinlessCSB | renderActorSheet FIRED", {
     ctor: app?.constructor?.name,
@@ -6,12 +77,6 @@ Hooks.on("renderActorSheet", (app, html) => {
   });
   // ...existing code...
 });
-
-import { registerSheetHooks } from "./hooks/sheets.js";
-
-import { registerCombatHooks } from "./hooks/combat.js";
-
-const MOD_ID = "sinlesscsb";
 
 Hooks.once("init", () => {
   // Core toggles
@@ -62,22 +127,49 @@ Hooks.once("init", () => {
     default: "system.props"
   });
 
-game.settings.register("sinlesscsb", "initiativeMacroName", {
-  name: "Initiative macro name",
-  hint: "World macro to execute when clicking Roll Initiative on actor sheets.",
-  scope: "world",
-  config: true,
-  type: String,
-  default: "Sinless Roll Initiative"
-});
+  // Initiative macro name (world)
+  game.settings.register(MOD_ID, "initiativeMacroName", {
+    name: "Initiative macro name",
+    hint: "World macro to execute when clicking Roll Initiative on actor sheets.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "Sinless Roll Initiative"
+  });
 
-
+  // Theme toggle (client)
+  game.settings.register(MOD_ID, "theme", {
+    name: "Sinless Theme",
+    hint: "Choose your SinlessCSB theme (applies only to your client).",
+    scope: "client",
+    config: true,
+    type: String,
+    choices: {
+      crimson: "Crimson",
+      purple: "Purple"
+    },
+    default: "crimson",
+    onChange: () => {
+      // Ensure styles exist before applying (covers toggling before ready)
+      ensureSinlessStylesLoaded();
+      applyThemeToDOM();
+      rerenderOpenWindows();
+      ui.notifications?.info?.("SinlessCSB theme updated for your client.");
+    }
+  });
 
   console.log("SinlessCSB | init");
 });
 
 Hooks.once("ready", () => {
   console.log("SinlessCSB | ready");
+
+  // Force-load CSS in this runtime (robust across local + Forge)
+  ensureSinlessStylesLoaded();
+
+  // Apply theme as early as possible on the client
+  applyThemeToDOM();
+
   registerSheetHooks();
   registerCombatHooks();
 });

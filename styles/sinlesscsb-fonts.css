@@ -1,0 +1,9 @@
+/* SinlessCSB typography hooks (theme files consume these variables) */
+:root {
+  --sinless-font-display: "Cinzel", "Signika", "Roboto", serif;
+  --sinless-font-body: "Marcellus", "Signika", "Roboto", sans-serif;
+}
+
+.custom-system .sinlesscsb-marker {
+  display: none !important;
+}
