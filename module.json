@@ -2,7 +2,7 @@
   "id": "sinlesscsb",
   "title": "SinlessCSB",
   "description": "Sinless automation and Custom System Builder support (combat hooks, pool refresh, and utilities).",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "compatibility": {
     "minimum": "13",
