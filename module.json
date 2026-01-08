@@ -2,7 +2,7 @@
   "id": "sinlesscsb",
   "title": "SinlessCSB",
   "description": "Sinless automation and Custom System Builder support (combat hooks, pool refresh, and utilities).",
-  "version": "0.0.3",
+  "version": "0.0.4",
 
   "compatibility": {
     "minimum": "13",
@@ -43,7 +43,7 @@
     }
   ],
 
-  "manifest": "https://github.com/KeroZelvin/sinless-csb-module/releases/latest/download/module.json",
-  "download": "https://github.com/KeroZelvin/sinless-csb-module/releases/latest/download/sinlesscsb.zip",
+    "manifest": "https://raw.githubusercontent.com/KeroZelvin/sinless-csb-module/v0.0.4/module.json",
+  "download": "https://github.com/KeroZelvin/sinless-csb-module/releases/download/v0.0.4/sinlesscsb.zip",
   "url": "https://github.com/KeroZelvin/sinless-csb-module"
 }
