@@ -1,3 +1,4 @@
+
 param(
   # Keep snapshot outputs separate so you don't clobber release build outputs (e.g., dist/)
   [string]$OutDir = "dist-snapshot",
@@ -13,6 +14,11 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+$moduleJsonPath = Join-Path (Get-Location) "module.json"
+if (!(Test-Path $moduleJsonPath)) {
+  throw "module.json not found. Run this script from the module repo root."
+}
 
 function New-DirIfMissing($path) {
   New-Item -ItemType Directory -Path $path -Force | Out-Null
