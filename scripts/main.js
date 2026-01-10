@@ -14,6 +14,7 @@
 
 import { registerSheetHooks } from "./hooks/sheets.js";
 import { registerCombatHooks } from "./hooks/combat.js";
+import { registerActorInitHooks } from "./hooks/actor-init.js"; // NEW
 
 // Spell API
 import { castSpell } from "./api/cast-spell.js";
@@ -103,6 +104,9 @@ function exposeModuleAPI() {
 Hooks.once("init", () => {
   // Expose API as early as possible so CSB buttons can call it.
   exposeModuleAPI();
+
+  // NEW: Track initialization/clamping hooks (remaining-track model)
+  registerActorInitHooks();
 
   // Core toggles
   game.settings.register(MOD_ID, "enableAutomation", {

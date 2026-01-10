@@ -1,13 +1,26 @@
 // scripts/api/cast-spell.js
 import { evaluateDrainFormula } from "../rules/drain-formula.js";
 
-/** Utility: safe number */
+/**
+ * SinlessCSB Cast Spell (Foundry v13 + CSB)
+ * - Supports castSpell({ itemUuid, actorUuid? })
+ * - GM-safe actor resolution (actorUuid preferred; falls back to item.parent)
+ * - Canonical actor mirroring via system.props.ActorUuid (prevents token-synthetic drift)
+ * - DialogV2-safe form value capture (reads from dialog instance DOM)
+ */
+
+/* =========================
+ * Utilities
+ * ========================= */
 function num(x, fallback = 0) {
   const n = Number(x);
   return Number.isFinite(n) ? n : fallback;
 }
 function clamp(n, lo, hi) {
   return Math.max(lo, Math.min(hi, n));
+}
+function int(x, fallback = 0) {
+  return Math.floor(num(x, fallback));
 }
 
 /**
@@ -24,12 +37,47 @@ async function resolveCanonicalActor(actor) {
 }
 
 /**
+ * Try to resolve the "best" actor to UPDATE based on scope + item ownership.
+ * Priority:
+ *  1) scope.actorUuid (explicit, best for GM / sheet context)
+ *  2) item.parent (embedded item owner)
+ *  3) controlled token actor
+ *  4) user character
+ */
+async function resolveActorForCast({ scope, item }) {
+  const actorUuid = String(scope?.actorUuid ?? "").trim();
+  if (actorUuid) {
+    const a = await fromUuid(actorUuid);
+    if (a?.documentName === "Actor") return a;
+    console.warn("SinlessCSB | castSpell: actorUuid did not resolve to Actor", { actorUuid, resolved: a });
+  }
+
+  if (item?.parent?.documentName === "Actor") return item.parent;
+
+  const tokA = canvas?.tokens?.controlled?.[0]?.actor ?? null;
+  if (tokA?.documentName === "Actor") return tokA;
+
+  const charA = game.user.character ?? null;
+  if (charA?.documentName === "Actor") return charA;
+
+  return null;
+}
+
+/**
  * Get pool current key from item.poolKey ("Resolve" -> "Resolve_Cur", etc.)
+ * Hardened: accepts "resolve", "RESOLVE", "Resolve_Cur", etc.
  */
 function poolCurKey(poolKey) {
-  const k = String(poolKey ?? "").trim();
-  if (!k) return null;
-  return k.endsWith("_Cur") ? k : `${k}_Cur`;
+  const raw = String(poolKey ?? "").trim();
+  if (!raw) return null;
+
+  // Strip any existing suffix (case-insensitive)
+  const base = raw.replace(/_Cur$/i, "");
+
+  // Normalize casing to match your actor keys (Resolve, Focus, etc.)
+  const norm = base.charAt(0).toUpperCase() + base.slice(1).toLowerCase();
+
+  return `${norm}_Cur`;
 }
 
 /** Derived track maxes (fallback if the computed keys don't exist yet) */
@@ -46,7 +94,7 @@ function computePhysicalMax(actor) {
  * Simple d6 success roll. TN defaults to 4 unless you later wire a global TN.
  */
 async function rollPoolD6({ dice, tn = 4, flavor = "" } = {}) {
-  const d = Math.max(0, Math.floor(num(dice, 0)));
+  const d = Math.max(0, int(dice, 0));
 
   // Foundry v13+: Roll#evaluate is async by default; DO NOT pass {async:true}
   const roll = new Roll(`${d}d6`);
@@ -89,8 +137,14 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   });
 }
 
+/* =========================
+ * Dialog
+ * ========================= */
+
 /**
  * DialogV2 helper (Foundry v12+/v13+). Falls back to legacy Dialog if DialogV2 is unavailable.
+ *
+ * Important: DialogV2 callback reads values from the dialog instance DOM (not global document).
  */
 async function promptCastSpellDialog({
   itemName,
@@ -108,16 +162,16 @@ async function promptCastSpellDialog({
   bonusDice,
   diceMod
 }) {
-  // IMPORTANT: Wrap inputs in a <form> so DialogV2 provides a reliable form reference.
+  const formId = `sinlesscsb-spell-dialog-${foundry.utils.randomID()}`;
+  const maxCastSpend = Math.min(poolCur, castLimit);
+  const maxDrainSpend = Math.min(poolCur, resistLimit);
+
   const content = `
-    <form class="sinlesscsb spell-dialog" autocomplete="off">
+    <form id="${formId}" class="sinlesscsb spell-dialog" autocomplete="off">
       <div class="form-group">
         <label>Force (1–${spellforceMax})</label>
-        <input type="number" name="forceChosen" min="1" max="${spellforceMax}" value="${clamp(
-          spellforceDefault,
-          1,
-          spellforceMax
-        )}" step="1"/>
+        <input type="number" name="forceChosen" min="1" max="${spellforceMax}"
+               value="${clamp(int(spellforceDefault, 1), 1, spellforceMax)}" step="1"/>
       </div>
 
       <hr/>
@@ -125,21 +179,19 @@ async function promptCastSpellDialog({
       <div class="form-group">
         <label>${poolKey} available now: ${poolCur}</label>
         <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
-          Casting limit: ${castLimit} ( ${skillKey} ${skillRank} + Foci ${fociRank} )
+          Casting limit: ${castLimit} (${skillKey} ${skillRank} + Foci ${fociRank})
         </p>
-        <label>Spend on casting roll (0–${Math.min(poolCur, castLimit)})</label>
-        <input type="number" name="spendCast" min="0" max="${Math.min(poolCur, castLimit)}" value="${Math.min(
-          poolCur,
-          castLimit
-        )}" step="1"/>
+        <label>Spend on casting roll (0–${maxCastSpend})</label>
+        <input type="number" name="spendCast" min="0" max="${maxCastSpend}"
+               value="${maxCastSpend}" step="1"/>
       </div>
 
       <div class="form-group">
         <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
-          Drain resist limit (if allowed): ${resistLimit} ( Channeling ${channelingRank} + Fetish ${fetishRank} )
+          Drain resist limit (if allowed): ${resistLimit} (Channeling ${channelingRank} + Fetish ${fetishRank})
         </p>
-        <label>Reserve Resolve for drain resist (0–${Math.min(poolCur, resistLimit)})</label>
-        <input type="number" name="spendDrain" min="0" max="${Math.min(poolCur, resistLimit)}" value="0" step="1"/>
+        <label>Reserve Resolve for drain resist (0–${maxDrainSpend})</label>
+        <input type="number" name="spendDrain" min="0" max="${maxDrainSpend}" value="0" step="1"/>
       </div>
 
       <hr/>
@@ -163,18 +215,27 @@ async function promptCastSpellDialog({
           label: "Cast",
           icon: "fa-solid fa-wand-magic-sparkles",
           default: true,
-          callback: (button) => {
-            // DialogV2: try common locations for the form element
+          callback: (event, buttonEl, dialog) => {
+            const root = dialog?.element?.[0] ?? dialog?.element ?? null;
+
             const form =
-              button?.form ??
-              button?.element?.querySelector?.("form") ??
-              document.querySelector?.("section.app.dialog form.sinlesscsb.spell-dialog") ??
-              document.querySelector?.("form.sinlesscsb.spell-dialog") ??
+              root?.querySelector?.(`#${formId}`) ??
+              root?.querySelector?.("form.sinlesscsb.spell-dialog") ??
+              root?.querySelector?.("form") ??
               null;
 
-            const forceChosen = num(form?.elements?.forceChosen?.value, 1);
-            const spendCast = num(form?.elements?.spendCast?.value, 0);
-            const spendDrain = num(form?.elements?.spendDrain?.value, 0);
+            if (!form) {
+              console.warn("SinlessCSB | castSpell: DialogV2 form not found");
+              return { forceChosen: 1, spendCast: 0, spendDrain: 0 };
+            }
+
+            const fd = new FormData(form);
+
+            const forceChosen = int(fd.get("forceChosen"), 1);
+            const spendCast = int(fd.get("spendCast"), 0);
+            const spendDrain = int(fd.get("spendDrain"), 0);
+
+            console.log("SinlessCSB | castSpell dialog read", { forceChosen, spendCast, spendDrain });
             return { forceChosen, spendCast, spendDrain };
           }
         },
@@ -185,10 +246,10 @@ async function promptCastSpellDialog({
           callback: () => null
         }
       ],
-      // If user clicks X, resolve null instead of rejecting.
       rejectClose: false
     });
 
+    // DialogV2.wait() returns either null (closed/cancel) or whatever our callback returned.
     if (!result || result === "cancel") return null;
     return result;
   }
@@ -203,9 +264,9 @@ async function promptCastSpellDialog({
           icon: '<i class="fas fa-magic"></i>',
           label: "Cast",
           callback: (html) => {
-            const forceChosen = num(html.find('[name="forceChosen"]').val(), 1);
-            const spendCast = num(html.find('[name="spendCast"]').val(), 0);
-            const spendDrain = num(html.find('[name="spendDrain"]').val(), 0);
+            const forceChosen = int(html.find('[name="forceChosen"]').val(), 1);
+            const spendCast = int(html.find('[name="spendCast"]').val(), 0);
+            const spendDrain = int(html.find('[name="spendDrain"]').val(), 0);
             resolve({ forceChosen, spendCast, spendDrain });
           }
         },
@@ -220,8 +281,12 @@ async function promptCastSpellDialog({
   });
 }
 
+/* =========================
+ * API: castSpell
+ * ========================= */
+
 /**
- * Module API entry: castSpell({ itemUuid })
+ * Module API entry: castSpell({ itemUuid, actorUuid? })
  */
 export async function castSpell(scope = {}) {
   const itemUuid = String(scope?.itemUuid ?? "");
@@ -232,62 +297,59 @@ export async function castSpell(scope = {}) {
   if (doc.documentName !== "Item") return ui.notifications?.warn("castSpell: uuid is not an Item.");
 
   const item = doc;
-  const parentActor = item.parent;
-  if (!parentActor || parentActor.documentName !== "Actor") {
-    return ui.notifications?.warn("castSpell: spell must be owned by an Actor (in inventory).");
+
+  // Resolve the Actor we will UPDATE (GM-safe if actorUuid passed)
+  const sheetActor = await resolveActorForCast({ scope, item });
+  if (!sheetActor || sheetActor.documentName !== "Actor") {
+    return ui.notifications?.warn("castSpell: could not resolve an Actor to update (pass actorUuid or use an owned item).");
   }
 
-  // The actor that owns the Item is usually the one the CSB sheet is actually displaying.
-  const sheetActor = parentActor;
-
-  // Canonical actor is still useful for preventing drift, but do NOT only update it.
-  const canonActor = await resolveCanonicalActor(parentActor);
-
-  // Use sheetActor for reads/updates that must reflect immediately in the UI.
-  const actor = sheetActor;
+  // Canonical actor is useful, but do NOT only update it.
+  const canonActor = await resolveCanonicalActor(sheetActor);
 
   // --- Read item props (your keys) ---
   const props = item.system?.props ?? {};
-  const skillKey = String(props.skillKey ?? "").trim(); // "Skill_Sorcery" or "Skill_Conjuring"
-  const poolKey = String(props.poolKey ?? "Resolve").trim(); // "Resolve"
-  const fociRank = num(props.spellFociRank, 0);
-  const bonusDice = num(props.bonusDice, 0);
-  const diceMod = num(props.diceMod, 0);
+  const skillKey = String(props.skillKey ?? "").trim();
+  const poolKey = String(props.poolKey ?? "Resolve").trim();
 
-  const spellforceMax = Math.max(1, Math.floor(num(props.spellforceMax, 1)));
-  const spellforceDefault = Math.max(1, Math.floor(num(props.spellforceDefault, 1)));
+  const fociRank = int(props.spellFociRank, 0);
+  const bonusDice = int(props.bonusDice, 0);
+  const diceMod = int(props.diceMod, 0);
 
-  const fetishRank = Math.max(0, Math.floor(num(props.fetishRank, 0)));
+  const spellforceMax = Math.max(1, int(props.spellforceMax, 1));
+  const spellforceDefault = Math.max(1, int(props.spellforceDefault, 1));
+
+  const fetishRank = Math.max(0, int(props.fetishRank, 0));
   const drainFormulaText = String(props.drainFormula ?? "").trim();
 
   if (!skillKey) return ui.notifications?.warn("Spell is missing item prop: skillKey (e.g., Skill_Sorcery).");
   if (!drainFormulaText) return ui.notifications?.warn("Spell is missing drainFormula text.");
 
   // --- Actor values ---
-  const aprops = actor.system?.props ?? {};
+  const aprops = sheetActor.system?.props ?? {};
 
-  const poolCurK = poolCurKey(poolKey); // e.g. Resolve_Cur
+  const poolCurK = poolCurKey(poolKey);
   if (!poolCurK) return ui.notifications?.warn("Spell is missing poolKey (e.g., Resolve).");
 
-  const poolCur = Math.max(0, Math.floor(num(aprops[poolCurK], 0)));
-  const skillRank = Math.max(0, Math.floor(num(aprops[skillKey], 0)));
+  const poolCur = Math.max(0, int(aprops[poolCurK], 0));
+  const skillRank = Math.max(0, int(aprops[skillKey], 0));
 
-  const channelingRank = Math.max(0, Math.floor(num(aprops["Skill_Channeling"], 0)));
+  const channelingRank = Math.max(0, int(aprops["Skill_Channeling"], 0));
   const zoeticPotential = num(aprops.zoeticPotential, 0);
 
   // Track currents (treat as remaining)
-  const stunCur0 = Math.max(0, Math.floor(num(aprops.stunCur, 0)));
-  const physicalCur0 = Math.max(0, Math.floor(num(aprops.physicalCur, 0)));
+  const stunCur0 = Math.max(0, int(aprops.stunCur, 0));
+  const physicalCur0 = Math.max(0, int(aprops.physicalCur, 0));
 
   // Track maxes (use stored if present; otherwise derive from WIL/BOD)
-  const stunMax = Math.max(0, Math.floor(num(aprops.stunMax, computeStunMax(actor))));
-  const physicalMax = Math.max(0, Math.floor(num(aprops.physicalMax, computePhysicalMax(actor))));
+  const stunMax = Math.max(0, int(aprops.stunMax, computeStunMax(sheetActor)));
+  const physicalMax = Math.max(0, int(aprops.physicalMax, computePhysicalMax(sheetActor)));
 
   // --- Limits (your rules) ---
   const castLimit = Math.max(0, skillRank + fociRank);
   const resistLimit = Math.max(0, channelingRank + fetishRank);
 
-  // --- Dialog inputs (DialogV2) ---
+  // --- Dialog inputs ---
   const dialogData = await promptCastSpellDialog({
     itemName: item.name,
     poolKey,
@@ -304,22 +366,20 @@ export async function castSpell(scope = {}) {
     bonusDice,
     diceMod
   });
-
   if (!dialogData) return;
 
   // Enforce force bounds
-  const forceChosen = clamp(Math.floor(dialogData.forceChosen), 1, spellforceMax);
+  const forceChosen = clamp(int(dialogData.forceChosen, 1), 1, spellforceMax);
 
   // Enforce spend bounds + limits
   const spendCastMax = Math.min(poolCur, castLimit);
   const spendDrainMax = Math.min(poolCur, resistLimit);
 
-  let spendCast = clamp(Math.floor(dialogData.spendCast), 0, spendCastMax);
-  let spendDrain = clamp(Math.floor(dialogData.spendDrain), 0, spendDrainMax);
+  let spendCast = clamp(int(dialogData.spendCast, 0), 0, spendCastMax);
+  let spendDrain = clamp(int(dialogData.spendDrain, 0), 0, spendDrainMax);
 
-  // Total spend cannot exceed poolCur
+  // Total spend cannot exceed poolCur (reduce drain reserve first)
   if (spendCast + spendDrain > poolCur) {
-    // reduce drain reserve first
     spendDrain = Math.max(0, poolCur - spendCast);
   }
 
@@ -327,11 +387,22 @@ export async function castSpell(scope = {}) {
   const { drain, normalized, Force: ForceUsed } = evaluateDrainFormula(drainFormulaText, forceChosen);
 
   // Lethal bypass rule:
-  // if calculated drain > zoeticPotential: no channeling roll; full drain is applied to physicalCur
   const isLethal = drain > zoeticPotential;
 
   // TN (placeholder; wire to your global TN later if you have one)
   const tn = 4;
+
+  console.log("SinlessCSB | castSpell spend/dice", {
+    poolCurK,
+    poolCur,
+    castLimit,
+    resistLimit,
+    spendCast,
+    spendDrain,
+    bonusDice,
+    diceMod,
+    castDice: Math.max(0, spendCast + bonusDice + diceMod)
+  });
 
   // --- Casting roll (Resolve dice spent on casting + static mods) ---
   const castDice = Math.max(0, spendCast + bonusDice + diceMod);
@@ -349,14 +420,14 @@ export async function castSpell(scope = {}) {
   let physicalCur = physicalCur0;
 
   if (isLethal) {
-    // No resist roll. Apply full drain to physicalCur (remaining track model)
+    // No resist roll. Apply full drain to Physical (remaining track model)
     appliedDrain = drain;
     physicalCur = clamp(physicalCur - appliedDrain, 0, physicalMax);
 
-    // spendDrain is irrelevant in lethal case; do NOT subtract it
+    // spendDrain irrelevant in lethal case
     spendDrain = 0;
   } else {
-    // Allow resist roll. Spend additional resolve from remaining pool.
+    // Spend additional resolve from remaining pool for resist
     const spendDrainAllowed = clamp(spendDrain, 0, Math.min(poolAfterCast, resistLimit));
     poolAfterCast -= spendDrainAllowed;
 
@@ -367,7 +438,7 @@ export async function castSpell(scope = {}) {
     const remaining = Math.max(0, drain - resistSuccesses);
     appliedDrain = remaining;
 
-    // Apply to stun first; overflow goes to physical (remaining track model)
+    // Apply to stun first; overflow to physical (remaining track model)
     const stunAfter = stunCur - remaining;
     if (stunAfter >= 0) {
       stunCur = stunAfter;
@@ -385,11 +456,19 @@ export async function castSpell(scope = {}) {
     "system.props.physicalCur": physicalCur
   };
 
-  // 1) Update the sheet actor so the currently-open sheet reflects changes immediately.
+  console.log("SinlessCSB | castSpell targets", {
+    item: { name: item.name, uuid: item.uuid },
+    scope,
+    sheetActor: { name: sheetActor.name, uuid: sheetActor.uuid },
+    canonActor: canonActor ? { name: canonActor.name, uuid: canonActor.uuid } : null,
+    updateData
+  });
+
+  // 1) Update the resolved actor (explicit actorUuid or item parent)
   await sheetActor.update(updateData);
 
-  // 2) If canonical actor differs, mirror the same update there too (keeps persistence aligned).
-  if (canonActor && canonActor.id !== sheetActor.id) {
+  // 2) Mirror to canonical actor if different
+  if (canonActor && canonActor.uuid !== sheetActor.uuid) {
     try {
       await canonActor.update(updateData);
     } catch (e) {
@@ -397,7 +476,27 @@ export async function castSpell(scope = {}) {
     }
   }
 
-  // 3) Re-render any open sheets tied to the actor(s)
+  // 3) If a controlled token actor is different but represents the same canonical actor, mirror there too.
+  const controlled = canvas?.tokens?.controlled ?? [];
+  for (const t of controlled) {
+    const ta = t?.actor;
+    if (!ta || ta.documentName !== "Actor") continue;
+
+    const taCanon = await resolveCanonicalActor(ta);
+    const matches =
+      taCanon?.uuid &&
+      (taCanon.uuid === sheetActor.uuid || (canonActor?.uuid && taCanon.uuid === canonActor.uuid));
+
+    if (matches && ta.uuid !== sheetActor.uuid && (!canonActor || ta.uuid !== canonActor.uuid)) {
+      try {
+        await ta.update(updateData);
+      } catch (e) {
+        console.warn("SinlessCSB | castSpell: token-synthetic mirror update failed", e);
+      }
+    }
+  }
+
+  // 4) Re-render open sheets tied to updated actor docs
   const rerenderActor = (a) => {
     for (const app of Object.values(a?.apps ?? {})) {
       try {
@@ -406,11 +505,12 @@ export async function castSpell(scope = {}) {
     }
   };
   rerenderActor(sheetActor);
-  if (canonActor && canonActor.id !== sheetActor.id) rerenderActor(canonActor);
+  if (canonActor && canonActor.uuid !== sheetActor.uuid) rerenderActor(canonActor);
+  for (const t of canvas?.tokens?.controlled ?? []) rerenderActor(t?.actor);
 
   // --- Chat output ---
   await postSpellChat({
-    actor,
+    actor: sheetActor,
     item,
     forceChosen: ForceUsed,
     cast: { ...cast },
