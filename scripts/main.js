@@ -15,6 +15,9 @@
 import { registerSheetHooks } from "./hooks/sheets.js";
 import { registerCombatHooks } from "./hooks/combat.js";
 
+// ADD: Spell API
+import { castSpell } from "./api/cast-spell.js";
+
 const MOD_ID = "sinlesscsb";
 
 /* ===============================
@@ -78,7 +81,29 @@ Hooks.on("renderActorSheet", (app, html) => {
   // ...existing code...
 });
 
+/* ===============================
+ * Module API surface
+ * =============================== */
+function exposeModuleAPI() {
+  const mod = game.modules?.get(MOD_ID);
+  if (!mod) {
+    console.warn("SinlessCSB | cannot expose API: module not found", MOD_ID);
+    return;
+  }
+
+  // Keep any existing api keys (so you can add more later without overwriting).
+  mod.api = {
+    ...(mod.api ?? {}),
+    castSpell
+  };
+
+  console.log("SinlessCSB | API exposed", Object.keys(mod.api));
+}
+
 Hooks.once("init", () => {
+  // Expose API as early as possible so CSB buttons can call it.
+  exposeModuleAPI();
+
   // Core toggles
   game.settings.register(MOD_ID, "enableAutomation", {
     name: "Enable SinlessCSB automation",

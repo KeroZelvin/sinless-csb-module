@@ -186,6 +186,116 @@ _Add ongoing observations here as the system evolves._
 - CSB template inclusion was a critical missing piece that is now resolved.
 - Markdown-based indexes dramatically improve reviewability and ChatGPT effectiveness.
 
+Below are the Skill Keys actually present on your Sinless PC Actor template (from sinlesscsb-snapshot\csb\actor-templates\fvtt-Actor-sinless-pc-409875cd45a544c0.json). These are the exact strings you should use in items/macros when you mean “the actor’s skill field key”.
+
+Skill Keys on the Sinless PC sheet (33)
+Combat / Weapons
+
+Skill_Archery
+
+Skill_EnergyWeapons
+
+Skill_Firearms
+
+Skill_Gunnery
+
+Skill_HeavyWeapons
+
+Skill_MartialArts
+
+Skill_MeleeWeapons
+
+Skill_ThrowingWeapons
+
+Skill_UnarmedCombat
+
+Physical / Movement / Survival
+
+Skill_Athletics
+
+Skill_ArticulatedManeuvers
+
+Skill_Drive
+
+Skill_Fly
+
+Skill_Survival
+
+Stealth / Perception / Fieldcraft
+
+Skill_Observation
+
+Skill_Reconnaissance
+
+Skill_Safecracking
+
+Skill_Shadow
+
+Social / Influence
+
+Skill_Coercion
+
+Skill_Fascination
+
+Skill_Leadership
+
+Skill_Negotiation
+
+Skill_Subterfuge
+
+Matrix / Tech
+
+Skill_CyberCombat
+
+Skill_EWarfare
+
+Skill_Hacking
+
+Skill_Engineering
+
+Skill_Biotech
+
+Skill_Artificing
+
+Magic
+
+Skill_AstralSenses
+
+Skill_Channeling
+
+Skill_Conjuring
+
+Skill_Sorcery
+
+Guidance doc note: your spell items should default skillKey to Skill_Sorcery (not "Sorcery"), since the sheet uses the Skill_* keys.
+
+---
+
+Font Awesome icon keys in CSB templates must be lowercase.
+CSB does not normalize or validate icon strings.
+
+Valid
+
+"icon": "dice"
+
+
+Invalid (breaks CSB silently)
+
+"icon": "Dice"
+
+
+Other safe examples:
+
+"dice"
+
+"dice-d6"
+
+"bolt"
+
+"book"
+
+"magic" (if available in your FA version)
+
 ---
 
 _End of review notes._

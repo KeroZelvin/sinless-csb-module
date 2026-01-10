@@ -1,59 +1,108 @@
 {
   "id": "sinlesscsb",
   "title": "SinlessCSB",
-  "description": "Sinless automation and Custom System Builder support (combat hooks, pool spend and management with refresh per combat turn, and utilities).",
+  "description": "<p>Sinless automation and Custom System Builder support (combat hooks, pool spend and management with refresh per combat turn, and utilities).</p>",
   "version": "0.0.6",
-
   "compatibility": {
     "minimum": "13",
     "verified": "13"
   },
-
   "authors": [
     {
       "name": "KeroZelvin",
       "email": "kerozelvin@gmail.com",
       "url": "https://github.com/KeroZelvin",
-      "discord": "kerozelvin"
+      "discord": "kerozelvin",
+      "flags": {}
     }
   ],
-
   "esmodules": [
     "scripts/main.js"
   ],
-
-"styles": [
-  "styles/sinlesscsb-fonts.css",
-  "styles/sinlesscsb-ui-global.css",
-  "styles/sinlesscsb-theme-crimson.css",
-  "styles/sinlesscsb-theme-purple.css"
-],
-
-"packs": [
-  {
-    "name": "sinlesscsb-macros",
-    "label": "SinlessCSB Macros",
-    "path": "packs/sinlesscsb-macros",
-    "type": "Macro",
-    "system": "custom-system-builder"
-  },
-  {
-    "name": "sinlesscsb-actor-templates",
-    "label": "SinlessCSB Actor Templates",
-    "path": "packs/sinlesscsb-actor-templates",
-    "type": "Actor",
-    "system": "custom-system-builder"
-  },
-  {
-    "name": "sinlesscsb-item-templates",
-    "label": "SinlessCSB Item Templates",
-    "path": "packs/sinlesscsb-item-templates",
-    "type": "Item",
-    "system": "custom-system-builder"
-  }
-],
-
+  "styles": [
+    {
+      "src": "styles/sinlesscsb-fonts.css"
+    },
+    {
+      "src": "styles/sinlesscsb-ui-global.css"
+    },
+    {
+      "src": "styles/sinlesscsb-theme-crimson.css"
+    },
+    {
+      "src": "styles/sinlesscsb-theme-purple.css"
+    }
+  ],
+  "packs": [
+    {
+      "name": "sinlesscsb-macros",
+      "label": "SinlessCSB Macros",
+      "path": "packs/sinlesscsb-macros",
+      "type": "Macro",
+      "system": "custom-system-builder",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "sinlesscsb-actor-templates",
+      "label": "SinlessCSB Actor Templates",
+      "path": "packs/sinlesscsb-actor-templates",
+      "type": "Actor",
+      "system": "custom-system-builder",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "sinlesscsb-item-templates",
+      "label": "SinlessCSB Item Templates",
+      "path": "packs/sinlesscsb-item-templates",
+      "type": "Item",
+      "system": "custom-system-builder",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "sinlesscsb-journal",
+      "label": "SinlessCSB Journal",
+      "path": "packs/sinlesscsb-journal",
+      "type": "JournalEntry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "custom-system-builder"
+    },
+    {
+      "name": "sinlesscsb-rollabletables",
+      "label": "SInlessCSB Rollable Tables",
+      "path": "packs/sinlesscsb-rollabletables",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "custom-system-builder"
+    },
+    {
+      "name": "sinlesscsb-scenes",
+      "label": "SinlessCSB Scenes",
+      "path": "packs/sinlesscsb-scenes",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "custom-system-builder"
+    }
+  ],
   "manifest": "https://github.com/KeroZelvin/sinless-csb-module/releases/latest/download/module.json",
   "download": "https://github.com/KeroZelvin/sinless-csb-module/releases/latest/download/sinlesscsb.zip",
-  "url": "https://github.com/KeroZelvin/sinless-csb-module"
+  "url": "https://github.com/KeroZelvin/sinless-csb-module",
+  "flags": {}
 }
