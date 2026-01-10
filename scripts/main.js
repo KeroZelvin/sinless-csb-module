@@ -15,7 +15,7 @@
 import { registerSheetHooks } from "./hooks/sheets.js";
 import { registerCombatHooks } from "./hooks/combat.js";
 
-// ADD: Spell API
+// Spell API
 import { castSpell } from "./api/cast-spell.js";
 
 const MOD_ID = "sinlesscsb";
@@ -91,7 +91,7 @@ function exposeModuleAPI() {
     return;
   }
 
-  // Keep any existing api keys (so you can add more later without overwriting).
+  // Merge to avoid overwriting existing keys (future-proof).
   mod.api = {
     ...(mod.api ?? {}),
     castSpell
@@ -194,6 +194,12 @@ Hooks.once("ready", () => {
 
   // Apply theme as early as possible on the client
   applyThemeToDOM();
+
+  // Optional: verify API is present after everything is live
+  try {
+    const apiKeys = Object.keys(game.modules?.get(MOD_ID)?.api ?? {});
+    console.log("SinlessCSB | API keys (ready)", apiKeys);
+  } catch (_e) {}
 
   registerSheetHooks();
   registerCombatHooks();

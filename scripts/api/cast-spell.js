@@ -24,7 +24,7 @@ async function resolveCanonicalActor(actor) {
 }
 
 /**
- * Get pool current key from item.poolKey ("Resolve" -> "Resolve_Cur", "Brawn" -> "Brawn_Cur", etc.)
+ * Get pool current key from item.poolKey ("Resolve" -> "Resolve_Cur", etc.)
  */
 function poolCurKey(poolKey) {
   const k = String(poolKey ?? "").trim();
@@ -47,7 +47,10 @@ function computePhysicalMax(actor) {
  */
 async function rollPoolD6({ dice, tn = 4, flavor = "" } = {}) {
   const d = Math.max(0, Math.floor(num(dice, 0)));
-  const roll = await (new Roll(`${d}d6`)).evaluate({ async: true });
+
+  // Foundry v13+: Roll#evaluate is async by default; DO NOT pass {async:true}
+  const roll = new Roll(`${d}d6`);
+  await roll.evaluate();
 
   const results = roll.dice?.[0]?.results ?? [];
   const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
@@ -61,12 +64,18 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   const lines = [];
 
   lines.push(`<p><strong>Force:</strong> ${forceChosen}</p>`);
-  lines.push(`<p><strong>Casting:</strong> ${cast.dice}d6 vs TN ${cast.tn} → <strong>${cast.successes}</strong> successes</p>`);
-  lines.push(`<p><strong>Drain formula:</strong> ${drain.formulaText} (normalized: <code>${drain.normalized}</code>)</p>`);
+  lines.push(
+    `<p><strong>Casting:</strong> ${cast.dice}d6 vs TN ${cast.tn} → <strong>${cast.successes}</strong> successes</p>`
+  );
+  lines.push(
+    `<p><strong>Drain formula:</strong> ${drain.formulaText} (normalized: <code>${drain.normalized}</code>)</p>`
+  );
   lines.push(`<p><strong>Drain (raw):</strong> ${drain.drain} ${drain.isLethal ? "(LETHAL: no resist)" : ""}</p>`);
 
   if (!drain.isLethal) {
-    lines.push(`<p><strong>Drain resist:</strong> ${drain.resistDice}d6 vs TN ${drain.tn} → <strong>${drain.resistSuccesses}</strong> successes</p>`);
+    lines.push(
+      `<p><strong>Drain resist:</strong> ${drain.resistDice}d6 vs TN ${drain.tn} → <strong>${drain.resistSuccesses}</strong> successes</p>`
+    );
     lines.push(`<p><strong>Drain applied:</strong> ${drain.applied} (stun overflow → physical)</p>`);
   } else {
     lines.push(`<p><strong>Drain applied to Physical:</strong> ${drain.applied}</p>`);
@@ -76,7 +85,138 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
 
   return ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
-    content,
+    content
+  });
+}
+
+/**
+ * DialogV2 helper (Foundry v12+/v13+). Falls back to legacy Dialog if DialogV2 is unavailable.
+ */
+async function promptCastSpellDialog({
+  itemName,
+  poolKey,
+  poolCur,
+  spellforceMax,
+  spellforceDefault,
+  castLimit,
+  skillKey,
+  skillRank,
+  fociRank,
+  resistLimit,
+  channelingRank,
+  fetishRank,
+  bonusDice,
+  diceMod
+}) {
+  // IMPORTANT: Wrap inputs in a <form> so DialogV2 provides a reliable form reference.
+  const content = `
+    <form class="sinlesscsb spell-dialog" autocomplete="off">
+      <div class="form-group">
+        <label>Force (1–${spellforceMax})</label>
+        <input type="number" name="forceChosen" min="1" max="${spellforceMax}" value="${clamp(
+          spellforceDefault,
+          1,
+          spellforceMax
+        )}" step="1"/>
+      </div>
+
+      <hr/>
+
+      <div class="form-group">
+        <label>${poolKey} available now: ${poolCur}</label>
+        <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
+          Casting limit: ${castLimit} ( ${skillKey} ${skillRank} + Foci ${fociRank} )
+        </p>
+        <label>Spend on casting roll (0–${Math.min(poolCur, castLimit)})</label>
+        <input type="number" name="spendCast" min="0" max="${Math.min(poolCur, castLimit)}" value="${Math.min(
+          poolCur,
+          castLimit
+        )}" step="1"/>
+      </div>
+
+      <div class="form-group">
+        <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
+          Drain resist limit (if allowed): ${resistLimit} ( Channeling ${channelingRank} + Fetish ${fetishRank} )
+        </p>
+        <label>Reserve Resolve for drain resist (0–${Math.min(poolCur, resistLimit)})</label>
+        <input type="number" name="spendDrain" min="0" max="${Math.min(poolCur, resistLimit)}" value="0" step="1"/>
+      </div>
+
+      <hr/>
+      <div class="form-group">
+        <label>Static dice modifiers</label>
+        <div style="opacity:0.85;">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
+      </div>
+    </form>
+  `;
+
+  const DialogV2 = foundry?.applications?.api?.DialogV2;
+
+  // Preferred: DialogV2 (no v13 deprecation warning)
+  if (DialogV2?.wait) {
+    const result = await DialogV2.wait({
+      window: { title: `Cast Spell: ${itemName}` },
+      content,
+      buttons: [
+        {
+          action: "cast",
+          label: "Cast",
+          icon: "fa-solid fa-wand-magic-sparkles",
+          default: true,
+          callback: (button) => {
+            // DialogV2: try common locations for the form element
+            const form =
+              button?.form ??
+              button?.element?.querySelector?.("form") ??
+              document.querySelector?.("section.app.dialog form.sinlesscsb.spell-dialog") ??
+              document.querySelector?.("form.sinlesscsb.spell-dialog") ??
+              null;
+
+            const forceChosen = num(form?.elements?.forceChosen?.value, 1);
+            const spendCast = num(form?.elements?.spendCast?.value, 0);
+            const spendDrain = num(form?.elements?.spendDrain?.value, 0);
+            return { forceChosen, spendCast, spendDrain };
+          }
+        },
+        {
+          action: "cancel",
+          label: "Cancel",
+          icon: "fa-solid fa-xmark",
+          callback: () => null
+        }
+      ],
+      // If user clicks X, resolve null instead of rejecting.
+      rejectClose: false
+    });
+
+    if (!result || result === "cancel") return null;
+    return result;
+  }
+
+  // Fallback: legacy Dialog (will warn on v13, but keeps functionality if DialogV2 namespace differs)
+  return await new Promise((resolve) => {
+    new Dialog({
+      title: `Cast Spell: ${itemName}`,
+      content,
+      buttons: {
+        cast: {
+          icon: '<i class="fas fa-magic"></i>',
+          label: "Cast",
+          callback: (html) => {
+            const forceChosen = num(html.find('[name="forceChosen"]').val(), 1);
+            const spendCast = num(html.find('[name="spendCast"]').val(), 0);
+            const spendDrain = num(html.find('[name="spendDrain"]').val(), 0);
+            resolve({ forceChosen, spendCast, spendDrain });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel",
+          callback: () => resolve(null)
+        }
+      },
+      default: "cast"
+    }).render(true);
   });
 }
 
@@ -97,13 +237,20 @@ export async function castSpell(scope = {}) {
     return ui.notifications?.warn("castSpell: spell must be owned by an Actor (in inventory).");
   }
 
-  const actor = await resolveCanonicalActor(parentActor);
+  // The actor that owns the Item is usually the one the CSB sheet is actually displaying.
+  const sheetActor = parentActor;
+
+  // Canonical actor is still useful for preventing drift, but do NOT only update it.
+  const canonActor = await resolveCanonicalActor(parentActor);
+
+  // Use sheetActor for reads/updates that must reflect immediately in the UI.
+  const actor = sheetActor;
 
   // --- Read item props (your keys) ---
   const props = item.system?.props ?? {};
-  const skillKey = String(props.skillKey ?? "").trim();              // "Skill_Sorcery" or "Skill_Conjuring"
-  const poolKey = String(props.poolKey ?? "Resolve").trim();         // "Resolve"
-  const fociRank = num(props.spellFociRank, 0);                      // numberField
+  const skillKey = String(props.skillKey ?? "").trim(); // "Skill_Sorcery" or "Skill_Conjuring"
+  const poolKey = String(props.poolKey ?? "Resolve").trim(); // "Resolve"
+  const fociRank = num(props.spellFociRank, 0);
   const bonusDice = num(props.bonusDice, 0);
   const diceMod = num(props.diceMod, 0);
 
@@ -111,7 +258,7 @@ export async function castSpell(scope = {}) {
   const spellforceDefault = Math.max(1, Math.floor(num(props.spellforceDefault, 1)));
 
   const fetishRank = Math.max(0, Math.floor(num(props.fetishRank, 0)));
-  const drainFormulaText = String(props.drainFormula ?? "").trim();  // label field text
+  const drainFormulaText = String(props.drainFormula ?? "").trim();
 
   if (!skillKey) return ui.notifications?.warn("Spell is missing item prop: skillKey (e.g., Skill_Sorcery).");
   if (!drainFormulaText) return ui.notifications?.warn("Spell is missing drainFormula text.");
@@ -119,14 +266,14 @@ export async function castSpell(scope = {}) {
   // --- Actor values ---
   const aprops = actor.system?.props ?? {};
 
-  const poolCurK = poolCurKey(poolKey);            // e.g. Resolve_Cur
+  const poolCurK = poolCurKey(poolKey); // e.g. Resolve_Cur
   if (!poolCurK) return ui.notifications?.warn("Spell is missing poolKey (e.g., Resolve).");
 
   const poolCur = Math.max(0, Math.floor(num(aprops[poolCurK], 0)));
   const skillRank = Math.max(0, Math.floor(num(aprops[skillKey], 0)));
 
   const channelingRank = Math.max(0, Math.floor(num(aprops["Skill_Channeling"], 0)));
-  const zoeticPotential = num(aprops.zoeticPotential, 0);            // decimal allowed
+  const zoeticPotential = num(aprops.zoeticPotential, 0);
 
   // Track currents (treat as remaining)
   const stunCur0 = Math.max(0, Math.floor(num(aprops.stunCur, 0)));
@@ -140,62 +287,22 @@ export async function castSpell(scope = {}) {
   const castLimit = Math.max(0, skillRank + fociRank);
   const resistLimit = Math.max(0, channelingRank + fetishRank);
 
-  // --- Dialog inputs ---
-  const dialogData = await new Promise((resolve) => {
-    new Dialog({
-      title: `Cast Spell: ${item.name}`,
-      content: `
-        <form>
-          <div class="form-group">
-            <label>Force (1–${spellforceMax})</label>
-            <input type="number" name="forceChosen" min="1" max="${spellforceMax}" value="${clamp(spellforceDefault, 1, spellforceMax)}" step="1"/>
-          </div>
-
-          <hr/>
-
-          <div class="form-group">
-            <label>Resolve available now (${poolKey}): ${poolCur}</label>
-            <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
-              Casting limit: ${castLimit} ( ${skillKey} ${skillRank} + Foci ${fociRank} )
-            </p>
-            <label>Spend on casting roll (0–${Math.min(poolCur, castLimit)})</label>
-            <input type="number" name="spendCast" min="0" max="${Math.min(poolCur, castLimit)}" value="${Math.min(poolCur, castLimit)}" step="1"/>
-          </div>
-
-          <div class="form-group">
-            <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
-              Drain resist limit (if allowed): ${resistLimit} ( Channeling ${channelingRank} + Fetish ${fetishRank} )
-            </p>
-            <label>Reserve Resolve for drain resist (0–${Math.min(poolCur, resistLimit)})</label>
-            <input type="number" name="spendDrain" min="0" max="${Math.min(poolCur, resistLimit)}" value="0" step="1"/>
-          </div>
-
-          <hr/>
-          <div class="form-group">
-            <label>Static dice modifiers</label>
-            <div style="opacity:0.85;">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
-          </div>
-        </form>
-      `,
-      buttons: {
-        cast: {
-          icon: '<i class="fas fa-magic"></i>',
-          label: "Cast",
-          callback: (html) => {
-            const forceChosen = num(html.find('[name="forceChosen"]').val(), 1);
-            const spendCast = num(html.find('[name="spendCast"]').val(), 0);
-            const spendDrain = num(html.find('[name="spendDrain"]').val(), 0);
-            resolve({ forceChosen, spendCast, spendDrain });
-          }
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel",
-          callback: () => resolve(null)
-        }
-      },
-      default: "cast"
-    }).render(true);
+  // --- Dialog inputs (DialogV2) ---
+  const dialogData = await promptCastSpellDialog({
+    itemName: item.name,
+    poolKey,
+    poolCur,
+    spellforceMax,
+    spellforceDefault,
+    castLimit,
+    skillKey,
+    skillRank,
+    fociRank,
+    resistLimit,
+    channelingRank,
+    fetishRank,
+    bonusDice,
+    diceMod
   });
 
   if (!dialogData) return;
@@ -219,8 +326,8 @@ export async function castSpell(scope = {}) {
   // --- Evaluate drain ---
   const { drain, normalized, Force: ForceUsed } = evaluateDrainFormula(drainFormulaText, forceChosen);
 
-  // Lethal bypass rule (your latest):
-  // if calculated drain > zoeticPotential: no channeling roll; full drain applies to physicalCur
+  // Lethal bypass rule:
+  // if calculated drain > zoeticPotential: no channeling roll; full drain is applied to physicalCur
   const isLethal = drain > zoeticPotential;
 
   // TN (placeholder; wire to your global TN later if you have one)
@@ -230,7 +337,7 @@ export async function castSpell(scope = {}) {
   const castDice = Math.max(0, spendCast + bonusDice + diceMod);
   const cast = await rollPoolD6({ dice: castDice, tn, flavor: `${item.name} cast` });
 
-  // Spend Resolve immediately for the cast (like weapon macro behavior)
+  // Spend Resolve immediately for the cast
   let poolAfterCast = poolCur - spendCast;
 
   // --- Drain resolution ---
@@ -245,6 +352,7 @@ export async function castSpell(scope = {}) {
     // No resist roll. Apply full drain to physicalCur (remaining track model)
     appliedDrain = drain;
     physicalCur = clamp(physicalCur - appliedDrain, 0, physicalMax);
+
     // spendDrain is irrelevant in lethal case; do NOT subtract it
     spendDrain = 0;
   } else {
@@ -252,7 +360,7 @@ export async function castSpell(scope = {}) {
     const spendDrainAllowed = clamp(spendDrain, 0, Math.min(poolAfterCast, resistLimit));
     poolAfterCast -= spendDrainAllowed;
 
-    resistDice = Math.max(0, spendDrainAllowed); // resolve dice reserved for resist
+    resistDice = Math.max(0, spendDrainAllowed);
     const resist = await rollPoolD6({ dice: resistDice, tn, flavor: `${item.name} drain resist` });
     resistSuccesses = resist.successes;
 
@@ -274,10 +382,31 @@ export async function castSpell(scope = {}) {
   const updateData = {
     [`system.props.${poolCurK}`]: poolAfterCast,
     "system.props.stunCur": stunCur,
-    "system.props.physicalCur": physicalCur,
+    "system.props.physicalCur": physicalCur
   };
 
-  await actor.update(updateData);
+  // 1) Update the sheet actor so the currently-open sheet reflects changes immediately.
+  await sheetActor.update(updateData);
+
+  // 2) If canonical actor differs, mirror the same update there too (keeps persistence aligned).
+  if (canonActor && canonActor.id !== sheetActor.id) {
+    try {
+      await canonActor.update(updateData);
+    } catch (e) {
+      console.warn("SinlessCSB | castSpell: canonical mirror update failed", e);
+    }
+  }
+
+  // 3) Re-render any open sheets tied to the actor(s)
+  const rerenderActor = (a) => {
+    for (const app of Object.values(a?.apps ?? {})) {
+      try {
+        app.render(false);
+      } catch (_e) {}
+    }
+  };
+  rerenderActor(sheetActor);
+  if (canonActor && canonActor.id !== sheetActor.id) rerenderActor(canonActor);
 
   // --- Chat output ---
   await postSpellChat({
@@ -293,7 +422,7 @@ export async function castSpell(scope = {}) {
       resistDice,
       resistSuccesses,
       applied: appliedDrain,
-      tn,
+      tn
     }
   });
 
