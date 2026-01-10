@@ -1,79 +1,125 @@
 // scripts/hooks/actor-init.js
+// Purpose:
+// - Ensure stunMax/physicalMax are persisted as real numeric props (CSB maxVal formulas need this)
+// - Initialize stunCur/physicalCur ONLY when truly unset (NOT when 0), and only during "pending"
+// - Clamp cur values downward if max decreases (never heals)
 
 const MOD_ID = "sinlesscsb";
 
+/* =========================
+ * Utilities
+ * ========================= */
 function num(x, fallback = 0) {
   const n = Number(x);
   return Number.isFinite(n) ? n : fallback;
+}
+function int(x, fallback = 0) {
+  return Math.floor(num(x, fallback));
+}
+function isUnset(v) {
+  return v === undefined || v === null || v === "";
 }
 
 function computeStunMax(actor) {
   const WIL = num(actor?.system?.props?.WIL, 0);
   return 6 + Math.floor(WIL / 2);
 }
-
 function computePhysicalMax(actor) {
   const BOD = num(actor?.system?.props?.BOD, 0);
   return 6 + Math.floor(BOD / 2);
 }
 
-/**
- * On createActor ONLY:
- * - force-init remaining tracks to full (max), regardless of template default (even 0)
- * - set a module flag so we never do this again for that actor
- */
-async function initTracksOnCreate(actor) {
+/* =========================
+ * Init once, after CSB templating
+ * ========================= */
+async function initTracksIfPending(actor) {
   if (!actor || actor.documentName !== "Actor") return;
 
-  const already = await actor.getFlag(MOD_ID, "tracksInitialized");
-  if (already) return;
+  const initialized = await actor.getFlag(MOD_ID, "tracksInitialized");
+  if (initialized) return;
+
+  const pending = await actor.getFlag(MOD_ID, "tracksInitPending");
+  if (!pending) return;
 
   const props = actor.system?.props ?? {};
-  const stunMax = Math.max(0, Math.floor(num(props.stunMax, computeStunMax(actor))));
-  const physicalMax = Math.max(0, Math.floor(num(props.physicalMax, computePhysicalMax(actor))));
 
-  const update = {
-    "system.props.stunCur": stunMax,
-    "system.props.physicalCur": physicalMax
-  };
+  // Compute maxes and ensure they exist as persisted props
+  const stunMax = int(props.stunMax, computeStunMax(actor));
+  const physicalMax = int(props.physicalMax, computePhysicalMax(actor));
 
-  console.log("SinlessCSB | initTracksOnCreate", { actor: actor.name, stunMax, physicalMax });
+  const update = {};
 
-  await actor.update(update);
+  // Persist max props so CSB formulas like ${physicalMax}$ resolve everywhere
+  if (int(props.stunMax, -999999) !== stunMax) update["system.props.stunMax"] = stunMax;
+  if (int(props.physicalMax, -999999) !== physicalMax) update["system.props.physicalMax"] = physicalMax;
+
+  // Initialize cur ONLY if truly unset (undefined/null/"")
+  // Do NOT treat 0 as "missing" — 0 is a valid remaining-track value.
+  if (isUnset(props.stunCur)) update["system.props.stunCur"] = stunMax;
+  if (isUnset(props.physicalCur)) update["system.props.physicalCur"] = physicalMax;
+
+  if (Object.keys(update).length) {
+    console.log("SinlessCSB | init tracks (pending)", { actor: actor.name, stunMax, physicalMax, update });
+    await actor.update(update);
+  }
+
   await actor.setFlag(MOD_ID, "tracksInitialized", true);
+  await actor.unsetFlag(MOD_ID, "tracksInitPending");
 }
 
-/**
- * Clamp (never heal): if max decreases, reduce cur down to max.
- * Triggered when relevant keys change.
- */
+/* =========================
+ * Clamp downwards if max decreases
+ * ========================= */
 async function clampTracksToMax(actor) {
   if (!actor || actor.documentName !== "Actor") return;
 
   const props = actor.system?.props ?? {};
 
-  const stunMax = Math.max(0, Math.floor(num(props.stunMax, computeStunMax(actor))));
-  const physicalMax = Math.max(0, Math.floor(num(props.physicalMax, computePhysicalMax(actor))));
+  const stunMax = int(props.stunMax, computeStunMax(actor));
+  const physicalMax = int(props.physicalMax, computePhysicalMax(actor));
 
-  const stunCur = Math.max(0, Math.floor(num(props.stunCur, stunMax)));
-  const physicalCur = Math.max(0, Math.floor(num(props.physicalCur, physicalMax)));
+  const stunCur = int(props.stunCur, stunMax);
+  const physicalCur = int(props.physicalCur, physicalMax);
 
   const update = {};
+
+  // Keep max props persisted (helps CSB maxVal formulas)
+  if (int(props.stunMax, -999999) !== stunMax) update["system.props.stunMax"] = stunMax;
+  if (int(props.physicalMax, -999999) !== physicalMax) update["system.props.physicalMax"] = physicalMax;
+
+  // Only clamp downward; never heal upward
   if (stunCur > stunMax) update["system.props.stunCur"] = stunMax;
   if (physicalCur > physicalMax) update["system.props.physicalCur"] = physicalMax;
 
   if (Object.keys(update).length) {
-    console.log("SinlessCSB | clampTracksToMax", { actor: actor.name, ...update });
+    console.log("SinlessCSB | clamp tracks to max", { actor: actor.name, stunMax, physicalMax, update });
     await actor.update(update);
   }
 }
 
+/* =========================
+ * Hook registration
+ * ========================= */
 export function registerActorInitHooks() {
   Hooks.on("createActor", (actor) => {
-    initTracksOnCreate(actor).catch((e) => console.warn("SinlessCSB | initTracksOnCreate failed", e));
+    // Mark pending; CSB/template will usually apply an update immediately after create.
+    actor
+      .setFlag(MOD_ID, "tracksInitPending", true)
+      .catch((e) => console.warn("SinlessCSB | set tracksInitPending failed", e));
   });
 
-  // Clamp when WIL/BOD or max fields change (adjust if your keys differ)
+  // After CSB has pushed template stats (first update), init once.
+  Hooks.on("updateActor", (actor) => {
+    initTracksIfPending(actor).catch((e) => console.warn("SinlessCSB | initTracksIfPending failed", e));
+  });
+
+  // Also try on first sheet render (covers imported/copy cases)
+  Hooks.on("renderActorSheet", (app) => {
+    const actor = app?.actor ?? app?.document ?? null;
+    initTracksIfPending(actor).catch((e) => console.warn("SinlessCSB | initTracksIfPending(render) failed", e));
+  });
+
+  // Clamp when max changes later (never heals)
   Hooks.on("updateActor", (actor, changed) => {
     const p = changed?.system?.props ?? {};
     const relevant =
@@ -83,7 +129,6 @@ export function registerActorInitHooks() {
       p.physicalMax !== undefined;
 
     if (!relevant) return;
-
     clampTracksToMax(actor).catch((e) => console.warn("SinlessCSB | clampTracksToMax failed", e));
   });
 }

@@ -143,8 +143,7 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
 
 /**
  * DialogV2 helper (Foundry v12+/v13+). Falls back to legacy Dialog if DialogV2 is unavailable.
- *
- * Important: DialogV2 callback reads values from the dialog instance DOM (not global document).
+ * NOTE: DialogV2 wraps content in a <form> automatically. Do NOT nest your own <form>.
  */
 async function promptCastSpellDialog({
   itemName,
@@ -162,23 +161,23 @@ async function promptCastSpellDialog({
   bonusDice,
   diceMod
 }) {
-  const formId = `sinlesscsb-spell-dialog-${foundry.utils.randomID()}`;
   const maxCastSpend = Math.min(poolCur, castLimit);
   const maxDrainSpend = Math.min(poolCur, resistLimit);
 
+  // IMPORTANT: Do NOT wrap in <form>. DialogV2 supplies the top-level form.
   const content = `
-    <form id="${formId}" class="sinlesscsb spell-dialog" autocomplete="off">
+    <div class="sinlesscsb spell-dialog">
       <div class="form-group">
         <label>Force (1–${spellforceMax})</label>
         <input type="number" name="forceChosen" min="1" max="${spellforceMax}"
-               value="${clamp(int(spellforceDefault, 1), 1, spellforceMax)}" step="1"/>
+               value="${clamp(Math.floor(num(spellforceDefault, 1)), 1, spellforceMax)}" step="1"/>
       </div>
 
       <hr/>
 
       <div class="form-group">
         <label>${poolKey} available now: ${poolCur}</label>
-        <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
+        <p style="margin:0.25rem 0 0.5rem 0; opacity:0.8;">
           Casting limit: ${castLimit} (${skillKey} ${skillRank} + Foci ${fociRank})
         </p>
         <label>Spend on casting roll (0–${maxCastSpend})</label>
@@ -187,7 +186,7 @@ async function promptCastSpellDialog({
       </div>
 
       <div class="form-group">
-        <p style="margin: 0.25rem 0 0.5rem 0; opacity: 0.8;">
+        <p style="margin:0.25rem 0 0.5rem 0; opacity:0.8;">
           Drain resist limit (if allowed): ${resistLimit} (Channeling ${channelingRank} + Fetish ${fetishRank})
         </p>
         <label>Reserve Resolve for drain resist (0–${maxDrainSpend})</label>
@@ -199,13 +198,14 @@ async function promptCastSpellDialog({
         <label>Static dice modifiers</label>
         <div style="opacity:0.85;">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
       </div>
-    </form>
+    </div>
   `;
 
   const DialogV2 = foundry?.applications?.api?.DialogV2;
 
-  // Preferred: DialogV2 (no v13 deprecation warning)
   if (DialogV2?.wait) {
+    console.log("SinlessCSB | promptCastSpellDialog opening (DialogV2)");
+
     const result = await DialogV2.wait({
       window: { title: `Cast Spell: ${itemName}` },
       content,
@@ -215,25 +215,21 @@ async function promptCastSpellDialog({
           label: "Cast",
           icon: "fa-solid fa-wand-magic-sparkles",
           default: true,
-          callback: (event, buttonEl, dialog) => {
-            const root = dialog?.element?.[0] ?? dialog?.element ?? null;
 
-            const form =
-              root?.querySelector?.(`#${formId}`) ??
-              root?.querySelector?.("form.sinlesscsb.spell-dialog") ??
-              root?.querySelector?.("form") ??
-              null;
+          // v13 signature: (event, button, dialog)
+          callback: (event, button, dialog) => {
+            console.log("SinlessCSB | DialogV2 CAST callback fired");
 
+            const form = button?.form ?? dialog?.form ?? null;
             if (!form) {
-              console.warn("SinlessCSB | castSpell: DialogV2 form not found");
+              console.warn("SinlessCSB | DialogV2: no form found on button/dialog");
               return { forceChosen: 1, spendCast: 0, spendDrain: 0 };
             }
 
-            const fd = new FormData(form);
-
-            const forceChosen = int(fd.get("forceChosen"), 1);
-            const spendCast = int(fd.get("spendCast"), 0);
-            const spendDrain = int(fd.get("spendDrain"), 0);
+            const els = form.elements;
+            const forceChosen = Math.floor(num(els?.forceChosen?.value, 1));
+            const spendCast = Math.floor(num(els?.spendCast?.value, 0));
+            const spendDrain = Math.floor(num(els?.spendDrain?.value, 0));
 
             console.log("SinlessCSB | castSpell dialog read", { forceChosen, spendCast, spendDrain });
             return { forceChosen, spendCast, spendDrain };
@@ -246,15 +242,20 @@ async function promptCastSpellDialog({
           callback: () => null
         }
       ],
+
+      // Also log the final submitted result (string action or callback return)
+      submit: (submitted, dialog) => {
+        console.log("SinlessCSB | DialogV2 submit", submitted);
+      },
+
       rejectClose: false
     });
 
-    // DialogV2.wait() returns either null (closed/cancel) or whatever our callback returned.
     if (!result || result === "cancel") return null;
     return result;
   }
 
-  // Fallback: legacy Dialog (will warn on v13, but keeps functionality if DialogV2 namespace differs)
+  // Legacy Dialog fallback (unchanged)
   return await new Promise((resolve) => {
     new Dialog({
       title: `Cast Spell: ${itemName}`,
@@ -264,9 +265,9 @@ async function promptCastSpellDialog({
           icon: '<i class="fas fa-magic"></i>',
           label: "Cast",
           callback: (html) => {
-            const forceChosen = int(html.find('[name="forceChosen"]').val(), 1);
-            const spendCast = int(html.find('[name="spendCast"]').val(), 0);
-            const spendDrain = int(html.find('[name="spendDrain"]').val(), 0);
+            const forceChosen = Math.floor(num(html.find('[name="forceChosen"]').val(), 1));
+            const spendCast = Math.floor(num(html.find('[name="spendCast"]').val(), 0));
+            const spendDrain = Math.floor(num(html.find('[name="spendDrain"]').val(), 0));
             resolve({ forceChosen, spendCast, spendDrain });
           }
         },
@@ -280,6 +281,8 @@ async function promptCastSpellDialog({
     }).render(true);
   });
 }
+
+
 
 /* =========================
  * API: castSpell
@@ -435,8 +438,14 @@ export async function castSpell(scope = {}) {
     const resist = await rollPoolD6({ dice: resistDice, tn, flavor: `${item.name} drain resist` });
     resistSuccesses = resist.successes;
 
-    const remaining = Math.max(0, drain - resistSuccesses);
-    appliedDrain = remaining;
+let remaining = Math.max(0, drain - resistSuccesses);
+
+// Rules: minimum 1 drain applied when drain is non-lethal and drain > 0
+// (If drain is 0, keep it 0; if lethal, handled in other branch.)
+if (drain > 0) remaining = Math.max(1, remaining);
+
+appliedDrain = remaining;
+
 
     // Apply to stun first; overflow to physical (remaining track model)
     const stunAfter = stunCur - remaining;
