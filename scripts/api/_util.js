@@ -134,7 +134,6 @@ export async function resolveItemDoc({ itemUuid = null, actorUuid = null, itemId
   const aUuid = normalizeUuid(actorUuid);
   const iId = normalizeUuid(itemId);
   if (aUuid && iId) {
-    // actorUuid may be "Actor.X" already; handle both
     const actorDoc = await fromUuid(aUuid);
     if (actorDoc?.documentName === "Actor") {
       const embeddedUuid = `Actor.${actorDoc.id}.Item.${iId}`;
@@ -147,8 +146,31 @@ export async function resolveItemDoc({ itemUuid = null, actorUuid = null, itemId
 }
 
 /* -------------------------------------------- */
-/* DialogV2 helpers                             */
+/* DialogV2 helpers (robust across runtimes)    */
 /* -------------------------------------------- */
+
+/**
+ * Get the DialogV2 class in a v13-safe way.
+ */
+export function getDialogV2Class() {
+  return foundry?.applications?.api?.DialogV2 ?? null;
+}
+
+/**
+ * Get the root HTMLElement for a DialogV2 instance.
+ * (Foundry sometimes exposes dialog.element as an HTMLElement or a jQuery-like wrapper.)
+ */
+export function getDialogRoot(dialog) {
+  const el = dialog?.element ?? null;
+  if (!el) return null;
+  // HTMLElement
+  if (el instanceof HTMLElement) return el;
+  // jQuery-ish array-like
+  if (Array.isArray(el) && el[0] instanceof HTMLElement) return el[0];
+  // Foundry wrapper objects may expose [0]
+  if (el?.[0] instanceof HTMLElement) return el[0];
+  return null;
+}
 
 /**
  * Read FormData from a DialogV2 callback (v13 signature),
@@ -159,21 +181,125 @@ export async function resolveItemDoc({ itemUuid = null, actorUuid = null, itemId
 export function getDialogFormFromCallbackArgs(...args) {
   // v13 DialogV2 commonly: (event, buttonEl, dialog)
   const dialog = args?.[2] ?? args?.[0]?.dialog ?? null;
-  const root = dialog?.element?.[0] ?? dialog?.element ?? null;
+  const root = getDialogRoot(dialog);
   if (!root?.querySelector) return null;
-  return (
-    root.querySelector("form") ??
-    null
-  );
+  return root.querySelector("form") ?? null;
 }
 
 export function readDialogNumber(fd, key, fallback = 0) {
-  // fd can be FormData or null
   try {
     return num(fd?.get?.(key), fallback);
   } catch (_e) {
     return fallback;
   }
+}
+
+/**
+ * Minimal, reusable DialogV2 opener that works even when instance .wait() is missing.
+ *
+ * Signature is intentionally small and supports both:
+ * - Item Roll: simple form submit result
+ * - Pools: complex click handlers, live refresh, multi-action buttons via onRender()
+ *
+ * @param {object} cfg
+ * @param {string} cfg.title                 Window title
+ * @param {string} cfg.content               HTML content (usually includes a <form>)
+ * @param {Array}  cfg.buttons               DialogV2 button specs (action/label/default/callback)
+ * @param {Function} [cfg.transform]         Optional transform for the submit result
+ * @param {Function} [cfg.onRender]          Called each render: (dialog, rootHTMLElement) => void
+ * @param {Function} [cfg.onClose]           Called on close after resolution: (dialog, resolvedValue) => void
+ * @param {boolean} [cfg.rejectClose=false]  If true, prevent closing via X without a button
+ * @param {object}  [cfg.renderOptions]      Passed to render(), default { force: true }
+ *
+ * @returns {Promise<any>} resolved submit value (or null if closed/cancel)
+ */
+export async function openDialogV2(cfg = {}) {
+  const DialogV2 = getDialogV2Class();
+  if (!DialogV2) {
+    ui.notifications?.error?.("DialogV2 not available in this Foundry runtime.");
+    return null;
+  }
+
+  const title = String(cfg.title ?? "Dialog");
+  const content = String(cfg.content ?? "");
+  const buttons = Array.isArray(cfg.buttons) ? cfg.buttons : [];
+  const rejectClose = Boolean(cfg.rejectClose);
+  const renderOptions = cfg.renderOptions && typeof cfg.renderOptions === "object"
+    ? cfg.renderOptions
+    : { force: true };
+
+  const transform = (typeof cfg.transform === "function") ? cfg.transform : (x) => x;
+  const onRender = (typeof cfg.onRender === "function") ? cfg.onRender : null;
+  const onClose = (typeof cfg.onClose === "function") ? cfg.onClose : null;
+
+  const baseConfig = {
+    window: { title },
+    content,
+    buttons,
+    rejectClose,
+    // DialogV2 calls submit(...) with the button callback return value.
+    submit: (result) => transform(result)
+  };
+
+  // Prefer static DialogV2.wait if present (some v13 builds)
+  if (typeof DialogV2.wait === "function") {
+    const out = await DialogV2.wait(baseConfig);
+    const resolved = transform(out);
+    // Ensure onClose runs consistently even in wait mode
+    try {
+      onClose?.(null, resolved);
+    } catch (e) {
+      console.warn("SinlessCSB | openDialogV2 onClose (wait) failed", e);
+    }
+    return resolved;
+  }
+
+  // Fallback: Promise-wrapper around render + submit + close
+  return await new Promise((resolve) => {
+    class SinlessDialogV2 extends DialogV2 {
+      constructor(...args) {
+        super(...args);
+        this._sinlessResolved = false;
+      }
+
+      _onRender(context, options) {
+        super._onRender(context, options);
+        const root = getDialogRoot(this);
+        if (!root) return;
+        try {
+          onRender?.(this, root);
+        } catch (e) {
+          console.warn("SinlessCSB | openDialogV2 onRender failed", e);
+        }
+      }
+
+      async close(options) {
+        // If user closes via X / ESC and we have not resolved, resolve null.
+        if (!this._sinlessResolved) {
+          this._sinlessResolved = true;
+          try { onClose?.(this, null); } catch (_e) {}
+          resolve(null);
+        }
+        return super.close(options);
+      }
+    }
+
+    // Wrap submit so we resolve exactly once (submit often triggers close internally).
+    const dialog = new SinlessDialogV2({
+      ...baseConfig,
+      submit: (result) => {
+        const resolved = transform(result);
+        if (!dialog._sinlessResolved) {
+          dialog._sinlessResolved = true;
+          try { onClose?.(dialog, resolved); } catch (_e) {}
+          resolve(resolved);
+        }
+        return resolved;
+      }
+    });
+
+    dialog.render(renderOptions);
+  });
 }
 
 /* -------------------------------------------- */

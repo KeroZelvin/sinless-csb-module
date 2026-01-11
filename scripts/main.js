@@ -1,23 +1,21 @@
 /**
  * SinlessCSB — main.js
- * Adds client-selectable theme toggle:
- *   - "Crimson" (default) = SR5-inspired theme
- *   - "Purple"           = SR6-inspired dark theme
  *
- * Theme is applied by setting:
+ * Theme:
  *   document.documentElement.dataset.sinlessTheme = "crimson" | "purple"
  *
- * Your CSS should scope like:
- *   html[data-sinless-theme="crimson"] .custom-system.sinlesscsb { ... }
- *   html[data-sinless-theme="purple"]  .custom-system.sinlesscsb { ... }
+ * CSS scopes:
+ *   html[data-sinless-theme="crimson"] ...
+ *   html[data-sinless-theme="purple"]  ...
  */
 
 import { registerSheetHooks } from "./hooks/sheets.js";
 import { registerCombatHooks } from "./hooks/combat.js";
-import { registerActorInitHooks } from "./hooks/actor-init.js"; // NEW
+import { registerActorInitHooks } from "./hooks/actor-init.js";
 
-// Spell API
+// API
 import { castSpell } from "./api/cast-spell.js";
+import { rollItem } from "./api/item-roll.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -36,7 +34,7 @@ function ensureStyleLink(href) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href = href;
+    link.href = href; // browser resolves to absolute internally
     document.head.appendChild(link);
 
     console.log("SinlessCSB | stylesheet injected", href);
@@ -46,8 +44,6 @@ function ensureStyleLink(href) {
 }
 
 function ensureSinlessStylesLoaded() {
-  // These files are served and reachable; inject them so theme applies even if
-  // Foundry's module "styles" loader doesn't create <link> tags in this runtime.
   ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-fonts.css");
   ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-ui-global.css");
   ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-theme-crimson.css");
@@ -64,23 +60,9 @@ function applyThemeToDOM() {
 
 function rerenderOpenWindows() {
   for (const app of Object.values(ui.windows)) {
-    try {
-      app.render?.(false);
-    } catch (_e) {}
+    try { app.render?.(false); } catch (_e) {}
   }
 }
-
-/* ===============================
- * Debug hook (optional)
- * =============================== */
-Hooks.on("renderActorSheet", (app, html) => {
-  console.log("SinlessCSB | renderActorSheet FIRED", {
-    ctor: app?.constructor?.name,
-    actor: app?.actor?.name,
-    hasElement: !!app?.element
-  });
-  // ...existing code...
-});
 
 /* ===============================
  * Module API surface
@@ -95,20 +77,28 @@ function exposeModuleAPI() {
   // Merge to avoid overwriting existing keys (future-proof).
   mod.api = {
     ...(mod.api ?? {}),
-    castSpell
+    castSpell,
+    rollItem
   };
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
 }
 
 Hooks.once("init", () => {
+  console.log("SinlessCSB | init");
+
+  // Load styles early so first-rendered sheets/dialogs are themed.
+  ensureSinlessStylesLoaded();
+
   // Expose API as early as possible so CSB buttons can call it.
   exposeModuleAPI();
 
-  // NEW: Track initialization/clamping hooks (remaining-track model)
+  // Actor init/clamp hooks (remaining-track model)
   registerActorInitHooks();
 
-  // Core toggles
+  /* ---------------------------
+   * Settings
+   * --------------------------- */
   game.settings.register(MOD_ID, "enableAutomation", {
     name: "Enable SinlessCSB automation",
     hint: "Master toggle for all automated behaviors provided by SinlessCSB.",
@@ -118,7 +108,6 @@ Hooks.once("init", () => {
     default: true
   });
 
-  // Pool refresh toggles
   game.settings.register(MOD_ID, "poolsEnable", {
     name: "Auto-refresh pools",
     hint: "Automatically refresh PC attribute pools from base stats.",
@@ -146,7 +135,6 @@ Hooks.once("init", () => {
     default: true
   });
 
-  // CSB data path toggle (kept simple, but avoids hardcoding forever)
   game.settings.register(MOD_ID, "csbPropsRoot", {
     name: "CSB props root",
     hint: "Where SinlessCSB reads/writes values on the Actor. Default is system.props (typical for CSB). Advanced users can change if their template differs.",
@@ -156,7 +144,6 @@ Hooks.once("init", () => {
     default: "system.props"
   });
 
-  // Initiative macro name (world)
   game.settings.register(MOD_ID, "initiativeMacroName", {
     name: "Initiative macro name",
     hint: "World macro to execute when clicking Roll Initiative on actor sheets.",
@@ -166,7 +153,6 @@ Hooks.once("init", () => {
     default: "Sinless Roll Initiative"
   });
 
-  // Theme toggle (client)
   game.settings.register(MOD_ID, "theme", {
     name: "Sinless Theme",
     hint: "Choose your SinlessCSB theme (applies only to your client).",
@@ -179,7 +165,6 @@ Hooks.once("init", () => {
     },
     default: "crimson",
     onChange: () => {
-      // Ensure styles exist before applying (covers toggling before ready)
       ensureSinlessStylesLoaded();
       applyThemeToDOM();
       rerenderOpenWindows();
@@ -187,7 +172,25 @@ Hooks.once("init", () => {
     }
   });
 
-  console.log("SinlessCSB | init");
+  // Optional: opt-in debug toggle (keeps console clean by default)
+  game.settings.register(MOD_ID, "debugLogs", {
+    name: "Debug logs",
+    hint: "Enable verbose console logging for SinlessCSB (developer use).",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
+  // Only attach noisy debug hooks if enabled
+  Hooks.on("renderActorSheet", (app) => {
+    if (!game.settings.get(MOD_ID, "debugLogs")) return;
+    console.log("SinlessCSB | renderActorSheet FIRED", {
+      ctor: app?.constructor?.name,
+      actor: app?.actor?.name,
+      hasElement: !!app?.element
+    });
+  });
 });
 
 Hooks.once("ready", () => {
@@ -199,7 +202,7 @@ Hooks.once("ready", () => {
   // Apply theme as early as possible on the client
   applyThemeToDOM();
 
-  // Optional: verify API is present after everything is live
+  // Verify API is present after everything is live
   try {
     const apiKeys = Object.keys(game.modules?.get(MOD_ID)?.api ?? {});
     console.log("SinlessCSB | API keys (ready)", apiKeys);
