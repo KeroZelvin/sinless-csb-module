@@ -69,16 +69,41 @@ export function poolCurKey(poolKey) {
 export async function resolveCanonicalActor(actor) {
   if (!actor) return null;
 
-  const u = normalizeUuid(actor?.system?.props?.ActorUuid);
+  const props = actor?.system?.props ?? {};
+
+  const rawActorUuid = props.ActorUuid;
+  const rawactorUuid = props.actorUuid;
+
+  // Prefer ActorUuid, fall back to actorUuid
+  const raw = rawActorUuid ?? rawactorUuid;
+  const u0 = normalizeUuid(raw);
+
+  // If someone stored just the Actor ID, normalize to Actor.<id>
+  const u = u0 && !u0.startsWith("Actor.") ? `Actor.${u0}` : u0;
+
   if (u) {
     try {
       const doc = await fromUuid(u);
       if (doc?.documentName === "Actor") return doc;
+
+      console.warn("SinlessCSB | resolveCanonicalActor: fromUuid resolved non-Actor", {
+        raw,
+        keyUsed: (rawActorUuid != null ? "ActorUuid" : "actorUuid"),
+        normalized: u,
+        resolvedType: doc?.documentName,
+        resolvedName: doc?.name
+      });
     } catch (e) {
-      console.warn("SinlessCSB | resolveCanonicalActor fromUuid failed", { ActorUuid: u, e });
+      console.warn("SinlessCSB | resolveCanonicalActor: fromUuid failed", {
+        raw,
+        keyUsed: (rawActorUuid != null ? "ActorUuid" : "actorUuid"),
+        normalized: u,
+        e
+      });
     }
   }
 
+  // Token synthetic actor -> base actor
   if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
 
   return actor;

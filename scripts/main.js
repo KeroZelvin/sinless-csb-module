@@ -16,51 +16,61 @@ import { registerActorInitHooks } from "./hooks/actor-init.js";
 // API
 import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
-import { rollPools } from "./api/pools-roll.js";
+import { rollPools, refreshPools } from "./api/pools-roll.js";
 
 const MOD_ID = "sinlesscsb";
 
 /* ===============================
  * Force-load module CSS (robust)
  * =============================== */
-function ensureStyleLink(href) {
-  try {
-    const abs = new URL(href, window.location.href).toString();
 
-    // Already present?
+/**
+ * Foundry routes can make relative URLs resolve incorrectly (e.g. relative to /game).
+ * Always inject with a leading "/" so it resolves from the site root:
+ *   /modules/<id>/styles/<file>.css
+ */
+function ensureStyleLink(path) {
+  try {
+    const rooted = path.startsWith("/") ? path : `/${path}`;
+    const abs = new URL(rooted, window.location.origin).toString();
+
     const existing = [...document.querySelectorAll('link[rel="stylesheet"]')]
-      .some(l => l.href === abs);
+      .some(l => String(l.href) === abs);
+
     if (existing) return;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href = href; // browser resolves to absolute internally
+    link.href = abs;
     document.head.appendChild(link);
 
-    console.log("SinlessCSB | stylesheet injected", href);
+    // Keep this log; it’s useful when CSS “goes missing”.
+    console.log("SinlessCSB | stylesheet injected", abs);
   } catch (e) {
-    console.error("SinlessCSB | ensureStyleLink failed", href, e);
+    console.error("SinlessCSB | ensureStyleLink failed", path, e);
   }
 }
 
 function ensureSinlessStylesLoaded() {
-  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-fonts.css");
-  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-ui-global.css");
-  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-theme-crimson.css");
-  ensureStyleLink("modules/sinlesscsb/styles/sinlesscsb-theme-purple.css");
+  // IMPORTANT: these should be /modules/... not modules/... (missing slash breaks on some routes)
+  ensureStyleLink(`/modules/${MOD_ID}/styles/sinlesscsb-fonts.css`);
+  ensureStyleLink(`/modules/${MOD_ID}/styles/sinlesscsb-ui-global.css`);
+  ensureStyleLink(`/modules/${MOD_ID}/styles/sinlesscsb-theme-crimson.css`);
+  ensureStyleLink(`/modules/${MOD_ID}/styles/sinlesscsb-theme-purple.css`);
 }
 
 /* ===============================
  * Client Theme Toggle (per-user)
  * =============================== */
+
 function applyThemeToDOM() {
-  const theme = game.settings.get(MOD_ID, "theme") || "crimson";
+  const theme = game.settings.get(MOD_ID, "theme") || "purple";
   document.documentElement.dataset.sinlessTheme = theme;
 }
 
 function rerenderOpenWindows() {
-  for (const app of Object.values(ui.windows)) {
+  for (const app of Object.values(ui.windows ?? {})) {
     try { app.render?.(false); } catch (_e) {}
   }
 }
@@ -68,6 +78,7 @@ function rerenderOpenWindows() {
 /* ===============================
  * Module API surface
  * =============================== */
+
 function exposeModuleAPI() {
   const mod = game.modules?.get(MOD_ID);
   if (!mod) {
@@ -75,16 +86,22 @@ function exposeModuleAPI() {
     return;
   }
 
-  // Merge to avoid overwriting existing keys (future-proof).
-  mod.api = {
-    ...(mod.api ?? {}),
+  // Preserve existing keys if anything attached earlier
+  mod.api = mod.api ?? {};
+
+  Object.assign(mod.api, {
     castSpell,
     rollItem,
-    rollPools
-  };
+    rollPools,
+    refreshPools
+  });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
 }
+
+/* ===============================
+ * Hooks
+ * =============================== */
 
 Hooks.once("init", () => {
   console.log("SinlessCSB | init");
@@ -165,7 +182,7 @@ Hooks.once("init", () => {
       crimson: "Crimson",
       purple: "Purple"
     },
-    default: "crimson",
+    default: "purple",
     onChange: () => {
       ensureSinlessStylesLoaded();
       applyThemeToDOM();
@@ -174,7 +191,6 @@ Hooks.once("init", () => {
     }
   });
 
-  // Optional: opt-in debug toggle (keeps console clean by default)
   game.settings.register(MOD_ID, "debugLogs", {
     name: "Debug logs",
     hint: "Enable verbose console logging for SinlessCSB (developer use).",
@@ -184,7 +200,6 @@ Hooks.once("init", () => {
     default: false
   });
 
-  // Only attach noisy debug hooks if enabled
   Hooks.on("renderActorSheet", (app) => {
     if (!game.settings.get(MOD_ID, "debugLogs")) return;
     console.log("SinlessCSB | renderActorSheet FIRED", {
@@ -198,10 +213,10 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
   console.log("SinlessCSB | ready");
 
-  // Force-load CSS in this runtime (robust across local + Forge)
+  // Re-ensure CSS in this runtime (covers some Forge/local load edge cases)
   ensureSinlessStylesLoaded();
 
-  // Apply theme as early as possible on the client
+  // Apply theme on the client
   applyThemeToDOM();
 
   // Verify API is present after everything is live

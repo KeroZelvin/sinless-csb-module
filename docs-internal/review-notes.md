@@ -1,301 +1,61 @@
-# SinlessCSB – Review Notes
-
-This document captures architectural observations, design intent, and review notes
-for the Sinless Custom System Builder (CSB) Foundry VTT module.
-
-It is intended to be:
-- a living review log,
-- a reference for future refactors,
-- and a fast orientation document for new ChatGPT threads or collaborators.
-
----
-
-## Snapshot Context
-
-This review is based on a snapshot ZIP generated via `Snapshot.ps1`, which includes:
-
-- Source code (`scripts/**`)
-- CSB templates (`csb/**`)
-- Styles (`styles/**`)
-- Macro exports (`macros/**`)
-- Continuity docs:
-  - `docs-internal/current_state.md`
-  - `docs-internal/known_good_patterns.md`
-  - `docs-internal/compendium-index.md`
-- Diagnostic/meta files:
-  - `packs-index.md`
-  - `SNAPSHOT-OVERVIEW.md`
-  - `SNAPSHOT-META.md`
-
-The snapshot intentionally **excludes LevelDB compendium contents** (`packs/**`)
-to keep the bundle small, reviewable, and Forge-safe.
-
----
-
-## Core Architectural Decisions (Confirmed)
-
-### 1. CSB Templates Are First-Class Module Assets
-
-Actor and Item templates are stored under:
-
-- `csb/actor-templates/`
-- `csb/item-templates/`
-
-These templates are **required for the module to function**, not optional examples.
-In particular:
-- PC and NPC actor templates include critical UUID-backed fields used by macros.
-- Session / settings actor templates act as global state carriers.
-
-**Implication:**  
-The module is not usable unless these templates are present. Treat them as part of
-the system’s runtime contract, not content.
-
----
-
-### 2. Compendiums Are Source-of-Truth for Content, Not Runtime State
-
-Weapons, skills, spells, and macros are expected to live in compendiums and be
-dragged into worlds as needed.
-
-However:
-- LevelDB files are noisy, heavy, and unsuitable for Git or review.
-- Forge storage quotas make in-world duplication undesirable.
-
-**Resolution:**  
-A generated Markdown index (`docs-internal/compendium-index.md`) is the authoritative
-inventory of compendium contents for review and reasoning.
-
-This index is:
-- generated via a Foundry macro,
-- downloaded locally,
-- committed to Git,
-- and included in snapshots.
-
----
-
-### 3. Snapshot-Based Review Is the Primary ChatGPT Workflow
-
-A dedicated snapshot process (`Snapshot.ps1`) exists to create a **review bundle**
-without polluting the release build or the Foundry world.
-
-Key properties:
-- Output directory: `dist-snapshot/` (never overlaps with release `dist/`)
-- Includes only human-reviewable artifacts
-- Emits orientation files:
-  - `SNAPSHOT-OVERVIEW.md`
-  - `SNAPSHOT-META.md`
-  - `packs-index.md`
-
-**This snapshot ZIP is the preferred artifact for starting new ChatGPT threads.**
-
----
-
-### 4. No In-World Journals for Development Metadata
-
-Early versions considered creating JournalEntries inside Foundry to store indexes.
-This was explicitly rejected because:
-- it adds clutter to worlds,
-- consumes Forge storage quota,
-- and duplicates information better kept in Git.
-
-**Rule:**  
-Development metadata lives in the repo, not in Foundry worlds.
-
----
-
-## Code Organization Review
-
-### `scripts/`
-- `main.js` appears to be the module entry point.
-- Logic is split cleanly into:
-  - hooks (`scripts/hooks/**`)
-  - rules (`scripts/rules/**`)
-  - shared pool logic (`scripts/pools.js`)
-- Roll macros (item, pool, initiative) exist both as JS sources and JSON exports.
-
-This structure is sane and scales well.
-
----
-
-### `macros/`
-- JSON macro exports are included for reference and portability.
-- These are not required at runtime but are useful for:
-  - diffing,
-  - migration,
-  - and re-importing into worlds.
-
-Future decision:
-- Decide whether JSON exports remain canonical or are treated as artifacts only.
-
----
-
-### `styles/`
-- CSS is modularized (global UI + themes).
-- Indicates expectation of UI customization and sheet styling.
-
-No action needed; structure is appropriate.
-
----
-
-## Known Risks / Watch Items
-
-### 1. Template UUID Stability
-Because macros depend on CSB template-defined fields:
-- UUID changes or template deletion will break runtime behavior.
-- Versioning of templates must be deliberate.
-
-Consider:
-- documenting template version expectations,
-- or adding guard checks in macros.
-
----
-
-### 2. Compendium Growth
-As item/skill/spell counts grow:
-- `compendium-index.md` will become long.
-- That is acceptable, but consider:
-  - grouping conventions,
-  - or per-pack notes sections.
-
----
-
-### 3. Macro ↔ Template Coupling
-Some macros implicitly assume:
-- presence of specific actor templates,
-- presence of session/global actors.
-
-This coupling is acceptable but should remain **explicitly documented**
-rather than “tribal knowledge.”
-
----
-
-## Open Questions (To Revisit)
-
-- Should template versions be encoded explicitly?
-- Should there be a minimal “bootstrap” checklist for new worlds?
-- Should some runtime guards be added to detect missing templates early?
-- Long-term: does this module eventually replace CSB entirely, or remain layered on top?
-
----
-
-## Reviewer Notes (Freeform)
-
-_Add ongoing observations here as the system evolves._
-
-- Snapshot workflow is now stable and repeatable.
-- CSB template inclusion was a critical missing piece that is now resolved.
-- Markdown-based indexes dramatically improve reviewability and ChatGPT effectiveness.
-
-Below are the Skill Keys actually present on your Sinless PC Actor template (from sinlesscsb-snapshot\csb\actor-templates\fvtt-Actor-sinless-pc-409875cd45a544c0.json). These are the exact strings you should use in items/macros when you mean “the actor’s skill field key”.
-
-Skill Keys on the Sinless PC sheet (33)
-Combat / Weapons
-
-Skill_Archery
-
-Skill_EnergyWeapons
-
-Skill_Firearms
-
-Skill_Gunnery
-
-Skill_HeavyWeapons
-
-Skill_MartialArts
-
-Skill_MeleeWeapons
-
-Skill_ThrowingWeapons
-
-Skill_UnarmedCombat
-
-Physical / Movement / Survival
-
-Skill_Athletics
-
-Skill_ArticulatedManeuvers
-
-Skill_Drive
-
-Skill_Fly
-
-Skill_Survival
-
-Stealth / Perception / Fieldcraft
-
-Skill_Observation
-
-Skill_Reconnaissance
-
-Skill_Safecracking
-
-Skill_Shadow
-
-Social / Influence
-
-Skill_Coercion
-
-Skill_Fascination
-
-Skill_Leadership
-
-Skill_Negotiation
-
-Skill_Subterfuge
-
-Matrix / Tech
-
-Skill_CyberCombat
-
-Skill_EWarfare
-
-Skill_Hacking
-
-Skill_Engineering
-
-Skill_Biotech
-
-Skill_Artificing
-
-Magic
-
-Skill_AstralSenses
-
-Skill_Channeling
-
-Skill_Conjuring
-
-Skill_Sorcery
-
-Guidance doc note: your spell items should default skillKey to Skill_Sorcery (not "Sorcery"), since the sheet uses the Skill_* keys.
-
----
-
-Font Awesome icon keys in CSB templates must be lowercase.
-CSB does not normalize or validate icon strings.
-
-Valid
-
-"icon": "dice"
-
-
-Invalid (breaks CSB silently)
-
-"icon": "Dice"
-
-
-Other safe examples:
-
-"dice"
-
-"dice-d6"
-
-"bolt"
-
-"book"
-
-"magic" (if available in your FA version)
-
----
-
-_End of review notes._
+# SinlessCSB – Review Notes (API-first)
+
+## Snapshot context
+- Runtime: **Foundry VTT v13** + **Custom System Builder (CSB) v5**
+- Project direction: migrate from “large world macros” to a **module API** surface (`game.modules.get("sinlesscsb").api.*`)
+- Still true: “snapshot-based review” is the safest workflow for ChatGPT—paste code, console errors, and JSON fragments into repo docs, not Foundry journals.
+
+## Core architectural decisions (current)
+### 1) CSB templates call module API (not world macros)
+- CSB item templates should call `game.modules.get("sinlesscsb")?.api?...` directly from rollMessage formulas.
+- World macros are still acceptable as **thin wrappers**, but the **logic belongs in `/scripts/api/*`**.
+
+### 2) Canonical Actor resolution is mandatory
+Foundry token-synthetic actors and sheet actors can drift. The module standard is:
+1. Prefer **explicit** `actorUuid` from the caller (CSB rollMessage, macro wrapper, etc.).
+2. Otherwise, if `item.parent` is an Actor, use that.
+3. Otherwise, fall back to controlled token actor, then `game.user.character`.
+
+Then, before writing updates, resolve **canonical** actor via:
+- `actor.system.props.ActorUuid` (preferred, sheet-injected) → `fromUuid(ActorUuid)`
+- Else: token-synthetic → base actor
+- Else: the actor itself
+
+Updates should be **mirrored** to:
+- the resolved actor (sheetActor),
+- canonical actor (if different),
+- any controlled token-synthetic actors that represent the same canonical actor (optional but recommended).
+
+### 3) DialogV2 is required; DialogV1 is fallback-only
+Foundry v13 deprecates ApplicationV1/DialogV1. Some runtimes expose `DialogV2` but **do not expose** `DialogV2.wait()`.
+- Standardize on a helper: `openDialogV2(...)` in `_util.js`.
+- All interactive workflows (Item Roll, Cast Spell, Pools, Initiative prompts) should use this helper.
+
+### 4) “Remaining track” model is the live convention
+For Sinless CSB:
+- `*_Cur` pools are “remaining” (spend decreases).
+- `stunCur` / `physicalCur` are also treated as **remaining** (drain decreases; overflow handled explicitly).
+
+## Code organization (current)
+- `scripts/api/_util.js`  
+  Shared helpers: numeric parsing, actor/item resolution, dialog helpers, dice rolling.
+- `scripts/api/item-roll.js`  
+  API: `rollItem({ itemUuid })` or `{ actorUuid, itemId }`
+- `scripts/api/cast-spell.js`  
+  API: `castSpell({ itemUuid, actorUuid? })`
+- `hooks/*`  
+  Sheet/combat/actor-init hooks (automation, pool refresh, sheet binding)
+
+## Known risks / watch items
+1. **Duplicate exports** in `_util.js`  
+   Ensure there is exactly **one** exported `openDialogV2` helper. Copy/paste merges can accidentally create duplicates.
+2. **Imports must be top-level**  
+   The JS error “An import declaration can only be used at the top level of a module” means an `import ...` was pasted inside a function/IIFE. Use `await import(...)` for runtime-only imports.
+3. **Dialog event binding leaks**  
+   When using `onRender`, protect against double-binding via `root.dataset.* = "1"` and/or remove listeners on close.
+
+## Open items (near-term)
+- Refactor **Pools** dialog into `scripts/api/pools-roll.js` using the same `openDialogV2` helper (complex click handlers + live refresh).
+- Refactor **Initiative** (PC + NPC) into API:
+  - Keep rollMessage / sheet button calls thin; push logic to API.
+  - Reuse the canonical actor + mirroring pattern.

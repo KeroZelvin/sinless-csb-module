@@ -1,549 +1,121 @@
-Below is a refined **CURRENT_STATE.md** incorporating what we learned/implemented in this thread, while preserving your existing architecture and decisions.
+# SinlessCSB – Current State (API-first)
 
----
+## Runtime and constraints
+- Foundry: **v13**
+- System: **CSB v5**
+- Live values: **`actor.system.props`** (CSB props root may be configurable; default `system.props`)
 
-# SinlessCSB / Foundry v13 – Roll Initiative, Actor Binding, and Pool Refresh
+## Module direction
+We are consolidating all “game logic” into a module API surface:
+- `game.modules.get("sinlesscsb").api.castSpell(scope)`
+- `game.modules.get("sinlesscsb").api.rollItem(scope)`
+- (pending) `game.modules.get("sinlesscsb").api.rollPools(scope)`
+- (pending) `game.modules.get("sinlesscsb").api.rollInitiative(scope)` (PC + NPC)
 
-## Current Working State Summary
+World macros and CSB template scripts should become **thin callers** into the API.
 
-### Environment
+## Implemented API functions
+### Item Roll
+- File: `scripts/api/item-roll.js`
+- Entry:
+  - `rollItem({ itemUuid })`
+  - `rollItem({ actorUuid, itemId })` (back-compat for older callers)
+- Features implemented:
+  - Session Settings integration:
+    - `TN_Global` from Actor named **“Session Settings”**
+    - `SkillMeta_JSON` mapping for `{ Skill_X: { pool, groupId, isAsterisked } }`
+  - Group defaulting (−2) and “untrained pool” fallback (every 4 successes = 1)
+  - Spend cap = `min(poolCur, limit)` for trained/defaulted modes
+  - Dialog: DialogV2 via `openDialogV2` helper, with stepper buttons
+  - Pool depletion: writes `Pool_Cur` back and mirrors across canonical/token-synthetic actors
 
-* **Foundry VTT:** v13
-* **Custom System Builder (CSB):** v5
-* **Actor Sheets:** CSB v2 templates (`actor-character-sheet.hbs`)
-* **Module:** `sinlesscsb` (local dev, injected via module JS)
+### Cast Spell
+- File: `scripts/api/cast-spell.js`
+- Entry:
+  - `castSpell({ itemUuid, actorUuid? })`
+- Features implemented:
+  - Force selection + cast spend + drain resist spend
+  - Live derived UI (“remaining resolve after cast”, “drain max”) via dialog render handlers
+  - Drain formula evaluation (via `evaluateDrainFormula`)
+  - Track updates: `Resolve_Cur`, `stunCur`, `physicalCur` (remaining-track model)
+  - Mirroring updates across canonical actor + token-synthetics
 
----
+## Shared utilities
+- File: `scripts/api/_util.js`
+- Key exported helpers:
+  - `resolveActorForContext({ scope, item })`
+  - `resolveCanonicalActor(actor)`
+  - `resolveItemDoc({ itemUuid, actorUuid, itemId })`
+  - `openDialogV2({ title, content, buttons, onRender, rejectClose })`
+  - `getDialogFormFromCallbackArgs(...)`
+  - `rollXd6Successes({ dice, tn })`
+  - CSB helpers: `readProps`, `propPath`, `poolCurKey`, `propsRoot`
 
-## Roll Initiative Button & Actor Binding
+## Canonical actor resolution (critical)
+Use this exact priority for any API call that mutates actor state:
 
-### Goal (Achieved)
+### A) Resolve “sheetActor” (the actor we will definitely update)
+1. `scope.actorUuid` (explicit) → `fromUuid(actorUuid)`
+2. `item.parent` if embedded in an Actor
+3. `canvas.tokens.controlled[0].actor`
+4. `game.user.character`
 
-Add a “Roll Initiative” button to CSB actor sheets that:
+### B) Resolve “canonActor” (the stable backing actor doc)
+1. `sheetActor.system.props.ActorUuid` (string UUID) → `fromUuid(...)`
+2. If `sheetActor.isToken` and `sheetActor.parent?.baseActor`, use `baseActor`
+3. Else use `sheetActor`
 
-* Always rolls for the **actor whose sheet is open**
-* Works with **multiple actors per user** (PCs, NPCs, drones, pets)
-* Does **not** rely on:
+### C) Update/mirror strategy
+Always:
+1. `await sheetActor.update(updateData)`
+2. If `canonActor.uuid !== sheetActor.uuid`, also update `canonActor`
+3. If any controlled token actor resolves to the same canonical actor but is a different document, also update that token actor
 
-  * selected tokens
-  * `game.user.character`
-  * CSB compute context (`linkedEntity`, `props`, etc.)
-* Calls the existing world macro: **Sinless Roll Initiative**
-* Correctly updates combat + chat speaker
+This is required to prevent the “token-synthetic drift” issues we have repeatedly observed.
 
-### Key Discoveries
-
-#### 1. CSB Buttons Cannot Bind Actors Reliably
-
-CSB v5 button / computable scripts:
-
-* `linkedEntity` is undefined
-* `props` unavailable
-* No access to actor/document
-* Hidden/data-only fields are not supported
-
-**Conclusion:** actor binding must be done outside CSB, at the **module layer**.
-
-#### 2. Correct Hooks for CSB v2 Actor Sheets (Foundry v13)
-
-CSB v2 actor sheets do not reliably fire legacy `renderApplication`.
-
-Confirmed working hooks:
-
-* `renderCharacterSheetV2`
-* `renderCustomActorSheetV2` ✅ (primary)
-* `renderActorSheetV2`
-* `renderApplicationV2`
-
-Debug:
-
-* `CONFIG.debug.hooks = true;`
-
-#### 3. Stable Actor Resolution in Hooks
-
-Correct pattern inside render hooks:
-
+## How CSB templates should call the API
+**Item buttons / rollMessage formula pattern (recommended):**
 ```js
-const actor =
-  context?.document?.documentName === "Actor"
-    ? context.document
-    : app?.document;
+%{
+  const itemUuid = String(linkedEntity?.uuid ?? entity?.uuid ?? "");
+  const actorUuid = String(
+    linkedEntity?.parent?.uuid ??
+    rollActor?.uuid ??
+    actor?.uuid ??
+    ""
+  );
+
+  game.modules.get("sinlesscsb")?.api?.rollItem?.({ itemUuid, actorUuid });
+  return "";
+}%
 ```
 
-This binds reliably to the **open sheet’s actor**, independent of token state.
-
-#### 4. Correct Root Element for Injection
-
-* In ApplicationV2, `app.element` is the stable DOM root.
-* Hook `element` can be replaced during CSB re-renders.
-
-Resolve root:
-
-```js
-const root =
-  app?.element instanceof HTMLElement ? app.element : element;
-```
-
----
-
-## Anchor-Based Placement (Best Practice)
-
-### Problem
-
-Direct DOM injection into `.window-content` is fragile due to CSB re-renders.
-
-### Solution (Working)
-
-Use CSB as layout only, module as logic.
-
-In CSB, add a **Text Field component**:
-
-* **Component Key:** `sinlesscsb_anchor_init`
-* Label empty, value unused
-* Place it where the button should appear
-
-In module:
-
-* Locate anchor via DOM search
-* Inject button into wrapper
-* Hide the text input if necessary
-
-Robust anchor detection includes:
-
-* wrapper `data-key`
-* wrapper `data-component-key`
-* `<input name|id|data-*>` containing the key
-
-Injection delayed via `queueMicrotask()` to survive CSB multi-pass rendering.
-
-### Button Injection Behavior
-
-* On each render, avoid duplicates and stale closures:
-
-  * remove existing button **or**
-  * check presence and reinject safely
-* Ensures click handler binds to current actor
-
----
-
-## Initiative Macro: Critical Fixes (v1.4)
-
-### Root Cause of “Wrong Actor” Rolls
-
-Macro previously preferred:
-
-* `game.user.character`
-* selected token actor
-  before `{ actorUuid }`
-
-### Fix Implemented
-
-Priority order:
-
-1. `actorUuid` (passed from sheet button) ✅
-2. selected token actor
-3. `game.user.character`
-
-Macro: **Sinless Roll Initiative v1.4**
-
-* Always uses correct actor
-* Updates combatant correctly
-* Uses CSB props for REA/Focus
-* Posts chat with explicit actor speaker
-
----
-
-## Chat Showing “Character (8)” – Root Cause & Fix
-
-Cause:
-
-* Chat header uses **token name**, not actor name
-* Duplicated tokens can retain old auto-generated names
-
-Permanent fix:
-
-* Actor → **Prototype Token**
-
-  * Name = Actor name
-  * enable “Use Actor Name” / “Link Actor Data” (PCs)
-
-Result:
-
-* New tokens inherit correct name
-* Chat header displays correctly (no macro hacks)
-* Manual token rename only affects that one token
-
----
-
-## NEW: Canonical Actor UUID Strategy (ActorUuid)
-
-### Problem Observed
-
-Token-synthetic actor UUIDs (`Scene...Token...Actor...`) cause drift:
-
-* combat updates may refresh base actor
-* macros/dialogs may bind to token actor
-* UI can appear “stale” even though data updated
-
-### Solution (Implemented)
-
-Store the canonical base actor UUID into **CSB props**:
-
-* **Field:** `system.props.ActorUuid`
-* **Value:** `Actor.<id>` (base actor uuid)
-
-#### How ActorUuid is populated (Module)
-
-In `sheets.js`, on sheet render (via `renderCustomActorSheetV2` etc.):
-
-* ensure `system.props.ActorUuid` is set to base actor UUID
-* must be done at module layer (CSB compute layer cannot do it)
-* important detail: create the `system.props` object if missing using an object update (CSB timing)
-
-This removed the need for a manual macro like:
-
-```js
-await actor.update({ "system.props.ActorUuid": actor.uuid });
-```
-
-(which could write token synthetic UUIDs and/or fail due to timing).
-
----
-
-## Current Known-Good Architecture
-
-### CSB
-
-* Layout only
-* Provides anchor points via component keys (`sinlesscsb_anchor_init`)
-* Stores `ActorUuid` as a visible CSB prop field (component key: `ActorUuid`) for downstream resolution
-
-### Module (`sinlesscsb`)
-
-* All logic
-* Actor binding
-* DOM injection
-* ActorUuid “ensure” on sheet open
-* Pool refresh automation
-
-### World Macros
-
-* Initiative math, combat management, chat output
-* Pool roll dialog
-* All macros should prefer canonical actor resolution (ActorUuid first)
-
-This separation is stable, scalable, and Foundry-v13-correct.
-
----
-
-# SinlessCSB – Pool Refresh per Combat Round (Testing & Fixing Summary)
-
-## Design Intent (Rules-Level)
-
-* Pools are **PC-only** in Sinless.
-* NPCs do not use pools and must be ignored.
-* At the start of each combat round, all PCs should:
-
-  * Recalculate max pools from attributes
-  * Reset current pools to max
-* Pool Max values only change when attributes change; recalculating at round start is acceptable.
-
-## Pools Involved
-
-* Brawn
-* Finesse
-* Resolve
-* Focus
-
-Each pool has:
-
-* `*_Max`
-* `*_Cur`
-
-Stored in:
-
-* `actor.system.props`
-
----
-
-## Implementation (Module Code)
-
-### File
-
-`scripts/rules/pools.js`
-
-### PC filtering
-
-```js
-return !!actor?.hasPlayerOwner;
-```
-
-### Refresh for one actor
-
-* recompute pools
-* set `*_Cur = computed`
-* set `*_Max` only if changed (or missing)
-
-### NEW: refreshPoolsForCombat canonicalization (ActorUuid first)
-
-**Fix implemented:** `refreshPoolsForCombat()` now resolves canonical base actors before refreshing:
-
-* Prefer `system.props.ActorUuid` (via `fromUuid`)
-* Else token actor → base actor
-* Else actor itself
-
-Purpose:
-
-* combatants often reference token-synthetic actors
-* updates must land on the canonical base actor consistently
-
----
-
-## Combat Hook (Module)
-
-### File
-
-`scripts/hooks/combat.js`
-
-Expected behavior:
-
-* On combat start and each new round:
-
-  * call `refreshPoolsForCombat(combat)`
-
-Foundry v13 hooks to use/verify:
-
-* `updateCombat` (when `changed.round` increments)
-
-Constraints:
-
-* Combat does not “start” until a combatant is set as current turn
-* Round advancement is driven by:
-
-  * clicking initiative die on first combatant
-  * clicking Next Turn
-
----
-
-## Testing Flow (Manual QA Checklist)
-
-### Setup
-
-* Create PC actor (must have `hasPlayerOwner = true`)
-* Open PC sheet once to ensure `system.props.ActorUuid` is populated
-* Place PC token on scene
-* Ensure pools have `_Max` populated
-* Reduce `_Cur` (simulate spending)
-* Add NPC to same combat (NPC must NOT refresh pools)
-
-### Test 1 – Combat Start
-
-* Add PC and NPC to combat tracker
-* Roll initiative
-* Click initiative die on first combatant (starts combat)
-
-Expected:
-
-* PC pools refresh to max
-* NPC unaffected
-* no console errors
-
-### Test 2 – New Round
-
-* Spend pools (reduce `_Cur`)
-* Next Turn until round increments
-
-Expected:
-
-* on round change: all PC pools reset (`*_Cur = *_Max`)
-* NPC ignored
-* refresh occurs once per round
-
-### Test 3 – Multi-PC Combat
-
-* Add multiple PCs
-* Reduce pools on all
-* Advance round
-
-Expected:
-
-* each PC refreshed once
-* no partial updates/races
-
----
-
-## NEW: Pool Roller Macro (DialogV2) – Canonicalization + Live Refresh
-
-### Problem Found
-
-Pools were refreshing (verified on base actor), but the **Pools dialog UI** did not update unless closed/reopened due to:
-
-* dialog binding to token synthetic actor or stale values
-* dialog not listening for actor updates
-
-### Fixes Implemented in Sinless Pool Roll macro
-
-1. **Canonical Actor Resolution** inside macro:
-
-   * resolve to base actor using `system.props.ActorUuid` (fromUuid) first
-   * fallback token baseActor
-2. **Live UI refresh**:
-
-   * dialog registers a `Hooks.on("updateActor", ...)` listener scoped to the actor id
-   * when `changed.system.props` updates, it refreshes the displayed Cur/Max in-place
-   * hook is removed on dialog close to avoid leaks
-
-Result:
-
-* During combat, when round refresh updates pools, the Pools dialog updates immediately without reopening.
-
----
-
-## Operational Note: GM vs Player View Confusion
-
-Symptom observed:
-
-* after reload, “all actors/items/templates are gone”
-
-Root cause:
-
-* logged in as **player** rather than **GM**, so content was hidden by permissions
-
-Fix:
-
-* log in as GM account
-
----
-
-## Open Questions / Remaining Verification
-
-* confirm combat hook refresh triggers exactly once on round 1 start (not skipped)
-* confirm double-firing protection in `combat.js` is correct and does not suppress valid round-1 refresh
-* confirm player clients receive pool refresh updates consistently (they should via actor updates)
-
----
-Combat Pool Refresh (Status: Working)
-
-Pool refresh on combat start is confirmed working.
-
-refreshPoolsForCombat():
-
-Fires exactly once at Round 1 start
-
-Fires again on subsequent rounds as expected
-
-Uses ActorUuid canonicalization to avoid token-synthetic drift
-
-Double-fire protection is working correctly and does not suppress valid Round 1 refresh.
-
-Player clients receive updated pool values correctly via Actor.update() propagation.
-
-Actor Canonicalization (Critical Architecture)
-
-Canonical Actor identity is now defined as:
-
-actor.system.props.ActorUuid (highest priority)
-
-token.parent.baseActor (token-synthetic fallback)
-
-actor itself (last resort)
-
-ActorUuid is:
-
-Injected automatically when an actor sheet opens (ensureActorUuidOnOpen)
-
-Stored in system.props.ActorUuid
-
-Used consistently across:
-
-Combat pool refresh
-
-Initiative rolling
-
-Pool rolling dialogs
-
-This fully resolves multi-token, multi-scene, and player/GM desync issues.
-
-Initiative System (v1.5, Status: Working)
-
-Initiative can now be rolled:
-
-From the sheet
-
-Without a token selected
-
-Without the actor already in combat
-
-Combatants are actor-only (no tokenId required).
-
-Initiative macro behavior:
-
-Canonical actor resolved via ActorUuid
-
-Actor added to combat automatically if missing
-
-Initiative correctly set and visible in tracker
-
-Chat speaker:
-
-Uses token if present
-
-Falls back to actor safely
-
-Sheet → Macro Argument Passing (Foundry v13 Reality)
-
-Foundry v13 does not reliably pass arguments to Macro.execute({ ... })
-
-Implemented one-shot global handoff:
-
-Sheet sets game.sinlesscsb._initActorUuid
-
-Macro reads it if args are missing
-
-Sheet cleans it up immediately after execution
-
-This pattern is now stable and verified.
-
-Pool Roll Dialog (DialogV2, Status: Working)
-
-Uses DialogV2 (ApplicationV2-safe)
-
-Live updates correctly when:
-
-Combat round refresh runs
-
-Pools are refreshed manually
-
-Pools are spent
-
-Dialog listens to updateActor and refreshes only when:
-
-Actor IDs match
-
-system.props changes
-
-Foundry v13 Compatibility Notes (Important)
-
-Roll.evaluate({ async: true }) is deprecated and errors
-
-Correct v13 usage:
-
-const roll = new Roll("Xd6");
-await roll.evaluate();
-
-
-Added guard for 0d6 rolls to prevent invalid evaluations.
-
-## Non-Goals (Already Decided)
-
-* ❌ do not refresh NPC pools
-* ❌ do not rely on CSB compute formulas
-* ❌ do not require manual macro clicks
-* ✅ pool refresh is fully automatic
-* ✅ module-level hooks are the correct layer
-
----
-
-## Recommended Starting Instruction for New Threads
-
-“We have a working Foundry v13 + CSB v5 setup where actor sheet buttons are injected via module hooks (`renderCustomActorSheetV2`), actors are bound via `context.document/app.document`, placement uses CSB anchor components (`sinlesscsb_anchor_init`), canonical actor identity is stored as `system.props.ActorUuid` and must be used to resolve base actors (avoid token-synthetic drift), initiative is handled by Sinless Roll Initiative v1.4 (actorUuid-first), and pool refresh runs automatically each round via combat hooks calling `refreshPoolsForCombat()` which canonicalizes actors by ActorUuid. The Sinless Pool Roll DialogV2 macro also canonicalizes actor resolution and live-refreshes UI via `updateActor` hooks. Please continue from this architecture.”
+## DialogV2 standard (critical)
+- Do not call `DialogV2.wait()` directly.
+- Always call `_util.openDialogV2(...)`.
+- In `onRender`, bind handlers once per root using `root.dataset.<flag> = "1"`.
+
+## Next major refactors
+1. **Pools roller → API**
+   - Create `scripts/api/pools-roll.js`
+   - Reuse `openDialogV2` for complex delegated click handlers and live refresh
+   - Preserve the existing Pools dialog UI (table layout + refresh + roll/clear buttons)
+
+2. **Initiative (PC + NPC) → API**
+   - Move initiative logic into API functions.
+   - Preserve current caller behaviors (sheet buttons and/or rollMessage).
+   - Must use the canonical actor resolution + mirroring strategy above.
+
+## Test checklist (fast)
+- Call item-roll from:
+  - actor sheet item row
+  - a clicked token belonging to player
+- Verify:
+  - pool cur decreases correctly on the correct actor document
+  - chat card displays correct actor name (not “Character (8)” style drift)
+- Call cast-spell from:
+  - actor sheet
+  - token action
+- Verify:
+  - Resolve spend and drain spend clamp correctly
+  - stun/physical remaining values update correctly

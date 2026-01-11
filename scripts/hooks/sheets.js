@@ -43,10 +43,10 @@ function normalizeUuid(u) {
 }
 
 /**
- * Ensure system.props.ActorUuid is set to the canonical base Actor UUID (Actor.<id>).
+ * Ensure system.props.ActorUuid AND system.props.actorUuid are set to the canonical base Actor UUID.
  * Safe against CSB multi-pass renders:
  * - no update if already correct
- * - defers actual update to microtask (caller does the microtask)
+ * - uses dot-path updates (won't clobber system.props)
  */
 async function ensureActorUuidOnOpen(actor) {
   if (!actor) return;
@@ -59,21 +59,22 @@ async function ensureActorUuidOnOpen(actor) {
   const canonical = normalizeUuid(baseActor.uuid);
   if (!canonical) return;
 
-  const current = normalizeUuid(baseActor.system?.props?.ActorUuid);
-  if (current === canonical) return;
+  const props = baseActor.system?.props ?? {};
+  const currentA = normalizeUuid(props.ActorUuid);
+  const currenta = normalizeUuid(props.actorUuid);
 
-  await baseActor.update({
-    system: {
-      props: {
-        ...(baseActor.system?.props ?? {}),
-        ActorUuid: canonical
-      }
-    }
-  });
+  if (currentA === canonical && currenta === canonical) return;
 
-  console.log("SinlessCSB | ActorUuid ensured", {
+  const update = {};
+  if (currentA !== canonical) update["system.props.ActorUuid"] = canonical;
+  if (currenta !== canonical) update["system.props.actorUuid"] = canonical;
+
+  await baseActor.update(update);
+
+  console.log("SinlessCSB | ActorUuid ensured (dual keys)", {
     name: baseActor.name,
-    ActorUuid: canonical
+    canonical,
+    wrote: Object.keys(update)
   });
 }
 
