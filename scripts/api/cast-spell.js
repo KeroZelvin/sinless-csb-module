@@ -106,30 +106,62 @@ async function rollPoolD6({ dice, tn = 4, flavor = "" } = {}) {
   return { roll, successes, dice: d, tn, flavor };
 }
 
-/** Render minimal chat output */
+/** Render chat output */
 async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   const title = `${item.name} — Cast`;
-  const lines = [];
 
-  lines.push(`<p><strong>Force:</strong> ${forceChosen}</p>`);
-  lines.push(
-    `<p><strong>Casting:</strong> ${cast.dice}d6 vs TN ${cast.tn} → <strong>${cast.successes}</strong> successes</p>`
+  const rows = [];
+  const addRow = (k, v) => rows.push(`
+    <div class="sl-row">
+      <div class="sl-key">${k}</div>
+      <div class="sl-val">${v}</div>
+    </div>
+  `);
+
+  addRow("Force", `<span class="sl-strong">${forceChosen}</span>`);
+  addRow(
+    "Casting",
+    `${cast.dice}d6 vs TN ${cast.tn} → <span class="sl-strong">${cast.successes}</span> successes`
   );
-  lines.push(
-    `<p><strong>Drain formula:</strong> ${drain.formulaText} (normalized: <code>${drain.normalized}</code>)</p>`
+
+  addRow(
+    "Drain (raw)",
+    `${drain.drain} ${drain.isLethal ? `<span class="sl-strong">(LETHAL)</span>` : ""}`
   );
-  lines.push(`<p><strong>Drain (raw):</strong> ${drain.drain} ${drain.isLethal ? "(LETHAL: no resist)" : ""}</p>`);
 
   if (!drain.isLethal) {
-    lines.push(
-      `<p><strong>Drain resist:</strong> ${drain.resistDice}d6 vs TN ${drain.tn} → <strong>${drain.resistSuccesses}</strong> successes</p>`
+    addRow(
+      "Drain resist",
+      `${drain.resistDice}d6 vs TN ${drain.tn} → <span class="sl-strong">${drain.resistSuccesses}</span> successes`
     );
-    lines.push(`<p><strong>Drain applied:</strong> ${drain.applied} (stun overflow → physical)</p>`);
+    addRow(
+      "Drain applied",
+      `<span class="sl-strong">${drain.applied}</span> (stun overflow → physical)`
+    );
   } else {
-    lines.push(`<p><strong>Drain applied to Physical:</strong> ${drain.applied}</p>`);
+    addRow("Drain applied to Physical", `<span class="sl-strong">${drain.applied}</span>`);
   }
 
-  const content = `<div class="sinlesscsb spell-card"><h3>${title}</h3>${lines.join("\n")}</div>`;
+  const details = `
+    <details>
+      <summary>Drain formula</summary>
+      <div style="margin-top:6px;">
+        <div><strong>Text:</strong> ${drain.formulaText}</div>
+        <div style="margin-top:4px;"><strong>Normalized:</strong> <code>${drain.normalized}</code></div>
+      </div>
+    </details>
+  `;
+
+  const content = `
+    <div class="sinlesscsb spell-card">
+      <div class="sl-card-title">
+        <h3>${title}</h3>
+        <div class="sl-badge">${actor?.name ?? "—"}</div>
+      </div>
+      ${rows.join("")}
+      ${details}
+    </div>
+  `;
 
   return ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
@@ -137,20 +169,24 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   });
 }
 
+
 /* =========================
  * Dialog
  * ========================= */
 
 /**
- * DialogV2 helper (Foundry v12+/v13+). Falls back to legacy Dialog if DialogV2 is unavailable.
- * NOTE: DialogV2 wraps content in a <form> automatically. Do NOT nest your own <form>.
+ * DialogV2 helper (Foundry v13+).
+ * Adds:
+ *  A) live "remaining Resolve after cast" + live drain max
+ *  B) +/- controls for spend fields
+ *  C) drain defaults to max allowed, and refreshes when cast spend changes
  */
 async function promptCastSpellDialog({
   itemName,
   poolKey,
   poolCur,
   spellforceMax,
-  spellforceDefault,
+  spellforceDefault, // unused (we default Cast Force to spellforceMax per your request)
   castLimit,
   skillKey,
   skillRank,
@@ -161,47 +197,177 @@ async function promptCastSpellDialog({
   bonusDice,
   diceMod
 }) {
-  const maxCastSpend = Math.min(poolCur, castLimit);
-  const maxDrainSpend = Math.min(poolCur, resistLimit);
+  const DialogV2 = foundry?.applications?.api?.DialogV2;
 
-  // IMPORTANT: Do NOT wrap in <form>. DialogV2 supplies the top-level form.
+  const maxCastSpend = Math.min(poolCur, castLimit);
+
+  // Default: Cast Force = spellforceMax
+  const defaultForce = clamp(Math.floor(num(spellforceMax, 1)), 1, spellforceMax);
+
+  // Default: Cast spend = maxCastSpend
+  const initialCast = clamp(Math.floor(num(maxCastSpend, 0)), 0, maxCastSpend);
+
+  // Default: Drain spend = max allowed AFTER cast (bounded by resistLimit)
+  const initialRemaining = Math.max(0, poolCur - initialCast);
+  const initialDrainMax = Math.min(resistLimit, initialRemaining);
+  const initialDrain = clamp(Math.floor(num(initialDrainMax, 0)), 0, initialDrainMax);
+
   const content = `
     <div class="sinlesscsb spell-dialog">
-      <div class="form-group">
-        <label>Force (1–${spellforceMax})</label>
-        <input type="number" name="forceChosen" min="1" max="${spellforceMax}"
-               value="${clamp(Math.floor(num(spellforceDefault, 1)), 1, spellforceMax)}" step="1"/>
-      </div>
+      <style>
+        .sinlesscsb-spell-table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .sinlesscsb-spell-table th,
+        .sinlesscsb-spell-table td {
+          padding: 8px 10px;
+          vertical-align: top;
+        }
+        .sinlesscsb-spell-table thead th {
+          text-align: left;
+          padding: 0 0 6px 0;
+        }
+
+        /* Alternating row color for readability (like pools dialog) */
+        .sinlesscsb-spell-table tbody tr:nth-child(even) td {
+          background: rgba(255, 255, 255, 0.04);
+        }
+        .sinlesscsb-spell-table tbody tr:nth-child(odd) td {
+          background: rgba(255, 255, 255, 0.00);
+        }
+
+        .sinlesscsb-spell-label {
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+        .sinlesscsb-spell-value {
+          font-size: 1.05rem;
+        }
+        .sinlesscsb-spell-row {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          flex-wrap: nowrap;
+        }
+        .sinlesscsb-step {
+          width: 2rem;
+          height: 2rem;
+          line-height: 2rem;
+          text-align: center;
+        }
+        .sinlesscsb-spell-input {
+          width: 6rem;
+        }
+        .sinlesscsb-muted {
+          opacity: 0.85;
+          margin-top: 4px;
+        }
+        .sinlesscsb-details {
+          margin-top: 4px;
+          opacity: 0.9;
+        }
+        .sinlesscsb-details summary {
+          cursor: pointer;
+          opacity: 0.85;
+        }
+      </style>
+
+      <table class="sinlesscsb-spell-table">
+        <tbody>
+
+          <!-- Row 1 -->
+          <tr>
+            <td>
+              <div class="sinlesscsb-spell-label">Learned Force MAX:</div>
+              <div class="sinlesscsb-spell-value">${spellforceMax}</div>
+            </td>
+            <td>
+              <div class="sinlesscsb-spell-label">Cast Force:</div>
+              <div class="sinlesscsb-spell-row">
+                <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="-1">-</button>
+                <input class="sinlesscsb-spell-input" type="number" name="forceChosen"
+                       min="1" max="${spellforceMax}" value="${defaultForce}" step="1"/>
+                <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="1">+</button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr>
+            <td>
+              <div class="sinlesscsb-spell-label">Casting Limit:</div>
+              <div class="sinlesscsb-spell-value">${castLimit}</div>
+              <details class="sinlesscsb-details">
+                <summary>Show formula</summary>
+                <div class="sinlesscsb-muted">${skillKey} (${skillRank}) + Spell Foci (${fociRank})</div>
+              </details>
+            </td>
+            <td>
+              <div class="sinlesscsb-spell-label">Drain Resist Limit:</div>
+              <div class="sinlesscsb-spell-value">${resistLimit}</div>
+              <details class="sinlesscsb-details">
+                <summary>Show formula</summary>
+                <div class="sinlesscsb-muted">Skill_Channeling (${channelingRank}) + Fetish (${fetishRank})</div>
+              </details>
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td>
+              <div class="sinlesscsb-spell-label">Resolve Pool:</div>
+              <div class="sinlesscsb-spell-value">
+                <span data-sinless="poolCur">${poolCur}</span>
+              </div>
+            </td>
+            <td>
+              <div class="sinlesscsb-spell-label">Cast Spend:</div>
+              <div class="sinlesscsb-spell-row">
+                <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="-1">-</button>
+                <input class="sinlesscsb-spell-input" type="number" name="spendCast"
+                       min="0" max="${maxCastSpend}" value="${initialCast}" step="1"/>
+                <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="1">+</button>
+              </div>
+              <div class="sinlesscsb-muted">
+                Max: <span data-sinless="castMax">${maxCastSpend}</span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr>
+            <td>
+              <div class="sinlesscsb-spell-label">Post-Cast Resolve Pool:</div>
+              <div class="sinlesscsb-spell-value">
+                <span data-sinless="remainAfterCast">${initialRemaining}</span>
+              </div>
+            </td>
+            <td>
+              <div class="sinlesscsb-spell-label">Drain Resist Spend:</div>
+              <div class="sinlesscsb-spell-row">
+                <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="-1">-</button>
+                <input class="sinlesscsb-spell-input" type="number" name="spendDrain"
+                       min="0" max="${initialDrainMax}" value="${initialDrain}" step="1"/>
+                <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="1">+</button>
+              </div>
+              <div class="sinlesscsb-muted">
+                Max: <span data-sinless="drainMax">${initialDrainMax}</span>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
 
       <hr/>
 
-      <div class="form-group">
-        <label>${poolKey} available now: ${poolCur}</label>
-        <p style="margin:0.25rem 0 0.5rem 0; opacity:0.8;">
-          Casting limit: ${castLimit} (${skillKey} ${skillRank} + Foci ${fociRank})
-        </p>
-        <label>Spend on casting roll (0–${maxCastSpend})</label>
-        <input type="number" name="spendCast" min="0" max="${maxCastSpend}"
-               value="${maxCastSpend}" step="1"/>
-      </div>
-
-      <div class="form-group">
-        <p style="margin:0.25rem 0 0.5rem 0; opacity:0.8;">
-          Drain resist limit (if allowed): ${resistLimit} (Channeling ${channelingRank} + Fetish ${fetishRank})
-        </p>
-        <label>Reserve Resolve for drain resist (0–${maxDrainSpend})</label>
-        <input type="number" name="spendDrain" min="0" max="${maxDrainSpend}" value="0" step="1"/>
-      </div>
-
-      <hr/>
       <div class="form-group">
         <label>Static dice modifiers</label>
-        <div style="opacity:0.85;">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
+        <div class="sinlesscsb-muted">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
       </div>
     </div>
   `;
-
-  const DialogV2 = foundry?.applications?.api?.DialogV2;
 
   if (DialogV2?.wait) {
     console.log("SinlessCSB | promptCastSpellDialog opening (DialogV2)");
@@ -209,27 +375,114 @@ async function promptCastSpellDialog({
     const result = await DialogV2.wait({
       window: { title: `Cast Spell: ${itemName}` },
       content,
+
+      render: (event, dialog) => {
+        const root =
+          (dialog?.element instanceof HTMLElement ? dialog.element : dialog?.element?.[0]) ?? null;
+        if (!root) return;
+
+        if (root.dataset?.sinlessBound === "1") return;
+        root.dataset.sinlessBound = "1";
+
+        const form = root.querySelector("form") ?? root;
+
+        const elForce = form.querySelector('input[name="forceChosen"]');
+        const elCast = form.querySelector('input[name="spendCast"]');
+        const elDrain = form.querySelector('input[name="spendDrain"]');
+
+        const elRemain = form.querySelector('[data-sinless="remainAfterCast"]');
+        const elDrainMax = form.querySelector('[data-sinless="drainMax"]');
+
+        let drainDirty = false;
+
+        const clampToInput = (input, v) => {
+          if (!input) return 0;
+          const min = Number(input.min ?? 0);
+          const max = Number(input.max ?? 0);
+          const vv = Math.max(min, Math.min(max, Number.isFinite(v) ? v : min));
+          input.value = String(Math.floor(vv));
+          return Math.floor(vv);
+        };
+
+        const updateDerived = () => {
+          if (!elCast || !elDrain) return;
+
+          // Force clamp (typing can exceed max unless we clamp)
+          if (elForce) clampToInput(elForce, Number(elForce.value));
+
+          // Cast spend clamp
+          const castVal = clampToInput(elCast, Number(elCast.value));
+
+          // Remaining resolve after cast
+          const remaining = Math.max(0, poolCur - castVal);
+          if (elRemain) elRemain.textContent = String(remaining);
+
+          // Drain max = min(resistLimit, remaining)
+          const drainMax = Math.min(resistLimit, remaining);
+          elDrain.max = String(drainMax);
+          if (elDrainMax) elDrainMax.textContent = String(drainMax);
+
+          // Default drain to max allowed unless user has edited it
+          const currentDrain = Number(elDrain.value);
+          if (!drainDirty) {
+            elDrain.value = String(Math.floor(drainMax));
+          } else if (currentDrain > drainMax) {
+            elDrain.value = String(Math.floor(drainMax));
+          }
+        };
+
+        elDrain?.addEventListener("input", () => {
+          drainDirty = true;
+          updateDerived();
+        });
+
+        elCast?.addEventListener("input", () => updateDerived());
+        elForce?.addEventListener("input", () => updateDerived());
+
+        for (const btn of form.querySelectorAll("button.sinlesscsb-step")) {
+          btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-target");
+            const delta = Number(btn.getAttribute("data-delta") ?? "0");
+            const input = form.querySelector(`input[name="${target}"]`);
+            if (!input) return;
+
+            const cur = Number(input.value);
+            const next = (Number.isFinite(cur) ? cur : 0) + delta;
+
+            input.value = String(next);
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+          });
+        }
+
+        updateDerived();
+      },
+
       buttons: [
         {
           action: "cast",
           label: "Cast",
           icon: "fa-solid fa-wand-magic-sparkles",
           default: true,
-
-          // v13 signature: (event, button, dialog)
           callback: (event, button, dialog) => {
             console.log("SinlessCSB | DialogV2 CAST callback fired");
 
-            const form = button?.form ?? dialog?.form ?? null;
-            if (!form) {
-              console.warn("SinlessCSB | DialogV2: no form found on button/dialog");
+            const form = button?.form ?? null;
+            if (!form?.elements) {
+              console.warn("SinlessCSB | DialogV2: no form found on button");
               return { forceChosen: 1, spendCast: 0, spendDrain: 0 };
             }
 
-            const els = form.elements;
-            const forceChosen = Math.floor(num(els?.forceChosen?.value, 1));
-            const spendCast = Math.floor(num(els?.spendCast?.value, 0));
-            const spendDrain = Math.floor(num(els?.spendDrain?.value, 0));
+            // Final clamp at submit time (defense-in-depth)
+            const forceChosen = clamp(Math.floor(num(form.elements.forceChosen?.value, 1)), 1, spellforceMax);
+
+            const spendCastRaw = Math.floor(num(form.elements.spendCast?.value, 0));
+            const spendCast = clamp(spendCastRaw, 0, maxCastSpend);
+
+            const remainingAfterCast = Math.max(0, poolCur - spendCast);
+            const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
+
+            const spendDrainRaw = Math.floor(num(form.elements.spendDrain?.value, 0));
+            const spendDrain = clamp(spendDrainRaw, 0, spendDrainMax);
 
             console.log("SinlessCSB | castSpell dialog read", { forceChosen, spendCast, spendDrain });
             return { forceChosen, spendCast, spendDrain };
@@ -243,11 +496,6 @@ async function promptCastSpellDialog({
         }
       ],
 
-      // Also log the final submitted result (string action or callback return)
-      submit: (submitted, dialog) => {
-        console.log("SinlessCSB | DialogV2 submit", submitted);
-      },
-
       rejectClose: false
     });
 
@@ -255,19 +503,33 @@ async function promptCastSpellDialog({
     return result;
   }
 
-  // Legacy Dialog fallback (unchanged)
+  // Legacy Dialog fallback (no live refresh)
   return await new Promise((resolve) => {
     new Dialog({
       title: `Cast Spell: ${itemName}`,
-      content,
+      content: `<div>${content}</div>`,
       buttons: {
         cast: {
           icon: '<i class="fas fa-magic"></i>',
           label: "Cast",
           callback: (html) => {
-            const forceChosen = Math.floor(num(html.find('[name="forceChosen"]').val(), 1));
-            const spendCast = Math.floor(num(html.find('[name="spendCast"]').val(), 0));
-            const spendDrain = Math.floor(num(html.find('[name="spendDrain"]').val(), 0));
+            const forceChosen = clamp(Math.floor(num(html.find('[name="forceChosen"]').val(), 1)), 1, spellforceMax);
+
+            const spendCast = clamp(
+              Math.floor(num(html.find('[name="spendCast"]').val(), 0)),
+              0,
+              maxCastSpend
+            );
+
+            const remainingAfterCast = Math.max(0, poolCur - spendCast);
+            const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
+
+            const spendDrain = clamp(
+              Math.floor(num(html.find('[name="spendDrain"]').val(), 0)),
+              0,
+              spendDrainMax
+            );
+
             resolve({ forceChosen, spendCast, spendDrain });
           }
         },

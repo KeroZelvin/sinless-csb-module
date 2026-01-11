@@ -476,3 +476,291 @@ Reproducible
 Compatible with Foundry v13+
 
 Safe for future module refactors
+
+## CSB Pattern: Using `%{ ... }%` scripts in component fields (linkedEntity-first)
+
+### Why this exists
+In CSB, simple token substitutions (e.g., `actionLabel`, `:actionLabel:`, `${...}$`) may fail in certain component contexts—especially **Actor sheet Item Container / inventory rows**. In those rows, the reliable way to access the row’s owned Item is `linkedEntity`. Therefore, prefer **script-eval blocks** using:
+
+- **`%{ ... }%`** for JS execution (buttons, rollMessage, dynamic labels).
+- Always `return` a value for display fields (e.g., `value`).
+- In `rollMessage`, `return ""` to prevent extra chat output.
+
+---
+
+### Inventory row rule (hard requirement)
+For **Actor inventory / Item Container row buttons**, use **`linkedEntity` only**.
+
+Do NOT rely on `entity` fallbacks for these buttons; it may be missing or not reference the owned Item in this context.
+
+---
+
+### Canonical: Inventory row button label from Item `actionLabel`
+Use this in a label/button component’s `value` field:
+
+```js
+%{ return (linkedEntity?.system?.props?.actionLabel ?? "Use"); }%
+linkedEntity = owned Item for the row
+
+system.props.actionLabel = custom field defined on the Item template
+
+fallback "Use" prevents blank labels
+
+Canonical: Inventory row rollMessage calling module API (linkedEntity-only)
+Use this in the component’s rollMessage field:
+
+js
+Copy code
+%{
+  // Inventory/Item Container row context: use linkedEntity only.
+  const itemUuid = String(linkedEntity?.uuid ?? "");
+  const actorUuid = String(linkedEntity?.parent?.uuid ?? "");
+
+  if (!itemUuid) {
+    ui.notifications?.warn("Cast Spell: no linkedEntity item context (inventory row).");
+    return "";
+  }
+
+  game.modules.get("sinlesscsb")?.api?.castSpell?.({ itemUuid, actorUuid });
+  return "";
+}%
+Notes:
+
+linkedEntity.parent is typically the owning Actor when the item is embedded.
+
+Guard itemUuid and exit early if missing.
+
+Use optional chaining (?.) and nullish coalescing (??) to avoid evaluator crashes.
+
+Button component checklist (typical)
+For a “label button” with icon + text:
+
+style: "button"
+
+icon: e.g. "dice" (or desired icon)
+
+value: script-eval label (see above)
+
+rollMessage: script-eval action (see above)
+
+General guidance
+Display fields (value, etc.): return a string (use String(...) if needed).
+
+Action fields (rollMessage): execute code, then return "".
+
+Treat linkedEntity as the canonical context variable for inventory rows.
+
+makefile
+Copy code
+::contentReference[oaicite:0]{index=0}
+
+
+
+
+
+You said:
+my working version had the const doc = linkedEntity ?? entity;
+
+I want to understand why you pulled that out of the canonical version?
+
+%{
+  const doc = linkedEntity ?? entity;
+  const itemUuid = String(doc?.uuid ?? "");
+  const actorUuid = String(doc?.parent?.uuid ?? "");
+
+  if (!itemUuid) {
+    ui.notifications?.warn("Cast Spell: no item context (linkedEntity/entity missing).");
+    return "";
+  }
+
+  game.modules.get("sinlesscsb")?.api?.castSpell?.({ itemUuid, actorUuid });
+  return "";
+}%
+
+
+
+ChatGPT said:
+
+Thought for 14s
+I removed the linkedEntity ?? entity fallback in the “canonical inventory-row” version for one specific reason: defensive correctness in the inventory row context.
+
+In an Actor sheet Item Container row, linkedEntity is the reliable “row item.” When linkedEntity is present, your version and my linkedEntity-only version behave identically because:
+
+doc = linkedEntity ?? entity resolves to linkedEntity anyway.
+
+So the question is what happens when linkedEntity is not present (misconfigured row, different component context, or CSB scope variance). In that case, falling back to entity can produce false positives:
+
+entity might be the Actor, the sheet, or another document with a valid .uuid.
+
+Your code would then set itemUuid to that non-Item UUID (because it exists), pass the guard, and call castSpell with the wrong UUID and possibly an empty actorUuid (because doc.parent may be undefined).
+
+That failure mode is worse than a clean “no linkedEntity” warning because it can look like “the button ran but nothing happened,” or it can call the API with an invalid item context.
+
+The practical reconciliation
+You have two “known good” patterns, depending on what you want to optimize:
+
+Inventory-row strict (recommended for Item Container rows): require linkedEntity so the button never fires with the wrong document.
+
+Context-agnostic (your working pattern): allow entity fallback, but add a type check so you only accept a real Item.
+
+Safer canonical that keeps your fallback (with validation)
+This preserves your working structure but prevents the “entity is an Actor” trap:
+
+js
+Copy code
+%{
+  const doc = linkedEntity ?? entity;
+
+  // Only proceed if doc is actually an Item document.
+  // (Foundry documents typically expose documentName; "Item" is the expected value.)
+  if (doc?.documentName !== "Item") {
+    ui.notifications?.warn("Cast Spell: no Item context (linkedEntity/entity is not an Item).");
+    return "";
+  }
+
+  const itemUuid = String(doc?.uuid ?? "");
+  const actorUuid = String(doc?.parent?.uuid ?? "");
+
+  if (!itemUuid) {
+    ui.notifications?.warn("Cast Spell: no itemUuid (linkedEntity/entity missing).");
+    return "";
+  }
+
+  game.modules.get("sinlesscsb")?.api?.castSpell?.({ itemUuid, actorUuid });
+  return "";
+}%
+Why this is “canonical” in practice
+In inventory rows, linkedEntity is used (same behavior you already have).
+
+In other contexts where only entity exists, it still works if entity is actually an Item.
+
+If CSB gives you a non-item entity, you get a clear warning instead of a misleading API call.
+
+If you want, I can also provide a paired “canonical label” snippet that uses the same doc resolution and type check, so your icon+text button label remains consistent with the rollMessage behavior.
+
+
+
+
+
+
+You said:
+yes
+
+
+
+ChatGPT said:
+md
+Copy code
+## CSB Pattern: `%{ ... }%` scripts for dynamic UI + button actions (linkedEntity-first, entity fallback with Item validation)
+
+### Why this exists
+In CSB, simple substitutions (e.g., `actionLabel`, `:actionLabel:`, `${...}$`) can fail depending on component context—especially in **Actor sheet Item Container / inventory rows**. The most reliable way to access the row’s owned Item is `linkedEntity`. In other contexts, CSB may provide `entity` instead.  
+Therefore, standardize on:
+
+- Use `%{ ... }%` to execute JavaScript in CSB component fields.
+- For display fields (e.g., `value`), **return a string**.
+- For action fields (e.g., `rollMessage`), execute logic and **return `""`** to avoid extra chat output.
+- Prefer `linkedEntity`, but allow `entity` fallback **only when it is actually an Item**.
+
+---
+
+### Key context variables (practical)
+- `linkedEntity`: Owned Item for an inventory row (most reliable in Actor Item Containers)
+- `entity`: Context-provided document in some components (may be an Item, but can also be an Actor/other doc)
+
+---
+
+### Canonical resolution pattern: `doc` with Item validation
+Use this pattern whenever you need to support both inventory rows and other contexts:
+
+```js
+%{
+  const doc = linkedEntity ?? entity;
+
+  // Guard: only proceed if we actually have an Item document.
+  if (doc?.documentName !== "Item") {
+    ui.notifications?.warn("No Item context (linkedEntity/entity is not an Item).");
+    return "";
+  }
+
+  // From here on, doc is safe to treat as an Item.
+  const itemUuid = String(doc?.uuid ?? "");
+  const actorUuid = String(doc?.parent?.uuid ?? ""); // embedded Item => parent is Actor
+
+  // Guard: itemUuid must exist.
+  if (!itemUuid) {
+    ui.notifications?.warn("No itemUuid (linkedEntity/entity missing).");
+    return "";
+  }
+
+  // Do the action. Return empty string to suppress extra chat output.
+  game.modules.get("sinlesscsb")?.api?.castSpell?.({ itemUuid, actorUuid });
+  return "";
+}%
+Why validate?
+
+In some contexts, entity can be an Actor (or other doc) with a UUID.
+
+Without validation, a button may “run” but pass the wrong UUID to your API, leading to silent failures.
+
+Canonical: Button label text from Item actionLabel (paired with the same doc logic)
+Use this in a label/button component’s value field:
+
+js
+Copy code
+%{
+  const doc = linkedEntity ?? entity;
+  if (doc?.documentName !== "Item") return "Use";
+  return (doc?.system?.props?.actionLabel ?? "Use");
+}%
+Notes:
+
+Always return a string for UI labels.
+
+Fallback to "Use" if context is missing or actionLabel is empty.
+
+Inventory-row strict variant (only when you explicitly want to hard-require linkedEntity)
+Use this when the component is guaranteed to be an inventory row and you want to fail fast:
+
+Label
+
+js
+Copy code
+%{ return (linkedEntity?.system?.props?.actionLabel ?? "Use"); }%
+rollMessage
+
+js
+Copy code
+%{
+  const itemUuid = String(linkedEntity?.uuid ?? "");
+  const actorUuid = String(linkedEntity?.parent?.uuid ?? "");
+
+  if (!itemUuid) {
+    ui.notifications?.warn("No linkedEntity item context (inventory row).");
+    return "";
+  }
+
+  game.modules.get("sinlesscsb")?.api?.castSpell?.({ itemUuid, actorUuid });
+  return "";
+}%
+Button component checklist (typical)
+For a “label button” with icon + text:
+
+style: "button"
+
+icon: e.g., "dice"
+
+value: %{ return ... }% label script (above)
+
+rollMessage: %{ ... return "" }% action script (above)
+
+Operational guidance
+Use optional chaining (?.) and nullish coalescing (??) everywhere to avoid evaluator runtime errors.
+
+Prefer “doc resolution + Item validation” as the default canonical pattern.
+
+Use the linkedEntity-only strict variant only when you are certain the component is an inventory row.
+
+makefile
+Copy code
+::contentReference[oaicite:0]{index=0}
