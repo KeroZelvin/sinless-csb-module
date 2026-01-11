@@ -72,33 +72,33 @@
       "label": "SinlessCSB Journal",
       "path": "packs/sinlesscsb-journal",
       "type": "JournalEntry",
+      "system": "custom-system-builder",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "custom-system-builder"
+      }
     },
     {
       "name": "sinlesscsb-rollabletables",
       "label": "SInlessCSB Rollable Tables",
       "path": "packs/sinlesscsb-rollabletables",
       "type": "RollTable",
+      "system": "custom-system-builder",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "custom-system-builder"
+      }
     },
     {
       "name": "sinlesscsb-scenes",
       "label": "SinlessCSB Scenes",
       "path": "packs/sinlesscsb-scenes",
-      "type": "RollTable",
+      "type": "Scene",
+      "system": "custom-system-builder",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "custom-system-builder"
+      }
     }
   ],
   "manifest": "https://github.com/KeroZelvin/sinless-csb-module/releases/latest/download/module.json",
