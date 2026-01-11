@@ -107,7 +107,6 @@ async function promptRuntimeInputs({
 }) {
   const linesHTML = (displayLines ?? []).map(l => `<div>${l}</div>`).join("");
 
-  // A compact table-like layout similar to your pools dialog readability.
   const spendRow = allowSpend ? `
     <tr>
       <td style="padding:6px 8px; opacity:0.85;">Spend from Pool</td>
@@ -153,21 +152,33 @@ async function promptRuntimeInputs({
     </form>
   `;
 
-  const DialogV2 = foundry?.applications?.api?.DialogV2;
-  if (!DialogV2?.wait) {
-    ui.notifications?.error?.("DialogV2 not available. Please update Foundry or remove legacy Dialog usage.");
-    return null;
-  }
+  const result = await openDialogV2({
+    title: title ?? "Sinless Roll",
+    content,
+    rejectClose: false,
+    buttons: [
+      {
+        action: "roll",
+        label: "Roll",
+        default: true,
+        callback: (...cbArgs) => {
+          const form = getDialogFormFromCallbackArgs(...cbArgs);
+          const fd = form ? new FormData(form) : null;
 
-  console.log("SinlessCSB | itemRoll prompt opening (DialogV2)");
+          const sit = readDialogNumber(fd, "sit", 0);
+          const spend = allowSpend ? readDialogNumber(fd, "spend", 0) : null;
 
-  // We attach stepper logic after render via a custom DialogV2 subclass
-  class SinlessItemRollDialog extends DialogV2 {
-    _onRender(context, options) {
-      super._onRender(context, options);
+          return { sit, spend };
+        }
+      },
+      { action: "cancel", label: "Cancel", callback: () => null }
+    ],
 
-      const root = this.element;
-      if (!(root instanceof HTMLElement)) return;
+    // Bind the stepper clicks after render (once per root)
+    onRender: (_dialog, root) => {
+      // Prevent double-binding on rerender
+      if (root?.dataset?.sinlessItemRollBound === "1") return;
+      root.dataset.sinlessItemRollBound = "1";
 
       const form = root.querySelector("form.sinlesscsb.item-roll-dialog");
       if (!form) return;
@@ -177,13 +188,18 @@ async function promptRuntimeInputs({
       const step = (field, delta) => {
         const el = q(field);
         if (!el) return;
+
         const min = el.min !== "" ? Number(el.min) : -Infinity;
         const max = el.max !== "" ? Number(el.max) : Infinity;
         const cur = Number(el.value ?? 0);
+
         let next = cur + delta;
         if (!Number.isFinite(next)) next = 0;
         next = Math.max(min, Math.min(max, next));
+
         el.value = String(next);
+        // "input" tends to produce more consistent live updates than "change"
+        el.dispatchEvent(new Event("input", { bubbles: true }));
         el.dispatchEvent(new Event("change", { bubbles: true }));
       };
 
@@ -193,44 +209,21 @@ async function promptRuntimeInputs({
         if (t.dataset.action !== "step") return;
 
         ev.preventDefault();
+
         const field = t.dataset.field;
         const delta = Number(t.dataset.step ?? 0);
         if (!field || !Number.isFinite(delta)) return;
+
         step(field, delta);
       });
     }
-  }
+  });
 
-const result = await openDialogV2({
-  title: title ?? "Sinless Roll",
-  content,
-  rejectClose: false,
-  buttons: [
-    {
-      action: "roll",
-      label: "Roll",
-      default: true,
-      callback: (...cbArgs) => {
-        const form = getDialogFormFromCallbackArgs(...cbArgs);
-        const fd = form ? new FormData(form) : null;
-        const sit = readDialogNumber(fd, "sit", 0);
-        const spend = allowSpend ? readDialogNumber(fd, "spend", 0) : null;
-        return { sit, spend };
-      }
-    },
-    { action: "cancel", label: "Cancel", callback: () => null }
-  ],
-  // Keep your stepper binding exactly as-is, but attach here:
-  onRender: (dialog, root) => {
-    // bind your [data-action="step"] click handler to `root` here
-    // (same logic you already wrote in _onRender)
-  }
-});
-
-
-  if (!result || result === "cancel") return null;
+  // With openDialogV2: cancel/close returns null
+  if (!result) return null;
   return result;
 }
+
 
 /* ----------------------------- */
 /* Actor update mirroring        */

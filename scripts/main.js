@@ -16,6 +16,7 @@ import { registerActorInitHooks } from "./hooks/actor-init.js";
 // API
 import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
+import { rollPools } from "./api/pools-roll.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -78,7 +79,8 @@ function exposeModuleAPI() {
   mod.api = {
     ...(mod.api ?? {}),
     castSpell,
-    rollItem
+    rollItem,
+    rollPools
   };
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));

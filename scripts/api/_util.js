@@ -40,7 +40,6 @@ export function escapeHTML(s) {
 /* -------------------------------------------- */
 
 export function propsRoot() {
-  // You have a setting, but default is system.props
   try {
     return game.settings?.get?.(MOD_ID, "csbPropsRoot") || "system.props";
   } catch (_e) {
@@ -53,13 +52,11 @@ export function readProps(doc) {
 }
 
 export function propPath(key) {
-  // e.g. propPath("Resolve_Cur") => "system.props.Resolve_Cur"
-  const root = propsRoot(); // "system.props"
+  const root = propsRoot();
   return `${root}.${key}`;
 }
 
 export function poolCurKey(poolKey) {
-  // Item.poolKey: "Resolve" => "Resolve_Cur"
   const k = String(poolKey ?? "").trim();
   if (!k) return null;
   return k.endsWith("_Cur") ? k : `${k}_Cur`;
@@ -69,14 +66,9 @@ export function poolCurKey(poolKey) {
 /* Foundry document resolution helpers          */
 /* -------------------------------------------- */
 
-/**
- * Resolve canonical Actor if ActorUuid is stored on system.props.ActorUuid.
- * Also handles token-synthetic actor fallback.
- */
 export async function resolveCanonicalActor(actor) {
   if (!actor) return null;
 
-  // Prefer sheet-injected canonical ActorUuid (your best practice)
   const u = normalizeUuid(actor?.system?.props?.ActorUuid);
   if (u) {
     try {
@@ -87,19 +79,11 @@ export async function resolveCanonicalActor(actor) {
     }
   }
 
-  // Token synthetic actor -> base actor
   if (actor.isToken && actor.parent?.baseActor) return actor.parent.baseActor;
 
   return actor;
 }
 
-/**
- * Resolve an Actor to update, with the priority learned in debugging:
- *  1) scope.actorUuid (explicit, GM/sheet-safe)
- *  2) item.parent (embedded owner)
- *  3) controlled token actor
- *  4) user character
- */
 export async function resolveActorForContext({ scope = {}, item = null } = {}) {
   const actorUuid = normalizeUuid(scope?.actorUuid);
   if (actorUuid) {
@@ -119,11 +103,6 @@ export async function resolveActorForContext({ scope = {}, item = null } = {}) {
   return null;
 }
 
-/**
- * Resolve an Item document from:
- *  - itemUuid (supports "Item.<id>" or "Actor.<id>.Item.<id>")
- *  - OR { actorUuid, itemId } fallback (build embedded uuid)
- */
 export async function resolveItemDoc({ itemUuid = null, actorUuid = null, itemId = null } = {}) {
   const u = normalizeUuid(itemUuid);
   if (u) {
@@ -146,40 +125,27 @@ export async function resolveItemDoc({ itemUuid = null, actorUuid = null, itemId
 }
 
 /* -------------------------------------------- */
-/* DialogV2 helpers (robust across runtimes)    */
+/* Dialog helpers                               */
 /* -------------------------------------------- */
 
-/**
- * Get the DialogV2 class in a v13-safe way.
- */
 export function getDialogV2Class() {
   return foundry?.applications?.api?.DialogV2 ?? null;
 }
 
-/**
- * Get the root HTMLElement for a DialogV2 instance.
- * (Foundry sometimes exposes dialog.element as an HTMLElement or a jQuery-like wrapper.)
- */
 export function getDialogRoot(dialog) {
   const el = dialog?.element ?? null;
   if (!el) return null;
-  // HTMLElement
   if (el instanceof HTMLElement) return el;
-  // jQuery-ish array-like
   if (Array.isArray(el) && el[0] instanceof HTMLElement) return el[0];
-  // Foundry wrapper objects may expose [0]
   if (el?.[0] instanceof HTMLElement) return el[0];
   return null;
 }
 
 /**
- * Read FormData from a DialogV2 callback (v13 signature),
- * without relying on button.form or global document selectors.
- *
- * Accepts (event, buttonEl, dialog) or (button) variants safely.
+ * Read the <form> for DialogV2 callbacks without relying on button.form.
+ * Typical v13 callback signature: (event, buttonEl, dialog)
  */
 export function getDialogFormFromCallbackArgs(...args) {
-  // v13 DialogV2 commonly: (event, buttonEl, dialog)
   const dialog = args?.[2] ?? args?.[0]?.dialog ?? null;
   const root = getDialogRoot(dialog);
   if (!root?.querySelector) return null;
@@ -195,66 +161,78 @@ export function readDialogNumber(fd, key, fallback = 0) {
 }
 
 /**
- * Minimal, reusable DialogV2 opener that works even when instance .wait() is missing.
- *
- * Signature is intentionally small and supports both:
- * - Item Roll: simple form submit result
- * - Pools: complex click handlers, live refresh, multi-action buttons via onRender()
+ * Robust DialogV2 opener:
+ * - Works whether DialogV2.wait exists or not (some runtimes omit it)
+ * - Supports complex dialogs via onRender (Pools) and simple submit (Item/Spell)
+ * - Resolves null on X/ESC close (unless rejectClose blocks it in the runtime)
  *
  * @param {object} cfg
- * @param {string} cfg.title                 Window title
- * @param {string} cfg.content               HTML content (usually includes a <form>)
- * @param {Array}  cfg.buttons               DialogV2 button specs (action/label/default/callback)
- * @param {Function} [cfg.transform]         Optional transform for the submit result
- * @param {Function} [cfg.onRender]          Called each render: (dialog, rootHTMLElement) => void
- * @param {Function} [cfg.onClose]           Called on close after resolution: (dialog, resolvedValue) => void
- * @param {boolean} [cfg.rejectClose=false]  If true, prevent closing via X without a button
- * @param {object}  [cfg.renderOptions]      Passed to render(), default { force: true }
- *
- * @returns {Promise<any>} resolved submit value (or null if closed/cancel)
+ * @param {string} cfg.title
+ * @param {string} cfg.content
+ * @param {Array<object>} cfg.buttons
+ * @param {boolean} [cfg.rejectClose=false]
+ * @param {(dialog:any, root:HTMLElement)=>void} [cfg.onRender]
+ * @param {(value:any)=>any} [cfg.transform]
+ * @param {object} [cfg.renderOptions] defaults {force:true}
+ * @returns {Promise<any|null>}
  */
 export async function openDialogV2(cfg = {}) {
   const DialogV2 = getDialogV2Class();
-  if (!DialogV2) {
-    ui.notifications?.error?.("DialogV2 not available in this Foundry runtime.");
-    return null;
-  }
 
   const title = String(cfg.title ?? "Dialog");
   const content = String(cfg.content ?? "");
   const buttons = Array.isArray(cfg.buttons) ? cfg.buttons : [];
   const rejectClose = Boolean(cfg.rejectClose);
-  const renderOptions = cfg.renderOptions && typeof cfg.renderOptions === "object"
+  const onRender = (typeof cfg.onRender === "function") ? cfg.onRender : null;
+  const transform = (typeof cfg.transform === "function") ? cfg.transform : (x) => x;
+  const renderOptions = (cfg.renderOptions && typeof cfg.renderOptions === "object")
     ? cfg.renderOptions
     : { force: true };
 
-  const transform = (typeof cfg.transform === "function") ? cfg.transform : (x) => x;
-  const onRender = (typeof cfg.onRender === "function") ? cfg.onRender : null;
-  const onClose = (typeof cfg.onClose === "function") ? cfg.onClose : null;
+  // Best-effort fallback if DialogV2 is missing (unlikely on v13, but safe)
+  if (!DialogV2) {
+    return await new Promise((resolve) => {
+      const legacyButtons = {};
+      for (const b of buttons) {
+        const key = b.action ?? b.label ?? "ok";
+        legacyButtons[key] = {
+          label: b.label ?? "OK",
+          callback: (html) => resolve(transform(b.callback ? b.callback(html) : true))
+        };
+      }
+      if (!legacyButtons.cancel) {
+        legacyButtons.cancel = { label: "Cancel", callback: () => resolve(null) };
+      }
 
-  const baseConfig = {
-    window: { title },
-    content,
-    buttons,
-    rejectClose,
-    // DialogV2 calls submit(...) with the button callback return value.
-    submit: (result) => transform(result)
-  };
-
-  // Prefer static DialogV2.wait if present (some v13 builds)
-  if (typeof DialogV2.wait === "function") {
-    const out = await DialogV2.wait(baseConfig);
-    const resolved = transform(out);
-    // Ensure onClose runs consistently even in wait mode
-    try {
-      onClose?.(null, resolved);
-    } catch (e) {
-      console.warn("SinlessCSB | openDialogV2 onClose (wait) failed", e);
-    }
-    return resolved;
+      new Dialog({
+        title,
+        content,
+        buttons: legacyButtons,
+        default: (buttons.find(x => x.default)?.action) ?? "ok",
+        close: () => resolve(null)
+      }).render(true);
+    });
   }
 
-  // Fallback: Promise-wrapper around render + submit + close
+  // Preferred fast-path: DialogV2.wait exists
+  if (typeof DialogV2.wait === "function") {
+    const out = await DialogV2.wait({
+      window: { title },
+      content,
+      buttons,
+      rejectClose,
+      render: (event, dialog) => {
+        const root = getDialogRoot(dialog);
+        if (root && onRender) onRender(dialog, root);
+      }
+    });
+
+    // In some runtimes, cancel returns "cancel"; in ours we standardize to null
+    if (!out || out === "cancel") return null;
+    return transform(out);
+  }
+
+  // Fallback: instance render + resolve via submit/close
   return await new Promise((resolve) => {
     class SinlessDialogV2 extends DialogV2 {
       constructor(...args) {
@@ -265,34 +243,29 @@ export async function openDialogV2(cfg = {}) {
       _onRender(context, options) {
         super._onRender(context, options);
         const root = getDialogRoot(this);
-        if (!root) return;
-        try {
-          onRender?.(this, root);
-        } catch (e) {
-          console.warn("SinlessCSB | openDialogV2 onRender failed", e);
-        }
+        if (root && onRender) onRender(this, root);
       }
 
       async close(options) {
-        // If user closes via X / ESC and we have not resolved, resolve null.
         if (!this._sinlessResolved) {
           this._sinlessResolved = true;
-          try { onClose?.(this, null); } catch (_e) {}
           resolve(null);
         }
         return super.close(options);
       }
     }
 
-    // Wrap submit so we resolve exactly once (submit often triggers close internally).
     const dialog = new SinlessDialogV2({
-      ...baseConfig,
+      window: { title },
+      content,
+      buttons,
+      rejectClose,
       submit: (result) => {
         const resolved = transform(result);
         if (!dialog._sinlessResolved) {
           dialog._sinlessResolved = true;
-          try { onClose?.(dialog, resolved); } catch (_e) {}
-          resolve(resolved);
+          // normalize “cancel” to null
+          resolve((!resolved || resolved === "cancel") ? null : resolved);
         }
         return resolved;
       }
@@ -309,7 +282,7 @@ export async function openDialogV2(cfg = {}) {
 export async function rollXd6Successes({ dice = 0, tn = 4 } = {}) {
   const d = Math.max(0, Math.floor(num(dice, 0)));
   const roll = new Roll(`${d}d6`);
-  await roll.evaluate(); // v13 safe
+  await roll.evaluate();
 
   const results = roll.dice?.[0]?.results ?? [];
   const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);

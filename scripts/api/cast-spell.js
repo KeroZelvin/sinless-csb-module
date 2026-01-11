@@ -9,23 +9,44 @@ import {
   resolveItemDoc,
   rollXd6Successes,
   getDialogFormFromCallbackArgs,
-  readDialogNumber
+  readDialogNumber,
+  openDialogV2,
+  propPath
 } from "./_util.js";
 
 /**
  * SinlessCSB Cast Spell (Foundry v13 + CSB)
- * - Supports castSpell({ itemUuid, actorUuid? })
+ * - Supports castSpell({ itemUuid, actorUuid?, itemId? })
  * - GM-safe actor resolution (actorUuid preferred; falls back to item.parent)
  * - Canonical actor mirroring via system.props.ActorUuid (prevents token-synthetic drift)
  * - DialogV2-safe form value capture (reads from dialog instance DOM)
+ * - Robust dialog open (works even when DialogV2.wait is missing)
  */
 
 /* =========================
- * Utilities
+ * Session Settings helpers
  * ========================= */
-// Imported from ./_util.js
 
-/** Derived track maxes (fallback if the computed keys don't exist yet) */
+function clampTN(tn, fallback = 4) {
+  return [4, 5, 6].includes(tn) ? tn : fallback;
+}
+
+function getSessionSettingsActor() {
+  const exact = game.actors?.getName?.("Session Settings");
+  if (exact) return exact;
+  const lower = "session settings";
+  return (game.actors?.contents ?? []).find(a => (a.name ?? "").trim().toLowerCase() === lower) ?? null;
+}
+
+function readTN(sessionActor) {
+  const raw = num(sessionActor?.system?.props?.TN_Global, NaN);
+  return clampTN(Number.isFinite(raw) ? raw : 4, 4);
+}
+
+/* =========================
+ * Track max helpers
+ * ========================= */
+
 function computeStunMax(actor) {
   const WIL = num(actor?.system?.props?.WIL, 0);
   return 6 + Math.floor(WIL / 2);
@@ -35,7 +56,10 @@ function computePhysicalMax(actor) {
   return 6 + Math.floor(BOD / 2);
 }
 
-/** Render chat output */
+/* =========================
+ * Chat output
+ * ========================= */
+
 async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   const title = `${item.name} — Cast`;
 
@@ -98,114 +122,53 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   });
 }
 
-
 /* =========================
- * Dialog
+ * Dialog (via openDialogV2)
  * ========================= */
 
-/**
- * DialogV2 helper (Foundry v13+).
- * Adds:
- *  A) live "remaining Resolve after cast" + live drain max
- *  B) +/- controls for spend fields
- *  C) drain defaults to max allowed, and refreshes when cast spend changes
- */
 async function promptCastSpellDialog({
   itemName,
-  poolKey,
   poolCur,
   spellforceMax,
-  spellforceDefault, // unused (we default Cast Force to spellforceMax per your request)
   castLimit,
+  resistLimit,
   skillKey,
   skillRank,
   fociRank,
-  resistLimit,
   channelingRank,
   fetishRank,
   bonusDice,
   diceMod
 }) {
-  const DialogV2 = foundry?.applications?.api?.DialogV2;
-
   const maxCastSpend = Math.min(poolCur, castLimit);
 
-  // Default: Cast Force = spellforceMax
   const defaultForce = clamp(Math.floor(num(spellforceMax, 1)), 1, spellforceMax);
-
-  // Default: Cast spend = maxCastSpend
   const initialCast = clamp(Math.floor(num(maxCastSpend, 0)), 0, maxCastSpend);
 
-  // Default: Drain spend = max allowed AFTER cast (bounded by resistLimit)
   const initialRemaining = Math.max(0, poolCur - initialCast);
   const initialDrainMax = Math.min(resistLimit, initialRemaining);
   const initialDrain = clamp(Math.floor(num(initialDrainMax, 0)), 0, initialDrainMax);
 
   const content = `
-    <div class="sinlesscsb spell-dialog">
+    <form class="sinlesscsb spell-dialog" autocomplete="off">
       <style>
-        .sinlesscsb-spell-table {
-          width: 100%;
-          border-collapse: collapse;
-        }
-        .sinlesscsb-spell-table th,
-        .sinlesscsb-spell-table td {
-          padding: 8px 10px;
-          vertical-align: top;
-        }
-        .sinlesscsb-spell-table thead th {
-          text-align: left;
-          padding: 0 0 6px 0;
-        }
-
-        /* Alternating row color for readability (like pools dialog) */
-        .sinlesscsb-spell-table tbody tr:nth-child(even) td {
-          background: rgba(255, 255, 255, 0.04);
-        }
-        .sinlesscsb-spell-table tbody tr:nth-child(odd) td {
-          background: rgba(255, 255, 255, 0.00);
-        }
-
-        .sinlesscsb-spell-label {
-          font-weight: 600;
-          margin-bottom: 4px;
-        }
-        .sinlesscsb-spell-value {
-          font-size: 1.05rem;
-        }
-        .sinlesscsb-spell-row {
-          display: flex;
-          gap: 8px;
-          align-items: center;
-          flex-wrap: nowrap;
-        }
-        .sinlesscsb-step {
-          width: 2rem;
-          height: 2rem;
-          line-height: 2rem;
-          text-align: center;
-        }
-        .sinlesscsb-spell-input {
-          width: 6rem;
-        }
-        .sinlesscsb-muted {
-          opacity: 0.85;
-          margin-top: 4px;
-        }
-        .sinlesscsb-details {
-          margin-top: 4px;
-          opacity: 0.9;
-        }
-        .sinlesscsb-details summary {
-          cursor: pointer;
-          opacity: 0.85;
-        }
+        .sinlesscsb-spell-table { width: 100%; border-collapse: collapse; }
+        .sinlesscsb-spell-table th, .sinlesscsb-spell-table td { padding: 8px 10px; vertical-align: top; }
+        .sinlesscsb-spell-table thead th { text-align: left; padding: 0 0 6px 0; }
+        .sinlesscsb-spell-table tbody tr:nth-child(even) td { background: rgba(255, 255, 255, 0.04); }
+        .sinlesscsb-spell-table tbody tr:nth-child(odd) td { background: rgba(255, 255, 255, 0.00); }
+        .sinlesscsb-spell-label { font-weight: 600; margin-bottom: 4px; }
+        .sinlesscsb-spell-value { font-size: 1.05rem; }
+        .sinlesscsb-spell-row { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
+        .sinlesscsb-step { width: 2rem; height: 2rem; line-height: 2rem; text-align: center; }
+        .sinlesscsb-spell-input { width: 6rem; }
+        .sinlesscsb-muted { opacity: 0.85; margin-top: 4px; }
+        .sinlesscsb-details { margin-top: 4px; opacity: 0.9; }
+        .sinlesscsb-details summary { cursor: pointer; opacity: 0.85; }
       </style>
 
       <table class="sinlesscsb-spell-table">
         <tbody>
-
-          <!-- Row 1 -->
           <tr>
             <td>
               <div class="sinlesscsb-spell-label">Learned Force MAX:</div>
@@ -222,7 +185,6 @@ async function promptCastSpellDialog({
             </td>
           </tr>
 
-          <!-- Row 2 -->
           <tr>
             <td>
               <div class="sinlesscsb-spell-label">Casting Limit:</div>
@@ -242,7 +204,6 @@ async function promptCastSpellDialog({
             </td>
           </tr>
 
-          <!-- Row 3 -->
           <tr>
             <td>
               <div class="sinlesscsb-spell-label">Resolve Pool:</div>
@@ -264,7 +225,6 @@ async function promptCastSpellDialog({
             </td>
           </tr>
 
-          <!-- Row 4 -->
           <tr>
             <td>
               <div class="sinlesscsb-spell-label">Post-Cast Resolve Pool:</div>
@@ -285,7 +245,6 @@ async function promptCastSpellDialog({
               </div>
             </td>
           </tr>
-
         </tbody>
       </table>
 
@@ -295,207 +254,140 @@ async function promptCastSpellDialog({
         <label>Static dice modifiers</label>
         <div class="sinlesscsb-muted">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
       </div>
-    </div>
+    </form>
   `;
 
-  if (DialogV2?.wait) {
-    console.log("SinlessCSB | promptCastSpellDialog opening (DialogV2)");
+  return await openDialogV2({
+    title: `Cast Spell: ${itemName}`,
+    content,
+    rejectClose: false,
 
-    const result = await DialogV2.wait({
-      window: { title: `Cast Spell: ${itemName}` },
-      content,
+    onRender: (_dialog, root) => {
+      if (root?.dataset?.sinlessCastBound === "1") return;
+      root.dataset.sinlessCastBound = "1";
 
-      render: (event, dialog) => {
-        const root =
-          (dialog?.element instanceof HTMLElement ? dialog.element : dialog?.element?.[0]) ?? null;
-        if (!root) return;
+      const form = root.querySelector("form.sinlesscsb.spell-dialog");
+      if (!form) return;
 
-        if (root.dataset?.sinlessBound === "1") return;
-        root.dataset.sinlessBound = "1";
+      const elForce = form.querySelector('input[name="forceChosen"]');
+      const elCast = form.querySelector('input[name="spendCast"]');
+      const elDrain = form.querySelector('input[name="spendDrain"]');
 
-        const form = root.querySelector("form") ?? root;
+      const elRemain = form.querySelector('[data-sinless="remainAfterCast"]');
+      const elDrainMax = form.querySelector('[data-sinless="drainMax"]');
 
-        const elForce = form.querySelector('input[name="forceChosen"]');
-        const elCast = form.querySelector('input[name="spendCast"]');
-        const elDrain = form.querySelector('input[name="spendDrain"]');
+      let drainDirty = false;
 
-        const elRemain = form.querySelector('[data-sinless="remainAfterCast"]');
-        const elDrainMax = form.querySelector('[data-sinless="drainMax"]');
+      const clampToInput = (input, v) => {
+        if (!input) return 0;
+        const min = Number(input.min ?? 0);
+        const max = Number(input.max ?? min);
+        const vv = Math.max(min, Math.min(max, Number.isFinite(v) ? v : min));
+        input.value = String(Math.floor(vv));
+        return Math.floor(vv);
+      };
 
-        let drainDirty = false;
+      const updateDerived = () => {
+        if (!elCast || !elDrain) return;
 
-        const clampToInput = (input, v) => {
-          if (!input) return 0;
-          const min = Number(input.min ?? 0);
-          const max = Number(input.max ?? 0);
-          const vv = Math.max(min, Math.min(max, Number.isFinite(v) ? v : min));
-          input.value = String(Math.floor(vv));
-          return Math.floor(vv);
-        };
+        if (elForce) clampToInput(elForce, Number(elForce.value));
 
-        const updateDerived = () => {
-          if (!elCast || !elDrain) return;
+        const castVal = clampToInput(elCast, Number(elCast.value));
 
-          // Force clamp (typing can exceed max unless we clamp)
-          if (elForce) clampToInput(elForce, Number(elForce.value));
+        const remaining = Math.max(0, poolCur - castVal);
+        if (elRemain) elRemain.textContent = String(remaining);
 
-          // Cast spend clamp
-          const castVal = clampToInput(elCast, Number(elCast.value));
+        const drainMax = Math.min(resistLimit, remaining);
+        elDrain.max = String(drainMax);
+        if (elDrainMax) elDrainMax.textContent = String(drainMax);
 
-          // Remaining resolve after cast
-          const remaining = Math.max(0, poolCur - castVal);
-          if (elRemain) elRemain.textContent = String(remaining);
-
-          // Drain max = min(resistLimit, remaining)
-          const drainMax = Math.min(resistLimit, remaining);
-          elDrain.max = String(drainMax);
-          if (elDrainMax) elDrainMax.textContent = String(drainMax);
-
-          // Default drain to max allowed unless user has edited it
-          const currentDrain = Number(elDrain.value);
-          if (!drainDirty) {
-            elDrain.value = String(Math.floor(drainMax));
-          } else if (currentDrain > drainMax) {
-            elDrain.value = String(Math.floor(drainMax));
-          }
-        };
-
-        elDrain?.addEventListener("input", () => {
-          drainDirty = true;
-          updateDerived();
-        });
-
-        elCast?.addEventListener("input", () => updateDerived());
-        elForce?.addEventListener("input", () => updateDerived());
-
-        for (const btn of form.querySelectorAll("button.sinlesscsb-step")) {
-          btn.addEventListener("click", () => {
-            const target = btn.getAttribute("data-target");
-            const delta = Number(btn.getAttribute("data-delta") ?? "0");
-            const input = form.querySelector(`input[name="${target}"]`);
-            if (!input) return;
-
-            const cur = Number(input.value);
-            const next = (Number.isFinite(cur) ? cur : 0) + delta;
-
-            input.value = String(next);
-            input.dispatchEvent(new Event("input", { bubbles: true }));
-          });
+        const currentDrain = Number(elDrain.value);
+        if (!drainDirty) {
+          elDrain.value = String(Math.floor(drainMax));
+        } else if (currentDrain > drainMax) {
+          elDrain.value = String(Math.floor(drainMax));
         }
+      };
 
+      elDrain?.addEventListener("input", () => {
+        drainDirty = true;
         updateDerived();
-      },
+      });
 
-      buttons: [
-        {
-          action: "cast",
-          label: "Cast",
-          icon: "fa-solid fa-wand-magic-sparkles",
-          default: true,
-          callback: (event, button, dialog) => {
-            console.log("SinlessCSB | DialogV2 CAST callback fired");
+      elCast?.addEventListener("input", updateDerived);
+      elForce?.addEventListener("input", updateDerived);
 
-            const formEl = getDialogFormFromCallbackArgs(event, button, dialog);
-            if (!formEl) {
-              console.warn("SinlessCSB | DialogV2: could not locate dialog form");
-              return { forceChosen: 1, spendCast: 0, spendDrain: 0 };
-            }
+      root.addEventListener("click", (ev) => {
+        const t = ev.target;
+        if (!(t instanceof HTMLElement)) return;
+        if (!t.classList.contains("sinlesscsb-step")) return;
 
-            const fd = new FormData(formEl);
+        ev.preventDefault();
 
-            // Final clamp at submit time (defense-in-depth)
-            const forceChosen = clampInt(readDialogNumber(fd, "forceChosen", 1), 1, spellforceMax);
+        const target = t.getAttribute("data-target");
+        const delta = Number(t.getAttribute("data-delta") ?? "0");
+        if (!target || !Number.isFinite(delta)) return;
 
-            const spendCast = clampInt(readDialogNumber(fd, "spendCast", 0), 0, maxCastSpend);
+        const input = form.querySelector(`input[name="${CSS.escape(target)}"]`);
+        if (!input) return;
 
-            const remainingAfterCast = Math.max(0, poolCur - spendCast);
-            const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
+        const cur = Number(input.value);
+        const next = (Number.isFinite(cur) ? cur : 0) + delta;
 
-            const spendDrain = clampInt(readDialogNumber(fd, "spendDrain", 0), 0, spendDrainMax);
+        input.value = String(next);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
 
-            console.log("SinlessCSB | castSpell dialog read", { forceChosen, spendCast, spendDrain });
-            return { forceChosen, spendCast, spendDrain };
+      updateDerived();
+    },
+
+    buttons: [
+      {
+        action: "cast",
+        label: "Cast",
+        icon: "fa-solid fa-wand-magic-sparkles",
+        default: true,
+        callback: (event, button, dialog) => {
+          const formEl = getDialogFormFromCallbackArgs(event, button, dialog);
+          if (!formEl) {
+            console.warn("SinlessCSB | castSpell Dialog: could not locate dialog form");
+            return { forceChosen: 1, spendCast: 0, spendDrain: 0 };
           }
-        },
-        {
-          action: "cancel",
-          label: "Cancel",
-          icon: "fa-solid fa-xmark",
-          callback: () => null
-        }
-      ],
 
-      rejectClose: false
-    });
+          const fd = new FormData(formEl);
 
-    if (!result || result === "cancel") return null;
-    return result;
-  }
+          const forceChosen = clampInt(readDialogNumber(fd, "forceChosen", 1), 1, spellforceMax);
+          const spendCast = clampInt(readDialogNumber(fd, "spendCast", 0), 0, maxCastSpend);
 
-  // Legacy Dialog fallback (no live refresh)
-  return await new Promise((resolve) => {
-    new Dialog({
-      title: `Cast Spell: ${itemName}`,
-      content: `<div>${content}</div>`,
-      buttons: {
-        cast: {
-          icon: '<i class="fas fa-magic"></i>',
-          label: "Cast",
-          callback: (html) => {
-            const forceChosen = clamp(Math.floor(num(html.find('[name="forceChosen"]').val(), 1)), 1, spellforceMax);
+          const remainingAfterCast = Math.max(0, poolCur - spendCast);
+          const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
+          const spendDrain = clampInt(readDialogNumber(fd, "spendDrain", 0), 0, spendDrainMax);
 
-            const spendCast = clamp(
-              Math.floor(num(html.find('[name="spendCast"]').val(), 0)),
-              0,
-              maxCastSpend
-            );
-
-            const remainingAfterCast = Math.max(0, poolCur - spendCast);
-            const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
-
-            const spendDrain = clamp(
-              Math.floor(num(html.find('[name="spendDrain"]').val(), 0)),
-              0,
-              spendDrainMax
-            );
-
-            resolve({ forceChosen, spendCast, spendDrain });
-          }
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel",
-          callback: () => resolve(null)
+          return { forceChosen, spendCast, spendDrain };
         }
       },
-      default: "cast"
-    }).render(true);
+      { action: "cancel", label: "Cancel", icon: "fa-solid fa-xmark", callback: () => null }
+    ]
   });
 }
-
-
 
 /* =========================
  * API: castSpell
  * ========================= */
 
-/**
- * Module API entry: castSpell({ itemUuid, actorUuid? })
- */
 export async function castSpell(scope = {}) {
   const item = await resolveItemDoc({ itemUuid: scope?.itemUuid, actorUuid: scope?.actorUuid, itemId: scope?.itemId });
   if (!item) return ui.notifications?.warn("castSpell: could not resolve Item (provide itemUuid or {actorUuid, itemId}).");
 
-  // Resolve the Actor we will UPDATE (GM-safe if actorUuid passed)
   const sheetActor = await resolveActorForContext({ scope, item });
   if (!sheetActor || sheetActor.documentName !== "Actor") {
     return ui.notifications?.warn("castSpell: could not resolve an Actor to update (pass actorUuid or use an owned item).");
   }
 
-  // Canonical actor is useful, but do NOT only update it.
   const canonActor = await resolveCanonicalActor(sheetActor);
 
-  // --- Read item props (your keys) ---
+  // Item props
   const props = item.system?.props ?? {};
   const skillKey = String(props.skillKey ?? "").trim();
   const poolKey = String(props.poolKey ?? "Resolve").trim();
@@ -505,15 +397,17 @@ export async function castSpell(scope = {}) {
   const diceMod = Math.floor(num(props.diceMod, 0));
 
   const spellforceMax = Math.max(1, Math.floor(num(props.spellforceMax, 1)));
-  const spellforceDefault = Math.max(1, Math.floor(num(props.spellforceDefault, 1)));
-
   const fetishRank = Math.max(0, Math.floor(num(props.fetishRank, 0)));
   const drainFormulaText = String(props.drainFormula ?? "").trim();
 
   if (!skillKey) return ui.notifications?.warn("Spell is missing item prop: skillKey (e.g., Skill_Sorcery).");
   if (!drainFormulaText) return ui.notifications?.warn("Spell is missing drainFormula text.");
 
-  // --- Actor values ---
+  // Session TN
+  const sessionActor = getSessionSettingsActor();
+  const tn = sessionActor ? readTN(sessionActor) : 4;
+
+  // Actor values
   const aprops = sheetActor.system?.props ?? {};
 
   const poolCurK = poolCurKey(poolKey);
@@ -525,30 +419,26 @@ export async function castSpell(scope = {}) {
   const channelingRank = Math.max(0, Math.floor(num(aprops["Skill_Channeling"], 0)));
   const zoeticPotential = num(aprops.zoeticPotential, 0);
 
-  // Track currents (treat as remaining)
+  // Remaining-track model
   const stunCur0 = Math.max(0, Math.floor(num(aprops.stunCur, 0)));
   const physicalCur0 = Math.max(0, Math.floor(num(aprops.physicalCur, 0)));
 
-  // Track maxes (use stored if present; otherwise derive from WIL/BOD)
   const stunMax = Math.max(0, Math.floor(num(aprops.stunMax, computeStunMax(sheetActor))));
   const physicalMax = Math.max(0, Math.floor(num(aprops.physicalMax, computePhysicalMax(sheetActor))));
 
-  // --- Limits (your rules) ---
+  // Limits
   const castLimit = Math.max(0, skillRank + fociRank);
   const resistLimit = Math.max(0, channelingRank + fetishRank);
 
-  // --- Dialog inputs ---
   const dialogData = await promptCastSpellDialog({
     itemName: item.name,
-    poolKey,
     poolCur,
     spellforceMax,
-    spellforceDefault,
     castLimit,
+    resistLimit,
     skillKey,
     skillRank,
     fociRank,
-    resistLimit,
     channelingRank,
     fetishRank,
     bonusDice,
@@ -556,50 +446,26 @@ export async function castSpell(scope = {}) {
   });
   if (!dialogData) return;
 
-  // Enforce force bounds
-  const forceChosen = clamp(Math.floor(num(dialogData.forceChosen, 1)), 1, spellforceMax);
+  const forceChosen = clampInt(num(dialogData.forceChosen, 1), 1, spellforceMax);
 
-  // Enforce spend bounds + limits
   const spendCastMax = Math.min(poolCur, castLimit);
-  const spendDrainMax = Math.min(poolCur, resistLimit);
+  let spendCast = clampInt(num(dialogData.spendCast, 0), 0, spendCastMax);
 
-  let spendCast = clamp(Math.floor(num(dialogData.spendCast, 0)), 0, spendCastMax);
-  let spendDrain = clamp(Math.floor(num(dialogData.spendDrain, 0)), 0, spendDrainMax);
+  const remainingAfterCast = Math.max(0, poolCur - spendCast);
+  const spendDrainMax = Math.min(resistLimit, remainingAfterCast);
+  let spendDrain = clampInt(num(dialogData.spendDrain, 0), 0, spendDrainMax);
 
-  // Total spend cannot exceed poolCur (reduce drain reserve first)
-  if (spendCast + spendDrain > poolCur) {
-    spendDrain = Math.max(0, poolCur - spendCast);
-  }
-
-  // --- Evaluate drain ---
+  // Drain evaluation
   const { drain, normalized, Force: ForceUsed } = evaluateDrainFormula(drainFormulaText, forceChosen);
-
-  // Lethal bypass rule:
   const isLethal = drain > zoeticPotential;
 
-  // TN (placeholder; wire to your global TN later if you have one)
-  const tn = 4;
-
-  console.log("SinlessCSB | castSpell spend/dice", {
-    poolCurK,
-    poolCur,
-    castLimit,
-    resistLimit,
-    spendCast,
-    spendDrain,
-    bonusDice,
-    diceMod,
-    castDice: Math.max(0, spendCast + bonusDice + diceMod)
-  });
-
-  // --- Casting roll (Resolve dice spent on casting + static mods) ---
+  // Casting roll
   const castDice = Math.max(0, spendCast + bonusDice + diceMod);
   const cast = await rollXd6Successes({ dice: castDice, tn });
 
-  // Spend Resolve immediately for the cast
   let poolAfterCast = poolCur - spendCast;
 
-  // --- Drain resolution ---
+  // Drain resolution
   let resistDice = 0;
   let resistSuccesses = 0;
   let appliedDrain = 0;
@@ -608,15 +474,12 @@ export async function castSpell(scope = {}) {
   let physicalCur = physicalCur0;
 
   if (isLethal) {
-    // No resist roll. Apply full drain to Physical (remaining track model)
     appliedDrain = drain;
     physicalCur = clamp(physicalCur - appliedDrain, 0, physicalMax);
-
-    // spendDrain irrelevant in lethal case
     spendDrain = 0;
   } else {
-    // Spend additional resolve from remaining pool for resist
-    const spendDrainAllowed = clamp(spendDrain, 0, Math.min(poolAfterCast, resistLimit));
+    // Spend resolve for resist out of remaining pool
+    const spendDrainAllowed = clampInt(spendDrain, 0, Math.min(poolAfterCast, resistLimit));
     poolAfterCast -= spendDrainAllowed;
 
     resistDice = Math.max(0, spendDrainAllowed);
@@ -624,14 +487,9 @@ export async function castSpell(scope = {}) {
     resistSuccesses = resist.successes;
 
     let remaining = Math.max(0, drain - resistSuccesses);
-
-    // Rules: minimum 1 drain applied when drain is non-lethal and drain > 0
-    // (If drain is 0, keep it 0; if lethal, handled in other branch.)
-    if (drain > 0) remaining = Math.max(1, remaining);
-
+    if (drain > 0) remaining = Math.max(1, remaining); // minimum 1 on non-lethal drain>0
     appliedDrain = remaining;
 
-    // Apply to stun first; overflow to physical (remaining track model)
     const stunAfter = stunCur - remaining;
     if (stunAfter >= 0) {
       stunCur = stunAfter;
@@ -642,36 +500,22 @@ export async function castSpell(scope = {}) {
     }
   }
 
-  // --- Write back actor updates ---
+  // Write back updates
   const updateData = {
-    [`system.props.${poolCurK}`]: poolAfterCast,
-    "system.props.stunCur": stunCur,
-    "system.props.physicalCur": physicalCur
+    [propPath(poolCurK)]: poolAfterCast,
+    [propPath("stunCur")]: stunCur,
+    [propPath("physicalCur")]: physicalCur
   };
 
-  console.log("SinlessCSB | castSpell targets", {
-    item: { name: item.name, uuid: item.uuid },
-    scope,
-    sheetActor: { name: sheetActor.name, uuid: sheetActor.uuid },
-    canonActor: canonActor ? { name: canonActor.name, uuid: canonActor.uuid } : null,
-    updateData
-  });
-
-  // 1) Update the resolved actor (explicit actorUuid or item parent)
   await sheetActor.update(updateData);
 
-  // 2) Mirror to canonical actor if different
   if (canonActor && canonActor.uuid !== sheetActor.uuid) {
-    try {
-      await canonActor.update(updateData);
-    } catch (e) {
+    try { await canonActor.update(updateData); } catch (e) {
       console.warn("SinlessCSB | castSpell: canonical mirror update failed", e);
     }
   }
 
-  // 3) If a controlled token actor is different but represents the same canonical actor, mirror there too.
-  const controlled = canvas?.tokens?.controlled ?? [];
-  for (const t of controlled) {
+  for (const t of canvas?.tokens?.controlled ?? []) {
     const ta = t?.actor;
     if (!ta || ta.documentName !== "Actor") continue;
 
@@ -681,27 +525,23 @@ export async function castSpell(scope = {}) {
       (taCanon.uuid === sheetActor.uuid || (canonActor?.uuid && taCanon.uuid === canonActor.uuid));
 
     if (matches && ta.uuid !== sheetActor.uuid && (!canonActor || ta.uuid !== canonActor.uuid)) {
-      try {
-        await ta.update(updateData);
-      } catch (e) {
-        console.warn("SinlessCSB | castSpell: token-synthetic mirror update failed", e);
+      try { await ta.update(updateData); } catch (e) {
+        console.warn("SinlessCSB | castSpell: token-synth mirror update failed", e);
       }
     }
   }
 
-  // 4) Re-render open sheets tied to updated actor docs
+  // Rerender open sheets
   const rerenderActor = (a) => {
     for (const app of Object.values(a?.apps ?? {})) {
-      try {
-        app.render(false);
-      } catch (_e) {}
+      try { app.render(false); } catch (_e) {}
     }
   };
   rerenderActor(sheetActor);
   if (canonActor && canonActor.uuid !== sheetActor.uuid) rerenderActor(canonActor);
   for (const t of canvas?.tokens?.controlled ?? []) rerenderActor(t?.actor);
 
-  // --- Chat output ---
+  // Chat output
   await postSpellChat({
     actor: sheetActor,
     item,
