@@ -16,7 +16,6 @@ import {
   normalizeUuid,
   readProps,
   propPath,
-  resolveActorForContext,
   resolveCanonicalActor,
   openDialogV2
 } from "./_util.js";
@@ -52,7 +51,6 @@ function readTN(sessionActor) {
  *  3) user character
  */
 async function resolveActorCandidate(scope = {}) {
-  // Use the same precedence you standardized elsewhere
   const actorUuid = normalizeUuid(scope?.actorUuid);
   const bound = actorUuid ? await fromUuid(actorUuid) : null;
   if (bound?.documentName === "Actor") return bound;
@@ -73,29 +71,26 @@ async function resolveActorCandidate(scope = {}) {
  * - Update any controlled token-synthetic actors that map to same canonical
  */
 async function updateActorWithMirrors(sheetActor, update) {
-  // 1) Update the doc the user is looking at
   await sheetActor.update(update);
 
-  // 2) Mirror to canonical
   const canon = await resolveCanonicalActor(sheetActor);
   if (canon && canon.uuid !== sheetActor.uuid) {
     try { await canon.update(update); } catch (_e) {}
   }
 
-  // 3) Mirror to controlled token-synthetics that represent same canonical
   for (const t of (canvas?.tokens?.controlled ?? [])) {
     const ta = t?.actor;
     if (!ta || ta.documentName !== "Actor") continue;
 
     const taCanon = await resolveCanonicalActor(ta);
-    const matches = taCanon?.uuid && (taCanon.uuid === canon?.uuid);
+    const matches = taCanon?.uuid && canon?.uuid && (taCanon.uuid === canon.uuid);
     if (!matches) continue;
 
-    if (ta.uuid === sheetActor.uuid || ta.uuid === canon?.uuid) continue;
+    if (ta.uuid === sheetActor.uuid || ta.uuid === canon.uuid) continue;
     try { await ta.update(update); } catch (_e) {}
   }
 
-  // 4) Re-render open sheets (best-effort)
+  // Best-effort rerender (helps CSB sheets refresh immediately)
   const rerender = (a) => {
     for (const app of Object.values(a?.apps ?? {})) {
       try { app.render(false); } catch (_e) {}
@@ -106,6 +101,10 @@ async function updateActorWithMirrors(sheetActor, update) {
   for (const t of (canvas?.tokens?.controlled ?? [])) rerender(t?.actor);
 }
 
+/* ----------------------------- */
+/* Pools + refresh math          */
+/* ----------------------------- */
+
 function poolDefs() {
   return [
     { name: "Brawn",   curKey: "Brawn_Cur",   maxKey: "Brawn_Max" },
@@ -125,6 +124,7 @@ function computePoolsFromAttrs(actor) {
   const INT = num(p.INT, 0);
   const CHA = num(p.CHA, 0);
 
+  // Quarter-CHA selector
   const qN = num(p.chaQuarterPoolN, 0);
   const chaQ = Math.floor(CHA / 4);
 
@@ -134,69 +134,18 @@ function computePoolsFromAttrs(actor) {
   const focus   = INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
 
   return {
-    brawn: Math.max(0, Math.floor(brawn)),
+    brawn:   Math.max(0, Math.floor(brawn)),
     finesse: Math.max(0, Math.floor(finesse)),
     resolve: Math.max(0, Math.floor(resolve)),
-    focus: Math.max(0, Math.floor(focus))
+    focus:   Math.max(0, Math.floor(focus))
   };
 }
 
-/* ----------------------------- */
-/* Pools + refresh logic         */
-/* ----------------------------- */
-
-function poolDefs() {
-  return [
-    { name: "Brawn",   curKey: "Brawn_Cur",   maxKey: "Brawn_Max" },
-    { name: "Finesse", curKey: "Finesse_Cur", maxKey: "Finesse_Max" },
-    { name: "Resolve", curKey: "Resolve_Cur", maxKey: "Resolve_Max" },
-    { name: "Focus",   curKey: "Focus_Cur",   maxKey: "Focus_Max" }
-  ];
-}
-
-function computePoolsFromAttrs(actor) {
-  const p = readProps(actor);
-
-  const STR = num(p.STR, 0);
-  const BOD = num(p.BOD, 0);
-  const WIL = num(p.WIL, 0);
-  const REA = num(p.REA, 0);
-  const INT = num(p.INT, 0);
-  const CHA = num(p.CHA, 0);
-
-  // Your “quarter CHA pool” selector
-  const qN = num(p.chaQuarterPoolN, 0);
-  const chaQ = Math.floor(CHA / 4);
-
-  const brawn   = STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
-  const finesse = REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
-  const resolve = WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
-  const focus   = INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
-
-  return { brawn, finesse, resolve, focus };
-}
-
 /**
- * Refresh pools for one Actor document.
- * - Prefer rules module refreshPoolsForActor if present
- * - Else fallback compute + update
+ * Build a Cur/Max update object from computed pools.
  */
-async function refreshPoolsForActorDoc(actor) {
-  // Preferred: call your rules module function if present
-  try {
-    const poolsMod = await import("/modules/sinlesscsb/scripts/rules/pools.js");
-    if (typeof poolsMod?.refreshPoolsForActor === "function") {
-      await poolsMod.refreshPoolsForActor(actor);
-      return { mode: "rulesModule" };
-    }
-  } catch (_e) {
-    // fall through
-  }
-
-  // Fallback (macro-equivalent)
-  const { brawn, finesse, resolve, focus } = computePoolsFromAttrs(actor);
-
-  const update = {
+function buildPoolsUpdate({ brawn, finesse, resolve, focus }) {
+  return {
     [propPath("Brawn_Max")]: brawn,
     [propPath("Brawn_Cur")]: brawn,
     [propPath("Finesse_Max")]: finesse,
@@ -206,14 +155,6 @@ async function refreshPoolsForActorDoc(actor) {
     [propPath("Focus_Max")]: focus,
     [propPath("Focus_Cur")]: focus
   };
-
-  console.log("SinlessCSB | refreshPools fallback update", {
-    actor: { name: actor.name, uuid: actor.uuid },
-    update
-  });
-
-  await actor.update(update);
-  return { mode: "fallback", update };
 }
 
 /* ----------------------------- */
@@ -230,16 +171,11 @@ export async function refreshPools(scope = {}) {
   const canon = await resolveCanonicalActor(sheetActor);
   if (!canon) return null;
 
-  const pools = poolDefs();
-
-  // --- 1) Prefer rules module if present ---
-  let usedRules = false;
+  // Prefer rules module if present
   try {
     const poolsMod = await import("/modules/sinlesscsb/scripts/rules/pools.js");
     if (typeof poolsMod?.refreshPoolsForActor === "function") {
-      usedRules = true;
-
-      // Run rules refresh on the same docs we mirror-update
+      // Run on sheetActor and canonical (and controlled synthetics) to preserve mirrors
       await poolsMod.refreshPoolsForActor(sheetActor);
       if (canon.uuid !== sheetActor.uuid) {
         try { await poolsMod.refreshPoolsForActor(canon); } catch (_e) {}
@@ -257,17 +193,16 @@ export async function refreshPools(scope = {}) {
         }
       }
 
-      // IMPORTANT: enforce Cur = Max after rules module (common gap)
+      // Enforce Cur=Max (rules module often sets Max but leaves Cur)
+      const defs = poolDefs();
       const p = readProps(canon);
       const enforce = {};
-      for (const def of pools) {
+      for (const def of defs) {
         const maxV = Math.max(0, Math.floor(num(p?.[def.maxKey], 0)));
         const curV = Math.max(0, Math.floor(num(p?.[def.curKey], 0)));
         if (curV !== maxV) enforce[propPath(def.curKey)] = maxV;
       }
-
       if (Object.keys(enforce).length) {
-        console.log("SinlessCSB | refreshPools enforcing Cur=Max after rules module", enforce);
         await updateActorWithMirrors(sheetActor, enforce);
       }
 
@@ -278,24 +213,13 @@ export async function refreshPools(scope = {}) {
     // fall through to fallback
   }
 
-  // --- 2) Fallback compute + mirror-safe update ---
-  const { brawn, finesse, resolve, focus } = computePoolsFromAttrs(canon);
-
-  const update = {
-    [propPath("Brawn_Max")]: brawn,
-    [propPath("Brawn_Cur")]: brawn,
-    [propPath("Finesse_Max")]: finesse,
-    [propPath("Finesse_Cur")]: finesse,
-    [propPath("Resolve_Max")]: resolve,
-    [propPath("Resolve_Cur")]: resolve,
-    [propPath("Focus_Max")]: focus,
-    [propPath("Focus_Cur")]: focus
-  };
+  // Fallback compute + mirror-safe update
+  const computed = computePoolsFromAttrs(canon);
+  const update = buildPoolsUpdate(computed);
 
   console.log("SinlessCSB | refreshPools fallback update", {
     sheetActor: { name: sheetActor.name, uuid: sheetActor.uuid },
     canon: { name: canon.name, uuid: canon.uuid },
-    usedRules,
     update
   });
 
@@ -316,7 +240,7 @@ export async function rollPools(scope = {}) {
     return null;
   }
 
-  // Canonical is “rules truth”, but updates will be mirrored from sheetActor
+  // Canonical for rules truth; updates mirrored from sheetActor
   const actor = await resolveCanonicalActor(sheetActor);
   if (!actor) return null;
 
@@ -397,7 +321,6 @@ export async function rollPools(scope = {}) {
     buttons: [{ action: "close", label: "Close", default: true, callback: () => "close" }],
 
     onRender: (dialog, root) => {
-      // Prevent duplicate binding on rerender
       if (root?.dataset?.sinlessPoolsBound === "1") return;
       root.dataset.sinlessPoolsBound = "1";
 
@@ -430,7 +353,6 @@ export async function rollPools(scope = {}) {
       };
 
       const doRefresh = async () => {
-        // Refresh using the sheetActor’s uuid so we preserve “what user is looking at”
         await refreshPools({ actorUuid: sheetActor.uuid });
         updateAllRows();
       };
@@ -465,7 +387,6 @@ export async function rollPools(scope = {}) {
 
         const newCur = Math.max(0, curVal - spendClamped);
 
-        // Mirror-safe update (sheetActor first, then canonical/token mirrors)
         await updateActorWithMirrors(sheetActor, { [propPath(p.curKey)]: newCur });
 
         updateRow(p);
@@ -498,10 +419,14 @@ export async function rollPools(scope = {}) {
         );
       };
 
-      // Live refresh: update dialog when THIS actor updates its system.props
+      // Live refresh: update dialog when EITHER sheetActor or canonical updates
       if (!dialog._sinlessPoolsActorHookId) {
+        const sheetId = sheetActor?.id;
+        const canonId = actor?.id;
+
         dialog._sinlessPoolsActorHookId = Hooks.on("updateActor", (updatedActor, changed) => {
-          if (updatedActor?.id !== actor?.id) return;
+          if (!updatedActor?.id) return;
+          if (updatedActor.id !== sheetId && updatedActor.id !== canonId) return;
           if (!changed?.system?.props) return;
           queueMicrotask(() => updateAllRows());
         });
@@ -528,7 +453,6 @@ export async function rollPools(scope = {}) {
 
       root.addEventListener("click", handler);
 
-      // Cleanup the handler and hook on close (avoid leaks if Foundry reuses DOM)
       const origClose = dialog.close?.bind(dialog);
       dialog.close = async (...args) => {
         try { root.removeEventListener("click", handler); } catch (_e) {}

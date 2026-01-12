@@ -119,3 +119,34 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 - Verify:
   - Resolve spend and drain spend clamp correctly
   - stun/physical remaining values update correctly
+
+  ### ActorUuid alias plan (transition safety)
+
+We historically used `system.props.ActorUuid` (capital A) as the canonical reference, and some newer code paths may look for `system.props.actorUuid` (lowercase a). Case mismatches are easy to introduce and can silently break canonical resolution.
+
+**Project policy (effective now)**
+- **Write** both keys during the transition:
+  - `system.props.ActorUuid` (authoritative)
+  - `system.props.actorUuid` (alias / compatibility)
+- **Read** with fallback:
+  - prefer `ActorUuid`, else `actorUuid`
+
+**Why**
+- Prevent “works on some sheets, fails on others” when a template, injection script, or older world data uses only one casing.
+- Reduce regression risk while we refactor macros → API (especially initiative).
+
+**Implementation points**
+- In `sheets.js` (or wherever we ensure the canonical uuid on sheet open), set both keys to the same canonical value (`Actor.<id>` UUID).
+- In `_util.js resolveCanonicalActor`, resolve from `ActorUuid ?? actorUuid`, then normalize.
+
+**Normalization rule**
+- Stored canonical should be the full UUID string (e.g., `Actor.eMbezua6UThIStwT`), not a bare id.
+- If a bare id is found, normalize to `Actor.<id>` before `fromUuid()`.
+
+**Exit criteria (when we can remove the alias)**
+- After we confirm:
+  1) all actor templates and existing actors in the active worlds have `system.props.ActorUuid` populated
+  2) initiative + pools + item-roll + cast-spell are fully on API and consistently resolving canonical actors
+  3) no production sheets or compendiums rely on `actorUuid`
+- Then we can stop writing `actorUuid` and keep only the read fallback for one release cycle before removing it.
+

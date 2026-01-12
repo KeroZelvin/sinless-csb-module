@@ -138,3 +138,49 @@ When initiative moves to API:
   6. post chat card with correct speaker.
 
 This prevents the “wrong actor name / wrong actor doc updated” issues seen previously.
+
+## Pattern: Debugging “nothing happens” / UI not updating (module + API)
+
+### 0) First principle: confirm the module actually loaded
+If the module fails to load, then:
+- `game.modules.get("sinlesscsb")?.api` will be empty
+- CSS may appear “broken” (styles never injected)
+- sheet buttons/macros that call the API will appear dead
+
+**Fast check**
+- Look for boot errors like: `Uncaught SyntaxError: Identifier 'X' has already been declared`
+- Confirm: `console.log(Object.keys(game.modules.get("sinlesscsb")?.api ?? {}))` has expected keys
+
+**Common root cause**
+- Duplicate declarations inside an ES module (e.g., defining `poolDefs()` twice in `pools-roll.js`).
+This is fatal at parse time; nothing after it runs.
+
+---
+
+### 1) “API not available” is a boot/exposure problem until proven otherwise
+**Symptom**
+- Button roll message logs: `API not available` and `apiKeys: []`
+
+**Causes**
+- Module crashed during load (parse/runtime error)
+- `main.js` did not expose the function on `mod.api`
+- Exposure ran too early/late in a way that never executed (usually because module failed earlier)
+
+**Resolution**
+- Fix the boot error first
+- Ensure `exposeModuleAPI()` merges in the new function
+- Verify API keys again at `ready`
+
+---
+
+### 2) Always verify writes on the correct document before blaming the UI
+When a sheet value “didn’t change,” confirm whether the underlying Actor document changed.
+
+**Console probe**
+```js
+(async () => {
+  const a = await fromUuid("Actor.<id>");
+  console.log("Actor", a?.name, a?.uuid);
+  console.log("Props", a?.system?.props);
+})();
+
