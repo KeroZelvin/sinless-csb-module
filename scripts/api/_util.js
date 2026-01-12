@@ -157,14 +157,33 @@ export function getDialogV2Class() {
   return foundry?.applications?.api?.DialogV2 ?? null;
 }
 
-export function getDialogRoot(dialog) {
-  const el = dialog?.element ?? null;
-  if (!el) return null;
-  if (el instanceof HTMLElement) return el;
-  if (Array.isArray(el) && el[0] instanceof HTMLElement) return el[0];
-  if (el?.[0] instanceof HTMLElement) return el[0];
+export function getDialogRoot(dialog, options = null) {
+  // 1) Direct element refs (varies by runtime)
+  const candidates = [
+    dialog?.element,
+    dialog?._element,
+    dialog?.element?.[0],
+    dialog?._element?.[0],
+    options?.element,
+    options?.element?.[0]
+  ];
+
+  for (const c of candidates) {
+    if (c instanceof HTMLElement) return c;
+  }
+
+  // 2) Fallback by appId (ApplicationV2 windows commonly have data-appid)
+  const appId = dialog?.appId;
+  if (Number.isFinite(appId)) {
+    const byAppId =
+      document.querySelector(`[data-appid="${appId}"]`) ||
+      document.querySelector(`[data-app-id="${appId}"]`);
+    if (byAppId instanceof HTMLElement) return byAppId;
+  }
+
   return null;
 }
+
 
 /**
  * Read the <form> for DialogV2 callbacks without relying on button.form.
@@ -253,9 +272,20 @@ export async function openDialogV2(cfg = {}) {
 
         _onRender(context, options) {
           super._onRender(context, options);
-          const root = getDialogRoot(this);
-          if (root) onRender(this, root);
-        }
+
+          const tryBind = () => {
+            const root = getDialogRoot(this, options);
+            if (root) {
+            try { onRender(this, root); } catch (e) { console.error("SinlessCSB | onRender failed", e); }
+            return true;
+    }
+    return false;
+  };
+
+  // Try immediately; if the element is populated slightly later, retry once.
+  if (!tryBind()) queueMicrotask(tryBind);
+}
+
 
         async close(options) {
           if (!this._sinlessResolved) {

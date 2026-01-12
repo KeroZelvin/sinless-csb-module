@@ -186,3 +186,284 @@ Known symptom when violated: Stepper buttons render but do not change inputs; di
 
 Files impacted: _util.js (openDialogV2), any API function that opens dialogs (e.g., item-roll.js, cast-spell.js, pools-roll.js).
 
+Canonical Guide: Fixing Broken DialogV2 Steppers and Layout in Foundry v13 (SinlessCSB)
+Scope
+
+This guide covers a recurring class of issues in SinlessCSB where +/- stepper buttons inside DialogV2 dialogs:
+
+Render correctly (DOM elements exist), but clicks do nothing, or
+
+Clicks register but numeric inputs never change, or
+
+Buttons work but stack vertically above/below the input due to Foundry dialog CSS.
+
+This applies to Item Roll and Cast Spell dialogs; same patterns should be used for Pools Roll and any future DialogV2 UI.
+
+Non-negotiable project constraints
+
+Do not use DialogV2.wait() (render callback / timing differs across builds and breaks event binding).
+
+Standardize on instance-based DialogV2 render path via openDialogV2() and onRender(dialog, root).
+
+Actor live values are under actor.system.props.
+
+Canonical actor resolution uses system.props.ActorUuid to avoid token-synthetic drift (not part of this guide unless it affects DOM binding).
+
+What “broken steppers” looks like
+Symptom A — Buttons exist, but clicks do nothing
+
+Query shows buttons exist, e.g.:
+
+document.querySelectorAll('.dialog [data-action="step"]').length returns expected count
+
+Clicking produces no changes and no logs from your handler.
+
+Most likely causes:
+
+You bound events to the wrong DOM root (binding to a detached element).
+
+onRender ran before content was in the subtree and your binding code returned early.
+
+A “bind guard” (dataset flag) was set too early, preventing later rebinding.
+
+Symptom B — Click handler fires but value never changes (stuck at 0)
+
+Observed directly in Item Roll:
+
+Logs show handler firing for sit field, but value stayed "0" for both +1 and -1.
+
+Root cause:
+
+Using Number(input.min) / Number(input.max) is incorrect when the attribute is missing:
+
+input.min and input.max are "" when unset
+
+Number("") becomes 0
+
+Result: min=0 and max=0, so value clamps to 0 forever
+
+Symptom C — Buttons work but stack vertically above/below input
+
+Observed in Cast Spell UI:
+
+Even with display:grid rules, computed style remained display: block
+
+Foundry dialog form CSS overrides the intended layout.
+
+Root cause:
+
+Foundry DialogV2 wraps content in its own outer form and applies strong CSS that can override author styles.
+
+Selector mismatch is common because the inner <form class="sinlesscsb spell-dialog"> may be normalized/rewrapped.
+
+In some cases, even !important rules lose due to higher specificity or Foundry’s cascade.
+
+Canonical debugging checklist (fast path)
+1) Confirm the button is actually clickable (not overlayed)
+
+While the dialog is open:
+
+const btn = document.querySelector('.dialog button[data-action="step"], .dialog button.sinlesscsb-step');
+const r = btn.getBoundingClientRect();
+document.elementFromPoint(r.left + r.width/2, r.top + r.height/2);
+
+
+If elementFromPoint returns the button (or a child), overlay/pointer-events is not the issue.
+
+2) Confirm clicks reach the document at all
+
+Install a document capture probe:
+
+window.__sinlessClickProbe?.remove?.();
+window.__sinlessClickProbe = (() => {
+  const handler = (ev) => {
+    const t = ev.target;
+    const stepBtn =
+      t?.closest?.('button[data-action="step"]') ||
+      t?.closest?.('button.sinlesscsb-step');
+    if (stepBtn) console.log("CAPTURE saw step click", stepBtn.outerHTML);
+  };
+  document.addEventListener("click", handler, true);
+  return { remove: () => document.removeEventListener("click", handler, true) };
+})();
+
+
+If this logs but your handler does not: you bound to the wrong root, or never bound at all.
+
+3) Confirm onRender is actually running and root is correct
+
+In onRender, log:
+
+root
+
+root.querySelectorAll('button[data-action="step"],button.sinlesscsb-step').length
+
+root.querySelectorAll("form").length
+
+This distinguishes “no onRender” vs “wrong root” vs “content not present yet”.
+
+Canonical binding pattern (use everywhere)
+Rule 1 — Bind to a deterministic container, not assumptions about inner forms
+
+In Foundry v13 DialogV2, the most stable container is:
+
+const bindRoot = root.querySelector("form") || root;
+
+
+Do NOT require form.sinlesscsb.<whatever> to exist; Foundry may rewrap/normalize it.
+
+Rule 2 — Guard on the bind root, not on transient roots or assumptions
+
+Use a dataset guard on bindRoot:
+
+if (bindRoot.dataset.sinlessBound === "1") return;
+bindRoot.dataset.sinlessBound = "1";
+
+Rule 3 — Use delegated click handling in capture phase
+
+Capture phase is more resilient under Foundry UI:
+
+bindRoot.addEventListener("click", handler, true);
+
+
+Inside handler, match the button via closest(...):
+
+Item Roll: button[data-action="step"]
+
+Cast Spell: button.sinlesscsb-step
+
+Rule 4 — Locate the target input relative to the clicked button first
+
+This prevents wrong input matches when multiple inputs share the same name or layout is complex:
+
+Try local container (tr, td, div)
+
+Fallback to bindRoot
+
+const localContainer = btn.closest("tr") || btn.closest("td") || btn.closest("div");
+const input =
+  localContainer?.querySelector(`input[name="${CSS.escape(field)}"]`) ||
+  bindRoot.querySelector(`input[name="${CSS.escape(field)}"]`);
+
+Rule 5 — Clamp correctly: use getAttribute() for min/max
+
+Never do Number(input.min) when attribute may be missing.
+
+Canonical clamp logic:
+
+const minAttr = input.getAttribute("min");
+const maxAttr = input.getAttribute("max");
+
+const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
+const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
+
+const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
+const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
+
+
+Then clamp and floor.
+
+This was the direct fix for Item Roll sit not incrementing (stuck at 0).
+
+Rule 6 — Always dispatch input/change after programmatic updates
+
+After setting input.value, dispatch:
+
+input.dispatchEvent(new Event("input", { bubbles: true }));
+input.dispatchEvent(new Event("change", { bubbles: true }));
+
+
+This ensures derived values update and FormData reads correctly.
+
+Rule 7 — Cleanup on close (prevent accumulation)
+
+Wrap close once and remove the listener:
+
+if (!dialog._sinlessCloseWrapped) {
+  dialog._sinlessCloseWrapped = true;
+  const origClose = dialog.close.bind(dialog);
+  dialog.close = async (...args) => {
+    try { bindRoot.removeEventListener("click", handler, true); } catch (_e) {}
+    return await origClose(...args);
+  };
+}
+
+Rule 8 — Avoid unsafe re-entry patterns
+
+Do not use:
+
+arguments.callee (breaks in arrow functions / strict mode)
+
+calling dialog._onRender() manually
+
+If you truly need “retry binding,” prefer a single queueMicrotask(() => attemptBind()), but ideally avoid timing sensitivity by binding to bindRoot and using delegated matching.
+
+Canonical CSS/layout fix for vertical stacking steppers (Cast Spell)
+
+Even when the HTML is - input +, Foundry’s dialog styles may force stacking.
+
+Preferred fix: inline grid on the row container
+
+This is the most deterministic fix we used successfully.
+
+Add inline style to the row wrapper:
+
+<div class="sinlesscsb-spell-row"
+     style="display:grid !important; grid-template-columns:2rem 1fr 2rem; gap:8px; align-items:center;">
+  ...
+</div>
+
+
+This defeated Foundry’s dialog form CSS when selector-based CSS continued to compute as display: block.
+
+Notes
+
+Selector-based CSS may fail because Foundry rewraps inner form elements, and specificity may outcompete your injected style block.
+
+Inline style should be reserved for “Foundry CSS wins no matter what” cases. When possible, prefer a stable selector with adequate specificity, but use inline as the canonical fallback.
+
+Proven resolutions from this project (summary)
+Item Roll dialog
+
+Buttons existed but did nothing: fixed by binding to bindRoot = root.querySelector("form") || root and using delegated capture-phase click.
+
+sit (situational modifier) stuck at 0: fixed by correcting min/max parsing via getAttribute() so missing bounds do not clamp to 0.
+
+Cast Spell dialog
+
+Stepper clicks: stabilized using the same binding approach as Item Roll (bindRoot + delegated capture + correct clamp).
+
+Stepper UI stacked vertically: fixed by adding inline grid layout to .sinlesscsb-spell-row containers.
+
+Canonical implementation recommendations
+
+Standardize a shared helper in _util.js to provide:
+
+getBindRoot(root) (root.querySelector("form") || root)
+
+clampNumberInput(input, value) using getAttribute min/max
+
+bindDialogSteppers({ dialog, root, buttonSelector, fieldResolver })
+
+Cleanup-on-close wrapper
+
+Every DialogV2 should:
+
+Bind in onRender(dialog, root) only
+
+Use delegated capture-phase click handling
+
+Never rely on nested form selectors being preserved by Foundry
+
+For any numeric inputs without explicit min/max:
+
+Assume unbounded unless rules specify otherwise
+
+Ensure clamp logic treats missing attributes as ±Infinity
+
+For any layout issues with steppers:
+
+First attempt selector-based grid on .sinlesscsb-*-row
+
+If computed style still shows block, use inline grid on the row container.
+

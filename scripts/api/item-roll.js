@@ -225,20 +225,36 @@ async function promptRuntimeInputs({
 
     // Bind the stepper clicks after render (once per root)
 onRender: (dialog, root) => {
-  // Prevent double-binding on rerender
-  if (root?.dataset?.sinlessItemRollBound === "1") return;
-  if (root?.dataset) root.dataset.sinlessItemRollBound = "1";
+  if (!(root instanceof HTMLElement)) return;
 
-  const form = root?.querySelector?.("form.sinlesscsb.item-roll-dialog");
-  if (!form) return;
+  // Choose a stable bind container:
+  // - prefer the outer DialogV2 form Foundry renders
+  // - else bind to root
+  const bindRoot = root.querySelector("form") || root;
 
-  const q = (name) => form.querySelector(`input[name="${CSS.escape(name)}"]`);
+  // Guard: avoid double-binding across rerenders (guard on bindRoot)
+  if (bindRoot.dataset.sinlessItemRollBound === "1") return;
+  bindRoot.dataset.sinlessItemRollBound = "1";
+
+  if (globalThis.SINLESS_DEBUG_DIALOGS) {
+    console.groupCollapsed("SinlessCSB | item-roll onRender");
+    console.log("root:", root);
+    console.log("bindRoot:", bindRoot);
+    console.log("forms under root:", root.querySelectorAll("form").length, [...root.querySelectorAll("form")].map(f => f.className));
+    console.log("step buttons under root:", root.querySelectorAll('button[data-action="step"]').length);
+    console.groupEnd();
+  }
 
   const clampToInput = (input, v) => {
-    if (!input) return 0;
+    if (!(input instanceof HTMLInputElement)) return 0;
 
-    const minRaw = Number(input.min);
-    const maxRaw = Number(input.max);
+    // IMPORTANT: min/max are empty strings when not set.
+    // Number("") -> 0, which would incorrectly clamp sit to 0 forever.
+    const minAttr = input.getAttribute("min");
+    const maxAttr = input.getAttribute("max");
+
+    const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
+    const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
 
     const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
     const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
@@ -253,21 +269,26 @@ onRender: (dialog, root) => {
     return vv;
   };
 
-  const step = (field, delta) => {
-    const el = q(field);
-    if (!el) return;
+  const findInputForField = (btn, field) => {
+    // 1) Try closest row/container first
+    const localContainer =
+      btn.closest("tr") ||
+      btn.closest("td") ||
+      btn.closest("div") ||
+      null;
 
-    const cur = Number(el.value);
-    const next = (Number.isFinite(cur) ? cur : 0) + delta;
+    if (localContainer) {
+      const local = localContainer.querySelector(`input[name="${CSS.escape(field)}"]`);
+      if (local instanceof HTMLInputElement) return local;
+    }
 
-    clampToInput(el, next);
+    // 2) Fallback: search within bindRoot
+    const global = bindRoot.querySelector(`input[name="${CSS.escape(field)}"]`);
+    if (global instanceof HTMLInputElement) return global;
 
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
+    return null;
   };
 
-  // Use closest() so clicks on child nodes still work.
-  // Bind to ROOT in CAPTURE phase so it still fires even if internal wrappers stop bubbling.
   const handler = (ev) => {
     const btn = ev.target?.closest?.('button[data-action="step"]');
     if (!(btn instanceof HTMLElement)) return;
@@ -275,20 +296,34 @@ onRender: (dialog, root) => {
     ev.preventDefault();
 
     const field = btn.dataset.field;
-    const delta = Number(btn.dataset.step ?? 0);
+    const delta = Number(btn.dataset.step ?? "0");
     if (!field || !Number.isFinite(delta)) return;
 
-    step(field, delta);
+    const input = findInputForField(btn, field);
+    if (!input || input.disabled || input.readOnly) return;
+
+    const cur = Number(input.value);
+    const next = (Number.isFinite(cur) ? cur : 0) + delta;
+
+    clampToInput(input, next);
+
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+
+    if (globalThis.SINLESS_DEBUG_DIALOGS) {
+      console.log("SinlessCSB | stepper fired", { field, delta, value: input.value });
+    }
   };
 
-  // Attach at root, capture=true for maximum reliability in DialogV2 DOM
-  root.addEventListener("click", handler, true);
+  // Capture phase for maximum reliability in Foundry UI
+  bindRoot.addEventListener("click", handler, true);
 
-  // Cleanup best-effort without assuming dialog exists
-  if (dialog && typeof dialog.close === "function") {
+  // Cleanup on close (wrap once)
+  if (!dialog._sinlessItemRollCloseWrapped && typeof dialog.close === "function") {
+    dialog._sinlessItemRollCloseWrapped = true;
     const origClose = dialog.close.bind(dialog);
     dialog.close = async (...args) => {
-      try { root.removeEventListener("click", handler, true); } catch (_e) {}
+      try { bindRoot.removeEventListener("click", handler, true); } catch (_e) {}
       return await origClose(...args);
     };
   }

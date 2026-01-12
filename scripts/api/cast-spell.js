@@ -149,148 +149,203 @@ async function promptCastSpellDialog({
   const initialDrainMax = Math.min(resistLimit, initialRemaining);
   const initialDrain = clamp(Math.floor(num(initialDrainMax, 0)), 0, initialDrainMax);
 
-  const content = `
-    <form class="sinlesscsb spell-dialog" autocomplete="off">
-      <style>
-        .sinlesscsb-spell-table { width: 100%; border-collapse: collapse; }
-        .sinlesscsb-spell-table th, .sinlesscsb-spell-table td { padding: 8px 10px; vertical-align: top; }
-        .sinlesscsb-spell-table thead th { text-align: left; padding: 0 0 6px 0; }
-        .sinlesscsb-spell-table tbody tr:nth-child(even) td { background: rgba(255, 255, 255, 0.04); }
-        .sinlesscsb-spell-table tbody tr:nth-child(odd) td { background: rgba(255, 255, 255, 0.00); }
-        .sinlesscsb-spell-label { font-weight: 600; margin-bottom: 4px; }
-        .sinlesscsb-spell-value { font-size: 1.05rem; }
-        .sinlesscsb-spell-row { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
-        .sinlesscsb-step { width: 2rem; height: 2rem; line-height: 2rem; text-align: center; }
-        .sinlesscsb-spell-input { width: 6rem; }
-        .sinlesscsb-muted { opacity: 0.85; margin-top: 4px; }
-        .sinlesscsb-details { margin-top: 4px; opacity: 0.9; }
-        .sinlesscsb-details summary { cursor: pointer; opacity: 0.85; }
-      </style>
+const content = `
+  <form class="sinlesscsb spell-dialog" autocomplete="off">
+    <style>
+      .sinlesscsb-spell-table { width: 100%; border-collapse: collapse; }
+      .sinlesscsb-spell-table th, .sinlesscsb-spell-table td { padding: 8px 10px; vertical-align: top; }
+      .sinlesscsb-spell-table thead th { text-align: left; padding: 0 0 6px 0; }
+      .sinlesscsb-spell-table tbody tr:nth-child(even) td { background: rgba(255, 255, 255, 0.04); }
+      .sinlesscsb-spell-table tbody tr:nth-child(odd) td { background: rgba(255, 255, 255, 0.00); }
+      .sinlesscsb-spell-label { font-weight: 600; margin-bottom: 4px; }
+      .sinlesscsb-spell-value { font-size: 1.05rem; }
 
-      <table class="sinlesscsb-spell-table">
-        <tbody>
-          <tr>
-            <td>
-              <div class="sinlesscsb-spell-label">Learned Force MAX:</div>
-              <div class="sinlesscsb-spell-value">${spellforceMax}</div>
-            </td>
-            <td>
-              <div class="sinlesscsb-spell-label">Cast Force:</div>
-              <div class="sinlesscsb-spell-row">
-                <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="-1">-</button>
-                <input class="sinlesscsb-spell-input" type="number" name="forceChosen"
-                       min="1" max="${spellforceMax}" value="${defaultForce}" step="1"/>
-                <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="1">+</button>
-              </div>
-            </td>
-          </tr>
+      /* Keep these, but Foundry may override them; inline styles below are the hard stop. */
+      .sinlesscsb-spell-row {
+        display: grid !important;
+        grid-template-columns: 2rem 1fr 2rem;
+        gap: 8px;
+        align-items: center;
+      }
 
-          <tr>
-            <td>
-              <div class="sinlesscsb-spell-label">Casting Limit:</div>
-              <div class="sinlesscsb-spell-value">${castLimit}</div>
-              <details class="sinlesscsb-details">
-                <summary>Show formula</summary>
-                <div class="sinlesscsb-muted">${skillKey} (${skillRank}) + Spell Foci (${fociRank})</div>
-              </details>
-            </td>
-            <td>
-              <div class="sinlesscsb-spell-label">Drain Resist Limit:</div>
-              <div class="sinlesscsb-spell-value">${resistLimit}</div>
-              <details class="sinlesscsb-details">
-                <summary>Show formula</summary>
-                <div class="sinlesscsb-muted">Skill_Channeling (${channelingRank}) + Fetish (${fetishRank})</div>
-              </details>
-            </td>
-          </tr>
+      button.sinlesscsb-step {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 2rem !important;
+        height: 2rem !important;
+        line-height: 2rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
 
-          <tr>
-            <td>
-              <div class="sinlesscsb-spell-label">Resolve Pool:</div>
-              <div class="sinlesscsb-spell-value">
-                <span data-sinless="poolCur">${poolCur}</span>
-              </div>
-            </td>
-            <td>
-              <div class="sinlesscsb-spell-label">Cast Spend:</div>
-              <div class="sinlesscsb-spell-row">
-                <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="-1">-</button>
-                <input class="sinlesscsb-spell-input" type="number" name="spendCast"
-                       min="0" max="${maxCastSpend}" value="${initialCast}" step="1"/>
-                <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="1">+</button>
-              </div>
-              <div class="sinlesscsb-muted">
-                Max: <span data-sinless="castMax">${maxCastSpend}</span>
-              </div>
-            </td>
-          </tr>
+      input.sinlesscsb-spell-input {
+        width: 100% !important;
+        min-width: 0;
+      }
 
-          <tr>
-            <td>
-              <div class="sinlesscsb-spell-label">Post-Cast Resolve Pool:</div>
-              <div class="sinlesscsb-spell-value">
-                <span data-sinless="remainAfterCast">${initialRemaining}</span>
-              </div>
-            </td>
-            <td>
-              <div class="sinlesscsb-spell-label">Drain Resist Spend:</div>
-              <div class="sinlesscsb-spell-row">
-                <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="-1">-</button>
-                <input class="sinlesscsb-spell-input" type="number" name="spendDrain"
-                       min="0" max="${initialDrainMax}" value="${initialDrain}" step="1"/>
-                <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="1">+</button>
-              </div>
-              <div class="sinlesscsb-muted">
-                Max: <span data-sinless="drainMax">${initialDrainMax}</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      .sinlesscsb-muted { opacity: 0.85; margin-top: 4px; }
+      .sinlesscsb-details { margin-top: 4px; opacity: 0.9; }
+      .sinlesscsb-details summary { cursor: pointer; opacity: 0.85; }
+    </style>
 
-      <hr/>
+    <table class="sinlesscsb-spell-table">
+      <tbody>
+        <tr>
+          <td>
+            <div class="sinlesscsb-spell-label">Learned Force MAX:</div>
+            <div class="sinlesscsb-spell-value">${spellforceMax}</div>
+          </td>
+          <td>
+            <div class="sinlesscsb-spell-label">Cast Force:</div>
 
-      <div class="form-group">
-        <label>Static dice modifiers</label>
-        <div class="sinlesscsb-muted">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
-      </div>
-    </form>
-  `;
+            <!-- INLINE GRID: this defeats Foundry's dialog form CSS that forces stacking -->
+            <div class="sinlesscsb-spell-row"
+                 style="display:grid !important; grid-template-columns:2rem 1fr 2rem; gap:8px; align-items:center;">
+              <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="-1">-</button>
+              <input class="sinlesscsb-spell-input" type="number" name="forceChosen"
+                     min="1" max="${spellforceMax}" value="${defaultForce}" step="1"/>
+              <button type="button" class="sinlesscsb-step" data-target="forceChosen" data-delta="1">+</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="sinlesscsb-spell-label">Casting Limit:</div>
+            <div class="sinlesscsb-spell-value">${castLimit}</div>
+            <details class="sinlesscsb-details">
+              <summary>Show formula</summary>
+              <div class="sinlesscsb-muted">${skillKey} (${skillRank}) + Spell Foci (${fociRank})</div>
+            </details>
+          </td>
+          <td>
+            <div class="sinlesscsb-spell-label">Drain Resist Limit:</div>
+            <div class="sinlesscsb-spell-value">${resistLimit}</div>
+            <details class="sinlesscsb-details">
+              <summary>Show formula</summary>
+              <div class="sinlesscsb-muted">Skill_Channeling (${channelingRank}) + Fetish (${fetishRank})</div>
+            </details>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="sinlesscsb-spell-label">Resolve Pool:</div>
+            <div class="sinlesscsb-spell-value">
+              <span data-sinless="poolCur">${poolCur}</span>
+            </div>
+          </td>
+          <td>
+            <div class="sinlesscsb-spell-label">Cast Spend:</div>
+
+            <div class="sinlesscsb-spell-row"
+                 style="display:grid !important; grid-template-columns:2rem 1fr 2rem; gap:8px; align-items:center;">
+              <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="-1">-</button>
+              <input class="sinlesscsb-spell-input" type="number" name="spendCast"
+                     min="0" max="${maxCastSpend}" value="${initialCast}" step="1"/>
+              <button type="button" class="sinlesscsb-step" data-target="spendCast" data-delta="1">+</button>
+            </div>
+
+            <div class="sinlesscsb-muted">
+              Max: <span data-sinless="castMax">${maxCastSpend}</span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="sinlesscsb-spell-label">Post-Cast Resolve Pool:</div>
+            <div class="sinlesscsb-spell-value">
+              <span data-sinless="remainAfterCast">${initialRemaining}</span>
+            </div>
+          </td>
+          <td>
+            <div class="sinlesscsb-spell-label">Drain Resist Spend:</div>
+
+            <div class="sinlesscsb-spell-row"
+                 style="display:grid !important; grid-template-columns:2rem 1fr 2rem; gap:8px; align-items:center;">
+              <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="-1">-</button>
+              <input class="sinlesscsb-spell-input" type="number" name="spendDrain"
+                     min="0" max="${initialDrainMax}" value="${initialDrain}" step="1"/>
+              <button type="button" class="sinlesscsb-step" data-target="spendDrain" data-delta="1">+</button>
+            </div>
+
+            <div class="sinlesscsb-muted">
+              Max: <span data-sinless="drainMax">${initialDrainMax}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr/>
+
+    <div class="form-group">
+      <label>Static dice modifiers</label>
+      <div class="sinlesscsb-muted">bonusDice: ${bonusDice} | diceMod: ${diceMod}</div>
+    </div>
+  </form>
+`;
+
+
 
   return await openDialogV2({
     title: `Cast Spell: ${itemName}`,
     content,
     rejectClose: false,
 
-    onRender: (_dialog, root) => {
-      if (root?.dataset?.sinlessCastBound === "1") return;
-      root.dataset.sinlessCastBound = "1";
+    onRender: (dialog, root) => {
+      if (!(root instanceof HTMLElement)) return;
 
-      const form = root.querySelector("form.sinlesscsb.spell-dialog");
-      if (!form) return;
+      // Deterministic bind root in v13 DialogV2: the outer rendered form is stable.
+      const bindRoot = root.querySelector("form") || root;
 
-      const elForce = form.querySelector('input[name="forceChosen"]');
-      const elCast = form.querySelector('input[name="spendCast"]');
-      const elDrain = form.querySelector('input[name="spendDrain"]');
+      // Guard on bindRoot (rerender-safe)
+      if (bindRoot.dataset.sinlessCastBound === "1") return;
+      bindRoot.dataset.sinlessCastBound = "1";
 
-      const elRemain = form.querySelector('[data-sinless="remainAfterCast"]');
-      const elDrainMax = form.querySelector('[data-sinless="drainMax"]');
+      // Find the inner form (optional). If missing, we can still operate via bindRoot queries.
+      const innerForm = bindRoot.querySelector("form.sinlesscsb.spell-dialog") || bindRoot;
+
+      const elForce = innerForm.querySelector('input[name="forceChosen"]');
+      const elCast = innerForm.querySelector('input[name="spendCast"]');
+      const elDrain = innerForm.querySelector('input[name="spendDrain"]');
+
+      const elRemain = innerForm.querySelector('[data-sinless="remainAfterCast"]');
+      const elDrainMax = innerForm.querySelector('[data-sinless="drainMax"]');
 
       let drainDirty = false;
 
+      // Correct min/max parsing: missing attributes must NOT clamp to 0.
       const clampToInput = (input, v) => {
-        if (!input) return 0;
-        const min = Number(input.min ?? 0);
-        const max = Number(input.max ?? min);
-        const vv = Math.max(min, Math.min(max, Number.isFinite(v) ? v : min));
-        input.value = String(Math.floor(vv));
-        return Math.floor(vv);
+        if (!(input instanceof HTMLInputElement)) return 0;
+
+        const minAttr = input.getAttribute("min");
+        const maxAttr = input.getAttribute("max");
+
+        const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
+        const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
+
+        const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
+        const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
+
+        let vv = Number(v);
+        if (!Number.isFinite(vv)) vv = 0;
+
+        vv = Math.max(min, Math.min(max, vv));
+        vv = Math.floor(vv);
+
+        input.value = String(vv);
+        return vv;
       };
 
       const updateDerived = () => {
-        if (!elCast || !elDrain) return;
+        if (!(elCast instanceof HTMLInputElement) || !(elDrain instanceof HTMLInputElement)) return;
 
-        if (elForce) clampToInput(elForce, Number(elForce.value));
+        if (elForce instanceof HTMLInputElement) {
+          clampToInput(elForce, Number(elForce.value));
+        }
 
         const castVal = clampToInput(elCast, Number(elCast.value));
 
@@ -298,17 +353,20 @@ async function promptCastSpellDialog({
         if (elRemain) elRemain.textContent = String(remaining);
 
         const drainMax = Math.min(resistLimit, remaining);
-        elDrain.max = String(drainMax);
+        elDrain.setAttribute("max", String(drainMax));
         if (elDrainMax) elDrainMax.textContent = String(drainMax);
 
         const currentDrain = Number(elDrain.value);
+
         if (!drainDirty) {
+          // Default to max drain spend (but only until the user edits drain)
           elDrain.value = String(Math.floor(drainMax));
-        } else if (currentDrain > drainMax) {
+        } else if (Number.isFinite(currentDrain) && currentDrain > drainMax) {
           elDrain.value = String(Math.floor(drainMax));
         }
       };
 
+      // Mark drainDirty when user edits drain directly (including via stepper dispatch)
       elDrain?.addEventListener("input", () => {
         drainDirty = true;
         updateDerived();
@@ -317,27 +375,40 @@ async function promptCastSpellDialog({
       elCast?.addEventListener("input", updateDerived);
       elForce?.addEventListener("input", updateDerived);
 
-      root.addEventListener("click", (ev) => {
-        const t = ev.target;
-        if (!(t instanceof HTMLElement)) return;
-        if (!t.classList.contains("sinlesscsb-step")) return;
+      // Delegated stepper clicks (capture phase) — robust against child click targets.
+      const clickHandler = (ev) => {
+        const btn = ev.target?.closest?.("button.sinlesscsb-step");
+        if (!(btn instanceof HTMLElement)) return;
 
         ev.preventDefault();
 
-        const target = t.getAttribute("data-target");
-        const delta = Number(t.getAttribute("data-delta") ?? "0");
+        const target = btn.getAttribute("data-target") || "";
+        const delta = Number(btn.getAttribute("data-delta") ?? "0");
         if (!target || !Number.isFinite(delta)) return;
 
-        const input = form.querySelector(`input[name="${CSS.escape(target)}"]`);
-        if (!input) return;
+        const input = innerForm.querySelector(`input[name="${CSS.escape(target)}"]`);
+        if (!(input instanceof HTMLInputElement) || input.disabled || input.readOnly) return;
 
         const cur = Number(input.value);
         const next = (Number.isFinite(cur) ? cur : 0) + delta;
 
-        input.value = String(next);
+        clampToInput(input, next);
+
         input.dispatchEvent(new Event("input", { bubbles: true }));
         input.dispatchEvent(new Event("change", { bubbles: true }));
-      });
+      };
+
+      bindRoot.addEventListener("click", clickHandler, true);
+
+      // Cleanup on close (wrap once)
+      if (!dialog._sinlessCastCloseWrapped && typeof dialog.close === "function") {
+        dialog._sinlessCastCloseWrapped = true;
+        const origClose = dialog.close.bind(dialog);
+        dialog.close = async (...args) => {
+          try { bindRoot.removeEventListener("click", clickHandler, true); } catch (_e) {}
+          return await origClose(...args);
+        };
+      }
 
       updateDerived();
     },
