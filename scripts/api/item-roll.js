@@ -78,6 +78,51 @@ function getGroupSkillKeys(skillMeta, groupId) {
   return out;
 }
 
+function normalizePoolKey(k) {
+  const s = String(k ?? "").trim();
+  if (!s) return null;
+  // Accept "Resolve" or "Resolve_Cur" or "resolve"
+  const base = s.replace(/_Cur$/i, "");
+  // Title-case first letter for consistency with your actor props keys
+  return base.charAt(0).toUpperCase() + base.slice(1);
+}
+
+/**
+ * Force poolKey resolution for non-spell item-rolls.
+ *
+ * Priority:
+ *  1) Item override: item.system.props.poolKey (or PoolKey/pool)
+ *  2) SkillMeta mapping: SkillMeta.skills[skillKey].pool
+ *  3) Hard default: "Resolve"
+ *
+ * Also validates the pool exists on the actor props; if not, warns and still defaults.
+ */
+function resolvePoolKeyOrDefault({ item, skillMeta, skillKey, actor }) {
+  const itemPool =
+    readItemProp(item, "poolKey") ??
+    readItemProp(item, "PoolKey") ??
+    readItemProp(item, "pool");
+
+  const metaPool = resolveSkillInfo(skillMeta, skillKey)?.pool;
+
+  const chosen = normalizePoolKey(itemPool ?? metaPool) ?? "Resolve";
+  const curKey = poolCurKey(chosen); // -> "Resolve_Cur"
+
+  // Validate the resolved pool exists on actor props; if not, warn (but keep going).
+  const props = readProps(actor);
+  if (curKey && !(curKey in props)) {
+    console.warn("SinlessCSB | rollItem: resolved pool key not found on actor props; defaulting anyway", {
+      actor: { name: actor?.name, uuid: actor?.uuid },
+      skillKey,
+      chosenPoolKey: chosen,
+      expectedCurKey: curKey,
+      availablePoolKeys: Object.keys(props).filter(k => /_Cur$|_Max$/i.test(k))
+    });
+  }
+
+  return chosen; // e.g. "Resolve"
+}
+
 /* ----------------------------- */
 /* Item prop reads (CSB-first)   */
 /* ----------------------------- */
@@ -125,6 +170,20 @@ async function promptRuntimeInputs({
     </tr>
   `;
 
+  // NOTE: Spend row first, then Sit row (per your request)
+  const sitRow = `
+    <tr>
+      <td style="padding:6px 8px; opacity:0.85;">Situational Mod (± dice)</td>
+      <td style="padding:6px 8px; text-align:right;">
+        <div style="display:flex; justify-content:flex-end; gap:6px; align-items:center;">
+          <button type="button" data-action="step" data-field="sit" data-step="-1" style="width:32px;">-</button>
+          <input type="number" name="sit" value="0" step="1" style="width:7em; text-align:right;" />
+          <button type="button" data-action="step" data-field="sit" data-step="1" style="width:32px;">+</button>
+        </div>
+      </td>
+    </tr>
+  `;
+
   const content = `
     <form class="sinlesscsb item-roll-dialog" autocomplete="off">
       <div style="margin:0 0 8px 0;">
@@ -133,18 +192,8 @@ async function promptRuntimeInputs({
 
       <table style="width:100%; border-collapse:collapse;">
         <tbody>
-          <tr>
-            <td style="padding:6px 8px; opacity:0.85;">Situational Mod (± dice)</td>
-            <td style="padding:6px 8px; text-align:right;">
-              <div style="display:flex; justify-content:flex-end; gap:6px; align-items:center;">
-                <button type="button" data-action="step" data-field="sit" data-step="-1" style="width:32px;">-</button>
-                <input type="number" name="sit" value="0" step="1" style="width:7em; text-align:right;" />
-                <button type="button" data-action="step" data-field="sit" data-step="1" style="width:32px;">+</button>
-              </div>
-            </td>
-          </tr>
-
           ${spendRow}
+          ${sitRow}
         </tbody>
       </table>
 
@@ -175,51 +224,78 @@ async function promptRuntimeInputs({
     ],
 
     // Bind the stepper clicks after render (once per root)
-    onRender: (_dialog, root) => {
-      // Prevent double-binding on rerender
-      if (root?.dataset?.sinlessItemRollBound === "1") return;
-      root.dataset.sinlessItemRollBound = "1";
+onRender: (dialog, root) => {
+  // Prevent double-binding on rerender
+  if (root?.dataset?.sinlessItemRollBound === "1") return;
+  if (root?.dataset) root.dataset.sinlessItemRollBound = "1";
 
-      const form = root.querySelector("form.sinlesscsb.item-roll-dialog");
-      if (!form) return;
+  const form = root?.querySelector?.("form.sinlesscsb.item-roll-dialog");
+  if (!form) return;
 
-      const q = (name) => form.querySelector(`input[name="${CSS.escape(name)}"]`);
+  const q = (name) => form.querySelector(`input[name="${CSS.escape(name)}"]`);
 
-      const step = (field, delta) => {
-        const el = q(field);
-        if (!el) return;
+  const clampToInput = (input, v) => {
+    if (!input) return 0;
 
-        const min = el.min !== "" ? Number(el.min) : -Infinity;
-        const max = el.max !== "" ? Number(el.max) : Infinity;
-        const cur = Number(el.value ?? 0);
+    const minRaw = Number(input.min);
+    const maxRaw = Number(input.max);
 
-        let next = cur + delta;
-        if (!Number.isFinite(next)) next = 0;
-        next = Math.max(min, Math.min(max, next));
+    const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
+    const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
 
-        el.value = String(next);
-        // "input" tends to produce more consistent live updates than "change"
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-        el.dispatchEvent(new Event("change", { bubbles: true }));
-      };
+    let vv = Number(v);
+    if (!Number.isFinite(vv)) vv = 0;
 
-      root.addEventListener("click", (ev) => {
-        const t = ev.target;
-        if (!(t instanceof HTMLElement)) return;
-        if (t.dataset.action !== "step") return;
+    vv = Math.max(min, Math.min(max, vv));
+    vv = Math.floor(vv);
 
-        ev.preventDefault();
+    input.value = String(vv);
+    return vv;
+  };
 
-        const field = t.dataset.field;
-        const delta = Number(t.dataset.step ?? 0);
-        if (!field || !Number.isFinite(delta)) return;
+  const step = (field, delta) => {
+    const el = q(field);
+    if (!el) return;
 
-        step(field, delta);
-      });
-    }
+    const cur = Number(el.value);
+    const next = (Number.isFinite(cur) ? cur : 0) + delta;
+
+    clampToInput(el, next);
+
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+
+  // Use closest() so clicks on child nodes still work.
+  // Bind to ROOT in CAPTURE phase so it still fires even if internal wrappers stop bubbling.
+  const handler = (ev) => {
+    const btn = ev.target?.closest?.('button[data-action="step"]');
+    if (!(btn instanceof HTMLElement)) return;
+
+    ev.preventDefault();
+
+    const field = btn.dataset.field;
+    const delta = Number(btn.dataset.step ?? 0);
+    if (!field || !Number.isFinite(delta)) return;
+
+    step(field, delta);
+  };
+
+  // Attach at root, capture=true for maximum reliability in DialogV2 DOM
+  root.addEventListener("click", handler, true);
+
+  // Cleanup best-effort without assuming dialog exists
+  if (dialog && typeof dialog.close === "function") {
+    const origClose = dialog.close.bind(dialog);
+    dialog.close = async (...args) => {
+      try { root.removeEventListener("click", handler, true); } catch (_e) {}
+      return await origClose(...args);
+    };
+  }
+}
+
   });
 
-  // With openDialogV2: cancel/close returns null
   if (!result) return null;
   return result;
 }
@@ -296,14 +372,47 @@ export async function rollItem(scope = {}) {
     const diceMod = num(readItemProp(item, "diceMod"), 0);
 
     // Pool from item or from SkillMeta_JSON mapping
-    const poolFromItem = readItemProp(item, "poolKey");
+    const poolFromItemRaw = readItemProp(item, "poolKey");
     const skillInfo = resolveSkillInfo(skillMeta, skillKey);
-    const poolFromMeta = skillInfo?.pool ?? null;
+    const poolFromMetaRaw = skillInfo?.pool ?? null;
 
-    const poolKeyLogical = String(poolFromItem ?? poolFromMeta ?? "").trim();
-    const poolCurK = poolCurKey(poolKeyLogical); // "Resolve" => "Resolve_Cur"
+    // Normalize poolKey inputs:
+    // - Prefer item.poolKey, else SkillMeta.pool
+    // - Allow "Resolve", "resolve", "Resolve_Cur", etc.
+    // - If still missing, default to Resolve for non-spell items
+    let poolKeyLogical = String(poolFromItemRaw ?? poolFromMetaRaw ?? "").trim();
+
+    // Strip common suffixes if somebody stored Cur/Max instead of the base pool name
+    poolKeyLogical = poolKeyLogical.replace(/_(Cur|Max)$/i, "").trim();
+
+    if (!poolKeyLogical) {
+      // Canonical default for non-spell items
+      poolKeyLogical = "Resolve";
+
+      console.warn("SinlessCSB | rollItem: poolKey missing; defaulting to Resolve", {
+        item: { name: item.name, uuid: item.uuid },
+        skillKey,
+        poolFromItemRaw,
+        poolFromMetaRaw
+      });
+      ui.notifications?.warn?.(`"${item.name}" has no poolKey; defaulting to Resolve.`);
+    }
+
+    // Canonicalize capitalization for the known pools (keeps keys consistent)
+    // (Brawn/Finesse/Resolve/Focus)
+    const poolKeyCanonMap = {
+      brawn: "Brawn",
+      finesse: "Finesse",
+      resolve: "Resolve",
+      focus: "Focus"
+    };
+    const poolKeyCanon = poolKeyCanonMap[poolKeyLogical.toLowerCase()] ?? poolKeyLogical;
+
+    const poolCurK = poolCurKey(poolKeyCanon); // "Resolve" => "Resolve_Cur"
     if (!poolCurK) {
-      ui.notifications?.error?.(`Item "${item.name}" missing poolKey and no pool mapping found in SkillMeta_JSON for ${skillKey}.`);
+      ui.notifications?.error?.(
+        `Item "${item.name}" has invalid poolKey "${poolKeyLogical}". Use one of: Brawn, Finesse, Resolve, Focus.`
+      );
       return null;
     }
 
@@ -358,6 +467,10 @@ export async function rollItem(scope = {}) {
 
     // Limit and spend cap
     const limit = Math.max(0, effectiveSkillVal + gearFeature);
+
+    // Spend cap rules:
+    // - trained/group: capped by min(poolCur, limit)
+    // - untrained fallback: allow spending up to full pool (still uses the 4-successes=1 rule later)
     const spendCap = (mode === "untrainedPool")
       ? poolCur
       : Math.max(0, Math.min(poolCur, limit));
@@ -374,18 +487,19 @@ export async function rollItem(scope = {}) {
       displayLines.push(`<strong>Defaulting</strong> via ${escapeHTML(chosenGroupSkillKey)}: ${escapeHTML(chosenGroupSkillVal)} → ${escapeHTML(effectiveSkillVal)} (−2)`);
     } else {
       displayLines.push(`<strong>Skill</strong> ${escapeHTML(skillKey)}: 0 (untrained)`);
-      displayLines.push(`<strong>Untrained fallback</strong>: roll full pool; every 4 successes = 1 success`);
+      displayLines.push(`<strong>Untrained fallback</strong>: every 4 successes = 1 success`);
     }
 
     displayLines.push(`<strong>GearFeature</strong>: ${escapeHTML(gearFeature)}`);
     displayLines.push(`<strong>Limit</strong>: ${escapeHTML(limit)}`);
     displayLines.push(`<strong>Spend cap</strong>: ${escapeHTML(spendCap)}`);
 
-    const allowSpend = (mode !== "untrainedPool");
-    const defaultSpend = allowSpend ? spendCap : poolCur;
+    // IMPORTANT: Always allow spend for non-spell items
+    const allowSpend = true;
+    const defaultSpend = spendCap;
 
     const spendHelp = (mode === "untrainedPool")
-      ? `Rolling <strong>ALL ${escapeHTML(poolCur)}</strong> dice from ${escapeHTML(poolCurK)}. Every <strong>4</strong> successes count as <strong>1</strong> success.`
+      ? `Spend up to <strong>${escapeHTML(poolCur)}</strong> from ${escapeHTML(poolCurK)}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
       : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + Gear ${escapeHTML(gearFeature)}; Pool ${escapeHTML(poolCur)})`;
 
     const runtime = await promptRuntimeInputs({

@@ -214,7 +214,7 @@ export async function openDialogV2(cfg = {}) {
     ? cfg.renderOptions
     : { force: true };
 
-  // Best-effort fallback if DialogV2 is missing (unlikely on v13, but safe)
+  // Best-effort fallback if DialogV2 is missing
   if (!DialogV2) {
     return await new Promise((resolve) => {
       const legacyButtons = {};
@@ -239,36 +239,71 @@ export async function openDialogV2(cfg = {}) {
     });
   }
 
-  // Preferred fast-path: DialogV2.wait exists
+  // IMPORTANT:
+  // If the caller needs onRender (to bind events like steppers),
+  // do NOT rely on DialogV2.wait() render callback signatures.
+  // Use the instance path where _onRender is consistent.
+  if (onRender) {
+    return await new Promise((resolve) => {
+      class SinlessDialogV2 extends DialogV2 {
+        constructor(...args) {
+          super(...args);
+          this._sinlessResolved = false;
+        }
+
+        _onRender(context, options) {
+          super._onRender(context, options);
+          const root = getDialogRoot(this);
+          if (root) onRender(this, root);
+        }
+
+        async close(options) {
+          if (!this._sinlessResolved) {
+            this._sinlessResolved = true;
+            resolve(null);
+          }
+          return super.close(options);
+        }
+      }
+
+      const dialog = new SinlessDialogV2({
+        window: { title },
+        content,
+        buttons,
+        rejectClose,
+        submit: (result) => {
+          const resolved = transform(result);
+          if (!dialog._sinlessResolved) {
+            dialog._sinlessResolved = true;
+            resolve((!resolved || resolved === "cancel") ? null : resolved);
+          }
+          return resolved;
+        }
+      });
+
+      dialog.render(renderOptions);
+    });
+  }
+
+  // If no onRender is needed, we can safely use DialogV2.wait if present
   if (typeof DialogV2.wait === "function") {
     const out = await DialogV2.wait({
       window: { title },
       content,
       buttons,
-      rejectClose,
-      render: (event, dialog) => {
-        const root = getDialogRoot(dialog);
-        if (root && onRender) onRender(dialog, root);
-      }
+      rejectClose
     });
 
-    // In some runtimes, cancel returns "cancel"; in ours we standardize to null
     if (!out || out === "cancel") return null;
     return transform(out);
   }
 
-  // Fallback: instance render + resolve via submit/close
+  // Fallback: instance render even without onRender
   return await new Promise((resolve) => {
     class SinlessDialogV2 extends DialogV2 {
       constructor(...args) {
         super(...args);
         this._sinlessResolved = false;
-      }
-
-      _onRender(context, options) {
-        super._onRender(context, options);
-        const root = getDialogRoot(this);
-        if (root && onRender) onRender(this, root);
       }
 
       async close(options) {
@@ -289,7 +324,6 @@ export async function openDialogV2(cfg = {}) {
         const resolved = transform(result);
         if (!dialog._sinlessResolved) {
           dialog._sinlessResolved = true;
-          // normalize “cancel” to null
           resolve((!resolved || resolved === "cancel") ? null : resolved);
         }
         return resolved;
@@ -299,6 +333,8 @@ export async function openDialogV2(cfg = {}) {
     dialog.render(renderOptions);
   });
 }
+
+
 
 /* -------------------------------------------- */
 /* Dice rolling helpers (v13-safe)              */
