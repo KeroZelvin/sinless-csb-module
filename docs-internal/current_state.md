@@ -150,3 +150,39 @@ We historically used `system.props.ActorUuid` (capital A) as the canonical refer
   3) no production sheets or compendiums rely on `actorUuid`
 - Then we can stop writing `actorUuid` and keep only the read fallback for one release cycle before removing it.
 
+DialogV2 policy: never use DialogV2.wait in SinlessCSB
+
+Decision: In SinlessCSB (Foundry v13 + CSB v5), we do not use foundry.applications.api.DialogV2.wait() anywhere in production code.
+
+Why: Across our runtime variants (local + Forge, CSB sheet contexts, and some v13 builds), DialogV2.wait() has been unreliable for interactive dialogs:
+
+The render callback signature is inconsistent between builds, so our onRender binding sometimes receives the wrong arguments or no usable root element.
+
+Event binding (e.g., stepper +/- buttons) frequently fails when relying on the wait() render callback; handlers may attach to the wrong node or never fire due to DialogV2 DOM/wrapper differences.
+
+Result resolution behavior is inconsistent (“cancel” vs null, close/X/ESC behavior), causing downstream logic to mis-handle user cancellation.
+
+Canonical approach (required): Use our wrapper openDialogV2() in _util.js, but force the instance-render path (subclass of DialogV2 + _onRender) for any dialog that needs DOM binding (onRender), rather than using DialogV2.wait.
+
+Implementation standard:
+
+openDialogV2(cfg) must:
+
+Prefer DialogV2.wait only for simple dialogs with no DOM interactions, OR
+
+In SinlessCSB, we standardize further: always use the instance path to avoid runtime drift.
+
+Binding rules inside onRender(dialog, root):
+
+Guard against double-binding via root.dataset.<flag>.
+
+Attach click handlers using delegated events + closest() for buttons.
+
+Prefer attaching to root (or stable container) and use capture phase only if bubbling is blocked by wrappers.
+
+Clean up listeners and hooks on dialog close (best-effort; do not assume dialog instance is always passed).
+
+Known symptom when violated: Stepper buttons render but do not change inputs; dialog still submits but without expected interactive behavior. This almost always indicates accidental use of DialogV2.wait or incorrect root detection from the wait-render callback.
+
+Files impacted: _util.js (openDialogV2), any API function that opens dialogs (e.g., item-roll.js, cast-spell.js, pools-roll.js).
+
