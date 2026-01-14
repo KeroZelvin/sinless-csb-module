@@ -256,63 +256,126 @@ export async function rollPools(scope = {}) {
 
   const tn = readTN(sessionActor);
 
-  const content = `
-    <div class="sinlesscsb sinless-pools-dialog">
-      <style>
-        .sinlesscsb.sinless-pools-dialog table tbody tr:nth-child(odd) { background: rgba(255,255,255,0.03); }
-        .sinlesscsb.sinless-pools-dialog table tbody tr:nth-child(even){ background: rgba(0,0,0,0.06); }
-        .sinlesscsb.sinless-pools-dialog table td,
-        .sinlesscsb.sinless-pools-dialog table th { border-bottom: 1px solid rgba(242,243,245,0.10); }
-      </style>
+const content = `
+  <div class="sinlesscsb sinless-pools-dialog" style="max-width: 760px;">
+    <style>
+      .sinlesscsb.sinless-pools-dialog table tbody tr:nth-child(odd) { background: rgba(255,255,255,0.03); }
+      .sinlesscsb.sinless-pools-dialog table tbody tr:nth-child(even){ background: rgba(0,0,0,0.06); }
+      .sinlesscsb.sinless-pools-dialog table td,
+      .sinlesscsb.sinless-pools-dialog table th { border-bottom: 1px solid rgba(242,243,245,0.10); }
 
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 0.5rem;">
-        <div><strong>Target Number (Session Settings):</strong> <span data-tn>${escapeHTML(tn)}</span>+</div>
-        <div><button type="button" data-action="refresh">Refresh Pools</button></div>
-      </div>
+      /* Compact cell spacing */
+      .sinlesscsb.sinless-pools-dialog th { padding: 4px 6px; }
+      .sinlesscsb.sinless-pools-dialog td { padding: 4px 6px; }
 
-      <table style="width:100%; border-collapse: collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:4px 6px;">Pool</th>
-            <th style="text-align:right; padding:4px 6px;">Cur / Max</th>
-            <th style="text-align:right; padding:4px 6px;">Spend</th>
-            <th style="text-align:right; padding:4px 6px;">Mod</th>
-            <th style="text-align:left; padding:4px 6px;">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${pools.map(p => {
-            const cur = getCur(p);
-            const max = getMax(p);
-            return `
-              <tr data-pool="${p.curKey}">
-                <td style="padding:4px 6px;"><strong>${escapeHTML(p.name)}</strong></td>
-                <td style="padding:4px 6px; text-align:right;">
-                  <span data-cur="${p.curKey}">${escapeHTML(cur)}</span>
-                  /
-                  <span data-max="${p.maxKey}">${escapeHTML(max)}</span>
-                </td>
-                <td style="padding:4px 6px; text-align:right;">
-                  <input type="number" name="${p.curKey}_spend" value="0" min="0" step="1" style="width:6em; text-align:right;" />
-                </td>
-                <td style="padding:4px 6px; text-align:right;">
-                  <input type="number" name="${p.curKey}_mod" value="0" step="1" style="width:6em; text-align:right;" />
-                </td>
-                <td style="padding:4px 6px;">
-                  <button type="button" data-action="roll" data-pool="${p.curKey}">Roll</button>
-                  <button type="button" data-action="clear" data-pool="${p.curKey}" style="margin-left:6px;">Clear</button>
-                </td>
-              </tr>
-            `;
-          }).join("")}
-        </tbody>
-      </table>
+      /* Keep columns tight and prevent wrap-induced width explosions */
+      .sinlesscsb.sinless-pools-dialog td,
+      .sinlesscsb.sinless-pools-dialog th { white-space: nowrap; }
 
-      <p style="margin-top:0.75rem; opacity:0.85;">
-        Spend depletes the pool; Mod adds/removes dice but does not deplete.
-      </p>
+      /* Baseline stepper; inline styles below remain the hard stop against Foundry dialog CSS */
+      .sinlesscsb-stepper {
+        display: grid;
+        grid-template-columns: 1.75rem 5ch 1.75rem;
+        gap: 6px;
+        align-items: center;
+        justify-content: end;
+      }
+      .sinlesscsb-stepper button {
+        width: 1.75rem;
+        height: 1.75rem;
+        padding: 0;
+        margin: 0;
+      }
+      .sinlesscsb-stepper input {
+        width: 5ch;
+        text-align: right;
+        min-width: 0;
+      }
+
+      /* Action button: reasonable size */
+      .sinlesscsb-pools-roll-btn {
+        width: 6.5rem;
+        height: 2.25rem;
+        padding: 0 10px;
+      }
+    </style>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 0.5rem;">
+      <div><strong>Target Number (Session Settings):</strong> <span data-tn>${escapeHTML(tn)}</span>+</div>
+      <div><button type="button" data-action="refresh">Refresh Pools</button></div>
     </div>
-  `;
+
+    <table style="width:100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Pool</th>
+          <th style="text-align:right;">Cur / Max</th>
+          <th style="text-align:right;">Spend</th>
+          <th style="text-align:right;">Mod</th>
+          <th style="text-align:left;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${pools.map(p => {
+          const cur = getCur(p);
+          const max = getMax(p);
+          return `
+            <tr data-pool="${p.curKey}">
+              <td style="text-align:left;">
+                <strong>${escapeHTML(p.name)}</strong>
+              </td>
+
+              <td style="text-align:right;">
+                <span data-cur="${p.curKey}">${escapeHTML(cur)}</span>
+                /
+                <span data-max="${p.maxKey}">${escapeHTML(max)}</span>
+              </td>
+
+              <td style="text-align:right;">
+                <!-- INLINE GRID hard-stop: prevents vertical stacking under Foundry dialog CSS -->
+                <div class="sinlesscsb-stepper"
+                     style="display:grid !important; grid-template-columns:1.75rem 5ch 1.75rem; gap:6px; align-items:center; justify-content:end;">
+                  <button type="button" data-action="step" data-field="${p.curKey}_spend" data-step="-1"
+                          style="display:inline-flex !important; align-items:center; justify-content:center; width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">-</button>
+                  <input type="number" name="${p.curKey}_spend" value="0" min="0" max="${escapeHTML(cur)}" step="1"
+                         style="width:5ch !important; min-width:0; text-align:right;" />
+                  <button type="button" data-action="step" data-field="${p.curKey}_spend" data-step="1"
+                          style="display:inline-flex !important; align-items:center; justify-content:center; width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">+</button>
+                </div>
+              </td>
+
+              <td style="text-align:right;">
+                <div class="sinlesscsb-stepper"
+                     style="display:grid !important; grid-template-columns:1.75rem 5ch 1.75rem; gap:6px; align-items:center; justify-content:end;">
+                  <button type="button" data-action="step" data-field="${p.curKey}_mod" data-step="-1"
+                          style="display:inline-flex !important; align-items:center; justify-content:center; width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">-</button>
+                  <input type="number" name="${p.curKey}_mod" value="0" step="1"
+                         style="width:5ch !important; min-width:0; text-align:right;" />
+                  <button type="button" data-action="step" data-field="${p.curKey}_mod" data-step="1"
+                          style="display:inline-flex !important; align-items:center; justify-content:center; width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">+</button>
+                </div>
+              </td>
+
+              <td style="text-align:left;">
+                <button type="button"
+                        data-action="roll"
+                        data-pool="${p.curKey}"
+                        class="sinlesscsb-pools-roll-btn">
+                  Roll
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    </table>
+
+    <p style="margin-top:0.75rem; opacity:0.85;">
+      Spend depletes the pool; Mod adds/removes dice but does not deplete.
+    </p>
+  </div>
+`;
+
 
   await openDialogV2({
     title: `Sinless Pools — ${actor.name}`,
@@ -321,23 +384,76 @@ export async function rollPools(scope = {}) {
     buttons: [{ action: "close", label: "Close", default: true, callback: () => "close" }],
 
     onRender: (dialog, root) => {
-      if (root?.dataset?.sinlessPoolsBound === "1") return;
-      root.dataset.sinlessPoolsBound = "1";
+      if (!(root instanceof HTMLElement)) return;
 
-      const qInput = (name) => root.querySelector(`input[name="${CSS.escape(name)}"]`);
+      // Deterministic bind root for DialogV2 (outer form wrapper)
+      const bindRoot = root.querySelector("form") || root;
+
+      // Guard on bindRoot (rerender-safe)
+      if (bindRoot.dataset.sinlessPoolsBound === "1") return;
+      bindRoot.dataset.sinlessPoolsBound = "1";
+
+      const qInput = (name) => bindRoot.querySelector(`input[name="${CSS.escape(name)}"]`);
+
+      // Correct min/max parsing: missing attributes must NOT clamp to 0.
+      const clampToInput = (input, v) => {
+        if (!(input instanceof HTMLInputElement)) return 0;
+
+        const minAttr = input.getAttribute("min");
+        const maxAttr = input.getAttribute("max");
+
+        const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
+        const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
+
+        const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
+        const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
+
+        let vv = Number(v);
+        if (!Number.isFinite(vv)) vv = 0;
+
+        vv = Math.max(min, Math.min(max, vv));
+        vv = Math.floor(vv);
+
+        input.value = String(vv);
+        return vv;
+      };
+
+      const stepField = (field, delta) => {
+        const input = qInput(field);
+        if (!(input instanceof HTMLInputElement)) return;
+
+        const cur = Number(input.value);
+        const next = (Number.isFinite(cur) ? cur : 0) + delta;
+
+        clampToInput(input, next);
+
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      };
 
       const updateTNDisplay = () => {
         const newTN = readTN(sessionActor);
-        const tnEl = root.querySelector("[data-tn]");
+        const tnEl = bindRoot.querySelector("[data-tn]");
         if (tnEl) tnEl.textContent = String(newTN);
         return newTN;
       };
 
       const updateRow = (p) => {
-        const curEl = root.querySelector(`[data-cur="${CSS.escape(p.curKey)}"]`);
-        const maxEl = root.querySelector(`[data-max="${CSS.escape(p.maxKey)}"]`);
-        if (curEl) curEl.textContent = String(getCur(p));
-        if (maxEl) maxEl.textContent = String(getMax(p));
+        const curV = getCur(p);
+        const maxV = getMax(p);
+
+        const curEl = bindRoot.querySelector(`[data-cur="${CSS.escape(p.curKey)}"]`);
+        const maxEl = bindRoot.querySelector(`[data-max="${CSS.escape(p.maxKey)}"]`);
+        if (curEl) curEl.textContent = String(curV);
+        if (maxEl) maxEl.textContent = String(maxV);
+
+        // Keep Spend.max synchronized to current Cur
+        const spendEl = qInput(`${p.curKey}_spend`);
+        if (spendEl instanceof HTMLInputElement) {
+          spendEl.setAttribute("max", String(Math.max(0, Math.floor(curV))));
+          // Clamp spend down if it exceeds new max
+          clampToInput(spendEl, Number(spendEl.value));
+        }
       };
 
       const updateAllRows = () => {
@@ -348,8 +464,8 @@ export async function rollPools(scope = {}) {
       const clearInputs = (poolKey) => {
         const spend = qInput(`${poolKey}_spend`);
         const mod = qInput(`${poolKey}_mod`);
-        if (spend) spend.value = 0;
-        if (mod) mod.value = 0;
+        if (spend instanceof HTMLInputElement) spend.value = "0";
+        if (mod instanceof HTMLInputElement) mod.value = "0";
       };
 
       const doRefresh = async () => {
@@ -367,8 +483,8 @@ export async function rollPools(scope = {}) {
         const spendEl = qInput(`${poolKey}_spend`);
         const modEl = qInput(`${poolKey}_mod`);
 
-        const spend = num(spendEl?.value, 0);
-        const mod = num(modEl?.value, 0);
+        const spend = Math.floor(num(spendEl?.value, 0));
+        const mod = Math.floor(num(modEl?.value, 0));
 
         const spendClamped = Math.max(0, Math.min(curVal, spend));
         const totalDice = Math.max(0, spendClamped + mod);
@@ -433,29 +549,37 @@ export async function rollPools(scope = {}) {
       }
 
       const handler = async (ev) => {
-        const t = ev.target;
-        if (!(t instanceof HTMLElement)) return;
+        const btn = ev.target?.closest?.("button[data-action]");
+        if (!(btn instanceof HTMLElement)) return;
 
-        const action = t.dataset.action;
+        const action = btn.dataset.action;
         if (!action) return;
 
         ev.preventDefault();
 
         try {
+          if (action === "step") {
+            const field = btn.dataset.field || "";
+            const delta = Number(btn.dataset.step ?? "0");
+            if (!field || !Number.isFinite(delta)) return;
+            return stepField(field, delta);
+          }
+
           if (action === "refresh") return await doRefresh();
-          if (action === "clear") return clearInputs(t.dataset.pool);
-          if (action === "roll") return await doRoll(t.dataset.pool);
+          if (action === "clear") return clearInputs(btn.dataset.pool);
+          if (action === "roll") return await doRoll(btn.dataset.pool);
         } catch (e) {
           console.error(e);
           ui.notifications?.error?.("Sinless Pools failed. See console (F12).");
         }
       };
 
-      root.addEventListener("click", handler);
+      // Capture phase for maximum reliability in Foundry UI
+      bindRoot.addEventListener("click", handler, true);
 
       const origClose = dialog.close?.bind(dialog);
       dialog.close = async (...args) => {
-        try { root.removeEventListener("click", handler); } catch (_e) {}
+        try { bindRoot.removeEventListener("click", handler, true); } catch (_e) {}
         try {
           if (dialog._sinlessPoolsActorHookId) {
             Hooks.off("updateActor", dialog._sinlessPoolsActorHookId);
