@@ -184,3 +184,162 @@ When a sheet value “didn’t change,” confirm whether the underlying Actor d
   console.log("Props", a?.system?.props);
 })();
 
+DialogV2 CSS Triage Tips (Fast Debug Checklist)
+
+Use this checklist before rewriting CSS or markup. It quickly distinguishes “wrong element,” “CSS not applying,” and “overlay / pointer-events” issues.
+
+1) Confirm you’re inspecting the right element
+
+Many DialogV2 issues are caused by checking a different wrapper than the one actually being laid out.
+
+const el = document.querySelector(".sinlesscsb-stepper, .sinlesscsb-spell-row");
+el
+el?.outerHTML
+
+
+If outerHTML is not the wrapper you expect (no - input +), stop and find the correct wrapper first.
+
+2) Determine whether your CSS is being applied
+
+This is the decisive test for “Foundry CSS is winning.”
+
+getComputedStyle(document.querySelector(".sinlesscsb-stepper, .sinlesscsb-spell-row")).display
+
+
+If it returns "grid" or "flex", your CSS is applying; adjust layout normally.
+
+If it stays "block" despite your CSS, Foundry/the theme is overriding you; escalate to inline hard-stop (style="display:grid !important; …").
+
+3) Check for overlays or swallowed clicks (when controls don’t respond)
+
+Even if UI appears correct, an overlay or disabled state can swallow pointer events.
+
+const btn = document.querySelector('.dialog button[data-action="step"], .dialog button.sinlesscsb-step');
+const r = btn.getBoundingClientRect();
+document.elementFromPoint(r.left + r.width/2, r.top + r.height/2)
+
+
+If elementFromPoint returns something else (overlay), investigate pointer-events, z-index, and modal overlays.
+
+4) Quick “is a click reaching anything” probe (temporary)
+
+When clicks do nothing and you suspect propagation/binding:
+
+window.__sinlessClickProbe?.remove?.();
+window.__sinlessClickProbe = (() => {
+  const handler = (ev) => {
+    const t = ev.target;
+    const stepBtn =
+      t?.closest?.('button[data-action="step"]') ||
+      t?.closest?.('button.sinlesscsb-step');
+    if (stepBtn) console.log("CAPTURE saw step click", stepBtn);
+  };
+  document.addEventListener("click", handler, true);
+  return { remove: () => document.removeEventListener("click", handler, true) };
+})();
+
+
+If this logs but your handler doesn’t, your binding root is wrong or a dataset guard blocked binding.
+
+DialogV2 CSS: Canonical Stepper Layout + Sizing (Foundry v13)
+Symptom
+
+Stepper buttons render correctly in the DOM (- input +) but display vertically (buttons above/below input), or computed style does not reflect your injected CSS:
+
+getComputedStyle(document.querySelector(".sinlesscsb-*-row")).display
+// returns "block" even though CSS attempts to set grid/flex
+
+Root cause (typical)
+
+Foundry v13 DialogV2 wraps content in its own dialog form structure and applies high-specificity styling to form elements and buttons. In practice this can:
+
+Force buttons to behave like block/full-width elements
+
+Collapse or override display:flex/grid on your row wrappers
+
+Cause table-based layouts to stretch to full width and create excessive whitespace
+
+Canonical debugging checks
+
+Confirm markup is correct:
+
+document.querySelector(".sinlesscsb-stepper, .sinlesscsb-spell-row")?.outerHTML
+
+
+Confirm CSS is not applying:
+
+getComputedStyle(document.querySelector(".sinlesscsb-stepper, .sinlesscsb-spell-row")).display
+
+
+If it stays block, assume Foundry CSS is winning.
+
+Canonical fix hierarchy
+Tier 1: Selector-based grid layout (try first)
+
+Use a wrapper class and define a three-column layout:
+
+.sinlesscsb-stepper {
+  display: grid;
+  grid-template-columns: 1.75rem 5ch 1.75rem;
+  gap: 6px;
+  align-items: center;
+  justify-content: end;
+}
+.sinlesscsb-stepper input { width: 5ch; min-width: 0; text-align: right; }
+.sinlesscsb-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  margin: 0;
+}
+
+
+Use ch units for numeric fields: 4–6ch is typically ideal.
+
+Tier 2: Inline “hard-stop” layout (canonical when Tier 1 fails)
+
+If computed style remains block, apply inline style on the wrapper (this is the reliable fix in DialogV2):
+
+<div class="sinlesscsb-stepper"
+     style="display:grid !important; grid-template-columns:1.75rem 5ch 1.75rem; gap:6px; align-items:center; justify-content:end;">
+  <button type="button" data-action="step" data-field="FIELD" data-step="-1"
+          style="display:inline-flex !important; align-items:center; justify-content:center;
+                 width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">-</button>
+
+  <input type="number" name="FIELD" value="0" step="1"
+         style="width:5ch !important; min-width:0; text-align:right;" />
+
+  <button type="button" data-action="step" data-field="FIELD" data-step="1"
+          style="display:inline-flex !important; align-items:center; justify-content:center;
+                 width:1.75rem !important; height:1.75rem !important; padding:0 !important; margin:0 !important;">+</button>
+</div>
+
+
+Rule: Inline layout is acceptable for DialogV2 steppers when Foundry theming defeats normal CSS. Prefer Tier 1, but don’t waste time—Tier 2 is deterministic.
+
+Table layout guidance (Pools dialog)
+
+Avoid table-layout: fixed + percentage column widths unless you actually need it; it often causes dialogs to expand and creates excessive whitespace.
+
+Preferred:
+
+Let the table auto-size naturally
+
+Use white-space: nowrap on cells to prevent wrap-based expansion
+
+Constrain overall dialog content width with max-width on your outer container:
+
+<div class="sinlesscsb sinless-pools-dialog" style="max-width: 760px;">
+
+Button sizing guidance
+
+Avoid width:100% on action buttons in dialog tables (it makes them dominate the row). Prefer a modest fixed width/height:
+
+.sinlesscsb-pools-roll-btn { width: 6.5rem; height: 2.25rem; padding: 0 10px; }
+
+“Computed style doesn’t change” is the deciding signal
+
+If getComputedStyle(wrapper).display is still block after you inject CSS, stop iterating on selector specificity and escalate to inline display:grid !important on the wrapper. This is faster and more reliable in Foundry DialogV2.
