@@ -1,9 +1,110 @@
-/* SinlessCSB typography hooks (theme files consume these variables) */
-:root {
-  --sinless-font-display: "Cinzel", "Signika", "Roboto", serif;
-  --sinless-font-body: "Marcellus", "Signika", "Roboto", sans-serif;
+/* styles/sinlesscsb-fonts.css */
+
+/**
+ * Friz Quadrata — 4 faces
+ * NOTE: URLs must match file names exactly (case + spaces) on Forge/Linux.
+ * Using %20 for spaces avoids edge cases across environments.
+ */
+
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-.custom-system .sinlesscsb-marker {
-  display: none !important;
+/* Regular Italic (400 italic) */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold (700 normal) */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic (700 italic) */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold-italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* styles/sinlesscsb-fonts.css */
+
+/* Base faces */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold-italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- Weight aliases (critical for Foundry headings) ---- */
+/* Many Foundry headings use 600; map that to your bold file */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold-italic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Optional: some UI uses 800/900; map those too */
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Friz Quadrata";
+  src: url("/modules/sinlesscsb/assets/fonts/FrizQuadrata/friz-quadrata-bold-italic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
 }

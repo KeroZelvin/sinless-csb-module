@@ -1,6 +1,5 @@
 /* =========================================================
    SinlessCSB — Global UI Theme (Foundry "everything")
-   Applies to: all Foundry UI + all window apps + all systems' sheets
    Driven by: html[data-sinless-theme="crimson|purple"]
    ========================================================= */
 
@@ -27,6 +26,10 @@ html[data-sinless-theme="crimson"] {
   --sl-ui-accent-soft: rgba(85,16,30,0.18);
 
   --sl-ui-shadow: 0 10px 22px rgba(0,0,0,0.55);
+
+  /* Chat card accent (titles) */
+  --sl-ui-neon-aqua: #00f5ff;
+  --sl-ui-pop-bg: rgba(10, 12, 18, 0.96);
 }
 
 /* PURPLE (SR6-inspired) */
@@ -44,11 +47,24 @@ html[data-sinless-theme="purple"] {
   --sl-ui-border-strong: rgba(242,243,245,0.20);
 
   /* Purple is identity; Cyan is action/focus */
-  --sl-ui-accent: #960570;        /* purple base */
-  --sl-ui-accent-2: #00c8ff;      /* brighter cyan for actions */
+  --sl-ui-accent: #960570;
+  --sl-ui-accent-2: #00c8ff;
   --sl-ui-accent-soft: rgba(0,200,255,0.18);
 
   --sl-ui-shadow: 0 10px 22px rgba(0,0,0,0.55);
+
+  /* Chat card accent (titles) */
+  --sl-ui-neon-aqua: #00f5ff;
+  --sl-ui-pop-bg: rgba(10, 12, 18, 0.96);
+}
+
+/* -----------------------------
+   Font variables
+   ----------------------------- */
+:root {
+  --sinless-font-body: "Friz Quadrata", "Signika", sans-serif;
+  --sinless-font-display: var(--sinless-font-body);
+  --sinless-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* -----------------------------
@@ -56,20 +72,31 @@ html[data-sinless-theme="purple"] {
    ----------------------------- */
 html[data-sinless-theme="crimson"] body,
 html[data-sinless-theme="purple"] body {
-  font-family: var(--sinless-font-body, "Signika", sans-serif);
+  font-family: var(--sinless-font-body);
   color: var(--sl-ui-text-1);
 }
 
-/* Titles / headers across windows */
+pre,
+code,
+textarea,
+.editor-content code,
+.editor-content pre {
+  font-family: var(--sinless-font-mono) !important;
+}
+
+/* Titles / headings: ensure they actually render bold face */
 html[data-sinless-theme="crimson"] .window-title,
 html[data-sinless-theme="purple"] .window-title,
-html[data-sinless-theme="crimson"] h1,
-html[data-sinless-theme="purple"] h1,
-html[data-sinless-theme="crimson"] h2,
-html[data-sinless-theme="purple"] h2,
-html[data-sinless-theme="crimson"] h3,
-html[data-sinless-theme="purple"] h3 {
-  font-family: var(--sinless-font-display, "Signika", sans-serif);
+html[data-sinless-theme="crimson"] .sheet h1,
+html[data-sinless-theme="purple"] .sheet h1,
+html[data-sinless-theme="crimson"] .sheet h2,
+html[data-sinless-theme="purple"] .sheet h2,
+html[data-sinless-theme="crimson"] .chat-message .message-header,
+html[data-sinless-theme="purple"] .chat-message .message-header,
+html[data-sinless-theme="crimson"] .chat-message .message-header h4,
+html[data-sinless-theme="purple"] .chat-message .message-header h4 {
+  font-family: var(--sinless-font-body) !important;
+  font-weight: 700 !important;
 }
 
 /* -----------------------------
@@ -92,8 +119,6 @@ html[data-sinless-theme="purple"] #controls {
 html[data-sinless-theme="crimson"] #controls ol.control-tools > li.active {
   box-shadow: inset 0 0 0 2px var(--sl-ui-accent);
 }
-
-/* Purple: active tools pop cyan */
 html[data-sinless-theme="purple"] #controls ol.control-tools > li.active {
   box-shadow: inset 0 0 0 2px var(--sl-ui-accent-2);
 }
@@ -113,12 +138,9 @@ html[data-sinless-theme="purple"] #sidebar-tabs {
   border-bottom: 1px solid var(--sl-ui-border);
 }
 
-/* Crimson: active tab uses crimson */
 html[data-sinless-theme="crimson"] #sidebar-tabs .item.active {
   box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent);
 }
-
-/* Purple: active tab uses cyan */
 html[data-sinless-theme="purple"] #sidebar-tabs .item.active {
   box-shadow: inset 0 -3px 0 0 var(--sl-ui-accent-2);
 }
@@ -129,303 +151,7 @@ html[data-sinless-theme="purple"] #sidebar a {
 }
 
 /* -----------------------------
-   Chat
-   ----------------------------- */
-html[data-sinless-theme="crimson"] #chat-controls,
-html[data-sinless-theme="purple"] #chat-controls {
-  border-bottom: 1px solid var(--sl-ui-border);
-}
-
-html[data-sinless-theme="crimson"] #chat-form textarea,
-html[data-sinless-theme="purple"] #chat-form textarea {
-  background: rgba(0,0,0,0.28);
-  color: var(--sl-ui-text-0);
-  border: 1px solid var(--sl-ui-border);
-}
-
-html[data-sinless-theme="crimson"] #chat-log .chat-message,
-html[data-sinless-theme="purple"] #chat-log .chat-message {
-  background: rgba(0,0,0,0.25);
-  border: 1px solid var(--sl-ui-border);
-  color: var(--sl-ui-text-1);
-}
-
-html[data-sinless-theme="crimson"] #chat-log .chat-message .message-header,
-html[data-sinless-theme="purple"] #chat-log .chat-message .message-header {
-  border-bottom: 1px solid var(--sl-ui-border);
-}
-
-/* Purple: subtle cyan hover on chat messages */
-html[data-sinless-theme="purple"] #chat-log .chat-message:hover {
-  border-color: var(--sl-ui-accent-2);
-  box-shadow: 0 0 0 1px rgba(0,200,255,0.25);
-}
-
-/* =========================================================
-   SinlessCSB — Spell Chat Card (high specificity)
-   Target: #chat-log li.chat-message .message-content .sinlesscsb.spell-card
-   ========================================================= */
-
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  /* Ensure this beats any generic message-content children styling */
-  display: block;
-  padding: 10px 12px;
-  margin: 0;
-
-  border-radius: 10px;
-  border: 1px solid var(--sl-ui-border);
-  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.32));
-  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-
-  color: var(--sl-ui-text-1);
-}
-
-/* Accent stripe */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent);
-}
-html[data-sinless-theme="purple"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent-2);
-}
-
-/* Title row */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-
-  margin: 0 0 8px 0;
-  padding: 0 0 8px 0;
-
-  border-bottom: 1px solid var(--sl-ui-border);
-  font-family: var(--sinless-font-display, "Signika", sans-serif);
-}
-
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title h3,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title h3 {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  color: var(--sl-ui-text-0);
-}
-
-/* Badge */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-badge,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-badge {
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--sl-ui-border);
-  background: rgba(0,0,0,0.22);
-  color: var(--sl-ui-text-1);
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-/* Rows */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(242,243,245,0.12);
-}
-
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row:last-of-type,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row:last-of-type {
-  border-bottom: none;
-}
-
-/* Key + value */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-key,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-key {
-  color: var(--sl-ui-text-2);
-  min-width: 11rem;
-}
-
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-val,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-val {
-  color: var(--sl-ui-text-0);
-  text-align: right;
-  flex: 1;
-}
-
-/* Emphasis */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-strong,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-strong {
-  font-weight: 700;
-}
-
-/* Details block */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card details,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card details {
-  margin-top: 10px;
-  border: 1px solid var(--sl-ui-border);
-  border-radius: 8px;
-  background: rgba(0,0,0,0.18);
-  padding: 6px 8px;
-}
-
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card details summary,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card details summary {
-  cursor: pointer;
-  color: var(--sl-ui-text-1);
-}
-
-/* Inline code inside card */
-html[data-sinless-theme="crimson"] #chat-log li.chat-message .message-content .sinlesscsb.spell-card code,
-html[data-sinless-theme="purple"]  #chat-log li.chat-message .message-content .sinlesscsb.spell-card code {
-  background: rgba(0,0,0,0.30);
-  border: 1px solid var(--sl-ui-border);
-  border-radius: 6px;
-  padding: 1px 6px;
-  color: var(--sl-ui-text-0);
-}
-
-/* Purple: hover glow on the card itself */
-html[data-sinless-theme="purple"] #chat-log li.chat-message:hover .message-content .sinlesscsb.spell-card {
-  border-color: var(--sl-ui-accent-2);
-  box-shadow: 0 0 0 1px rgba(0,200,255,0.25), 0 10px 22px rgba(0,0,0,0.55);
-}
-
-/* =========================================================
-   SinlessCSB — Spell Chat Card (v13 DOM-safe)
-   Target: #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card
-   ========================================================= */
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  display: block;
-  padding: 10px 12px;
-  margin: 0;
-
-  border-radius: 10px;
-  border: 1px solid var(--sl-ui-border);
-  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.32));
-  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-
-  color: var(--sl-ui-text-1);
-}
-
-/* Accent stripe */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent);
-}
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent-2);
-}
-
-/* Title row */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-
-  margin: 0 0 8px 0;
-  padding: 0 0 8px 0;
-
-  border-bottom: 1px solid var(--sl-ui-border);
-  font-family: var(--sinless-font-display, "Signika", sans-serif);
-}
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title h3,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-card-title h3 {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  color: var(--sl-ui-text-0);
-}
-
-/* Badge */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-badge,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-badge {
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--sl-ui-border);
-  background: rgba(0,0,0,0.22);
-  color: var(--sl-ui-text-1);
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-/* Rows */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(242,243,245,0.12);
-}
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row:last-of-type,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-row:last-of-type {
-  border-bottom: none;
-}
-
-/* Key + value */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-key,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-key {
-  color: var(--sl-ui-text-2);
-  min-width: 11rem;
-}
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-val,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-val {
-  color: var(--sl-ui-text-0);
-  text-align: right;
-  flex: 1;
-}
-
-/* Emphasis */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-strong,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card .sl-strong {
-  font-weight: 700;
-}
-
-/* Details block */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card details,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card details {
-  margin-top: 10px;
-  border: 1px solid var(--sl-ui-border);
-  border-radius: 8px;
-  background: rgba(0,0,0,0.18);
-  padding: 6px 8px;
-}
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card details summary,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card details summary {
-  cursor: pointer;
-  color: var(--sl-ui-text-1);
-}
-
-/* Inline code inside card */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card code,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content .sinlesscsb.spell-card code {
-  background: rgba(0,0,0,0.30);
-  border: 1px solid var(--sl-ui-border);
-  border-radius: 6px;
-  padding: 1px 6px;
-  color: var(--sl-ui-text-0);
-}
-
-/* Purple: hover glow on the card itself */
-html[data-sinless-theme="purple"] #chat .chat-log li.chat-message:hover .message-content .sinlesscsb.spell-card {
-  border-color: var(--sl-ui-accent-2);
-  box-shadow: 0 0 0 1px rgba(0,200,255,0.25), 0 10px 22px rgba(0,0,0,0.55);
-}
-
-
-
-/* -----------------------------
-   ALL windows / sheets / dialogs
+   Windows / sheets / dialogs (global)
    ----------------------------- */
 html[data-sinless-theme="crimson"] .window-app,
 html[data-sinless-theme="purple"] .window-app {
@@ -452,12 +178,9 @@ html[data-sinless-theme="purple"] .tabs {
   border-bottom: 1px solid var(--sl-ui-border);
 }
 
-/* Crimson: active tab underline is crimson */
 html[data-sinless-theme="crimson"] .tabs .item.active {
   box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent);
 }
-
-/* Purple: active tab underline is cyan */
 html[data-sinless-theme="purple"] .tabs .item.active {
   box-shadow: inset 0 -3px 0 0 var(--sl-ui-accent-2);
 }
@@ -484,19 +207,16 @@ html[data-sinless-theme="crimson"] textarea:focus {
   border-color: var(--sl-ui-border-strong);
 }
 
-/* Purple: cyan-forward focus ring */
 html[data-sinless-theme="purple"] input:focus,
 html[data-sinless-theme="purple"] select:focus,
 html[data-sinless-theme="purple"] textarea:focus {
   outline: none;
-  box-shadow:
-    0 0 0 2px var(--sl-ui-accent-soft),
-    0 0 12px rgba(0,200,255,0.25);
+  box-shadow: 0 0 0 2px var(--sl-ui-accent-soft), 0 0 12px rgba(0,200,255,0.25);
   border-color: var(--sl-ui-accent-2);
 }
 
 /* -----------------------------
-   Buttons (global)
+   Buttons (global visuals)
    ----------------------------- */
 html[data-sinless-theme="crimson"] button,
 html[data-sinless-theme="crimson"] .button,
@@ -519,28 +239,20 @@ html[data-sinless-theme="crimson"] button.default {
   border-color: var(--sl-ui-accent);
   box-shadow: 0 0 0 1px rgba(0,0,0,0.25), inset 0 -2px 0 0 var(--sl-ui-accent);
 }
-
-/* Purple: default buttons pop cyan */
 html[data-sinless-theme="purple"] button.default {
   border-color: var(--sl-ui-accent-2);
-  box-shadow:
-    inset 0 -2px 0 0 var(--sl-ui-accent-2),
-    0 0 10px rgba(0,200,255,0.25);
+  box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent-2), 0 0 10px rgba(0,200,255,0.25);
 }
-
 html[data-sinless-theme="purple"] button.default:hover {
   filter: brightness(1.08);
-  box-shadow:
-    inset 0 -2px 0 0 var(--sl-ui-accent-2),
-    0 0 16px rgba(0,200,255,0.35);
+  box-shadow: inset 0 -2px 0 0 var(--sl-ui-accent-2), 0 0 16px rgba(0,200,255,0.35);
 }
 
-/* Links */
+/* Links (global) */
 html[data-sinless-theme="crimson"] a,
 html[data-sinless-theme="purple"] a {
   color: var(--sl-ui-text-1);
 }
-
 html[data-sinless-theme="crimson"] a:hover,
 html[data-sinless-theme="purple"] a:hover {
   color: var(--sl-ui-text-0);
@@ -573,132 +285,438 @@ html[data-sinless-theme="purple"] *::-webkit-scrollbar-thumb {
 }
 
 /* =========================================================
-   SinlessCSB — Hard Overrides (ensure visible changes)
+   CHAT ROOTS (log, popout, and toast notifications)
    ========================================================= */
 
-html[data-sinless-theme="crimson"] #sidebar,
-html[data-sinless-theme="purple"] #sidebar {
-  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
-  border-left: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] .window-app .window-content,
-html[data-sinless-theme="purple"] .window-app .window-content {
-  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg)) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] .window-app,
-html[data-sinless-theme="purple"] .window-app {
+/* Chat log and chat popout logs */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log) :is(li.chat-message, .chat-message) {
+  background-image: none !important; /* kill parchment */
+  background: var(--sl-ui-pop-bg) !important;
   border: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-0) !important;
+  opacity: 1 !important;
 }
 
-html[data-sinless-theme="crimson"] #chat-log .chat-message,
-html[data-sinless-theme="purple"] #chat-log .chat-message {
-  background: rgba(0,0,0,0.25) !important;
-  border: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-/* =========================================================
-   SinlessCSB — Hard Overrides
-   Purpose: ensure theme is visibly applied against Foundry core CSS.
-   ========================================================= */
-
-/* Sidebar chrome */
-html[data-sinless-theme="crimson"] #sidebar,
-html[data-sinless-theme="purple"] #sidebar {
-  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
-  border-left: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] #sidebar-tabs,
-html[data-sinless-theme="purple"] #sidebar-tabs {
-  border-bottom: 1px solid var(--sl-ui-border) !important;
-}
-
-/* Window surfaces (ALL sheets/dialogs/apps) */
-html[data-sinless-theme="crimson"] .window-app,
-html[data-sinless-theme="purple"] .window-app {
-  border: 1px solid var(--sl-ui-border) !important;
-  box-shadow: var(--sl-ui-shadow) !important;
-}
-
-html[data-sinless-theme="crimson"] .window-app .window-header,
-html[data-sinless-theme="purple"] .window-app .window-header {
-  background: rgba(0,0,0,0.30) !important;
-  border-bottom: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] .window-app .window-content,
-html[data-sinless-theme="purple"] .window-app .window-content {
-  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg)) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-/* Chat messages */
-html[data-sinless-theme="crimson"] #chat-log .chat-message,
-html[data-sinless-theme="purple"] #chat-log .chat-message {
-  background: rgba(0,0,0,0.25) !important;
-  border: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] #chat-log .chat-message .message-header,
-html[data-sinless-theme="purple"] #chat-log .chat-message .message-header {
-  border-bottom: 1px solid var(--sl-ui-border) !important;
-}
-
-/* =========================================================
-   SinlessCSB — Chat: remove Foundry parchment everywhere
-   Applies to ALL chat messages/cards
-   ========================================================= */
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message {
-  background-image: none !important;          /* kills /ui/parchment.jpg */
-  background: rgba(0,0,0,0.25) !important;    /* your dark surface */
-  border: 1px solid var(--sl-ui-border) !important;
-  color: var(--sl-ui-text-1) !important;
-}
-
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-content,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .message-content {
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log) :is(li.chat-message, .chat-message) .message-content {
   background: transparent !important;
   background-image: none !important;
+  color: var(--sl-ui-text-0) !important;
 }
 
-/* Optional: remove any parchment-like backgrounds from embedded roll cards too */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .dice-roll,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .dice-roll,
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .dice-tooltip,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .dice-tooltip,
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .dice-total,
-html[data-sinless-theme="purple"]  #chat .chat-log li.chat-message .dice-total {
-  background-image: none !important;
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log) :is(li.chat-message, .chat-message) .message-header {
+  border-bottom: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-0) !important;
 }
 
-html[data-sinless-theme="crimson"] #chat .chat-scroll,
-html[data-sinless-theme="purple"]  #chat .chat-scroll {
+/* Chat scroll background */
+html[data-sinless-theme] #chat .chat-scroll {
   background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
 }
 
+/* Remove parchment-like backgrounds from embedded roll cards too */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.dice-roll, .dice-tooltip, .dice-total) {
+  background-image: none !important;
+}
+
+/* Purple hover glow on chat messages */
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log) :is(li.chat-message, .chat-message):hover {
+  border-color: var(--sl-ui-accent-2) !important;
+  box-shadow: 0 0 0 1px rgba(0,200,255,0.25);
+}
+
 /* =========================================================
-   SinlessCSB — Chat sender name (theme-specific)
+   SinlessCSB cards inside chat: neon titles + safe link styling
+   IMPORTANT: scoped to chat containers so sheets never inherit.
    ========================================================= */
 
-/* Crimson theme: crimson sender */
-html[data-sinless-theme="crimson"] #chat .chat-log li.chat-message .message-header .message-sender {
-  color: var(--sl-ui-accent-2) !important; /* #ff3b4a in your palette */
-  text-shadow: 0 0 10px rgba(255,59,74,0.25);
+/* Titles inside Sinless cards in chat logs + chat-popouts */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb :is(h1, h2, h3),
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb .sl-card-title {
+  color: var(--sl-ui-neon-aqua) !important;
+  text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
+}
+
+/* Links inside Sinless cards in chat logs + chat-popouts */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb a {
+  color: var(--sl-ui-neon-aqua) !important;
+}
+
+/* =========================================================
+   Spell chat card layout (kept intact; updated font var)
+   ========================================================= */
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
+  display: block;
+  padding: 10px 12px;
+  margin: 0;
+
+  border-radius: 10px;
+  border: 1px solid var(--sl-ui-border);
+  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.32));
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+
+  color: var(--sl-ui-text-1);
+}
+
+/* Accent stripe */
+html[data-sinless-theme="crimson"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
+  border-left: 3px solid var(--sl-ui-accent);
+}
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
+  border-left: 3px solid var(--sl-ui-accent-2);
+}
+
+/* Title row */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-card-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin: 0 0 8px 0;
+  padding: 0 0 8px 0;
+
+  border-bottom: 1px solid var(--sl-ui-border);
+  font-family: var(--sinless-font-display);
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-card-title h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--sl-ui-text-0);
+}
+
+/* Badge */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--sl-ui-border);
+  background: rgba(0,0,0,0.22);
+  color: var(--sl-ui-text-1);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Rows */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(242,243,245,0.12);
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-row:last-of-type {
+  border-bottom: none;
+}
+
+/* Key + value */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-key {
+  color: var(--sl-ui-text-2);
+  min-width: 11rem;
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-val {
+  color: var(--sl-ui-text-0);
+  text-align: right;
+  flex: 1;
+}
+
+/* Emphasis */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card .sl-strong {
   font-weight: 700;
 }
 
-/* Purple theme: magenta sender */
-html[data-sinless-theme="purple"] #chat .chat-log li.chat-message .message-header .message-sender {
-  color: #960570 !important; /* magenta */
-  text-shadow: 0 0 10px rgba(255,59,212,0.25);
+/* Details block */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card details {
+  margin-top: 10px;
+  border: 1px solid var(--sl-ui-border);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.18);
+  padding: 6px 8px;
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card details summary {
+  cursor: pointer;
+  color: var(--sl-ui-text-1);
+}
+
+/* Inline code inside card */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card code {
+  background: rgba(0,0,0,0.30);
+  border: 1px solid var(--sl-ui-border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  color: var(--sl-ui-text-0);
+}
+
+/* Purple hover glow on the card itself */
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message):hover .message-content .sinlesscsb.spell-card {
+  border-color: var(--sl-ui-accent-2);
+  box-shadow: 0 0 0 1px rgba(0,200,255,0.25), 0 10px 22px rgba(0,0,0,0.55);
+}
+
+/* =========================================================
+   Chat bubbles (token speech/roll bubbles)
+   Requires hook: chat-theme.js to add .sinlesscsb-chat-bubble
+   ========================================================= */
+
+html[data-sinless-theme] .sinlesscsb-chat-bubble {
+  background-image: none !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.32)) !important;
+  border: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-0) !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+html[data-sinless-theme] .sinlesscsb-chat-bubble .sinlesscsb :is(h1, h2, h3),
+html[data-sinless-theme] .sinlesscsb-chat-bubble .sinlesscsb .sl-card-title {
+  color: var(--sl-ui-neon-aqua) !important;
+  text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
+}
+
+/* =========================================================
+   Toast notifications (the brief popup near sidebar)
+   ========================================================= */
+
+html[data-sinless-theme] :is(#chat-notifications, .chat-notifications, #chat-notification, .chat-notification)
+  :is(.chat-message, li.chat-message) {
+  background-image: none !important;
+  background: var(--sl-ui-pop-bg) !important;
+  border: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-0) !important;
+  opacity: 1 !important;
+}
+
+html[data-sinless-theme] :is(#chat-notifications, .chat-notifications, #chat-notification, .chat-notification)
+  :is(.chat-message, li.chat-message) .message-content {
+  color: var(--sl-ui-text-0) !important;
+}
+
+/* Neon titles within toast notifications for Sinless cards */
+html[data-sinless-theme] :is(#chat-notifications, .chat-notifications, #chat-notification, .chat-notification)
+  .message-content .sinlesscsb :is(h1, h2, h3),
+html[data-sinless-theme] :is(#chat-notifications, .chat-notifications, #chat-notification, .chat-notification)
+  .message-content .sinlesscsb .sl-card-title {
+  color: var(--sl-ui-neon-aqua) !important;
+  text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
+}
+
+/* =========================================================
+   Sender (player) name color — theme-specific and final
+   ========================================================= */
+
+html[data-sinless-theme] :is(
+  #chat-log,
+  #chat .chat-log,
+  .chat-popout .chat-log,
+  #chat-notifications,
+  .chat-notifications,
+  #chat-notification,
+  .chat-notification
+) :is(li.chat-message, .chat-message) .message-header .message-sender {
   font-weight: 700;
+}
+
+html[data-sinless-theme="purple"] :is(
+  #chat-log,
+  #chat .chat-log,
+  .chat-popout .chat-log,
+  #chat-notifications,
+  .chat-notifications,
+  #chat-notification,
+  .chat-notification
+) :is(li.chat-message, .chat-message) .message-header .message-sender {
+  color: #960570 !important;
+  text-shadow: 0 0 10px rgba(255,59,212,0.25) !important;
+}
+
+html[data-sinless-theme="crimson"] :is(
+  #chat-log,
+  #chat .chat-log,
+  .chat-popout .chat-log,
+  #chat-notifications,
+  .chat-notifications,
+  #chat-notification,
+  .chat-notification
+) :is(li.chat-message, .chat-message) .message-header .message-sender {
+  color: var(--sl-ui-accent-2) !important;
+  text-shadow: 0 0 10px rgba(255,59,74,0.25) !important;
+}
+
+/* =========================================================
+   CSB (Custom System Builder) typography fixes
+   ========================================================= */
+
+/* CSB headings used for Title/Subtitle previews */
+.system-custom-system-builder h1,
+.system-custom-system-builder h2,
+.system-custom-system-builder h3,
+.system-custom-system-builder .window-title,
+.system-custom-system-builder .header-title,
+.system-custom-system-builder .title {
+  font-family: var(--sinless-font-body) !important;
+  font-weight: 700 !important;
+}
+
+/* CSB subtitle-ish text (does not touch icons) */
+.system-custom-system-builder .subtitle,
+.system-custom-system-builder .sub-title,
+.system-custom-system-builder .subheader,
+.system-custom-system-builder .header-subtitle,
+.system-custom-system-builder .hint,
+.system-custom-system-builder .notes,
+.system-custom-system-builder .help,
+.system-custom-system-builder small {
+  font-family: var(--sinless-font-body) !important;
+  font-weight: 400 !important;
+  font-style: italic;
+}
+
+/* Button label font (CSB + chat) */
+.system-custom-system-builder button,
+.system-custom-system-builder .button,
+.chat-message button,
+.chat-message .button {
+  font-family: var(--sinless-font-body) !important;
+  font-weight: 600 !important;
+}
+
+/* =========================================================
+   CSB label roots (Title/Subtitle display)
+   Fix: CSB forces Modesto Condensed on .custom-system-label-root
+   ========================================================= */
+
+html[data-sinless-theme] .custom-system-label-root,
+html[data-sinless-theme] .custom-system-label-root * {
+  font-family: var(--sinless-font-body) !important;
+}
+
+/* If you want this “subtitle” to be lighter/italic (common subtitle look) */
+html[data-sinless-theme] .custom-system-label-root {
+  font-weight: 400 !important;
+  font-style: italic;
+}
+
+/* If there is also a “title root” you want bold, keep it bold explicitly */
+html[data-sinless-theme] .custom-system-label-root.title,
+html[data-sinless-theme] .custom-system-label-root.header-title,
+html[data-sinless-theme] .custom-system-label-root.is-title {
+  font-weight: 700 !important;
+  font-style: normal !important;
+}
+
+/* =========================================================
+   Hard Overrides (minimal, only where core wins)
+   ========================================================= */
+
+html[data-sinless-theme="crimson"] #sidebar,
+html[data-sinless-theme="purple"] #sidebar {
+  background: linear-gradient(180deg, var(--sl-ui-surface-2), var(--sl-ui-bg)) !important;
+  border-left: 1px solid var(--sl-ui-border) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+html[data-sinless-theme="crimson"] .window-app .window-content,
+html[data-sinless-theme="purple"] .window-app .window-content {
+  background: linear-gradient(180deg, var(--sl-ui-surface-1), var(--sl-ui-bg)) !important;
+  color: var(--sl-ui-text-1) !important;
+}
+
+/* =========================================================
+   Font Awesome isolation (canonical; variable-driven; no squares)
+   ========================================================= */
+
+/* Use Foundry/FA variables when present; fall back to standard family names */
+:root {
+  --sinless-fa-classic: var(--fa-style-family-classic, var(--fa-style-family, "Font Awesome 6 Free"));
+  --sinless-fa-brands:  var(--fa-style-family-brands, "Font Awesome 6 Brands");
+  --sinless-fa-font-solid:   var(--fa-font-solid,   normal 900 1em/1 var(--sinless-fa-classic));
+  --sinless-fa-font-regular: var(--fa-font-regular, normal 400 1em/1 var(--sinless-fa-classic));
+  --sinless-fa-font-brands:  var(--fa-font-brands,  normal 400 1em/1 var(--sinless-fa-brands));
+}
+
+/* Normalize FA pseudo-elements so global fonts never clobber them */
+.fa-solid::before, .fas::before,
+.fa-regular::before, .far::before,
+.fa-brands::before, .fab::before,
+button.fa-solid::before, button.fas::before,
+button.fa-regular::before, button.far::before,
+button.fa-brands::before, button.fab::before,
+a.fa-solid::before, a.fas::before,
+a.fa-regular::before, a.far::before,
+a.fa-brands::before, a.fab::before,
+button.ui-control.icon.fa-solid::before,
+button.ui-control.icon.fa-regular::before,
+button.ui-control.icon.fa-brands::before,
+a.ui-control.icon.fa-solid::before,
+a.ui-control.icon.fa-regular::before,
+a.ui-control.icon.fa-brands::before {
+  font-style: normal !important;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Do NOT set content. Foundry/FA sets it. */
+}
+
+/* Solid */
+.fa-solid::before, .fas::before,
+button.fa-solid::before, button.fas::before,
+a.fa-solid::before, a.fas::before,
+button.ui-control.icon.fa-solid::before,
+a.ui-control.icon.fa-solid::before {
+  font: var(--sinless-fa-font-solid) !important;
+}
+
+/* Regular */
+.fa-regular::before, .far::before,
+button.fa-regular::before, button.far::before,
+a.fa-regular::before, a.far::before,
+button.ui-control.icon.fa-regular::before,
+a.ui-control.icon.fa-regular::before {
+  font: var(--sinless-fa-font-regular) !important;
+}
+
+/* Brands */
+.fa-brands::before, .fab::before,
+button.fa-brands::before, button.fab::before,
+a.fa-brands::before, a.fab::before,
+button.ui-control.icon.fa-brands::before,
+a.ui-control.icon.fa-brands::before {
+  font: var(--sinless-fa-font-brands) !important;
+}
+
+/* Element-based FA icons (<i>/<span>) */
+.fa-solid, .fas {
+  font-family: var(--sinless-fa-classic) !important;
+  font-weight: 900 !important;
+}
+.fa-regular, .far {
+  font-family: var(--sinless-fa-classic) !important;
+  font-weight: 400 !important;
+}
+.fa-brands, .fab {
+  font-family: var(--sinless-fa-brands) !important;
+  font-weight: 400 !important;
 }

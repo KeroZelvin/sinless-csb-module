@@ -343,3 +343,239 @@ Avoid width:100% on action buttons in dialog tables (it makes them dominate the 
 “Computed style doesn’t change” is the deciding signal
 
 If getComputedStyle(wrapper).display is still block after you inject CSS, stop iterating on selector specificity and escalate to inline display:grid !important on the wrapper. This is faster and more reliable in Foundry DialogV2.
+
+Below is a copy/paste section you can append to `known_good_patterns.md`. It consolidates what worked (and what broke) during the Friz + Foundry v13 + CSB theming work, with practical diagnostics and hardened patterns.
+
+---
+
+## Foundry v13 + CSS Theming: Fonts, Icons, and “Why Did That Break?”
+
+### Core principle: scope aggressively, override surgically
+
+Foundry’s UI is a large, layered cascade (core + system + modules + your module). You will get unintended side-effects if you apply broad selectors like `*`, `button`, `i`, `[class^="fa-"]`, or global `::before` rules.
+
+Preferred pattern:
+
+* Gate your theme to a single root marker:
+
+  * `html[data-sinless-theme] ...`
+  * or `.sinlesscsb ...` (if you can reliably add a root class)
+* Apply global typography to `body`, then selectively override headings / labels / chat cards.
+* Fix outliers using the smallest selector that matches the problematic element.
+
+---
+
+## 1) Custom fonts (Friz / etc.) in Foundry
+
+### Do
+
+* Define font variables once:
+
+  * `--sinless-font-body`, `--sinless-font-display`, `--sinless-font-mono`
+* Apply `--sinless-font-body` at:
+
+  * `html[data-sinless-theme] body { font-family: var(--sinless-font-body); }`
+* Keep monospace explicit:
+
+  * `code, pre, textarea { font-family: var(--sinless-font-mono) !important; }`
+
+### Do not
+
+* Apply `font-family` to all descendants via `* { font-family: ... }`
+* Apply `font-family` to `button::before`, `*::before`, or `*::after` (this commonly breaks icons)
+
+---
+
+## 2) Font Awesome icons: what broke and what fixed it
+
+### Symptom: icons become “squares” (tofu) everywhere
+
+This is almost always one of:
+
+* An overly broad typography rule overriding icon pseudo-elements (especially `::before`)
+* Hard-coding the wrong FA family/weight
+* Forcing `content:` for icons (very risky)
+
+### Golden rule
+
+Foundry v13 renders many icons as **pseudo-elements**:
+
+* Sidebar / tool controls: `<button class="ui-control icon fa-solid ...">` with glyph on `::before`
+* Other icons may use `<i class="fa-solid ...">`
+
+So the fix must target **`::before`**, not just the element.
+
+### Best practice: use Foundry/FA variables, don’t hardcode “Free”
+
+Foundry (and other modules) may use FA variables for font shorthands, and hardcoding `"Font Awesome 6 Free"` can cause glyph mismatch. The robust approach:
+
+* Never force `content`
+* Restore FA fonts using Foundry’s variables when available:
+
+  * `--fa-font-solid`, `--fa-font-regular`, `--fa-font-brands`
+  * `--fa-style-family-classic`, `--fa-style-family-brands`
+
+#### Canonical “Font Awesome isolation” block (known-good)
+
+Use one block, at the **end** of your CSS, and avoid multiple competing icon rules:
+
+```css
+:root {
+  --sinless-fa-classic: var(--fa-style-family-classic, var(--fa-style-family, "Font Awesome 6 Free"));
+  --sinless-fa-brands:  var(--fa-style-family-brands, "Font Awesome 6 Brands");
+  --sinless-fa-font-solid:   var(--fa-font-solid,   normal 900 1em/1 var(--sinless-fa-classic));
+  --sinless-fa-font-regular: var(--fa-font-regular, normal 400 1em/1 var(--sinless-fa-classic));
+  --sinless-fa-font-brands:  var(--fa-font-brands,  normal 400 1em/1 var(--sinless-fa-brands));
+}
+
+/* Normalize FA pseudo-elements (do not set content) */
+.fa-solid::before, .fas::before,
+.fa-regular::before, .far::before,
+.fa-brands::before, .fab::before,
+button.ui-control.icon::before {
+  font-style: normal !important;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Solid / Regular / Brands */
+.fa-solid::before, .fas::before,
+button.ui-control.icon.fa-solid::before {
+  font: var(--sinless-fa-font-solid) !important;
+}
+
+.fa-regular::before, .far::before,
+button.ui-control.icon.fa-regular::before {
+  font: var(--sinless-fa-font-regular) !important;
+}
+
+.fa-brands::before, .fab::before,
+button.ui-control.icon.fa-brands::before {
+  font: var(--sinless-fa-font-brands) !important;
+}
+
+/* Element-based icons */
+.fa-solid, .fas { font-family: var(--sinless-fa-classic) !important; font-weight: 900 !important; }
+.fa-regular, .far { font-family: var(--sinless-fa-classic) !important; font-weight: 400 !important; }
+.fa-brands, .fab { font-family: var(--sinless-fa-brands) !important; font-weight: 400 !important; }
+```
+
+### Do not
+
+* Do not set `content: var(--fa)` globally (causes “mystery squares” on non-FA elements)
+* Do not try to “fix icons” with a broad selector like `i, span { font-family: Font Awesome }`
+* Do not apply global `button::before { font-family: ... }`
+
+---
+
+## 3) Debugging workflow (fast, reliable)
+
+### Identify whether you’re in the right document
+
+Foundry uses popouts/iframes. Always check:
+
+```js
+const el = $0;
+el?.ownerDocument === document
+```
+
+If false, you are inspecting a different document. CSS may not apply if your stylesheet isn’t loaded there.
+
+### Inspect computed font for the broken thing
+
+For normal text:
+
+```js
+const el = $0;
+({
+  fontFamily: getComputedStyle(el).fontFamily,
+  fontWeight: getComputedStyle(el).fontWeight,
+  fontStyle: getComputedStyle(el).fontStyle
+})
+```
+
+For icons (pseudo-elements):
+
+```js
+const el = $0;
+({
+  beforeContent: getComputedStyle(el, "::before").content,
+  beforeFontFamily: getComputedStyle(el, "::before").fontFamily,
+  beforeFontWeight: getComputedStyle(el, "::before").fontWeight
+})
+```
+
+### Confirm fonts are actually loaded
+
+```js
+({
+  free900: document.fonts.check('900 16px "Font Awesome 6 Free"'),
+  free400: document.fonts.check('400 16px "Font Awesome 6 Free"'),
+  brands:  document.fonts.check('400 16px "Font Awesome 6 Brands"')
+})
+```
+
+If these are true but icons are squares, it’s usually a **wrong-family/variable mismatch** or your typography is overriding `::before`.
+
+### Find who is overriding (quickest method)
+
+In DevTools → Elements → Computed:
+
+* Look at the property (font-family / font) and click the arrow to see the winning rule
+* Fix by narrowing the override to the precise class, not global elements
+
+---
+
+## 4) When a text element refuses your font (CSB “subtitle” case)
+
+Sometimes CSB applies a different font explicitly (e.g., `"Modesto Condensed"`). You must override that **specific class**, not everything.
+
+Known CSB example:
+
+* `.custom-system-label-root` forced a different font family, preventing inheritance
+
+Targeted fix:
+
+```css
+html[data-sinless-theme] .custom-system-label-root,
+html[data-sinless-theme] .custom-system-label-root * {
+  font-family: var(--sinless-font-body) !important;
+}
+```
+
+Optional subtitle styling:
+
+```css
+html[data-sinless-theme] .custom-system-label-root {
+  font-weight: 400 !important;
+  font-style: italic;
+}
+```
+
+---
+
+## 5) Safe ordering (reduces “it worked until later” issues)
+
+In your stylesheet:
+
+1. Variables (`:root`, theme roots)
+2. Global typography (`body`, monospace)
+3. Headings / titles
+4. Component styling (buttons, inputs, chat cards)
+5. Hard overrides (minimal)
+6. **Font Awesome isolation block last**
+
+If Font Awesome is not last, a later typography rule can silently clobber it.
+
+---
+
+## 6) “Never again” rules (high-signal)
+
+* Never apply global `font-family` to `*`, `button`, or `::before/::after` without scoping.
+* Never set `content:` for Font Awesome yourself; let Foundry/FA do it.
+* For icons: always debug `::before` computed styles.
+* Prefer Foundry’s FA variables over hardcoded family names.
+* When something resists inheritance, it’s usually a class-level explicit font-family; override that specific class subtree.
+
+---

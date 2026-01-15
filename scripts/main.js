@@ -9,7 +9,7 @@
  *   html[data-sinless-theme="purple"]  ...
  */
 
-import { registerSheetHooks } from "./hooks/sheets.js";
+import { registerSheetThemeHooks } from "./hooks/sheet-theme.js";
 import { registerCombatHooks } from "./hooks/combat.js";
 import { registerActorInitHooks } from "./hooks/actor-init.js";
 
@@ -17,6 +17,9 @@ import { registerActorInitHooks } from "./hooks/actor-init.js";
 import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
 import { rollPools, refreshPools } from "./api/pools-roll.js";
+import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
+import { registerChatThemeHooks } from "./hooks/chat-theme.js";
+
 
 const MOD_ID = "sinlesscsb";
 
@@ -93,7 +96,9 @@ function exposeModuleAPI() {
     castSpell,
     rollItem,
     rollPools,
-    refreshPools
+    refreshPools,
+    rollInitiative,
+    rollNpcInitiative
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
@@ -163,15 +168,6 @@ Hooks.once("init", () => {
     default: "system.props"
   });
 
-  game.settings.register(MOD_ID, "initiativeMacroName", {
-    name: "Initiative macro name",
-    hint: "World macro to execute when clicking Roll Initiative on actor sheets.",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "Sinless Roll Initiative"
-  });
-
   game.settings.register(MOD_ID, "theme", {
     name: "Sinless Theme",
     hint: "Choose your SinlessCSB theme (applies only to your client).",
@@ -225,6 +221,8 @@ Hooks.once("ready", () => {
     console.log("SinlessCSB | API keys (ready)", apiKeys);
   } catch (_e) {}
 
-  registerSheetHooks();
+  registerSheetThemeHooks();
   registerCombatHooks();
+  registerChatThemeHooks();
+
 });

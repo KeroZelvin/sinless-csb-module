@@ -20,6 +20,49 @@ function isUnset(v) {
   return v === undefined || v === null || v === "";
 }
 
+function normalizeUuid(u) {
+  const s = String(u ?? "").trim();
+  return s.length ? s : null;
+}
+
+/**
+ * Ensure system.props.ActorUuid AND system.props.actorUuid are set to the base Actor UUID.
+ * - Never runs on non-owners (except GM)
+ * - Safe against re-entrancy (no update if already correct)
+ */
+async function ensureActorUuidDualKeys(actor) {
+  if (!actor || actor.documentName !== "Actor") return;
+
+  // Only GM or owner should attempt updates
+  if (!game.user?.isGM && !actor.isOwner) return;
+
+  const baseActor = actor.isToken && actor.parent?.baseActor ? actor.parent.baseActor : actor;
+  if (!baseActor || baseActor.documentName !== "Actor") return;
+
+  const canonical = normalizeUuid(baseActor.uuid);
+  if (!canonical) return;
+
+  const props = baseActor.system?.props ?? {};
+  const currentA = normalizeUuid(props.ActorUuid);
+  const currenta = normalizeUuid(props.actorUuid);
+
+  if (currentA === canonical && currenta === canonical) return;
+
+  const update = {};
+  if (currentA !== canonical) update["system.props.ActorUuid"] = canonical;
+  if (currenta !== canonical) update["system.props.actorUuid"] = canonical;
+
+  await baseActor.update(update);
+
+  if (game.settings?.get?.(MOD_ID, "debugLogs")) {
+    console.log("SinlessCSB | ActorUuid ensured (dual keys)", {
+      name: baseActor.name,
+      canonical,
+      wrote: Object.keys(update)
+    });
+  }
+}
+
 function computeStunMax(actor) {
   const WIL = num(actor?.system?.props?.WIL, 0);
   return 6 + Math.floor(WIL / 2);
@@ -101,6 +144,30 @@ async function clampTracksToMax(actor) {
  * Hook registration
  * ========================= */
 export function registerActorInitHooks() {
+    // Ensure ActorUuid keys on create (GM-owned)
+  Hooks.on("createActor", (actor) => {
+    ensureActorUuidDualKeys(actor).catch((e) =>
+      console.warn("SinlessCSB | ensureActorUuidDualKeys(create) failed", e)
+    );
+  });
+
+  // Ensure ActorUuid keys on update when props might have changed
+  Hooks.on("updateActor", (actor) => {
+    ensureActorUuidDualKeys(actor).catch((e) =>
+      console.warn("SinlessCSB | ensureActorUuidDualKeys(update) failed", e)
+    );
+  });
+
+  // One-time ready sweep (GM only) for existing actors missing keys
+  Hooks.once("ready", () => {
+    if (!game.user?.isGM) return;
+    for (const a of game.actors?.contents ?? []) {
+      ensureActorUuidDualKeys(a).catch((e) =>
+        console.warn("SinlessCSB | ensureActorUuidDualKeys(ready sweep) failed", e)
+      );
+    }
+  });
+  
   Hooks.on("createActor", (actor) => {
     // Mark pending; CSB/template will usually apply an update immediately after create.
     actor
