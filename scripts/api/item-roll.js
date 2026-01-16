@@ -26,6 +26,8 @@ import {
   openDialogV2
 } from "./_util.js";
 
+import { evaluateDamageFormula } from "../rules/damage-formula.js";
+
 /* ----------------------------- */
 /* Session Settings helpers      */
 /* ----------------------------- */
@@ -224,117 +226,92 @@ async function promptRuntimeInputs({
     ],
 
     // Bind the stepper clicks after render (once per root)
-onRender: (dialog, root) => {
-  if (!(root instanceof HTMLElement)) return;
+    onRender: (dialog, root) => {
+      if (!(root instanceof HTMLElement)) return;
 
-  // Choose a stable bind container:
-  // - prefer the outer DialogV2 form Foundry renders
-  // - else bind to root
-  const bindRoot = root.querySelector("form") || root;
+      const bindRoot = root.querySelector("form") || root;
 
-  // Guard: avoid double-binding across rerenders (guard on bindRoot)
-  if (bindRoot.dataset.sinlessItemRollBound === "1") return;
-  bindRoot.dataset.sinlessItemRollBound = "1";
+      if (bindRoot.dataset.sinlessItemRollBound === "1") return;
+      bindRoot.dataset.sinlessItemRollBound = "1";
 
-  if (globalThis.SINLESS_DEBUG_DIALOGS) {
-    console.groupCollapsed("SinlessCSB | item-roll onRender");
-    console.log("root:", root);
-    console.log("bindRoot:", bindRoot);
-    console.log("forms under root:", root.querySelectorAll("form").length, [...root.querySelectorAll("form")].map(f => f.className));
-    console.log("step buttons under root:", root.querySelectorAll('button[data-action="step"]').length);
-    console.groupEnd();
-  }
+      const clampToInput = (input, v) => {
+        if (!(input instanceof HTMLInputElement)) return 0;
 
-  const clampToInput = (input, v) => {
-    if (!(input instanceof HTMLInputElement)) return 0;
+        const minAttr = input.getAttribute("min");
+        const maxAttr = input.getAttribute("max");
 
-    // IMPORTANT: min/max are empty strings when not set.
-    // Number("") -> 0, which would incorrectly clamp sit to 0 forever.
-    const minAttr = input.getAttribute("min");
-    const maxAttr = input.getAttribute("max");
+        const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
+        const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
 
-    const minRaw = (minAttr == null || minAttr === "") ? NaN : Number(minAttr);
-    const maxRaw = (maxAttr == null || maxAttr === "") ? NaN : Number(maxAttr);
+        const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
+        const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
 
-    const min = Number.isFinite(minRaw) ? minRaw : -Infinity;
-    const max = Number.isFinite(maxRaw) ? maxRaw : Infinity;
+        let vv = Number(v);
+        if (!Number.isFinite(vv)) vv = 0;
 
-    let vv = Number(v);
-    if (!Number.isFinite(vv)) vv = 0;
+        vv = Math.max(min, Math.min(max, vv));
+        vv = Math.floor(vv);
 
-    vv = Math.max(min, Math.min(max, vv));
-    vv = Math.floor(vv);
+        input.value = String(vv);
+        return vv;
+      };
 
-    input.value = String(vv);
-    return vv;
-  };
+      const findInputForField = (btn, field) => {
+        const localContainer =
+          btn.closest("tr") ||
+          btn.closest("td") ||
+          btn.closest("div") ||
+          null;
 
-  const findInputForField = (btn, field) => {
-    // 1) Try closest row/container first
-    const localContainer =
-      btn.closest("tr") ||
-      btn.closest("td") ||
-      btn.closest("div") ||
-      null;
+        if (localContainer) {
+          const local = localContainer.querySelector(`input[name="${CSS.escape(field)}"]`);
+          if (local instanceof HTMLInputElement) return local;
+        }
 
-    if (localContainer) {
-      const local = localContainer.querySelector(`input[name="${CSS.escape(field)}"]`);
-      if (local instanceof HTMLInputElement) return local;
+        const global = bindRoot.querySelector(`input[name="${CSS.escape(field)}"]`);
+        if (global instanceof HTMLInputElement) return global;
+
+        return null;
+      };
+
+      const handler = (ev) => {
+        const btn = ev.target?.closest?.('button[data-action="step"]');
+        if (!(btn instanceof HTMLElement)) return;
+
+        ev.preventDefault();
+
+        const field = btn.dataset.field;
+        const delta = Number(btn.dataset.step ?? "0");
+        if (!field || !Number.isFinite(delta)) return;
+
+        const input = findInputForField(btn, field);
+        if (!input || input.disabled || input.readOnly) return;
+
+        const cur = Number(input.value);
+        const next = (Number.isFinite(cur) ? cur : 0) + delta;
+
+        clampToInput(input, next);
+
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      };
+
+      bindRoot.addEventListener("click", handler, true);
+
+      if (!dialog._sinlessItemRollCloseWrapped && typeof dialog.close === "function") {
+        dialog._sinlessItemRollCloseWrapped = true;
+        const origClose = dialog.close.bind(dialog);
+        dialog.close = async (...args) => {
+          try { bindRoot.removeEventListener("click", handler, true); } catch (_e) {}
+          return await origClose(...args);
+        };
+      }
     }
-
-    // 2) Fallback: search within bindRoot
-    const global = bindRoot.querySelector(`input[name="${CSS.escape(field)}"]`);
-    if (global instanceof HTMLInputElement) return global;
-
-    return null;
-  };
-
-  const handler = (ev) => {
-    const btn = ev.target?.closest?.('button[data-action="step"]');
-    if (!(btn instanceof HTMLElement)) return;
-
-    ev.preventDefault();
-
-    const field = btn.dataset.field;
-    const delta = Number(btn.dataset.step ?? "0");
-    if (!field || !Number.isFinite(delta)) return;
-
-    const input = findInputForField(btn, field);
-    if (!input || input.disabled || input.readOnly) return;
-
-    const cur = Number(input.value);
-    const next = (Number.isFinite(cur) ? cur : 0) + delta;
-
-    clampToInput(input, next);
-
-    input.dispatchEvent(new Event("input", { bubbles: true }));
-    input.dispatchEvent(new Event("change", { bubbles: true }));
-
-    if (globalThis.SINLESS_DEBUG_DIALOGS) {
-      console.log("SinlessCSB | stepper fired", { field, delta, value: input.value });
-    }
-  };
-
-  // Capture phase for maximum reliability in Foundry UI
-  bindRoot.addEventListener("click", handler, true);
-
-  // Cleanup on close (wrap once)
-  if (!dialog._sinlessItemRollCloseWrapped && typeof dialog.close === "function") {
-    dialog._sinlessItemRollCloseWrapped = true;
-    const origClose = dialog.close.bind(dialog);
-    dialog.close = async (...args) => {
-      try { bindRoot.removeEventListener("click", handler, true); } catch (_e) {}
-      return await origClose(...args);
-    };
-  }
-}
-
   });
 
   if (!result) return null;
   return result;
 }
-
 
 /* ----------------------------- */
 /* Actor update mirroring        */
@@ -348,7 +325,6 @@ async function updateActorWithMirrors(sheetActor, update) {
     try { await canon.update(update); } catch (_e) {}
   }
 
-  // If the user is looking at a token-synthetic actor, mirror there too
   for (const t of canvas?.tokens?.controlled ?? []) {
     const ta = t?.actor;
     if (!ta || ta.documentName !== "Actor") continue;
@@ -370,21 +346,18 @@ export async function rollItem(scope = {}) {
     const actorUuid = normalizeUuid(scope?.actorUuid);
     const itemId = normalizeUuid(scope?.itemId);
 
-    // Resolve item
     const item = await resolveItemDoc({ itemUuid, actorUuid, itemId });
     if (!item) {
       ui.notifications?.error?.("Sinless Item Roll: could not resolve item. Pass { itemUuid } or { actorUuid, itemId }.");
       return null;
     }
 
-    // Resolve actor to update (explicit actorUuid wins; else item.parent; else token/character)
     const actor = await resolveActorForContext({ scope: { actorUuid }, item });
     if (!actor || actor.documentName !== "Actor") {
       ui.notifications?.error?.("Sinless Item Roll: could not resolve an Actor to update (pass actorUuid or use an owned item).");
       return null;
     }
 
-    // Session Settings
     const sessionActor = getSessionSettingsActor();
     if (!sessionActor) {
       ui.notifications?.error?.('Actor "Session Settings" not found (needed for TN_Global / SkillMeta_JSON).');
@@ -394,7 +367,6 @@ export async function rollItem(scope = {}) {
     const TN = readTN(sessionActor);
     const skillMeta = getSkillMeta(sessionActor);
 
-    // Item-defined roll config
     const skillKeyRaw = readItemProp(item, "skillKey");
     const skillKey = String(skillKeyRaw ?? "").trim();
     if (!skillKey) {
@@ -406,24 +378,38 @@ export async function rollItem(scope = {}) {
     const bonusDice = num(readItemProp(item, "bonusDice"), 0);
     const diceMod = num(readItemProp(item, "diceMod"), 0);
 
-    // Pool from item or from SkillMeta_JSON mapping
+    // Damage fields (read once; usage depends on skillKey)
+    const itemDamageText = String(readItemProp(item, "itemDamage") ?? "").trim();
+    const weaponDamageRaw = readItemProp(item, "weaponDamage");
+    const weaponDamage = Number.isFinite(Number(weaponDamageRaw))
+      ? Math.max(0, Math.floor(num(weaponDamageRaw, 0)))
+      : null;
+
+    // Damage formula skills (melee-style). Successes-based damage applies to all other skills (Firearms, Gunnery, etc.).
+    const DAMAGE_FORMULA_SKILLS = new Set([
+      "Skill_MeleeWeapons",
+      "Skill_ThrowingWeapons",
+      "Skill_CyberCombat",
+      "Skill_UnarmedCombat"
+    ]);
+
+    const isDamageSkill = DAMAGE_FORMULA_SKILLS.has(skillKey);
+
+    const damageEligible = isDamageSkill && !!itemDamageText;
+    const damageFlatFallback = isDamageSkill && !itemDamageText && (weaponDamage !== null);
+
+    // For non-melee skills: show weaponDamage as reference (successes remaining + weapon damage)
+    const showSuccessesDamageHint = (!isDamageSkill) && (weaponDamage !== null);
+
     const poolFromItemRaw = readItemProp(item, "poolKey");
     const skillInfo = resolveSkillInfo(skillMeta, skillKey);
     const poolFromMetaRaw = skillInfo?.pool ?? null;
 
-    // Normalize poolKey inputs:
-    // - Prefer item.poolKey, else SkillMeta.pool
-    // - Allow "Resolve", "resolve", "Resolve_Cur", etc.
-    // - If still missing, default to Resolve for non-spell items
     let poolKeyLogical = String(poolFromItemRaw ?? poolFromMetaRaw ?? "").trim();
-
-    // Strip common suffixes if somebody stored Cur/Max instead of the base pool name
     poolKeyLogical = poolKeyLogical.replace(/_(Cur|Max)$/i, "").trim();
 
     if (!poolKeyLogical) {
-      // Canonical default for non-spell items
       poolKeyLogical = "Resolve";
-
       console.warn("SinlessCSB | rollItem: poolKey missing; defaulting to Resolve", {
         item: { name: item.name, uuid: item.uuid },
         skillKey,
@@ -433,8 +419,6 @@ export async function rollItem(scope = {}) {
       ui.notifications?.warn?.(`"${item.name}" has no poolKey; defaulting to Resolve.`);
     }
 
-    // Canonicalize capitalization for the known pools (keeps keys consistent)
-    // (Brawn/Finesse/Resolve/Focus)
     const poolKeyCanonMap = {
       brawn: "Brawn",
       finesse: "Finesse",
@@ -443,7 +427,7 @@ export async function rollItem(scope = {}) {
     };
     const poolKeyCanon = poolKeyCanonMap[poolKeyLogical.toLowerCase()] ?? poolKeyLogical;
 
-    const poolCurK = poolCurKey(poolKeyCanon); // "Resolve" => "Resolve_Cur"
+    const poolCurK = poolCurKey(poolKeyCanon);
     if (!poolCurK) {
       ui.notifications?.error?.(
         `Item "${item.name}" has invalid poolKey "${poolKeyLogical}". Use one of: Brawn, Finesse, Resolve, Focus.`
@@ -459,14 +443,12 @@ export async function rollItem(scope = {}) {
     }
     const poolCur = Math.max(0, Math.floor(num(poolCurRaw, 0)));
 
-    // Skill value
     const baseSkillVal = Math.max(0, Math.floor(num(aprops?.[skillKey], 0)));
 
-    // Group-defaulting / untrained fallback
     const groupId = skillInfo?.groupId ?? null;
     const isAsterisked = Boolean(skillInfo?.isAsterisked);
 
-    let mode = "trained"; // trained | group | untrainedPool
+    let mode = "trained";
     let effectiveSkillVal = baseSkillVal;
     let chosenGroupSkillKey = null;
     let chosenGroupSkillVal = null;
@@ -500,17 +482,12 @@ export async function rollItem(scope = {}) {
       }
     }
 
-    // Limit and spend cap
     const limit = Math.max(0, effectiveSkillVal + gearFeature);
 
-    // Spend cap rules:
-    // - trained/group: capped by min(poolCur, limit)
-    // - untrained fallback: allow spending up to full pool (still uses the 4-successes=1 rule later)
     const spendCap = (mode === "untrainedPool")
       ? poolCur
       : Math.max(0, Math.min(poolCur, limit));
 
-    // Dialog header lines
     const displayLines = [];
     displayLines.push(`<strong>TN</strong> ${escapeHTML(TN)}+`);
     displayLines.push(`<strong>Pool</strong> ${escapeHTML(poolCurK)}: ${escapeHTML(poolCur)}`);
@@ -529,7 +506,6 @@ export async function rollItem(scope = {}) {
     displayLines.push(`<strong>Limit</strong>: ${escapeHTML(limit)}`);
     displayLines.push(`<strong>Spend cap</strong>: ${escapeHTML(spendCap)}`);
 
-    // IMPORTANT: Always allow spend for non-spell items
     const allowSpend = true;
     const defaultSpend = spendCap;
 
@@ -558,17 +534,69 @@ export async function rollItem(scope = {}) {
 
     const totalDice = Math.max(0, spend + bonusDice + diceMod + sitMod);
 
-    // Optional guard: if they somehow get 0d6, warn and exit cleanly
     if (totalDice <= 0) {
       ui.notifications?.warn?.("No dice to roll.");
       return null;
     }
 
-    // Roll + compute successes
     const { roll, results, successes: rawSuccesses } = await rollXd6Successes({ dice: totalDice, tn: TN });
     const finalSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
 
-    // Pool depletion
+    let damage = null;
+
+    if (damageEligible) {
+      try {
+        const strVal = Math.max(0, Math.floor(num(aprops?.STR, 0)));
+        const evald = evaluateDamageFormula(itemDamageText, strVal);
+
+        const diceCount = Math.abs(Math.floor(num(evald.dice, 0)));
+        let diceTotalSigned = 0;
+        let damageDiceHTML = "";
+
+        if (diceCount > 0) {
+          const dmgRoll = new Roll(`${diceCount}d6`);
+          await dmgRoll.evaluate();
+          const dmgTotal = Math.floor(num(dmgRoll.total, 0));
+
+          diceTotalSigned = (evald.dice < 0) ? -dmgTotal : dmgTotal;
+          damageDiceHTML = await dmgRoll.render();
+        }
+
+        const total = Math.max(0, Math.floor(evald.base + diceTotalSigned));
+
+        damage = {
+          kind: "formula",
+          formulaText: evald.formulaText,
+          normalized: evald.normalized,
+          STR: evald.STR,
+          base: evald.base,
+          dice: evald.dice,
+          diceTotal: diceTotalSigned,
+          total,
+          diceHTML: damageDiceHTML
+        };
+      } catch (e) {
+        console.warn("SinlessCSB | rollItem: itemDamage evaluation failed; continuing without damage", {
+          item: { name: item?.name, uuid: item?.uuid },
+          skillKey,
+          itemDamageText
+        }, e);
+        damage = null;
+      }
+    } else if (damageFlatFallback) {
+      damage = {
+        kind: "flatFallback",
+        formulaText: "",
+        normalized: "",
+        STR: Math.max(0, Math.floor(num(aprops?.STR, 0))),
+        base: weaponDamage,
+        dice: 0,
+        diceTotal: 0,
+        total: weaponDamage,
+        diceHTML: ""
+      };
+    }
+
     const newPool = Math.max(0, poolCur - spend);
     const update = { [propPath(poolCurK)]: newPool };
     await updateActorWithMirrors(actor, update);
@@ -583,6 +611,51 @@ export async function rollItem(scope = {}) {
     const successLine = (mode === "untrainedPool")
       ? `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"} <span style="font-size:12px; opacity:0.85;">(raw ${rawSuccesses} ÷ 4)</span>`
       : `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"}`;
+
+    const damageSectionHTML = damage ? `
+      <hr/>
+      <p style="margin:0 0 6px 0;">
+        <strong>Damage:</strong> <strong>${escapeHTML(damage.total)}</strong>
+        ${damage.kind === "formula" ? `
+          <span style="font-size:12px; opacity:0.85;">
+            (base ${escapeHTML(damage.base)}${damage.dice ? ` + ${escapeHTML(Math.abs(damage.dice))}d6` : ""})
+          </span>
+        ` : `
+          <span style="font-size:12px; opacity:0.85;">(flat)</span>
+        `}
+      </p>
+
+      ${damage.kind === "formula" ? `
+        <details>
+          <summary>Damage Details</summary>
+          <p style="margin:6px 0 0 0;"><strong>Formula:</strong> ${escapeHTML(damage.formulaText)}</p>
+          <p style="margin:0;"><strong>Normalized:</strong> ${escapeHTML(damage.normalized)}</p>
+          <p style="margin:0;"><strong>STR used:</strong> ${escapeHTML(damage.STR)}</p>
+          <p style="margin:0;"><strong>Base (floored):</strong> ${escapeHTML(damage.base)}</p>
+          ${damage.dice ? `
+            <p style="margin:0 0 6px 0;"><strong>Dice:</strong> ${escapeHTML(Math.abs(damage.dice))}d6 → ${escapeHTML(damage.diceTotal)}</p>
+            ${damage.diceHTML}
+          ` : ""}
+        </details>
+      ` : `
+        <p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;">
+          From <code>weaponDamage</code> (fallback because <code>itemDamage</code> is blank).
+        </p>
+      `}
+    ` : "";
+
+    const successesDamageHintHTML = showSuccessesDamageHint ? `
+      <hr/>
+      <p style="margin:0 0 6px 0;">
+        <strong>Weapon Damage:</strong> <strong>${escapeHTML(weaponDamage)}</strong>
+        <span style="font-size:12px; opacity:0.85;">
+          (after dodge: remaining successes + weapon damage)
+        </span>
+      </p>
+      <p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;">
+        Table flow: Target dodges to cancel successes. Base damage = <strong>${escapeHTML(weaponDamage)}</strong> + (successes remaining).
+      </p>
+    ` : "";
 
     const content = `
       <div class="sinlesscsb item-roll-card">
@@ -607,6 +680,9 @@ export async function rollItem(scope = {}) {
           <div style="font-size:28px; font-weight:bold;">${successLine}</div>
         </div>
 
+        ${damageSectionHTML}
+        ${successesDamageHintHTML}
+
         <p style="margin:0 0 10px 0;"><strong>${escapeHTML(poolCurK)}:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>
 
         <details>
@@ -626,13 +702,17 @@ export async function rollItem(scope = {}) {
       itemUuid: item.uuid,
       TN,
       mode,
+      skillKey,
       poolCurK,
       poolCur,
       spend,
       newPool,
       totalDice,
       rawSuccesses,
-      finalSuccesses
+      finalSuccesses,
+      itemDamageText,
+      weaponDamage,
+      damage
     };
   } catch (e) {
     console.error("SinlessCSB | rollItem failed", e);

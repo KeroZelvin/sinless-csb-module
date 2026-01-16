@@ -579,3 +579,101 @@ If Font Awesome is not last, a later typography rule can silently clobber it.
 * When something resists inheritance, it’s usually a class-level explicit font-family; override that specific class subtree.
 
 ---
+
+CSB ComputablePhrase scope: avoid ReferenceError on undefined identifiers
+
+Symptom
+Console error from CSB formula evaluation:
+
+Uncaught (in promise) ReferenceError: rollActor is not defined
+
+Stack mentions ComputablePhrase.js / processFormulas
+
+Root cause
+In CSB ComputablePhrase evaluation, referencing an identifier that is not injected into the evaluation scope throws immediately. Optional chaining does not protect you if the identifier itself doesn’t exist (e.g., rollActor?.uuid still throws if rollActor is undefined as a variable).
+
+Rule
+In CSB %{ ... }% formulas, only read optional globals behind a typeof <name> !== "undefined" guard.
+
+Hardened rollMessage caller (item sheet + inventory row + GM token-safe)
+
+Use this when you want an Item template button to call the module API reliably from either:
+
+Actor inventory row (linkedEntity exists), or
+
+Item sheet (entity exists), including GM use by controlled / targeted token.
+
+%{
+  // Prefer linkedEntity (inventory row) then entity (item sheet)
+  const doc = (typeof linkedEntity !== "undefined" && linkedEntity) ? linkedEntity
+            : (typeof entity !== "undefined" && entity) ? entity
+            : null;
+
+  const itemUuid = String(doc?.uuid ?? "").trim();
+
+  // Actor resolution: embedded parent wins; otherwise token/character fallbacks.
+  const embeddedActorUuid =
+    (doc?.parent?.documentName === "Actor" && doc?.parent?.uuid) ? String(doc.parent.uuid) : "";
+
+  const scopeActorUuid =
+    (typeof actor !== "undefined" && actor?.documentName === "Actor" && actor?.uuid) ? String(actor.uuid) : "";
+
+  const controlledActorUuid = (() => {
+    const t = canvas?.tokens?.controlled?.[0];
+    return t?.actor?.uuid ? String(t.actor.uuid) : "";
+  })();
+
+  const targetedActorUuid = (() => {
+    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+    return t?.actor?.uuid ? String(t.actor.uuid) : "";
+  })();
+
+  const userCharUuid = game.user?.character?.uuid ? String(game.user.character.uuid) : "";
+
+  const actorUuid = String(
+    embeddedActorUuid ||
+    scopeActorUuid ||
+    controlledActorUuid ||
+    targetedActorUuid ||
+    userCharUuid ||
+    ""
+  ).trim();
+
+  if (!itemUuid) {
+    ui.notifications?.warn?.("SinlessCSB: missing item context (itemUuid).");
+    return "";
+  }
+
+  if (!actorUuid) {
+    ui.notifications?.warn?.("SinlessCSB: No actor context. Control or target a token, then try again.");
+    return "";
+  }
+
+  const api = game.modules.get("sinlesscsb")?.api;
+  if (typeof api?.rollItem !== "function") {
+    ui.notifications?.error?.("SinlessCSB: rollItem API not available (module not ready / not exposed).");
+    return "";
+  }
+
+  api.rollItem({ itemUuid, actorUuid });
+  return "";
+}%
+
+
+Notes
+“This same pattern applies to castSpell: only the final API method name changes (rollItem → castSpell).”
+
+This avoids rollActor entirely (common missing identifier in item-sheet contexts).
+
+For GM usage: it works best when the GM controls a token (click) or targets a token (T).
+
+Safe label formula (item sheet + inventory row)
+
+If you must compute the label via JS formula, do not assume linkedEntity exists:
+
+%{
+  const doc = (typeof linkedEntity !== "undefined" && linkedEntity) ? linkedEntity
+            : (typeof entity !== "undefined" && entity) ? entity
+            : null;
+  return String(doc?.system?.props?.actionLabel ?? "Use");
+}%

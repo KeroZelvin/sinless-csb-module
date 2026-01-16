@@ -77,17 +77,61 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 **Item buttons / rollMessage formula pattern (recommended):**
 ```js
 %{
-  const itemUuid = String(linkedEntity?.uuid ?? entity?.uuid ?? "");
-  const actorUuid = String(
-    linkedEntity?.parent?.uuid ??
-    rollActor?.uuid ??
-    actor?.uuid ??
-    ""
-  );
+  // Prefer linkedEntity (inventory row) then entity (item sheet)
+  const doc = (typeof linkedEntity !== "undefined" && linkedEntity) ? linkedEntity
+            : (typeof entity !== "undefined" && entity) ? entity
+            : null;
 
-  game.modules.get("sinlesscsb")?.api?.rollItem?.({ itemUuid, actorUuid });
+  const itemUuid = String(doc?.uuid ?? "").trim();
+
+  // Actor resolution: embedded parent wins; otherwise token/character fallbacks.
+  const embeddedActorUuid =
+    (doc?.parent?.documentName === "Actor" && doc?.parent?.uuid) ? String(doc.parent.uuid) : "";
+
+  const scopeActorUuid =
+    (typeof actor !== "undefined" && actor?.documentName === "Actor" && actor?.uuid) ? String(actor.uuid) : "";
+
+  const controlledActorUuid = (() => {
+    const t = canvas?.tokens?.controlled?.[0];
+    return t?.actor?.uuid ? String(t.actor.uuid) : "";
+  })();
+
+  const targetedActorUuid = (() => {
+    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+    return t?.actor?.uuid ? String(t.actor.uuid) : "";
+  })();
+
+  const userCharUuid = game.user?.character?.uuid ? String(game.user.character.uuid) : "";
+
+  const actorUuid = String(
+    embeddedActorUuid ||
+    scopeActorUuid ||
+    controlledActorUuid ||
+    targetedActorUuid ||
+    userCharUuid ||
+    ""
+  ).trim();
+
+  if (!itemUuid) {
+    ui.notifications?.warn?.("SinlessCSB: missing item context (itemUuid).");
+    return "";
+  }
+
+  if (!actorUuid) {
+    ui.notifications?.warn?.("SinlessCSB: No actor context. Control or target a token, then try again.");
+    return "";
+  }
+
+  const api = game.modules.get("sinlesscsb")?.api;
+  if (typeof api?.rollItem !== "function") {
+    ui.notifications?.error?.("SinlessCSB: rollItem API not available (module not ready / not exposed).");
+    return "";
+  }
+
+  api.rollItem({ itemUuid, actorUuid });
   return "";
 }%
+
 ```
 
 ## DialogV2 standard (critical)
