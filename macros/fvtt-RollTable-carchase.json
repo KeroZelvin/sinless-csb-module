@@ -1,0 +1,560 @@
+{
+  "name": "CarChase",
+  "img": "https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Tokens/PeaPu_Battle_Cyberpunk_Vehicles_03_General_WebPs_FREE/PeaPu_Battle_Cyberpunk_Vehicles_03_General_WebPs_FREE/PP_Battle_Cyberpunk_Vehicle_Car_10_AV_Colorable_3x3.webp",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "_id": "WqMEN2FzqfHlDYJ1",
+      "name": "Chaos!",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B64_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "_id": "cDcKgyEXlgyv2CD1",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B66_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "_id": "R7WQVVO0dKxiXh5n",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B68_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "_id": "xMLn9nBMCrmEuFhz",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B70_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "_id": "oENoCTCNmOkocKWg",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B72_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "_id": "zPMJNZqknuk6BO3s",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B74_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "_id": "UStjPlCNYvGxiFTi",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B76_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "_id": "Wbiw0qQEJQRyob91",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B78_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "_id": "0gUy0eAZzxp5T5je",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B80_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "_id": "d5zlxLEPZSFGyMEM",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B100_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "_id": "wgWsmd295nq6H3WY",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B90_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "_id": "2Lvc4JyqTgPE0occ",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B92_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "_id": "g8lM8T7oQpULkzzK",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B94_result.webp\" />",
+      "drawn": true,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "_id": "Vbqxf2l65STTpTiy",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B96_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "_id": "nX9sPSe7VfkTUImI",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B98_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "_id": "3ckKM0lMxSJp5FFE",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B102_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "_id": "w4aNjBHI1yzHKQ6K",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B102_result.webp\" />",
+      "drawn": true,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "_id": "uAqUeHdJHet4AIgW",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B102_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "_id": "zw520xXSs3hUf8Tf",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B102_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "_id": "N6fn47XWpa6xH1oA",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B104_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "_id": "sCOUU9Fb7LJSaGb5",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B100_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "_id": "SPRSQDE7zqK8sKjE",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "<img src=\"https://assets.forge-vtt.com/6517231970f09407aa4e9881/Foundry/Data/assets/Handouts/TarotLand/gear%2Btarot%2Bcards%2B-%2B102_result.webp\" />",
+      "drawn": false,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "custom-system-builder",
+        "systemVersion": "5.1.0",
+        "lastModifiedBy": null
+      },
+      "documentUuid": null
+    }
+  ],
+  "replacement": false,
+  "displayRoll": true,
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "RollTable.PvtrxWmG2VMVqwVd",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.1.0"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1768012445291,
+    "modifiedTime": 1768012456214,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "formula": "1d22",
+  "ownership": {
+    "default": 0
+  }
+}

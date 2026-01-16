@@ -19,7 +19,8 @@ import { rollItem } from "./api/item-roll.js";
 import { rollPools, refreshPools } from "./api/pools-roll.js";
 import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
-
+import { drawTableResultTile } from "./api/table-to-tile.js";
+import { drawChasePath, clearChaseBoard } from "./api/chase-controls.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -98,7 +99,10 @@ function exposeModuleAPI() {
     rollPools,
     refreshPools,
     rollInitiative,
-    rollNpcInitiative
+    rollNpcInitiative,
+    drawTableResultTile,
+    drawChasePath,
+    clearChaseBoard
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));

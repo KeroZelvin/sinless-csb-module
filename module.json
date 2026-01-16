@@ -80,7 +80,7 @@
     },
     {
       "name": "sinlesscsb-rollabletables",
-      "label": "SInlessCSB Rollable Tables",
+      "label": "SinlessCSB Rollable Tables",
       "path": "packs/sinlesscsb-rollabletables",
       "type": "RollTable",
       "system": "custom-system-builder",
