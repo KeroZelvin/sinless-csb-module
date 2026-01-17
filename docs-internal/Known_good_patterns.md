@@ -677,3 +677,137 @@ If you must compute the label via JS formula, do not assume linkedEntity exists:
             : null;
   return String(doc?.system?.props?.actionLabel ?? "Use");
 }%
+
+---
+
+Pilot routing for Drone Actors (contextActor vs rollingActor)
+Use case
+
+Drones are separate Actor copies (modded loadouts, armor, weapons, damage state), but pool spend and skill ranks must come from the owning PC (pilot/rigger) rather than the Drone actor.
+
+Pattern
+
+Split “who owns the item/state” from “who pays pools”:
+
+contextActor: the actor whose inventory/item button was clicked (Drone in drone workflows).
+Holds drone state and drone-only stats like rigHandling.
+
+rollingActor: the actor whose pools/skills are used and depleted (Pilot/PC).
+
+Data model
+
+On the Drone actor, add a hidden text field:
+
+Key: pilotActorUuid
+
+Type: Text
+
+Value: pilot PC Actor UUID (e.g., Actor.<id>)
+
+Rule
+
+When running an item roll from a Drone actor:
+
+Read pools/skills from rollingActor
+
+Write pool depletion to rollingActor
+
+Read handling / vehicle bonus (e.g., rigHandling) from contextActor when needed
+
+Hardened implementation (inside rollItem())
+// Drone pilot routing: contextActor is the actor whose item you clicked (e.g., Drone).
+const contextActor = actor;
+const pilotActor = await resolvePilotActorFromContext(contextActor);
+
+// Guard: pilotActorUuid is set but did not resolve
+const pilotUuidRaw = String(contextActor?.system?.props?.pilotActorUuid ?? "").trim();
+if (pilotUuidRaw && !pilotActor) {
+  ui.notifications?.warn?.(
+    `Drone "${contextActor.name}" has pilotActorUuid set but it could not be resolved. Falling back to ${game.user?.character?.name ?? contextActor.name}.`
+  );
+}
+
+// rollingActor is where pools/skills come from and where pool spend is written.
+const rollingActor = pilotActor || game.user?.character || contextActor;
+
+// Props split: drone state vs pilot pools/skills
+const contextProps = readProps(contextActor);
+const aprops = readProps(rollingActor);
+
+Chat card best practice
+
+Show both roles when they differ:
+
+Actor: should display contextActor.name (Drone)
+
+Pilot: should display rollingActor.name (PC)
+
+Avoid nested template literals if you are inside a backtick-based content string. Prefer concatenation:
+
+const pilotLine =
+  (rollingActor && contextActor && rollingActor.uuid && contextActor.uuid && rollingActor.uuid !== contextActor.uuid)
+    ? '<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ' + escapeHTML(rollingActor.name) + '</p>'
+    : '';
+
+Error messaging
+
+When validating pool keys, mention both actors to reduce confusion:
+
+if (poolCurRaw === undefined) {
+  ui.notifications?.error?.(
+    `Pool "${poolCurK}" not found on rolling actor "${rollingActor?.name ?? "?"}" (context actor "${contextActor?.name ?? "?"}").`
+  );
+  return null;
+}
+
+Common pitfall
+
+Do not place contextActor / rollingActor declarations at module top-level. They must be inside rollItem() after actor is resolved. Top-level actor is undefined and will crash module load.
+
+Chat speaker choice for pilot-routed actions (Drone vs Pilot)
+
+When using contextActor (Drone) + rollingActor (Pilot) routing, you must decide who the chat message “speaks as.” Best practice:
+
+Recommended default
+
+Use the Drone as the chat speaker so the chat log reads like “the drone acted,” while still showing the Pilot line in the card.
+
+const pilotLine =
+  (rollingActor && contextActor && rollingActor.uuid && contextActor.uuid && rollingActor.uuid !== contextActor.uuid)
+    ? '<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ' + escapeHTML(rollingActor.name) + '</p>'
+    : '';
+
+const content = `
+  <div class="sinlesscsb item-roll-card">
+    <h3 style="margin:0 0 6px 0;">${escapeHTML(item.name)}</h3>
+    <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
+    ${pilotLine}
+    ...
+  </div>
+`;
+
+await ChatMessage.create({
+  speaker: ChatMessage.getSpeaker({ actor: contextActor }),
+  content
+});
+
+When to use the Pilot as the chat speaker instead
+
+Use rollingActor as the speaker when:
+
+the action is framed as a PC action (e.g., casting, personal skill checks), or
+
+you want all pool spends to appear under the PC’s chat identity consistently.
+
+await ChatMessage.create({
+  speaker: ChatMessage.getSpeaker({ actor: rollingActor }),
+  content
+});
+
+Rule of thumb
+
+Drone weapons / drone maneuvers: speaker = contextActor (Drone)
+
+PC abilities / personal actions: speaker = rollingActor (PC)
+
+Always include the Pilot line (conditionally) when contextActor.uuid !== rollingActor.uuid to prevent confusion about where pools were spent.
