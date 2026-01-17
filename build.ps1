@@ -31,6 +31,7 @@ Copy-Item "scripts" (Join-Path $stage "scripts") -Recurse
 Copy-Item "packs"   (Join-Path $stage "packs")   -Recurse
 Copy-Item "csb"     (Join-Path $stage "csb")     -Recurse
 Copy-Item "styles"  (Join-Path $stage "styles")  -Recurse
+Copy-Item "assets"  (Join-Path $stage "assets")  -Recurse
 
 # Remove transient files
 Get-ChildItem -Path (Join-Path $stage "packs") -Recurse -Filter "LOCK" -ErrorAction SilentlyContinue |
