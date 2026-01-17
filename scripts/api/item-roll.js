@@ -8,12 +8,9 @@
 // - Optional Session Settings system.props.SkillMeta_JSON (JSON string with { skills: { Skill_X: { pool, groupId, isAsterisked }}})
 
 import {
-  MOD_ID,
   num,
-  clamp,
   normalizeUuid,
   escapeHTML,
-  propsRoot,
   readProps,
   propPath,
   poolCurKey,
@@ -99,43 +96,6 @@ async function resolvePilotActorFromContext(contextActor) {
   } catch (_e) {
     return null;
   }
-}
-
-
-/**
- * Force poolKey resolution for non-spell item-rolls.
- *
- * Priority:
- *  1) Item override: item.system.props.poolKey (or PoolKey/pool)
- *  2) SkillMeta mapping: SkillMeta.skills[skillKey].pool
- *  3) Hard default: "Resolve"
- *
- * Also validates the pool exists on the actor props; if not, warns and still defaults.
- */
-function resolvePoolKeyOrDefault({ item, skillMeta, skillKey, actor }) {
-  const itemPool =
-    readItemProp(item, "poolKey") ??
-    readItemProp(item, "PoolKey") ??
-    readItemProp(item, "pool");
-
-  const metaPool = resolveSkillInfo(skillMeta, skillKey)?.pool;
-
-  const chosen = normalizePoolKey(itemPool ?? metaPool) ?? "Resolve";
-  const curKey = poolCurKey(chosen); // -> "Resolve_Cur"
-
-  // Validate the resolved pool exists on actor props; if not, warn (but keep going).
-  const props = readProps(actor);
-  if (curKey && !(curKey in props)) {
-    console.warn("SinlessCSB | rollItem: resolved pool key not found on actor props; defaulting anyway", {
-      actor: { name: actor?.name, uuid: actor?.uuid },
-      skillKey,
-      chosenPoolKey: chosen,
-      expectedCurKey: curKey,
-      availablePoolKeys: Object.keys(props).filter(k => /_Cur$|_Max$/i.test(k))
-    });
-  }
-
-  return chosen; // e.g. "Resolve"
 }
 
 /* ----------------------------- */
@@ -349,15 +309,6 @@ async function updateActorWithMirrors(sheetActor, update) {
   }
 }
 
-const contextActor = actor; // drone actor in this workflow
-const pilotActor = await resolvePilotActorFromContext(contextActor);
-
-// Rolling actor: prefer pilot; else fall back to user.character (for players); else fall back to contextActor.
-const rollingActor =
-  pilotActor ||
-  game.user?.character ||
-  contextActor;
-
 
 /* ----------------------------- */
 /* Main API function             */
@@ -380,6 +331,27 @@ export async function rollItem(scope = {}) {
       ui.notifications?.error?.("Sinless Item Roll: could not resolve an Actor to update (pass actorUuid or use an owned item).");
       return null;
     }
+
+// Drone pilot routing: contextActor is the actor whose item you clicked (e.g., Drone).
+const contextActor = actor;
+const pilotActor = await resolvePilotActorFromContext(contextActor);
+
+// Guard: pilotActorUuid is set but did not resolve
+const pilotUuidRaw = String(contextActor?.system?.props?.pilotActorUuid ?? "").trim();
+if (pilotUuidRaw && !pilotActor) {
+  ui.notifications?.warn?.(
+    `Drone "${contextActor.name}" has pilotActorUuid set but it could not be resolved. Falling back to ${game.user?.character?.name ?? contextActor.name}.`
+  );
+}
+
+// Rolling actor: prefer pilot; else fall back to user.character; else contextActor
+// rollingActor is where pools/skills come from and where pool spend is written.
+const rollingActor = pilotActor || game.user?.character || contextActor;
+
+// Props split: drone state vs pilot pools/skills
+const contextProps = readProps(contextActor);
+const aprops = readProps(rollingActor);
+
 
     const sessionActor = getSessionSettingsActor();
     if (!sessionActor) {
@@ -461,14 +433,15 @@ export async function rollItem(scope = {}) {
       return null;
     }
 
-    const contextProps = readProps(contextActor);
-    const aprops = readProps(rollingActor);
 
-    const poolCurRaw = aprops?.[poolCurK];
-    if (poolCurRaw === undefined) {
-      ui.notifications?.error?.(`Pool "${poolCurK}" not found on actor "${actor.name}" (expected under system.props).`);
-      return null;
-    }
+const poolCurRaw = aprops?.[poolCurK];
+if (poolCurRaw === undefined) {
+  ui.notifications?.error?.(
+    `Pool "${poolCurK}" not found on rolling actor "${rollingActor?.name ?? "?"}" (context actor "${contextActor?.name ?? "?"}").`
+  );
+  return null;
+}
+
     const poolCur = Math.max(0, Math.floor(num(poolCurRaw, 0)));
 
     const baseSkillVal = Math.max(0, Math.floor(num(aprops?.[skillKey], 0)));
@@ -551,9 +524,10 @@ export async function rollItem(scope = {}) {
     const allowSpend = true;
     const defaultSpend = spendCap;
 
-    const spendHelp = (mode === "untrainedPool")
-      ? `Spend up to <strong>${escapeHTML(poolCur)}</strong> from ${escapeHTML(poolCurK)}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
-      : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + Gear ${escapeHTML(gearFeature)}; Pool ${escapeHTML(poolCur)})`;
+const spendHelp = (mode === "untrainedPool")
+  ? `Spend up to <strong>${escapeHTML(poolCur)}</strong> from ${escapeHTML(poolCurK)}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
+  : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + LimitBonus ${escapeHTML(limitBonus)}; Pool ${escapeHTML(poolCur)})`;
+
 
     const runtime = await promptRuntimeInputs({
       title: item.name,
@@ -700,9 +674,11 @@ export async function rollItem(scope = {}) {
       </p>
     ` : "";
 
-    const pilotLine = (rollingActor?.uuid && contextActor?.uuid && rollingActor.uuid !== contextActor.uuid)
-  ? `<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ${escapeHTML(rollingActor.name)}</p>`
-  : "";
+    const pilotLine =
+  (rollingActor && contextActor && rollingActor.uuid && contextActor.uuid && rollingActor.uuid !== contextActor.uuid)
+    ? '<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ' + escapeHTML(rollingActor.name) + '</p>'
+    : '';
+
 
     const content = `
       <div class="sinlesscsb item-roll-card">
@@ -749,12 +725,14 @@ export async function rollItem(scope = {}) {
     `;
 
     await ChatMessage.create({
-      speaker: ChatMessage.getSpeaker({ actor }),
+      speaker: ChatMessage.getSpeaker({ actor: contextActor }),
       content
     });
 
     return {
-      actorUuid: actor.uuid,
+      actorUuid: rollingActor.uuid, // legacy: pools/spend actor
+      contextActorUuid: contextActor.uuid,
+      rollingActorUuid: rollingActor.uuid,
       itemUuid: item.uuid,
       TN,
       mode,

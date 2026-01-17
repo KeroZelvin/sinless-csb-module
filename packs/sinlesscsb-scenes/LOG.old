@@ -1,20 +1,8 @@
-2026/01/16-14:41:48.657 2c08 Recovering log #290
-2026/01/16-14:41:48.661 2c08 Delete type=0 #290
-2026/01/16-14:41:48.661 2c08 Delete type=3 #288
-2026/01/16-19:38:48.237 7d08 Level-0 table #294: started
-2026/01/16-19:38:48.237 7d08 Level-0 table #294: 0 bytes OK
-2026/01/16-19:38:48.238 7d08 Delete type=0 #292
-2026/01/16-19:38:48.241 7d08 Manual compaction at level-0 from '!scenes!AZ0bcSXfedu5wIao' @ 72057594037927935 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 2 : 1
-2026/01/16-19:38:48.241 7d08 Compacting 1@0 + 0@1 files
-2026/01/16-19:38:48.242 7d08 Generated table #295@0: 2 keys, 1693 bytes
-2026/01/16-19:38:48.242 7d08 Compacted 1@0 + 0@1 files => 1693 bytes
-2026/01/16-19:38:48.245 7d08 compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/01/16-19:38:48.245 7d08 Delete type=2 #289
-2026/01/16-19:38:48.248 7d08 Manual compaction at level-0 from '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 2 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
-2026/01/16-19:38:48.252 7d08 Manual compaction at level-1 from '!scenes!AZ0bcSXfedu5wIao' @ 72057594037927935 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 2 : 1
-2026/01/16-19:38:48.252 7d08 Compacting 1@1 + 0@2 files
-2026/01/16-19:38:48.254 7d08 Generated table #296@1: 2 keys, 1693 bytes
-2026/01/16-19:38:48.254 7d08 Compacted 1@1 + 0@2 files => 1693 bytes
-2026/01/16-19:38:48.255 7d08 compacted to: files[ 0 0 2 0 0 0 0 ]
-2026/01/16-19:38:48.255 7d08 Delete type=2 #295
-2026/01/16-19:38:48.258 7d08 Manual compaction at level-1 from '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 2 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
+2026/01/16-19:40:48.667 66d8 Recovering log #293
+2026/01/16-19:40:48.671 66d8 Delete type=0 #293
+2026/01/16-19:40:48.671 66d8 Delete type=3 #291
+2026/01/16-20:30:25.166 7d08 Level-0 table #300: started
+2026/01/16-20:30:25.166 7d08 Level-0 table #300: 0 bytes OK
+2026/01/16-20:30:25.168 7d08 Delete type=0 #298
+2026/01/16-20:30:25.169 7d08 Manual compaction at level-0 from '!scenes!AZ0bcSXfedu5wIao' @ 72057594037927935 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
+2026/01/16-20:30:25.169 7d08 Manual compaction at level-1 from '!scenes!AZ0bcSXfedu5wIao' @ 72057594037927935 : 1 .. '!scenes.tiles!fPtfhJTd0rvSg2zI.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
