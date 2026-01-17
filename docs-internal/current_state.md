@@ -40,6 +40,9 @@ World macros and CSB template scripts should become **thin callers** into the AP
   - Track updates: `Resolve_Cur`, `stunCur`, `physicalCur` (remaining-track model)
   - Mirroring updates across canonical actor + token-synthetics
 
+### Initiative Roll
+File: `scripts\api\initiative-roll.js`
+
 ## Shared utilities
 - File: `scripts/api/_util.js`
 - Key exported helpers:

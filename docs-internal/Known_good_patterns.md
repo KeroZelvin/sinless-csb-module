@@ -811,3 +811,172 @@ Drone weapons / drone maneuvers: speaker = contextActor (Drone)
 PC abilities / personal actions: speaker = rollingActor (PC)
 
 Always include the Pilot line (conditionally) when contextActor.uuid !== rollingActor.uuid to prevent confusion about where pools were spent.
+
+## CSB sheet not picking up SinlessCSB module CSS (Foundry v13 + CSB v5)
+
+### Symptom
+Some actor sheets look “unstyled” (missing SinlessCSB theme), while others are correct.
+
+### Root cause
+SinlessCSB sheet theming is **scoped** and depends on the presence of a DOM marker:
+- If a rendered sheet contains an element with CSS class: `sinlesscsb-marker`
+- Then the module hook promotes `.sinlesscsb` onto the nearest `.custom-system` root.
+- If the marker is missing, `.sinlesscsb` is never applied and theme-scoped selectors won’t match.
+
+### Fast diagnosis (console)
+```js
+[...document.querySelectorAll("form.custom-system.actor")].map(f => ({
+  marker: !!f.querySelector(".sinlesscsb-marker"),
+  hasSinless: f.classList.contains("sinlesscsb"),
+  className: f.className
+}));
+Fix
+In CSB template/layout, add sinlesscsb-marker to an always-rendered element (panel/div/etc.).
+No content is required; it is a theming trigger.
+
+pgsql
+Copy code
+
+If you want, share which template(s) were missing it (PC/NPC/other), and I can propose a quick audit checklist so you can ensure every relevant CSB actor/item template includes the marker in a consistent place.
+::contentReference[oaicite:0]{index=0}
+
+---
+
+### Quick Pool Check
+a rollMessage macro that:
+
+resolves an Actor safely (sheet actor → controlled token → targeted token → user character)
+
+reads TN_Global from Session Settings (default 4)
+
+reads the requested prop key (e.g., physicalCur, stunCur, Brawn_Cur) from actor.system.props
+
+rolls Xd6, counts successes (>= TN), and posts a chat card with a large success line.
+
+Below is a hardened, copy/paste CSB button rollMessage. Customize only the PROP_KEY and TITLE.
+
+
+CSB rollMessage: “Quick Pool Check” (no pool spending)
+%{
+  (async () => {
+    // ===== CONFIG (edit these two lines per button) =====
+    const PROP_KEY = "physicalCur"; // e.g. "stunCur", "Brawn_Cur", "Finesse_Cur", etc.
+    const TITLE = "Physical Check"; // label shown on the chat card
+    // ====================================================
+
+    // Local helpers (keep inline for CSB safety)
+    const num = (x, fallback = 0) => {
+      const n = Number(x);
+      return Number.isFinite(n) ? n : fallback;
+    };
+    const escapeHTML = (s) => String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+    // Resolve a usable "doc" without ReferenceError (CSB scope-safe)
+    const doc =
+      (typeof linkedEntity !== "undefined" && linkedEntity) ? linkedEntity :
+      (typeof entity !== "undefined" && entity) ? entity :
+      null;
+
+    // Resolve Actor object (prefer sheet context; then controlled/targeted; then user character)
+    const controlledActor = canvas?.tokens?.controlled?.[0]?.actor ?? null;
+    const targetedActor = (() => {
+      const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+      return t?.actor ?? null;
+    })();
+
+    let a =
+      (doc?.documentName === "Actor") ? doc :
+      (doc?.actor?.documentName === "Actor") ? doc.actor :
+      (doc?.parent?.documentName === "Actor") ? doc.parent :
+      (typeof actor !== "undefined" && actor?.documentName === "Actor") ? actor :
+      controlledActor ||
+      targetedActor ||
+      game.user?.character ||
+      null;
+
+    if (!a || a.documentName !== "Actor") {
+      ui.notifications?.warn?.("Quick Check: No actor context. Open a sheet, or control/target a token, then try again.");
+      return;
+    }
+
+    // TN from Session Settings (fallback 4)
+    const sessionActor =
+      game.actors?.getName?.("Session Settings") ||
+      (game.actors?.contents ?? []).find(x => (x.name ?? "").trim().toLowerCase() === "session settings") ||
+      null;
+
+    const tnRaw = num(sessionActor?.system?.props?.TN_Global, 4);
+    const TN = [4, 5, 6].includes(tnRaw) ? tnRaw : 4;
+
+    // Pull dice count from actor.system.props[PROP_KEY]
+    const props = a.system?.props ?? {};
+    const dice = Math.max(0, Math.floor(num(props?.[PROP_KEY], 0)));
+
+    if (!dice) {
+      ui.notifications?.warn?.(`Quick Check: "${PROP_KEY}" is 0 or missing on ${a.name}.`);
+      return;
+    }
+
+    // Roll + count successes
+    const roll = new Roll(`${dice}d6`);
+    await roll.evaluate();
+
+    const dieResults = (roll.dice?.[0]?.results ?? []).map(r => Number(r.result)).filter(Number.isFinite);
+    const successes = dieResults.reduce((acc, v) => acc + (v >= TN ? 1 : 0), 0);
+
+    const diceHTML = await roll.render();
+
+    // Chat card (big successes line, similar structure to your item-roll output)
+    const content = `
+      <div class="sinlesscsb item-roll-card">
+        <h3 style="margin:0 0 6px 0;">${escapeHTML(TITLE)}</h3>
+        <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(a.name)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Key:</strong> <code>${escapeHTML(PROP_KEY)}</code></p>
+        <p style="margin:0 0 10px 0;"><strong>Roll:</strong> <strong>${escapeHTML(dice)}d6</strong> vs TN <strong>${escapeHTML(TN)}+</strong></p>
+
+        <div style="text-align:center; margin:10px 0 12px 0;">
+          <div style="font-size:28px; font-weight:bold;">
+            ${escapeHTML(successes)} SUCCESS${successes === 1 ? "" : "ES"}
+          </div>
+        </div>
+
+        <details>
+          <summary>Dice Results</summary>
+          ${diceHTML}
+        </details>
+      </div>
+    `;
+
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: a }),
+      content
+    });
+  })();
+
+  return "";
+}%
+
+How you’ll use it
+
+Create a CSB button (label “Physical Check”, “Stun Check”, “Brawn Check”, etc.)
+
+Paste that block into the button’s rollMessage
+
+Change only:
+
+PROP_KEY = "stunCur" (or whatever)
+
+TITLE = "Stun Check"
+
+Notes
+
+This does not spend or update pools at all.
+
+GM-safe: if you control or target a token, it will roll for that token’s actor.
+
+Scope-safe: avoids ReferenceError by guarding linkedEntity/entity/actor access (same pattern you added to known_good_patterns.md).

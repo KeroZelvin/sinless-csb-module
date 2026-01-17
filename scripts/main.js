@@ -13,6 +13,9 @@ import { registerSheetThemeHooks } from "./hooks/sheet-theme.js";
 import { registerCombatHooks } from "./hooks/combat.js";
 import { registerActorInitHooks } from "./hooks/actor-init.js";
 
+// NEW: Token bar mirroring + token-HUD editing for stunCur/physicalCur
+import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirectional.js";
+
 // API
 import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
@@ -124,6 +127,10 @@ Hooks.once("init", () => {
   // Actor init/clamp hooks (remaining-track model)
   registerActorInitHooks();
 
+  // NEW: Enables token bars bound to system.props.*Bar and allows token HUD edits
+  // to write back into stunCur / physicalCur while keeping your canonical keys.
+  registerTokenBarsBidirectionalHooks();
+
   /* ---------------------------
    * Settings
    * --------------------------- */
@@ -228,5 +235,4 @@ Hooks.once("ready", () => {
   registerSheetThemeHooks();
   registerCombatHooks();
   registerChatThemeHooks();
-
 });
