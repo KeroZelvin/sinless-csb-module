@@ -89,6 +89,19 @@ function normalizePoolKey(k) {
   return base.charAt(0).toUpperCase() + base.slice(1);
 }
 
+async function resolvePilotActorFromContext(contextActor) {
+  const pilotUuid = String(contextActor?.system?.props?.pilotActorUuid ?? "").trim();
+  if (!pilotUuid) return null;
+
+  try {
+    const doc = await fromUuid(pilotUuid);
+    return (doc?.documentName === "Actor") ? doc : null;
+  } catch (_e) {
+    return null;
+  }
+}
+
+
 /**
  * Force poolKey resolution for non-spell item-rolls.
  *
@@ -336,6 +349,16 @@ async function updateActorWithMirrors(sheetActor, update) {
   }
 }
 
+const contextActor = actor; // drone actor in this workflow
+const pilotActor = await resolvePilotActorFromContext(contextActor);
+
+// Rolling actor: prefer pilot; else fall back to user.character (for players); else fall back to contextActor.
+const rollingActor =
+  pilotActor ||
+  game.user?.character ||
+  contextActor;
+
+
 /* ----------------------------- */
 /* Main API function             */
 /* ----------------------------- */
@@ -375,6 +398,9 @@ export async function rollItem(scope = {}) {
     }
 
     const gearFeature = num(readItemProp(item, "gearFeature"), 0);
+    // Optional: for Drive/Rig actions, pull the limit bonus from actor props (e.g., rigHandling)
+    const limitBonusActorKey = String(readItemProp(item, "limitBonusActorKey") ?? "").trim();
+
     const bonusDice = num(readItemProp(item, "bonusDice"), 0);
     const diceMod = num(readItemProp(item, "diceMod"), 0);
 
@@ -435,7 +461,9 @@ export async function rollItem(scope = {}) {
       return null;
     }
 
-    const aprops = readProps(actor);
+    const contextProps = readProps(contextActor);
+    const aprops = readProps(rollingActor);
+
     const poolCurRaw = aprops?.[poolCurK];
     if (poolCurRaw === undefined) {
       ui.notifications?.error?.(`Pool "${poolCurK}" not found on actor "${actor.name}" (expected under system.props).`);
@@ -482,7 +510,19 @@ export async function rollItem(scope = {}) {
       }
     }
 
-    const limit = Math.max(0, effectiveSkillVal + gearFeature);
+    // Limit bonus: either item gearFeature OR actor-based handling (never both)
+    let limitBonus = Math.floor(num(gearFeature, 0));
+    let limitBonusSource = "item.gearFeature";
+
+    if (limitBonusActorKey) {
+      limitBonus = Math.floor(num(contextProps?.[limitBonusActorKey], 0));
+      limitBonusSource = `contextActor.${limitBonusActorKey}`;
+    } else {
+      limitBonus = Math.floor(num(gearFeature, 0));
+      limitBonusSource = "item.gearFeature";
+    }
+
+    const limit = Math.max(0, effectiveSkillVal + limitBonus);
 
     const spendCap = (mode === "untrainedPool")
       ? poolCur
@@ -503,7 +543,9 @@ export async function rollItem(scope = {}) {
     }
 
     displayLines.push(`<strong>GearFeature</strong>: ${escapeHTML(gearFeature)}`);
+    displayLines.push(`<strong>Limit Bonus</strong>: ${escapeHTML(limitBonus)} <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>`);
     displayLines.push(`<strong>Limit</strong>: ${escapeHTML(limit)}`);
+
     displayLines.push(`<strong>Spend cap</strong>: ${escapeHTML(spendCap)}`);
 
     const allowSpend = true;
@@ -599,7 +641,8 @@ export async function rollItem(scope = {}) {
 
     const newPool = Math.max(0, poolCur - spend);
     const update = { [propPath(poolCurK)]: newPool };
-    await updateActorWithMirrors(actor, update);
+   await updateActorWithMirrors(rollingActor, update);
+
 
     const diceHTML = await roll.render();
 
@@ -657,10 +700,17 @@ export async function rollItem(scope = {}) {
       </p>
     ` : "";
 
+    const pilotLine = (rollingActor?.uuid && contextActor?.uuid && rollingActor.uuid !== contextActor.uuid)
+  ? `<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ${escapeHTML(rollingActor.name)}</p>`
+  : "";
+
     const content = `
       <div class="sinlesscsb item-roll-card">
         <h3 style="margin:0 0 6px 0;">${escapeHTML(item.name)}</h3>
-        <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
+        ${pilotLine}
+
+        
         <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
         <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>
         <hr/>
@@ -671,7 +721,13 @@ export async function rollItem(scope = {}) {
           : ""
         }
 
-        <p style="margin:0 0 6px 0;"><strong>Limit (pool cap):</strong> EffectiveSkill (${escapeHTML(effectiveSkillVal)}) + GearFeature (${escapeHTML(gearFeature)}) = <strong>${escapeHTML(limit)}</strong></p>
+        <p style="margin:0 0 6px 0;">
+          <strong>Limit (pool cap):</strong>
+          EffectiveSkill (${escapeHTML(effectiveSkillVal)}) + LimitBonus (${escapeHTML(limitBonus)})
+          = <strong>${escapeHTML(limit)}</strong>
+          <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>
+        </p>
+
         <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
         <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> Bonus ${escapeHTML(bonusDice)} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
         <p style="margin:0 0 10px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
