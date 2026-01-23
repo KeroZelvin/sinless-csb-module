@@ -1,6 +1,8 @@
 {
+  "folder": "9kmoBQyRvIQEoTi1",
   "name": "Thrown Weapon Template",
   "type": "_equippableItemTemplate",
+  "_id": "J7lCjK5RwvIF4gUw",
   "img": "systems/custom-system-builder/img/template-logo.svg",
   "system": {
     "body": {
@@ -494,11 +496,10 @@
     },
     "hidden": [],
     "modifiers": [],
-    "uniqueId": "J7lCjK5RwvIF4gUw",
-    "templateSystemUniqueVersion": 3242644517
+    "templateSystemUniqueVersion": 3242644517,
+    "uniqueId": "J7lCjK5RwvIF4gUw"
   },
   "effects": [],
-  "folder": "9kmoBQyRvIQEoTi1",
   "flags": {
     "custom-system-builder": {
       "version": "5.1.0",
@@ -5763,8 +5764,8 @@
     }
   },
   "_stats": {
-    "compendiumSource": "Item.beEN7M4Y3hg8U06n",
-    "duplicateSource": "Item.beEN7M4Y3hg8U06n",
+    "compendiumSource": null,
+    "duplicateSource": null,
     "exportSource": {
       "worldId": "sinless",
       "uuid": "Item.J7lCjK5RwvIF4gUw",
@@ -5775,11 +5776,10 @@
     "coreVersion": "13.351",
     "systemId": "custom-system-builder",
     "systemVersion": "5.1.0",
-    "createdTime": 1768606186570,
-    "modifiedTime": 1768620455876,
+    "createdTime": 1769145767489,
+    "modifiedTime": 1769145767489,
     "lastModifiedBy": "KoiB8oaGNkPdgzdM"
   },
-  "_id": "J7lCjK5RwvIF4gUw",
   "items": [],
   "ownership": {
     "default": 0

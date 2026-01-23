@@ -386,9 +386,17 @@ const bonusDiceOverride =
 
 // Item base values
 const bonusDiceBase = Math.floor(num(readItemProp(item, "bonusDice"), 0));
-const bonusDice = (bonusDiceOverride !== null)
+const bonusDiceCore = (bonusDiceOverride !== null)
   ? bonusDiceOverride
   : (bonusDiceBase + bonusDiceDelta);
+
+// Optional actor-sourced bonus dice (e.g., VCR bonus on the pilot)
+const bonusDiceActorKey = String(readItemProp(item, "bonusDiceActorKey") ?? "").trim();
+const bonusDiceActor = bonusDiceActorKey
+  ? Math.floor(num(aprops?.[bonusDiceActorKey], 0))
+  : 0;
+
+const bonusDice = bonusDiceCore + bonusDiceActor;
 
 const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
 
@@ -697,6 +705,14 @@ const spendHelp = (mode === "untrainedPool")
     ? '<p style="margin:0 0 6px 0;"><strong>Pilot:</strong> ' + escapeHTML(rollingActor.name) + '</p>'
     : '';
 
+    const bonusActorLabel = bonusDiceActorKey
+      ? (bonusDiceActorKey === "vcrBonusDice" ? "VCR" : bonusDiceActorKey)
+      : "";
+
+    const bonusBreakdown = bonusDiceActorKey
+      ? `Bonus ${escapeHTML(bonusDice)} (Item/Action ${escapeHTML(bonusDiceCore)} + ${escapeHTML(bonusActorLabel)} ${escapeHTML(bonusDiceActor)})`
+      : `Bonus ${escapeHTML(bonusDice)} (Item/Action ${escapeHTML(bonusDiceCore)})`;
+
 
     const content = `
       <div class="sinlesscsb item-roll-card">
@@ -723,7 +739,7 @@ const spendHelp = (mode === "untrainedPool")
         </p>
 
         <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
-        <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> Bonus ${escapeHTML(bonusDice)} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> ${bonusBreakdown} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
         <p style="margin:0 0 10px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
 
         <div style="text-align:center; margin:10px 0 12px 0;">
