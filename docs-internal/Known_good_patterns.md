@@ -980,3 +980,244 @@ This does not spend or update pools at all.
 GM-safe: if you control or target a token, it will roll for that token’s actor.
 
 Scope-safe: avoids ReferenceError by guarding linkedEntity/entity/actor access (same pattern you added to known_good_patterns.md).
+
+// GM backup for Actor sheet buttons:
+Module Button Best Practice: Sheet-first actor resolution with GM-friendly fallbacks
+Use case
+
+Some CSB/Foundry sheet buttons should always affect the actor whose sheet you clicked, even if you (as GM) have another token selected. However, during testing or certain GM workflows, it is useful to optionally allow the button to act on a controlled/targeted token when there is no reliable sheet actor context.
+
+Problem
+
+In Foundry/CSB, relying on selected tokens can cause misfires:
+
+GM clicks a button on an NPC sheet, but a PC token is selected → the action may apply to the selected PC instead of the sheet actor.
+
+In some CSB contexts, the injected actor identifier may not be present or may not be the expected actor (scope variance).
+
+Pattern (recommended)
+
+Resolve the actor in a strict order:
+
+Injected sheet actor (if present and an Actor document)
+
+Stored actorUuid field on the sheet (e.g., Actor.<id>) resolved via fromUuid()
+
+Fallbacks for GM/testing only:
+
+controlled token actor
+
+targeted token actor
+
+game.user.character
+
+This ensures:
+
+Normal usage: sheet button affects the correct actor even if other tokens are selected.
+
+GM/testing: you can heal/trigger actions by targeting or controlling a token when the sheet context isn’t available.
+
+CSB-safe rule
+
+In CSB %{ ... }% formulas, never reference identifiers that might not exist without guarding:
+
+✅ typeof actor !== "undefined" && actor?.documentName === "Actor"
+
+❌ actor?.uuid (throws if actor identifier is not injected)
+
+Canonical snippet (actor resolution helper)
+
+Use this snippet in sheet button macros where you want “sheet first” behavior, with GM-friendly fallbacks:
+
+// 1) Prefer injected sheet actor
+let scopeActor =
+  (typeof actor !== "undefined" && actor?.documentName === "Actor") ? actor : null;
+
+// 2) If not present, resolve from a CSB field like "Actor.eMbezua6UThIStwT"
+if (!scopeActor) {
+  const au =
+    (typeof actorUuid !== "undefined" && actorUuid) ? String(actorUuid).trim() : "";
+
+  if (au) {
+    try {
+      const doc = await fromUuid(au);
+      if (doc?.documentName === "Actor") scopeActor = doc;
+    } catch (_e) {}
+  }
+}
+
+// 3) GM/testing fallbacks (only if still no sheet context)
+if (!scopeActor) {
+  const controlledActor = canvas?.tokens?.controlled?.[0]?.actor ?? null;
+  const targetedActor = (() => {
+    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+    return t?.actor ?? null;
+  })();
+
+  scopeActor = controlledActor || targetedActor || game.user?.character || null;
+}
+
+if (!scopeActor) {
+  ui.notifications?.warn?.("No actor context. Open a sheet or control/target a token.");
+  return;
+}
+
+Notes
+
+Storing actorUuid on actors/items as a CSB field (e.g., Actor.<id>) is a robust way to bypass CSB scope limitations and reliably recover the correct actor document.
+
+Keep fallbacks after the sheet actor steps to prevent “selected token overrides sheet actor” errors.
+
+If a button should never act on controlled/targeted tokens, delete step (3) and enforce sheet-only behavior.
+
+###  CSB Multi-Action Item Buttons that Work on Both Item Sheets and Actor Item Displayers
+Goal
+
+Define action mode fields on the Item (e.g., SS/DT/B/FA or drone actions) and have them:
+
+Render as buttons on the Item sheet, and
+
+Render as buttons inside an Actor Item Displayer row, and
+
+Call the same module API via a hardened rollMessage macro.
+
+This avoids duplicating action logic on the Actor and keeps “what the item can do” stored on the item itself (important for drone weapons and reusable equipment).
+
+Data model (recommended)
+
+Store per-action fields on the Item:
+
+wepAction1Enabled (checkbox / boolean)
+
+wepAction1BonusDice (number; can be negative)
+
+wepAction1Label (text, e.g., "SS")
+
+Repeat for 2–4:
+
+wepAction2Enabled, wepAction2BonusDice, wepAction2Label
+
+wepAction3Enabled, wepAction3BonusDice, wepAction3Label
+
+wepAction4Enabled, wepAction4BonusDice, wepAction4Label
+
+Notes:
+
+Keep these keys in a hidden GM-only panel if you want a clean sheet UI.
+
+Use Item Displayer “Hide Empty” + your Enabled flags to keep rows tidy.
+
+Best practice: CSB formula scope is context-dependent
+
+CSB “Label (Style: Button)” Text fields are CSB formula/interpolation, not full JS. The available variables differ:
+
+On the Item sheet: use the bare keys
+✅ wepAction2Enabled, wepAction2Label
+❌ system.props.wepAction2Enabled (often blocked: “No access to property props”)
+❌ item.wepAction2Enabled (usually undefined on item sheet)
+
+In an Actor Item Displayer row: use item.<key>
+✅ item.wepAction2Enabled, item.wepAction2Label
+❌ bare wepAction2Enabled (often undefined in displayer row formulas)
+
+This is the main reason “it works on one sheet but not the other” when you reuse formulas.
+
+Item sheet button: Label component configuration
+
+Use a Label component styled as Button, with no Key (button shouldn’t write data).
+
+Text (item sheet context):
+
+${wepAction2Enabled ? wepAction2Label : ""}$
+
+
+Optional “Visible if” (keeps it from rendering at all when disabled):
+
+${wepAction2Enabled ? true : false}$
+
+
+Repeat for each action N.
+
+Single-action item templates (Action 1 only)
+
+If the item has only one action (archery/energy/melee/thrown), you still must define the wepAction1 fields. The Actor Item Displayer only looks at wepAction1Enabled + wepAction1Label, and our CSS hides empty/disabled buttons.
+
+Required item-template fields:
+
+wepAction1Label (text field) — replaces old actionLabel.
+
+wepAction1Enabled (checkbox in the Hidden panel) — set defaultChecked: true.
+
+Header button value:
+
+${wepAction1Enabled ? wepAction1Label : ""}$
+
+Migration note: if you’re converting an existing template that used actionLabel, add a template modifier/mapping to copy actionLabel -> wepAction1Label so existing items keep their labels.
+
+Important:
+
+If the button shows the label but also prints "ERROR", the failing formula is usually in Visible if / Tooltip / CSS class / Icon / Disabled if fields on that same component. Make sure those also use bare keys (and avoid system.props.*).
+
+Actor sheet Item Displayer button: Label component configuration
+
+In the Item Displayer row, use Label (Style: Button) and reference the row item as item.
+
+Text (item displayer context):
+
+${item.wepAction2Enabled ? item.wepAction2Label : ""}$
+
+
+Optional “Visible if”:
+
+${item.wepAction2Enabled ? true : false}$
+
+
+Repeat for each action N.
+
+RollMessage macros: keep them JS-only and API-only
+
+For actions, use %{ ... }% JavaScript rollMessage blocks to call the module API. This is more robust than CSB formula parsing and avoids “Value expected” parser errors.
+
+Core rule:
+
+Resolve doc with linkedEntity (inventory/displayer row) first, then entity (item sheet).
+
+Resolve actorUuid safely (embedded parent → scope actor → controlled token → targeted token → user character).
+
+Call the API; do not embed roll logic into the macro.
+
+Example skeleton (per action):
+
+bonusDiceDelta can come from doc.system.props.wepActionNBonusDice (preferred), or be hardcoded.
+
+Key reliability point:
+
+The “ReferenceError in ComputablePhrase” class of problems happens when you reference identifiers that don’t exist in scope. In %{ ... }% JS blocks you control your identifiers, so you avoid that entire failure mode as long as you guard linkedEntity/entity/actor with typeof.
+
+Why this works well for drones
+
+Drones often reuse the same item across multiple drone actors. Storing action configuration on the item means:
+
+You can drag-copy the drone gun item into many drones.
+
+Each drone can still differ via actor-side stats (e.g., rigHandling via limitBonusActorKey), while the weapon keeps its own action modes and bonus dice fields.
+
+This cleanly separates:
+
+Item defines available actions and their bonuses (action mode configuration)
+
+Actor defines who rolls / which pools / handling modifiers (pilot routing + limit source)
+
+Common failure modes (and fixes)
+
+Using system.props.* in Label Text
+Fix: use bare keys (item sheet) or item.<key> (item displayer). Avoid system.props.
+
+CSB parser errors like “Value expected”
+Fix: CSB formula fields are not full JS. Use simple ternaries or move logic into %{ ... }% rollMessage.
+
+Button label shows plus “ERROR” underneath
+Fix: another field in the same component (Visible/Tooltip/Icon/etc.) is failing. Audit all formula-capable fields.
+
+Keys not unique / duplicated
+Fix: ensure only one instance of each wepActionN* key exists on the template; store duplicates in hidden panels only if they are not keyed.

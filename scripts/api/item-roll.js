@@ -373,8 +373,25 @@ const aprops = readProps(rollingActor);
     // Optional: for Drive/Rig actions, pull the limit bonus from actor props (e.g., rigHandling)
     const limitBonusActorKey = String(readItemProp(item, "limitBonusActorKey") ?? "").trim();
 
-    const bonusDice = num(readItemProp(item, "bonusDice"), 0);
-    const diceMod = num(readItemProp(item, "diceMod"), 0);
+// Runtime bonus dice controls (optional): allow firing modes to add/subtract bonus dice
+const bonusDiceDelta =
+  (scope?.bonusDiceDelta === 0 || scope?.bonusDiceDelta)
+    ? Math.floor(num(scope.bonusDiceDelta, 0))
+    : 0;
+
+const bonusDiceOverride =
+  (scope?.bonusDiceOverride === 0 || scope?.bonusDiceOverride)
+    ? Math.floor(num(scope.bonusDiceOverride, 0))
+    : null;
+
+// Item base values
+const bonusDiceBase = Math.floor(num(readItemProp(item, "bonusDice"), 0));
+const bonusDice = (bonusDiceOverride !== null)
+  ? bonusDiceOverride
+  : (bonusDiceBase + bonusDiceDelta);
+
+const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
+
 
     // Damage fields (read once; usage depends on skillKey)
     const itemDamageText = String(readItemProp(item, "itemDamage") ?? "").trim();
@@ -526,7 +543,8 @@ if (poolCurRaw === undefined) {
 
 const spendHelp = (mode === "untrainedPool")
   ? `Spend up to <strong>${escapeHTML(poolCur)}</strong> from ${escapeHTML(poolCurK)}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
-  : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + LimitBonus ${escapeHTML(limitBonus)}; Pool ${escapeHTML(poolCur)})`;
+  : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + LimitBonus ${escapeHTML(limitBonus)}; Pool ${escapeHTML(poolCur)}).<br/>
+     <span style="font-size:12px; opacity:0.85;">Bonus dice are added after spend and do <strong>not</strong> deplete the pool. Only <strong>Spend from Pool</strong> reduces ${escapeHTML(poolCurK)}.</span>`;
 
 
     const runtime = await promptRuntimeInputs({

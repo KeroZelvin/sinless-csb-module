@@ -55,7 +55,4 @@ For Sinless CSB:
    When using `onRender`, protect against double-binding via `root.dataset.* = "1"` and/or remove listeners on close.
 
 ## Open items (near-term)
-- Refactor **Pools** dialog into `scripts/api/pools-roll.js` using the same `openDialogV2` helper (complex click handlers + live refresh).
-- Refactor **Initiative** (PC + NPC) into API:
-  - Keep rollMessage / sheet button calls thin; push logic to API.
-  - Reuse the canonical actor + mirroring pattern.
+- None for Pools/Initiative: both are implemented in `scripts/api/pools-roll.js` and `scripts/api/initiative-roll.js`.

@@ -720,3 +720,9 @@ a.ui-control.icon.fa-brands::before {
   font-family: var(--sinless-fa-brands) !important;
   font-weight: 400 !important;
 }
+
+
+/* Hide empty/disabled action buttons in CSB item displayers */
+.wep-action-btn.wep-action-hidden {
+  display: none !important;
+}

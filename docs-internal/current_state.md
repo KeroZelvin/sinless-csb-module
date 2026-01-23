@@ -9,8 +9,8 @@
 We are consolidating all “game logic” into a module API surface:
 - `game.modules.get("sinlesscsb").api.castSpell(scope)`
 - `game.modules.get("sinlesscsb").api.rollItem(scope)`
-- (pending) `game.modules.get("sinlesscsb").api.rollPools(scope)`
-- (pending) `game.modules.get("sinlesscsb").api.rollInitiative(scope)` (PC + NPC)
+- `game.modules.get("sinlesscsb").api.rollPools(scope)`
+- `game.modules.get("sinlesscsb").api.rollInitiative(scope)` (PC + NPC)
 
 World macros and CSB template scripts should become **thin callers** into the API.
 
@@ -40,8 +40,27 @@ World macros and CSB template scripts should become **thin callers** into the AP
   - Track updates: `Resolve_Cur`, `stunCur`, `physicalCur` (remaining-track model)
   - Mirroring updates across canonical actor + token-synthetics
 
+### Pools Roll
+- File: `scripts/api/pools-roll.js`
+- Entry:
+  - `rollPools({ actorUuid? })`
+  - `refreshPools({ actorUuid? })`
+- Features implemented:
+  - DialogV2 via `openDialogV2` (inline steppers + refresh + roll)
+  - Session Settings integration (`TN_Global`)
+  - Canonical actor resolution + mirror-safe updates
+  - Refresh prefers rules module when available; falls back to computed pools
+
 ### Initiative Roll
-File: `scripts\api\initiative-roll.js`
+- File: `scripts/api/initiative-roll.js`
+- Entry:
+  - `rollInitiative({ actorUuid? })` (PC)
+  - `rollNpcInitiative({ sceneId? })` (NPC fixed)
+- Features implemented:
+  - TN_Global + Focus_Max d6 successes + REA
+  - NPC initiative from `system.props.NPCinit`
+  - Actor-only combatants + de-dupe in Encounter 1
+  - Canonical actor resolution
 
 ## Shared utilities
 - File: `scripts/api/_util.js`
@@ -142,16 +161,9 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 - Always call `_util.openDialogV2(...)`.
 - In `onRender`, bind handlers once per root using `root.dataset.<flag> = "1"`.
 
-## Next major refactors
-1. **Pools roller → API**
-   - Create `scripts/api/pools-roll.js`
-   - Reuse `openDialogV2` for complex delegated click handlers and live refresh
-   - Preserve the existing Pools dialog UI (table layout + refresh + roll/clear buttons)
-
-2. **Initiative (PC + NPC) → API**
-   - Move initiative logic into API functions.
-   - Preserve current caller behaviors (sheet buttons and/or rollMessage).
-   - Must use the canonical actor resolution + mirroring strategy above.
+## Recent completions
+- Pools roller is now API-backed (`scripts/api/pools-roll.js`) with DialogV2 and refresh.
+- Initiative (PC + NPC) is now API-backed (`scripts/api/initiative-roll.js`).
 
 ## Test checklist (fast)
 - Call item-roll from:
