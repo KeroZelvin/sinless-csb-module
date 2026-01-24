@@ -526,3 +526,10 @@ First attempt selector-based grid on .sinlesscsb-*-row
 
 If computed style still shows block, use inline grid on the row container.
 
+## VCR bonus dice (Drone rigging)
+- Item roll now supports actor-sourced bonus dice via `bonusDiceActorKey` (stacked with item/action bonuses).
+- VCR bonus is cached from items to actor props using a hook (highest `vcrBonusDice` wins).
+- Drone routing requires `pilotActorUuid` to resolve the pilot; the VCR item should live on the pilot actor.
+- Files: `scripts/api/item-roll.js`, `scripts/hooks/vcr-bonus-sync.js`, `scripts/main.js`
+- Templates: `docs-internal/templateJSONS/` (VCR item: `vcrBonusDice`; drone skills: `bonusDiceActorKey`; drone actor: `pilotActorUuid`)
+

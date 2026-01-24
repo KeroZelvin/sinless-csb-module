@@ -1221,3 +1221,38 @@ Fix: another field in the same component (Visible/Tooltip/Icon/etc.) is failing.
 
 Keys not unique / duplicated
 Fix: ensure only one instance of each wepActionN* key exists on the template; store duplicates in hidden panels only if they are not keyed.
+
+## VCR / Actor-Sourced Bonus Dice Pattern (Drone + Pilot routing)
+
+Goal: Add bonus dice from a separate “support item” (VCR) to multiple skill items (drone skills), while still stacking action bonuses (wepActionNBonusDice).
+
+Core rules
+
+- Keep logic in the API; rollMessage macros stay thin (API-first).
+- Read actor-sourced bonuses from the rolling actor (pilot), not the context actor (drone).
+- `pilotActorUuid` must be set on drones for GM testing (no reliance on `game.user.character`).
+
+Data model
+
+- Support item (VCR) defines numeric prop: `vcrBonusDice`.
+- Drone skill items define hidden text prop: `bonusDiceActorKey = "vcrBonusDice"` (case-sensitive).
+
+Implementation summary
+
+- `scripts/api/item-roll.js`: adds `bonusDiceActorKey` handling and stacks actor bonus with item + action bonuses; chat card shows bonus breakdown.
+- `scripts/hooks/vcr-bonus-sync.js`: caches highest `vcrBonusDice` from VCR items to the owning actor (`actor.system.props.vcrBonusDice`).
+- `scripts/main.js`: registers VCR bonus hook at init.
+
+Template locations (CSB JSON exports)
+
+- `docs-internal/templateJSONS/` (VCR item template: `vcrBonusDice`; drone skill templates: `bonusDiceActorKey`; drone actor template: `pilotActorUuid`).
+
+Common pitfalls / fixes
+
+- Template edits do not backfill existing items. Old items may not have `bonusDiceActorKey` or `vcrBonusDice` until edited/saved or backfilled.
+- Key casing must match exactly: `vcrBonusDice`, `bonusDiceActorKey`, `pilotActorUuid`.
+- When a pilot bonus appears “missing,” confirm the item instance actually has `bonusDiceActorKey` in `item.system.props`.
+
+Reusable for Cyberdeck / MCP
+
+- Same pattern: add a support-item prop (e.g., `mcpBonusDice`), cache highest on actor via a hook, and reference via `bonusDiceActorKey` on related skill items.
