@@ -1,0 +1,1 @@
+Icons : © Bella Carvalho, licensed under CC BY-SA 4.0. Source: [https://github.com/SR5-FoundryVTT/SR5-FoundryVTT](https://github.com/SR5-FoundryVTT/SR5-FoundryVTT). Changes: <none>. License: https://creativecommons.org/licenses/by-sa/4.0/
