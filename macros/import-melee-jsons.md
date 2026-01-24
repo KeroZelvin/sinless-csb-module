@@ -17,8 +17,9 @@
   );
 
   let files = [];
+  const FP = foundry?.applications?.apps?.FilePicker?.implementation || FilePicker;
   try {
-    const browse = await FilePicker.browse("data", baseDir);
+    const browse = await FP.browse("data", baseDir);
     files = (browse?.files ?? []).filter(f => f.toLowerCase().endsWith(".json"));
   } catch (e) {
     console.error(e);
@@ -32,6 +33,7 @@
   }
 
   let updated = 0;
+  let refreshed = 0;
   const missing = [];
 
   for (const file of files) {
@@ -66,6 +68,11 @@
 
     await item.update(update);
     updated += 1;
+
+    if (item.sheet?.rendered) {
+      item.sheet.render(true);
+      refreshed += 1;
+    }
   }
 
   if (missing.length) {
@@ -75,5 +82,7 @@
     console.warn("Import melee JSONs missing items:", missing);
   }
 
-  ui.notifications?.info?.(`Import melee JSONs: updated ${updated} item(s).`);
+  ui.notifications?.info?.(
+    `Import melee JSONs: updated ${updated} item(s). Refreshed ${refreshed} open sheet(s).`
+  );
 })();
