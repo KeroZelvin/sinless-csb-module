@@ -1,3 +1,8 @@
-2026/01/23-16:25:14.177 3280 Recovering log #344
-2026/01/23-16:25:14.180 3280 Delete type=0 #344
-2026/01/23-16:25:14.182 3280 Delete type=3 #343
+2026/01/24-12:33:36.132 8680 Recovering log #361
+2026/01/24-12:33:36.136 8680 Delete type=0 #361
+2026/01/24-12:33:36.136 8680 Delete type=3 #359
+2026/01/24-12:34:12.882 15b8 Level-0 table #366: started
+2026/01/24-12:34:12.882 15b8 Level-0 table #366: 0 bytes OK
+2026/01/24-12:34:12.883 15b8 Delete type=0 #364
+2026/01/24-12:34:12.888 15b8 Manual compaction at level-0 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
+2026/01/24-12:34:12.888 15b8 Manual compaction at level-1 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)

@@ -1222,6 +1222,63 @@ Fix: another field in the same component (Visible/Tooltip/Icon/etc.) is failing.
 Keys not unique / duplicated
 Fix: ensure only one instance of each wepActionN* key exists on the template; store duplicates in hidden panels only if they are not keyed.
 
+---
+
+## CSB rich-text image panels (Weapon Card / TarotLand)
+
+Symptom
+- Rich-text image in a collapsible panel shows only a cropped portion, or overlaps the next panel.
+
+Root cause
+- CSB/Foundry rich-text editors (`prose-mirror`, `.editor-content`) enforce fixed heights and overflow.
+- The card container sometimes isn’t actually tagged with the expected CSS class (e.g., `weapon-card-panel`), so overrides don’t apply.
+
+Known-good fix (SinlessCSB)
+- Target the actual rich-text component class: `custom-system-component-contents.weaponCard`
+- Force the rich-text editor and its wrappers to use normal flow and auto height.
+
+Canonical CSS (in `styles/sinlesscsb-ui-global.css`)
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-text-area,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror.editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror.prosemirror {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  display: block;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard {
+  flex: 0 0 auto;
+  align-self: stretch;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror {
+  position: static !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
+Notes
+- If you add a custom class like `weapon-card-panel` to the CSB panel, verify it actually appears in the rendered DOM. If not, target `weaponCard` directly.
+- The “push panel down” behavior requires `position: static` and normal flow (no absolute positioning) on the editor wrappers.
+
 ## VCR / Actor-Sourced Bonus Dice Pattern (Drone + Pilot routing)
 
 Goal: Add bonus dice from a separate “support item” (VCR) to multiple skill items (drone skills), while still stacking action bonuses (wepActionNBonusDice).

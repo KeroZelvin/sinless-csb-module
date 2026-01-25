@@ -628,6 +628,91 @@ html[data-sinless-theme] .custom-system-label-root.is-title {
 }
 
 /* =========================================================
+   Weapon card panel (rich text image display)
+   ========================================================= */
+
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel {
+  overflow: visible;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-panel,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-panel-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .panel-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .component,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .component-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-component,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-textarea,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .editor-container {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .prosemirror {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-component-contents.weaponCard,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-rich-editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel .custom-system-text-area,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel prose-mirror.editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel prose-mirror.prosemirror {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  display: block;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .weapon-card-panel img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-text-area,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror.editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror.prosemirror {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  display: block;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard {
+  flex: 0 0 auto;
+  align-self: stretch;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard prose-mirror {
+  position: static !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
    Hard Overrides (minimal, only where core wins)
    ========================================================= */
 
