@@ -6,7 +6,11 @@ Table Top Role Playing Game, published by Courtney Campbell/Hack & Slash Publish
 Courtney Campbell. All rights reserved. 
 
 For additional information, visit
-www.sinlessrpg.com or contact campbell@oook.cz
+www.sinlessrpg.com or contact agonarch@sinlessrpg.com
+
+Game assets are used with permission from Courtney Campbell, please do not re-use without express permission from the artist per this license:
+
+[Sinless Third Party License](https://www.patreon.com/posts/sinless-license-120365187)
 
 #####
 
@@ -14,7 +18,7 @@ Alpha build, still in testing.
 
 Pool rolls working with auto refresh each round.
 
-Dragable skill items being implemented, templates complete.
+Dragable skill items implemented, templates complete.
 
 
 

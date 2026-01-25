@@ -1236,6 +1236,7 @@ Root cause
 Known-good fix (SinlessCSB)
 - Target the actual rich-text component class: `custom-system-component-contents.weaponCard`
 - Force the rich-text editor and its wrappers to use normal flow and auto height.
+- For Thrown Range Finder, target `custom-system-component-contents.thrownRange` with the same rules.
 
 Canonical CSS (in `styles/sinlesscsb-ui-global.css`)
 ```css
@@ -1269,6 +1270,42 @@ html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-cont
 }
 
 html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.weaponCard img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Thrown Range Finder uses the same rich-text layout fix */
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .custom-system-rich-editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .custom-system-text-area,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange prose-mirror.editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange prose-mirror.prosemirror {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  display: block;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange {
+  flex: 0 0 auto;
+  align-self: stretch;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .custom-system-rich-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .editor,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .editor-content,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange .prosemirror,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange prose-mirror {
+  position: static !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents.thrownRange img {
   max-width: 100%;
   height: auto;
   display: block;

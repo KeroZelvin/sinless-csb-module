@@ -3,7 +3,7 @@ Table Top Role Playing Game, published by Courtney Campbell/Hack & Slash Publish
 Courtney Campbell. All rights reserved. 
 
 For additional information, visit
-www.sinlessrpg.com or contact campbell@oook.cz
+www.sinlessrpg.com or contact agonarch@sinlessrpg.com
 
 These images are used with permission from Courtney Campbell, please do not re-use without express permission from the artist per this license:
 
