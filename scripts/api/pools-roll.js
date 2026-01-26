@@ -509,30 +509,40 @@ const content = `
         clearInputs(poolKey);
 
         const diceList = results.map(r => r.result).join(", ") || "—";
+        const successLabel = `${successes} SUCCESS${successes === 1 ? "" : "ES"}`;
 
-        const flavor = `
+        const content = `
           <div class="sinlesscsb pool-roll-card">
             <h2 style="margin:0 0 6px 0;">${escapeHTML(p.name)} Test</h2>
-            <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
-            <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
-            <p style="margin:0 0 6px 0;">
-              <strong>Spend:</strong> ${escapeHTML(spendClamped)} (depletes) &nbsp;|&nbsp;
-              <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
-              <strong>Total:</strong> ${escapeHTML(totalDice)}d6
-            </p>
-            <p style="margin:0 0 6px 0;"><strong>Successes:</strong> ${escapeHTML(successes)}</p>
-            <p style="margin:0 0 6px 0;"><strong>${escapeHTML(p.name)}:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
+            <hr class="sl-card-rule"/>
+
+            <p style="margin:0 0 6px 0;"><strong>${escapeHTML(p.name)}</strong> Pool:</p>
+
+            <div style="text-align:center; margin:10px 0 12px 0;">
+              <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLabel)}</div>
+            </div>
+
+            <hr class="sl-card-rule"/>
+
             <details>
-              <summary>Dice Results</summary>
-              <div style="margin-top:6px;">${escapeHTML(diceList)}</div>
+              <summary>roll info</summary>
+              <p style="margin:6px 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+              <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
+              <p style="margin:0 0 6px 0;">
+                <strong>Spend:</strong> ${escapeHTML(spendClamped)} (depletes) &nbsp;|&nbsp;
+                <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
+                <strong>Total:</strong> ${escapeHTML(totalDice)}d6
+              </p>
+              <p style="margin:0 0 6px 0;"><strong>${escapeHTML(p.name)} Pool:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
+              <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
             </details>
           </div>
         `;
 
-        await roll.toMessage(
-          { speaker: ChatMessage.getSpeaker({ actor }), flavor },
-          { create: true }
-        );
+        await ChatMessage.create({
+          speaker: ChatMessage.getSpeaker({ actor }),
+          content
+        });
       };
 
       // Live refresh: update dialog when EITHER sheetActor or canonical updates

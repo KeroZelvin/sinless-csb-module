@@ -402,11 +402,24 @@ const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
 
 
     // Damage fields (read once; usage depends on skillKey)
-    const itemDamageText = String(readItemProp(item, "itemDamage") ?? "").trim();
+    const itemDamageRaw = readItemProp(item, "itemDamage");
+    const itemDamageText = String(itemDamageRaw ?? "").trim();
+    const itemDamageIsNumeric = itemDamageText !== "" && Number.isFinite(Number(itemDamageText));
+    const itemDamageNumeric = itemDamageIsNumeric
+      ? Math.max(0, Math.floor(num(itemDamageText, 0)))
+      : null;
+
+    const specialDamageText = String(readItemProp(item, "specialDamage") ?? "").trim();
+
     const weaponDamageRaw = readItemProp(item, "weaponDamage");
     const weaponDamage = Number.isFinite(Number(weaponDamageRaw))
       ? Math.max(0, Math.floor(num(weaponDamageRaw, 0)))
       : null;
+
+    const hasWeaponDamage = Number.isFinite(weaponDamage) && weaponDamage > 0;
+    const hasItemDamageNumeric = Number.isFinite(itemDamageNumeric) && itemDamageNumeric > 0;
+    const hasItemDamageText = itemDamageText.length > 0;
+    const itemDamageHasFormula = hasItemDamageText && !itemDamageIsNumeric;
 
     // Damage formula skills (melee-style). Successes-based damage applies to all other skills (Firearms, Gunnery, etc.).
     const DAMAGE_FORMULA_SKILLS = new Set([
@@ -417,12 +430,8 @@ const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
     ]);
 
     const isDamageSkill = DAMAGE_FORMULA_SKILLS.has(skillKey);
-
-    const damageEligible = isDamageSkill && !!itemDamageText;
-    const damageFlatFallback = isDamageSkill && !itemDamageText && (weaponDamage !== null);
-
     // For non-melee skills: show weaponDamage as reference (successes remaining + weapon damage)
-    const showSuccessesDamageHint = (!isDamageSkill) && (weaponDamage !== null);
+    const showSuccessesDamageHint = (!isDamageSkill) && hasWeaponDamage;
 
     const poolFromItemRaw = readItemProp(item, "poolKey");
     const skillInfo = resolveSkillInfo(skillMeta, skillKey);
@@ -585,8 +594,9 @@ const spendHelp = (mode === "untrainedPool")
     const finalSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
 
     let damage = null;
+    let damageValue = null;
 
-    if (damageEligible) {
+    if (isDamageSkill && itemDamageHasFormula) {
       try {
         const strVal = Math.max(0, Math.floor(num(aprops?.STR, 0)));
         const evald = evaluateDamageFormula(itemDamageText, strVal);
@@ -617,6 +627,9 @@ const spendHelp = (mode === "untrainedPool")
           total,
           diceHTML: damageDiceHTML
         };
+
+        damageValue = total > 0 ? total : null;
+        if (!damageValue) damage = null;
       } catch (e) {
         console.warn("SinlessCSB | rollItem: itemDamage evaluation failed; continuing without damage", {
           item: { name: item?.name, uuid: item?.uuid },
@@ -625,9 +638,39 @@ const spendHelp = (mode === "untrainedPool")
         }, e);
         damage = null;
       }
-    } else if (damageFlatFallback) {
+    } else if (isDamageSkill && hasItemDamageNumeric) {
       damage = {
-        kind: "flatFallback",
+        kind: "flatItemDamage",
+        formulaText: "",
+        normalized: "",
+        STR: Math.max(0, Math.floor(num(aprops?.STR, 0))),
+        base: itemDamageNumeric,
+        dice: 0,
+        diceTotal: 0,
+        total: itemDamageNumeric,
+        diceHTML: ""
+      };
+      damageValue = itemDamageNumeric;
+    }
+
+    if (!damageValue && hasItemDamageNumeric) {
+      damage = {
+        kind: "flatItemDamage",
+        formulaText: "",
+        normalized: "",
+        STR: Math.max(0, Math.floor(num(aprops?.STR, 0))),
+        base: itemDamageNumeric,
+        dice: 0,
+        diceTotal: 0,
+        total: itemDamageNumeric,
+        diceHTML: ""
+      };
+      damageValue = itemDamageNumeric;
+    }
+
+    if (!damageValue && hasWeaponDamage) {
+      damage = {
+        kind: "flatWeaponDamage",
         formulaText: "",
         normalized: "",
         STR: Math.max(0, Math.floor(num(aprops?.STR, 0))),
@@ -637,6 +680,7 @@ const spendHelp = (mode === "untrainedPool")
         total: weaponDamage,
         diceHTML: ""
       };
+      damageValue = weaponDamage;
     }
 
     const newPool = Math.max(0, poolCur - spend);
@@ -651,44 +695,42 @@ const spendHelp = (mode === "untrainedPool")
       (mode === "group") ? `Group defaulting: used ${chosenGroupSkillKey} ${chosenGroupSkillVal} at −2 (effective ${effectiveSkillVal})` :
       "Untrained fallback: every 4 successes = 1";
 
-    const successLine = (mode === "untrainedPool")
-      ? `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"} <span style="font-size:12px; opacity:0.85;">(raw ${rawSuccesses} ÷ 4)</span>`
-      : `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"}`;
+    const successLine = `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"}`;
 
-    const damageSectionHTML = damage ? `
-      <hr/>
+    const untrainedCalcHTML = (mode === "untrainedPool")
+      ? `<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Untrained calc:</strong> raw ${escapeHTML(rawSuccesses)} ÷ 4 = ${escapeHTML(finalSuccesses)}</p>`
+      : "";
+
+    const damageLineHTML = (damageValue && damageValue > 0) ? `
       <p style="margin:0 0 6px 0;">
-        <strong>Damage:</strong> <strong>${escapeHTML(damage.total)}</strong>
-        ${damage.kind === "formula" ? `
-          <span style="font-size:12px; opacity:0.85;">
-            (base ${escapeHTML(damage.base)}${damage.dice ? ` + ${escapeHTML(Math.abs(damage.dice))}d6` : ""})
-          </span>
-        ` : `
-          <span style="font-size:12px; opacity:0.85;">(flat)</span>
-        `}
+        Damage: <strong>${escapeHTML(damageValue)}</strong>
       </p>
-
-      ${damage.kind === "formula" ? `
-        <details>
-          <summary>Damage Details</summary>
-          <p style="margin:6px 0 0 0;"><strong>Formula:</strong> ${escapeHTML(damage.formulaText)}</p>
-          <p style="margin:0;"><strong>Normalized:</strong> ${escapeHTML(damage.normalized)}</p>
-          <p style="margin:0;"><strong>STR used:</strong> ${escapeHTML(damage.STR)}</p>
-          <p style="margin:0;"><strong>Base (floored):</strong> ${escapeHTML(damage.base)}</p>
-          ${damage.dice ? `
-            <p style="margin:0 0 6px 0;"><strong>Dice:</strong> ${escapeHTML(Math.abs(damage.dice))}d6 → ${escapeHTML(damage.diceTotal)}</p>
-            ${damage.diceHTML}
-          ` : ""}
-        </details>
-      ` : `
-        <p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;">
-          From <code>weaponDamage</code> (fallback because <code>itemDamage</code> is blank).
-        </p>
-      `}
     ` : "";
 
-    const successesDamageHintHTML = showSuccessesDamageHint ? `
-      <hr/>
+    const specialDamageLineHTML = specialDamageText ? `
+      <p style="margin:0 0 6px 0;">
+        Special Damage: <strong>${escapeHTML(specialDamageText)}</strong>
+      </p>
+    ` : "";
+
+    const damageDetailsHTML = (damage && damage.kind === "formula" && damageValue) ? `
+      <p style="margin:0 0 6px 0;"><strong>Damage formula:</strong> ${escapeHTML(damage.formulaText)}</p>
+      <p style="margin:0 0 6px 0;"><strong>Normalized:</strong> <code>${escapeHTML(damage.normalized)}</code></p>
+      <p style="margin:0 0 6px 0;"><strong>STR used:</strong> ${escapeHTML(damage.STR)}</p>
+      <p style="margin:0 0 6px 0;"><strong>Base (floored):</strong> ${escapeHTML(damage.base)}</p>
+      ${damage.dice ? `
+        <p style="margin:0 0 6px 0;"><strong>Dice:</strong> ${escapeHTML(Math.abs(damage.dice))}d6 → ${escapeHTML(damage.diceTotal)}</p>
+        ${damage.diceHTML}
+      ` : ""}
+    ` : "";
+
+    const damageSourceNoteHTML = (damage && damage.kind === "flatWeaponDamage" && !showSuccessesDamageHint) ? `
+      <p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;">
+        From <code>weaponDamage</code> (flat).
+      </p>
+    ` : "";
+
+    const weaponDamageHintHTML = showSuccessesDamageHint ? `
       <p style="margin:0 0 6px 0;">
         <strong>Weapon Damage:</strong> <strong>${escapeHTML(weaponDamage)}</strong>
         <span style="font-size:12px; opacity:0.85;">
@@ -698,6 +740,12 @@ const spendHelp = (mode === "untrainedPool")
       <p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;">
         Table flow: Target dodges to cancel successes. Base damage = <strong>${escapeHTML(weaponDamage)}</strong> + (successes remaining).
       </p>
+    ` : "";
+
+    const damageInfoHTML = (damageDetailsHTML || damageSourceNoteHTML || weaponDamageHintHTML) ? `
+      ${damageDetailsHTML}
+      ${damageSourceNoteHTML}
+      ${weaponDamageHintHTML}
     ` : "";
 
     const pilotLine =
@@ -717,42 +765,50 @@ const spendHelp = (mode === "untrainedPool")
     const content = `
       <div class="sinlesscsb item-roll-card">
         <h3 style="margin:0 0 6px 0;">${escapeHTML(item.name)}</h3>
-        <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
-        ${pilotLine}
-
-        
-        <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
-        <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>
-        <hr/>
-
-        <p style="margin:0 0 6px 0;"><strong>Target Skill:</strong> ${escapeHTML(skillKey)} (base ${escapeHTML(baseSkillVal)})</p>
-        ${mode === "group"
-          ? `<p style="margin:0 0 6px 0;"><strong>Defaulted From:</strong> ${escapeHTML(chosenGroupSkillKey)} ${escapeHTML(chosenGroupSkillVal)} → effective ${escapeHTML(effectiveSkillVal)}</p>`
-          : ""
-        }
-
-        <p style="margin:0 0 6px 0;">
-          <strong>Limit (pool cap):</strong>
-          EffectiveSkill (${escapeHTML(effectiveSkillVal)}) + LimitBonus (${escapeHTML(limitBonus)})
-          = <strong>${escapeHTML(limit)}</strong>
-          <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>
-        </p>
-
-        <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
-        <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> ${bonusBreakdown} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
-        <p style="margin:0 0 10px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
+        <hr class="sl-card-rule"/>
 
         <div style="text-align:center; margin:10px 0 12px 0;">
-          <div style="font-size:28px; font-weight:bold;">${successLine}</div>
+          <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLine)}</div>
         </div>
 
-        ${damageSectionHTML}
-        ${successesDamageHintHTML}
+        ${damageLineHTML}
+        ${specialDamageLineHTML}
 
-        <p style="margin:0 0 10px 0;"><strong>${escapeHTML(poolCurK)}:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>
+        <hr class="sl-card-rule"/>
 
         <details>
-          <summary>Dice Results</summary>
+          <summary>roll info</summary>
+          <p style="margin:6px 0 6px 0; font-size:12px; opacity:0.85;">
+            Subtract target's dodge successes from rolled Successes. If hit, remaining successes + weapon damage = damage to target
+          </p>
+          <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
+          ${pilotLine}
+          <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
+          <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>
+
+          <p style="margin:0 0 6px 0;"><strong>Target Skill:</strong> ${escapeHTML(skillKey)} (base ${escapeHTML(baseSkillVal)})</p>
+          ${mode === "group"
+            ? `<p style="margin:0 0 6px 0;"><strong>Defaulted From:</strong> ${escapeHTML(chosenGroupSkillKey)} ${escapeHTML(chosenGroupSkillVal)} → effective ${escapeHTML(effectiveSkillVal)}</p>`
+            : ""
+          }
+
+          <p style="margin:0 0 6px 0;">
+            <strong>Limit (pool cap):</strong>
+            EffectiveSkill (${escapeHTML(effectiveSkillVal)}) + LimitBonus (${escapeHTML(limitBonus)})
+            = <strong>${escapeHTML(limit)}</strong>
+            <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>
+          </p>
+
+          <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
+          <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> ${bonusBreakdown} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
+          <p style="margin:0 0 6px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
+          ${untrainedCalcHTML}
+
+          <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>
+
+          ${damageInfoHTML}
+
+          <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong></p>
           ${diceHTML}
         </details>
       </div>

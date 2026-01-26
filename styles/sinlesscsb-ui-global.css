@@ -346,11 +346,17 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
 }
 
 /* =========================================================
-   Spell chat card layout (kept intact; updated font var)
+   Spell + Pool + Item chat card layout
    ========================================================= */
 
 html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
-  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.item-roll-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card {
   display: block;
   padding: 10px 12px;
   margin: 0;
@@ -363,14 +369,16 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   color: var(--sl-ui-text-1);
 }
 
-/* Accent stripe */
-html[data-sinless-theme="crimson"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
-  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent);
-}
-html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
-  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card {
-  border-left: 3px solid var(--sl-ui-accent-2);
+/* Accent stripe (shared) */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.item-roll-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card {
+  border-left: 3px solid #5323b4 !important;
 }
 
 /* Title row */
@@ -393,7 +401,21 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   margin: 0;
   font-size: 1.05rem;
   line-height: 1.2;
-  color: var(--sl-ui-text-0);
+  color: var(--sl-ui-neon-aqua) !important;
+  text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
+}
+
+html[data-sinless-theme] :is(
+  #chat-log,
+  #chat .chat-log,
+  .chat-popout .chat-log,
+  #chat-notifications,
+  .chat-notifications,
+  #chat-notification,
+  .chat-notification
+) :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card h2 {
+  color: var(--sl-ui-neon-aqua) !important;
+  text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
 }
 
 /* Badge */
@@ -460,6 +482,54 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   color: var(--sl-ui-text-1);
 }
 
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.item-roll-card details,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card details,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card details {
+  margin-top: 10px;
+  border: 1px solid var(--sl-ui-border);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.18);
+  padding: 6px 8px;
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.item-roll-card details summary,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card details summary,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card details summary {
+  cursor: pointer;
+  color: var(--sl-ui-text-1);
+}
+
+/* Faded magenta rule for Sinless chat cards (matches sheet highlight) */
+html[data-sinless-theme] :is(
+  #chat-log,
+  #chat .chat-log,
+  .chat-popout .chat-log,
+  #chat-notifications,
+  .chat-notifications,
+  #chat-notification,
+  .chat-notification
+) :is(li.chat-message, .chat-message) .message-content .sinlesscsb .sl-card-rule {
+  border: 0;
+  height: 2px;
+  margin: 6px 0 8px 0;
+  background: linear-gradient(90deg, transparent 0%, var(--sl-ui-accent) 50%, transparent 100%);
+  opacity: 0.85;
+}
+
+html[data-sinless-theme] .sinlesscsb-chat-bubble .sinlesscsb .sl-card-rule {
+  border: 0;
+  height: 2px;
+  margin: 6px 0 8px 0;
+  background: linear-gradient(90deg, transparent 0%, var(--sl-ui-accent) 50%, transparent 100%);
+  opacity: 0.85;
+}
+
 /* Inline code inside card */
 html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   :is(li.chat-message, .chat-message) .message-content .sinlesscsb.spell-card code {
@@ -470,11 +540,30 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   color: var(--sl-ui-text-0);
 }
 
-/* Purple hover glow on the card itself */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content .sinlesscsb.item-roll-card code,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card code,
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .sinlesscsb.pool-roll-card code {
+  background: rgba(0,0,0,0.30);
+  border: 1px solid var(--sl-ui-border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  color: var(--sl-ui-text-0);
+}
+
+/* Accent hover glow on the card itself */
 html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
-  :is(li.chat-message, .chat-message):hover .message-content .sinlesscsb.spell-card {
-  border-color: var(--sl-ui-accent-2);
-  box-shadow: 0 0 0 1px rgba(0,200,255,0.25), 0 10px 22px rgba(0,0,0,0.55);
+  :is(li.chat-message, .chat-message):hover .message-content .sinlesscsb.spell-card,
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message):hover .message-content .sinlesscsb.item-roll-card,
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message):hover :is(.message-content, .message-flavor, .dice-flavor) .sinlesscsb.pool-roll-card,
+html[data-sinless-theme="purple"] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message):hover .sinlesscsb.pool-roll-card {
+  border-color: #5323b4;
+  box-shadow: 0 0 0 1px rgba(83,35,180,0.35), 0 10px 22px rgba(0,0,0,0.55);
 }
 
 /* =========================================================

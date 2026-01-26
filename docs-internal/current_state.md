@@ -28,6 +28,10 @@ World macros and CSB template scripts should become **thin callers** into the AP
   - Spend cap = `min(poolCur, limit)` for trained/defaulted modes
   - Dialog: DialogV2 via `openDialogV2` helper, with stepper buttons
   - Pool depletion: writes `Pool_Cur` back and mirrors across canonical/token-synthetic actors
+  - Chat card damage lines:
+    - `Damage:` only renders when `itemDamage` or `weaponDamage` is > 0
+    - Priority: melee/throwing/cyber/unarmed formula total (if a legacy formula string exists) → flat numeric `itemDamage` → flat `weaponDamage`
+    - `Special Damage:` renders only when `specialDamage` is non-empty (escaped text)
 
 ### Cast Spell
 - File: `scripts/api/cast-spell.js`
@@ -72,6 +76,19 @@ World macros and CSB template scripts should become **thin callers** into the AP
   - `getDialogFormFromCallbackArgs(...)`
   - `rollXd6Successes({ dice, tn })`
   - CSB helpers: `readProps`, `propPath`, `poolCurKey`, `propsRoot`
+
+## Chat card styling (canonical)
+- Chat cards are styled via `styles/sinlesscsb-ui-global.css` and should always wrap content in a `.sinlesscsb` root.
+- **Important DOM split:** `ChatMessage.create({ content })` renders under `.message-content`, while `Roll.toMessage({ flavor })` renders under `.message-flavor` / `.dice-flavor`. Any card CSS that must affect roll-flavor output should target both (or be wrapper-agnostic).
+- **Card classes:**
+  - Item roll: `.sinlesscsb.item-roll-card`
+  - Pool roll: `.sinlesscsb.pool-roll-card`
+  - Cast spell: `.sinlesscsb.spell-card`
+- **Title color:** cyan (neon aqua) via `--sl-ui-neon-aqua` on `h1/h2/h3` and `.sl-card-title h3`.
+- **Accent stripe:** left border set to `#5323b4` for spell, item, and pool cards.
+- **Faded rule:** use `<hr class="sl-card-rule" />` for magenta-gradient separators (theme-driven via `--sl-ui-accent`).
+- **Details block ("roll info"):** use `<details><summary>roll info</summary>...</details>`; styled to match spell card details (border/background/padding). Pool + item details should use the same CSS block.
+- **Pool roll output:** uses `ChatMessage.create({ content })` so dice count/results only appear inside the "roll info" details, not in the default dice tooltip area.
 
 ## Canonical actor resolution (critical)
 Use this exact priority for any API call that mutates actor state:

@@ -812,6 +812,20 @@ PC abilities / personal actions: speaker = rollingActor (PC)
 
 Always include the Pilot line (conditionally) when contextActor.uuid !== rollingActor.uuid to prevent confusion about where pools were spent.
 
+## Item Roll chat card damage rules
+
+Core display rules
+
+- Only render the `Damage:` line when `itemDamage` or `weaponDamage` is > 0.
+- `Special Damage:` is plain escaped text and only renders when non-empty.
+- Keep the existing “Weapon Damage” explanatory text for non-melee skills (successes + weapon damage flow).
+
+Damage value priority
+
+- If a legacy formula string exists and the skill is melee/throwing/cyber/unarmed, show the **computed total**.
+- Otherwise, use flat numeric `itemDamage` when present.
+- Fallback to flat `weaponDamage` if no `itemDamage` is present.
+
 ## CSB sheet not picking up SinlessCSB module CSS (Foundry v13 + CSB v5)
 
 ### Symptom

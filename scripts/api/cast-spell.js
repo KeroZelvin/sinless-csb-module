@@ -63,8 +63,8 @@ function computePhysicalMax(actor) {
 async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   const title = `${item.name} — Cast`;
 
-  const rows = [];
-  const addRow = (k, v) => rows.push(`
+  const rollInfoRows = [];
+  const addRow = (k, v) => rollInfoRows.push(`
     <div class="sl-row">
       <div class="sl-key">${k}</div>
       <div class="sl-val">${v}</div>
@@ -74,7 +74,7 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
   addRow("Force", `<span class="sl-strong">${forceChosen}</span>`);
   addRow(
     "Casting",
-    `${cast.dice}d6 vs TN ${cast.tn} → <span class="sl-strong">${cast.successes}</span> successes`
+    `${cast.dice}d6 vs TN ${cast.tn}`
   );
 
   addRow(
@@ -92,17 +92,31 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
       `<span class="sl-strong">${drain.applied}</span> (stun overflow → physical)`
     );
   } else {
-    addRow("Drain applied to Physical", `<span class="sl-strong">${drain.applied}</span>`);
+    addRow("Drain applied to Physical", `<span class="sl-strong">${drain.applied}</span> <span class="sl-strong">[LETHAL]</span>`);
   }
 
-  const details = `
-    <details>
-      <summary>Drain formula</summary>
-      <div style="margin-top:6px;">
+  const drainFormulaHTML = `
+    <div class="sl-row">
+      <div class="sl-key">Drain formula</div>
+      <div class="sl-val">
         <div><strong>Text:</strong> ${drain.formulaText}</div>
         <div style="margin-top:4px;"><strong>Normalized:</strong> <code>${drain.normalized}</code></div>
       </div>
+    </div>
+  `;
+
+  const details = `
+    <details>
+      <summary>roll info</summary>
+      ${rollInfoRows.join("")}
+      ${drainFormulaHTML}
     </details>
+  `;
+
+  const successLabel = `${cast.successes} SUCCESS${cast.successes === 1 ? "" : "ES"}`;
+  const drainAppliedLabel = drain.isLethal ? "Drain applied to Physical [LETHAL]" : "Drain applied";
+  const drainAppliedLine = `
+    <p style="margin:0 0 6px 0;">${drainAppliedLabel}: <strong>${drain.applied}</strong></p>
   `;
 
   const content = `
@@ -111,7 +125,16 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
         <h3>${title}</h3>
         <div class="sl-badge">${actor?.name ?? "—"}</div>
       </div>
-      ${rows.join("")}
+      <hr class="sl-card-rule"/>
+
+      <div style="text-align:center; margin:10px 0 12px 0;">
+        <div style="font-size:28px; font-weight:bold;">${successLabel}</div>
+      </div>
+
+      ${drainAppliedLine}
+
+      <hr class="sl-card-rule"/>
+
       ${details}
     </div>
   `;
