@@ -25,6 +25,8 @@ import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
 import { drawTableResultTile } from "./api/table-to-tile.js";
 import { drawChasePath, clearChaseBoard } from "./api/chase-controls.js";
+import { ensureOwnedDroneForItem, deployOwnedDrone, openOwnedDroneSheet } from "./api/drone-ops.js";
+import { registerDroneOwnershipHooks } from "./hooks/drone-ownership.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -106,7 +108,10 @@ function exposeModuleAPI() {
     rollNpcInitiative,
     drawTableResultTile,
     drawChasePath,
-    clearChaseBoard
+    clearChaseBoard,
+    ensureOwnedDroneForItem,
+    deployOwnedDrone,
+    openOwnedDroneSheet
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
@@ -130,6 +135,9 @@ Hooks.once("init", () => {
 
   // VCR bonus sync (highest vcrBonusDice from VCR items)
   registerVcrBonusHooks();
+
+  // Drone ownership + deploy helpers
+  registerDroneOwnershipHooks();
 
   // NEW: Enables token bars bound to system.props.*Bar and allows token HUD edits
   // to write back into stunCur / physicalCur while keeping your canonical keys.
