@@ -1,0 +1,6188 @@
+{
+  "name": "Session Settings Template",
+  "type": "_template",
+  "_id": "DubVcAsia226PlV0",
+  "img": "modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B3.webp",
+  "system": {
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "panel",
+              "contents": [
+                {
+                  "key": "",
+                  "colSpan": 1,
+                  "rowSpan": 1,
+                  "cssClass": "",
+                  "role": 0,
+                  "editRole": 0,
+                  "permission": 0,
+                  "tooltip": "",
+                  "visibilityFormula": "",
+                  "editableFormula": "",
+                  "escapeHTML": false,
+                  "type": "label",
+                  "size": "medium",
+                  "icon": "road",
+                  "value": "Primary Path",
+                  "prefix": "",
+                  "suffix": "",
+                  "rollMessage": "%{\n  const tableUuid = \"Compendium.sinlesscsb.sinlesscsb-rollabletables.RollTable.Xfccu89cse551hnU\";\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.drawChasePath?.({\n    slot: \"primary\",\n    tableUuid,\n    sceneId,\n    x: 405, y: 821, width: 262, height: 157,\n    hidden: false\n  });\n\n  return \"\";\n}%\n",
+                  "altRollMessage": "",
+                  "rollMessageToChat": false,
+                  "altRollMessageToChat": false,
+                  "style": "button"
+                },
+                {
+                  "key": "",
+                  "colSpan": 1,
+                  "rowSpan": 1,
+                  "cssClass": "",
+                  "role": 0,
+                  "editRole": 0,
+                  "permission": 0,
+                  "tooltip": "",
+                  "visibilityFormula": "",
+                  "editableFormula": "",
+                  "escapeHTML": false,
+                  "type": "label",
+                  "size": "medium",
+                  "icon": "road",
+                  "value": "Secondary Path",
+                  "prefix": "",
+                  "suffix": "",
+                  "rollMessage": "%{\n  const tableUuid = \"Compendium.sinlesscsb.sinlesscsb-rollabletables.RollTable.Xfccu89cse551hnU\";\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.drawChasePath?.({\n    slot: \"secondary\",\n    tableUuid,\n    sceneId,\n    x: 705, y: 817, width: 262, height: 157,\n    hidden: false\n  });\n\n  return \"\";\n}%\n\n",
+                  "altRollMessage": "",
+                  "rollMessageToChat": false,
+                  "altRollMessageToChat": false,
+                  "style": "button"
+                },
+                {
+                  "key": "",
+                  "colSpan": 1,
+                  "rowSpan": 1,
+                  "cssClass": "",
+                  "role": 0,
+                  "editRole": 0,
+                  "permission": 0,
+                  "tooltip": "",
+                  "visibilityFormula": "",
+                  "editableFormula": "",
+                  "escapeHTML": false,
+                  "type": "label",
+                  "size": "medium",
+                  "icon": "road",
+                  "value": "Tertiary Path",
+                  "prefix": "",
+                  "suffix": "",
+                  "rollMessage": "%{\n  const tableUuid = \"Compendium.sinlesscsb.sinlesscsb-rollabletables.RollTable.Xfccu89cse551hnU\";\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.drawChasePath?.({\n    slot: \"tertiary\",\n    tableUuid,\n    sceneId,\n    x: 981, y: 819, width: 262, height: 157,\n    hidden: false\n  });\n\n  return \"\";\n}%\n",
+                  "altRollMessage": "",
+                  "rollMessageToChat": false,
+                  "altRollMessageToChat": false,
+                  "style": "button"
+                }
+              ],
+              "flow": "grid-3",
+              "align": "left",
+              "verticalAlign": "top",
+              "collapsible": false,
+              "defaultCollapsed": false,
+              "title": "",
+              "titleStyle": "default"
+            },
+            {
+              "key": "",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "panel",
+              "contents": [
+                {
+                  "key": "carchasePaths",
+                  "colSpan": 1,
+                  "rowSpan": 1,
+                  "cssClass": "",
+                  "role": 0,
+                  "editRole": 0,
+                  "permission": 0,
+                  "tooltip": "",
+                  "visibilityFormula": "",
+                  "editableFormula": "",
+                  "escapeHTML": false,
+                  "type": "select",
+                  "size": "m-large",
+                  "label": "Car Chase Paths",
+                  "defaultValue": "2",
+                  "selectedOptionType": "custom",
+                  "options": [
+                    {
+                      "key": "2",
+                      "value": "2 Paths (Veteran runs)"
+                    },
+                    {
+                      "key": "3",
+                      "value": "3 Paths (Pro / Prime runs)"
+                    }
+                  ]
+                },
+                {
+                  "key": "",
+                  "colSpan": 1,
+                  "rowSpan": 1,
+                  "cssClass": "",
+                  "role": 0,
+                  "editRole": 0,
+                  "permission": 0,
+                  "tooltip": "",
+                  "visibilityFormula": "",
+                  "editableFormula": "",
+                  "escapeHTML": false,
+                  "type": "panel",
+                  "contents": [
+                    {
+                      "key": "",
+                      "colSpan": 1,
+                      "rowSpan": 1,
+                      "cssClass": "",
+                      "role": 0,
+                      "editRole": 0,
+                      "permission": 0,
+                      "tooltip": "",
+                      "visibilityFormula": "",
+                      "editableFormula": "",
+                      "escapeHTML": false,
+                      "type": "label",
+                      "size": "full-size",
+                      "icon": "recycle",
+                      "value": "Clear Board",
+                      "prefix": "",
+                      "suffix": "",
+                      "rollMessage": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n",
+                      "altRollMessage": "",
+                      "rollMessageToChat": false,
+                      "altRollMessageToChat": false,
+                      "style": "button"
+                    }
+                  ],
+                  "flow": "horizontal",
+                  "align": "center",
+                  "verticalAlign": "top",
+                  "collapsible": false,
+                  "defaultCollapsed": false,
+                  "title": "",
+                  "titleStyle": "default"
+                }
+              ],
+              "flow": "horizontal",
+              "align": "left",
+              "verticalAlign": "top",
+              "collapsible": false,
+              "defaultCollapsed": false,
+              "title": "",
+              "titleStyle": "default"
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": false,
+          "title": "Car Chase",
+          "titleStyle": "title"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "sinlesscsb-marker",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "TN_Global",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "full-size",
+              "label": "Target Number",
+              "defaultValue": "4",
+              "allowDecimal": false,
+              "minVal": "4",
+              "maxVal": "6",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "full",
+              "controlsCustomIncrements": "-1,1",
+              "inputStyle": "text"
+            }
+          ],
+          "flow": "grid-2",
+          "align": "center",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": false,
+          "title": "Set Target Number",
+          "titleStyle": "title"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "SkillMeta_JSON",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "SkillMeta_JSON",
+              "defaultValue": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }",
+              "charList": "",
+              "maxLength": 100000,
+              "autocomplete": ""
+            },
+            {
+              "key": "SkillGroups_JSON",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "SkillGroups_JSON",
+              "defaultValue": "{   \"CloseCombat\": [\"Skill_MeleeWeapons\",\"Skill_UnarmedCombat\",\"Skill_CyberwareCombat\",\"Skill_ThrowingWeapons\"],   \"RangedWeapons\": [\"Skill_Firearms\",\"Skill_Gunnery\",\"Skill_HeavyWeapons\",\"Skill_EnergyWeapons\"],   \"Vehicles\": [\"Skill_Drive\",\"Skill_Fly\"],   \"Hacking\": [\"Skill_ComputerHacking\",\"Skill_LocksmithingSafecracking\",\"Skill_ElectronicWarfare\"],   \"Engineering\": [\"Skill_Mechanical\",\"Skill_Industrial\",\"Skill_Aeronautics\",\"Skill_Armory\",\"Skill_Electronics\",\"Skill_Nautical\"] }",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "center",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": true,
+          "title": "Hidden",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 64,
+      "pp_height": 64
+    },
+    "header": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "trackAlert",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "medium",
+              "label": "Alert: ",
+              "defaultValue": "0",
+              "allowDecimal": false,
+              "minVal": "0",
+              "maxVal": "",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "hover",
+              "controlsCustomIncrements": "",
+              "inputStyle": "text"
+            }
+          ],
+          "flow": "vertical",
+          "align": "center",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": false,
+          "title": "Track Alert",
+          "titleStyle": "title"
+        }
+      ],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "attributeBar": {},
+    "statusEffects": {},
+    "templateSystemUniqueVersion": 4210238211
+  },
+  "prototypeToken": {
+    "name": "Template",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "systems/custom-system-builder/img/template-logo.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": "eJiZ5ojJouMYFr9R",
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.0.2",
+      "templateHistory": [
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [
+                  {
+                    "key": "carchasePaths",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "select",
+                    "size": "full-size",
+                    "label": "Car Chase Paths",
+                    "defaultValue": "2",
+                    "selectedOptionType": "custom",
+                    "options": [
+                      {
+                        "key": "2",
+                        "value": "2 Paths (Veteran runs)"
+                      },
+                      {
+                        "key": "3",
+                        "value": "3 Paths (Pro / Prime runs)"
+                      }
+                    ]
+                  },
+                  {
+                    "key": "",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "label",
+                    "size": "full-size",
+                    "icon": "recycle",
+                    "value": "Clear Board",
+                    "prefix": "",
+                    "suffix": "",
+                    "rollMessage": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n",
+                    "altRollMessage": "",
+                    "rollMessageToChat": false,
+                    "altRollMessageToChat": false,
+                    "style": "button"
+                  }
+                ],
+                "flow": "horizontal",
+                "align": "left",
+                "verticalAlign": "top",
+                "collapsible": false,
+                "defaultCollapsed": false,
+                "title": "",
+                "titleStyle": "default"
+              }
+            }
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [],
+                "flow": "horizontal",
+                "align": "right",
+                "verticalAlign": "top",
+                "collapsible": false,
+                "defaultCollapsed": false,
+                "title": "",
+                "titleStyle": "default"
+              }
+            }
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "label",
+                "size": "full-size",
+                "icon": "recycle",
+                "value": "Clear Board",
+                "prefix": "",
+                "suffix": "",
+                "rollMessage": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n",
+                "altRollMessage": "",
+                "rollMessageToChat": false,
+                "altRollMessageToChat": false,
+                "style": "button"
+              }
+            }
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "carchasePaths",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "select",
+                "size": "full-size",
+                "label": "Car Chase Paths",
+                "defaultValue": "2",
+                "selectedOptionType": "custom",
+                "options": [
+                  {
+                    "key": "2",
+                    "value": "2 Paths (Veteran runs)"
+                  },
+                  {
+                    "key": "3",
+                    "value": "3 Paths (Pro / Prime runs)"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "align"
+            ],
+            "lhs": "right",
+            "rhs": "left"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "type"
+            ],
+            "lhs": "panel",
+            "rhs": "label"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "contents"
+            ],
+            "lhs": []
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "flow"
+            ],
+            "lhs": "horizontal"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "align"
+            ],
+            "lhs": "right"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "verticalAlign"
+            ],
+            "lhs": "top"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "collapsible"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "defaultCollapsed"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "title"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "titleStyle"
+            ],
+            "lhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "size"
+            ],
+            "rhs": "full-size"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "icon"
+            ],
+            "rhs": "recycle"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "value"
+            ],
+            "rhs": "Clear Board"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "prefix"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "suffix"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "rollMessage"
+            ],
+            "rhs": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "altRollMessage"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "rollMessageToChat"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "altRollMessageToChat"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "style"
+            ],
+            "rhs": "button"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "type"
+            ],
+            "lhs": "label",
+            "rhs": "panel"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "size"
+            ],
+            "lhs": "full-size"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "icon"
+            ],
+            "lhs": "recycle"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "value"
+            ],
+            "lhs": "Clear Board"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "prefix"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "suffix"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "rollMessage"
+            ],
+            "lhs": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "altRollMessage"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "rollMessageToChat"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "altRollMessageToChat"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "style"
+            ],
+            "lhs": "button"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents"
+            ],
+            "rhs": []
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "flow"
+            ],
+            "rhs": "horizontal"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "align"
+            ],
+            "rhs": "right"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "defaultCollapsed"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "size"
+            ],
+            "lhs": "full-size",
+            "rhs": "medium"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "size"
+            ],
+            "lhs": "medium",
+            "rhs": "m-large"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "label",
+                "size": "full-size",
+                "icon": "recycle",
+                "value": "Clear Board",
+                "prefix": "",
+                "suffix": "",
+                "rollMessage": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n",
+                "altRollMessage": "",
+                "rollMessageToChat": false,
+                "altRollMessageToChat": false,
+                "style": "button"
+              }
+            }
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "label",
+                "size": "full-size",
+                "icon": "recycle",
+                "value": "Clear Board",
+                "prefix": "",
+                "suffix": "",
+                "rollMessage": "%{\n  const sceneId = canvas?.scene?.id;\n\n  await game.modules.get(\"sinlesscsb\")?.api?.clearChaseBoard?.({\n    sceneId,\n    requireConfirm: true\n  });\n\n  return \"\";\n}%\n",
+                "altRollMessage": "",
+                "rollMessageToChat": false,
+                "altRollMessageToChat": false,
+                "style": "button"
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "align"
+            ],
+            "lhs": "right",
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "A",
+            "path": [
+              "header",
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [],
+                "flow": "vertical",
+                "align": "center",
+                "verticalAlign": "top",
+                "collapsible": true,
+                "defaultCollapsed": false,
+                "title": "Track Alert",
+                "titleStyle": "title"
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "A",
+            "path": [
+              "header",
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [],
+                "flow": "vertical",
+                "align": "center",
+                "verticalAlign": "top",
+                "collapsible": true,
+                "defaultCollapsed": false,
+                "title": "Track Alert",
+                "titleStyle": "title"
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "cssClass"
+            ],
+            "lhs": "sinlesscsb-marker",
+            "rhs": ""
+          },
+          {
+            "kind": "A",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "TN_Global",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Target Number",
+                "defaultValue": "4",
+                "allowDecimal": false,
+                "minVal": "4",
+                "maxVal": "6",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "full",
+                "controlsCustomIncrements": "-1,1",
+                "inputStyle": "text"
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "flow"
+            ],
+            "lhs": "grid-2",
+            "rhs": "vertical"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "title"
+            ],
+            "lhs": "Set Target Number",
+            "rhs": "Track Alert"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [
+                  {
+                    "key": "SkillMeta_JSON",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "textField",
+                    "size": "full-size",
+                    "label": "SkillMeta_JSON",
+                    "defaultValue": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }",
+                    "charList": "",
+                    "maxLength": 100000,
+                    "autocomplete": ""
+                  },
+                  {
+                    "key": "SkillGroups_JSON",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "textField",
+                    "size": "full-size",
+                    "label": "SkillGroups_JSON",
+                    "defaultValue": "{   \"CloseCombat\": [\"Skill_MeleeWeapons\",\"Skill_UnarmedCombat\",\"Skill_CyberwareCombat\",\"Skill_ThrowingWeapons\"],   \"RangedWeapons\": [\"Skill_Firearms\",\"Skill_Gunnery\",\"Skill_HeavyWeapons\",\"Skill_EnergyWeapons\"],   \"Vehicles\": [\"Skill_Drive\",\"Skill_Fly\"],   \"Hacking\": [\"Skill_ComputerHacking\",\"Skill_LocksmithingSafecracking\",\"Skill_ElectronicWarfare\"],   \"Engineering\": [\"Skill_Mechanical\",\"Skill_Industrial\",\"Skill_Aeronautics\",\"Skill_Armory\",\"Skill_Electronics\",\"Skill_Nautical\"] }",
+                    "charList": "",
+                    "maxLength": null,
+                    "autocomplete": ""
+                  }
+                ],
+                "flow": "vertical",
+                "align": "center",
+                "verticalAlign": "top",
+                "collapsible": true,
+                "defaultCollapsed": true,
+                "title": "Hidden",
+                "titleStyle": "default"
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "cssClass"
+            ],
+            "lhs": "",
+            "rhs": "sinlesscsb-marker"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "SkillGroups_JSON",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "SkillGroups_JSON",
+                "defaultValue": "{   \"CloseCombat\": [\"Skill_MeleeWeapons\",\"Skill_UnarmedCombat\",\"Skill_CyberwareCombat\",\"Skill_ThrowingWeapons\"],   \"RangedWeapons\": [\"Skill_Firearms\",\"Skill_Gunnery\",\"Skill_HeavyWeapons\",\"Skill_EnergyWeapons\"],   \"Vehicles\": [\"Skill_Drive\",\"Skill_Fly\"],   \"Hacking\": [\"Skill_ComputerHacking\",\"Skill_LocksmithingSafecracking\",\"Skill_ElectronicWarfare\"],   \"Engineering\": [\"Skill_Mechanical\",\"Skill_Industrial\",\"Skill_Aeronautics\",\"Skill_Armory\",\"Skill_Electronics\",\"Skill_Nautical\"] }",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "key"
+            ],
+            "lhs": "SkillMeta_JSON",
+            "rhs": "TN_Global"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "type"
+            ],
+            "lhs": "textField",
+            "rhs": "numberField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "label"
+            ],
+            "lhs": "SkillMeta_JSON",
+            "rhs": "Target Number"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "defaultValue"
+            ],
+            "lhs": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }",
+            "rhs": "4"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "charList"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "maxLength"
+            ],
+            "lhs": 100000
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "autocomplete"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "allowDecimal"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "minVal"
+            ],
+            "rhs": "4"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "maxVal"
+            ],
+            "rhs": "6"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "allowRelative"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "showControls"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "controlsStyle"
+            ],
+            "rhs": "full"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "controlsCustomIncrements"
+            ],
+            "rhs": "-1,1"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "inputStyle"
+            ],
+            "rhs": "text"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "flow"
+            ],
+            "lhs": "vertical",
+            "rhs": "grid-2"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "defaultCollapsed"
+            ],
+            "lhs": true,
+            "rhs": false
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "title"
+            ],
+            "lhs": "Hidden",
+            "rhs": "Set Target Number"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "titleStyle"
+            ],
+            "lhs": "default",
+            "rhs": "title"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "A",
+            "path": [
+              "header",
+              "contents",
+              0,
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "trackAlert",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "medium",
+                "label": "Alert: ",
+                "defaultValue": "0",
+                "allowDecimal": false,
+                "minVal": "0",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKey"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableKeyColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "tableLabelColumn"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaKeyOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "contents",
+              0,
+              "formulaLabelOptions"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ]
+      ],
+      "templateHistoryRedo": []
+    },
+    "world": {
+      "SkillMeta_JSON": "{   \"schema\": \"sinless-skillmeta-v1\",   \"source\": {     \"skillsList\": \"SkillsList.txt\",     \"actorTemplateExport\": \"fvtt-Actor-sinless-pc-409875cd45a544c0.json\"   },   \"rules\": {     \"groupDefaultPenaltyDice\": 2,     \"groupSkillSelectionPolicy\": \"auto-pick-highest-trained\",     \"untrainedPoolFallback\": {       \"enabled\": true,       \"successesPerSkillSuccess\": 4,       \"requiresSkillUntrained\": true,       \"requiresNoSkillOrGroupSkill\": true     }   },   \"groups\": {     \"closeCombat\": {       \"id\": \"closeCombat\",       \"label\": \"Close Combat\",       \"skills\": [\"Melee Weapons\", \"Unarmed Combat\", \"Cyber Combat\", \"Throwing Weapons\"],       \"penaltyDice\": 2     },     \"rangedWeapons\": {       \"id\": \"rangedWeapons\",       \"label\": \"Ranged Weapons\",       \"skills\": [\"Firearms\", \"Gunnery\", \"Heavy Weapons\", \"Energy Weapons\"],       \"penaltyDice\": 2     },     \"vehicles\": {       \"id\": \"vehicles\",       \"label\": \"Vehicles\",       \"skills\": [\"Drive\", \"Fly\"],       \"penaltyDice\": 2     },     \"hacking\": {       \"id\": \"hacking\",       \"label\": \"Hacking\",       \"skills\": [\"Hacking\", \"Safecracking\", \"E Warfare\"],       \"penaltyDice\": 2     },     \"engineering\": {       \"id\": \"engineering\",       \"label\": \"Engineering\",       \"skills\": [\"Engineering\"],       \"penaltyDice\": 2,       \"notes\": \"Book lists Mechanical/Industrial/Aeronautics/Armory/Electronics/Nautical as separate skills; current CSB sheet export appears to collapse them into Skill_Engineering.\"     }   },   \"skills\": {     \"Skill_MeleeWeapons\": {       \"label\": \"Melee Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MeleeWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_MartialArts\": {       \"label\": \"Martial Arts\",       \"pool\": \"Brawn\",       \"key\": \"Skill_MartialArts\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_CyberCombat\": {       \"label\": \"Cyber Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_CyberCombat\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"closeCombat\",       \"aliases\": [\"Cybertechtronic Combat (Cyber Combat)\"]     },     \"Skill_ThrowingWeapons\": {       \"label\": \"Throwing Weapons\",       \"pool\": \"Brawn\",       \"key\": \"Skill_ThrowingWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },     \"Skill_Athletics\": {       \"label\": \"Athletics\",       \"pool\": \"Brawn\",       \"key\": \"Skill_Athletics\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_UnarmedCombat\": {       \"label\": \"Unarmed Combat\",       \"pool\": \"Brawn\",       \"key\": \"Skill_UnarmedCombat\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"closeCombat\"     },      \"Skill_Firearms\": {       \"label\": \"Firearms\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Firearms\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_Gunnery\": {       \"label\": \"Gunnery\",       \"pool\": \"Finesse\",       \"key\": \"Skill_Gunnery\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_HeavyWeapons\": {       \"label\": \"Heavy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_HeavyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_EnergyWeapons\": {       \"label\": \"Energy Weapons\",       \"pool\": \"Finesse\",       \"key\": \"Skill_EnergyWeapons\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": \"rangedWeapons\"     },     \"Skill_ArticulatedManeuvers\": {       \"label\": \"Articulated Maneuvers\",       \"pool\": \"Finesse\",       \"key\": \"Skill_ArticulatedManeuvers\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Shadow\": {       \"label\": \"Shadow\",       \"pool\": \"Focus\",       \"key\": \"Skill_Shadow\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Drive\": {       \"label\": \"Drive\",       \"pool\": \"Focus\",       \"key\": \"Skill_Drive\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Fly\": {       \"label\": \"Fly\",       \"pool\": \"Focus\",       \"key\": \"Skill_Fly\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"vehicles\"     },     \"Skill_Observation\": {       \"label\": \"Observation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Observation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Biotech\": {       \"label\": \"Biotech\",       \"pool\": \"Focus\",       \"key\": \"Skill_Biotech\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Reconnaissance\": {       \"label\": \"Reconnaissance\",       \"pool\": \"Focus\",       \"key\": \"Skill_Reconnaissance\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Safecracking\": {       \"label\": \"Safecracking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Safecracking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Locksmithing/Safecracking\"]     },     \"Skill_Hacking\": {       \"label\": \"Hacking\",       \"pool\": \"Focus\",       \"key\": \"Skill_Hacking\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Hacking\", \"Computer: Programming\"]     },     \"Skill_EWarfare\": {       \"label\": \"E Warfare\",       \"pool\": \"Focus\",       \"key\": \"Skill_EWarfare\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"hacking\",       \"aliases\": [\"Computer: Electronic Warfare\"]     },     \"Skill_Engineering\": {       \"label\": \"Engineering\",       \"pool\": \"Focus\",       \"key\": \"Skill_Engineering\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": \"engineering\",       \"aliases\": [         \"Engineering: Mechanical\",         \"Engineering: Industrial\",         \"Engineering: Aeronautics\",         \"Engineering: Armory\",         \"Engineering: Electronics\",         \"Engineering: Nautical\"       ]     },     \"Skill_Artificing\": {       \"label\": \"Artificing\",       \"pool\": \"Focus\",       \"key\": \"Skill_Artificing\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Negotiation\": {       \"label\": \"Negotiation\",       \"pool\": \"Focus\",       \"key\": \"Skill_Negotiation\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },      \"Skill_Rituals\": {       \"label\": \"Rituals\",       \"pool\": \"Resolve\",       \"key\": null,       \"suggestedKey\": \"Skill_Rituals\",       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Channeling\": {       \"label\": \"Channeling\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Channeling\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Sorcery\": {       \"label\": \"Sorcery\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Sorcery\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_AstralSenses\": {       \"label\": \"Astral Senses\",       \"pool\": \"Resolve\",       \"key\": \"Skill_AstralSenses\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Survival\": {       \"label\": \"Survival\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Survival\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Conjuring\": {       \"label\": \"Conjuring\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Conjuring\",       \"suggestedKey\": null,       \"isAsterisked\": true,       \"allowUntrainedPoolFallback\": false,       \"groupId\": null     },     \"Skill_Leadership\": {       \"label\": \"Leadership\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Leadership\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Subterfuge\": {       \"label\": \"Subterfuge\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Subterfuge\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Coercion\": {       \"label\": \"Coercion\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Coercion\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     },     \"Skill_Fascination\": {       \"label\": \"Fascination\",       \"pool\": \"Resolve\",       \"key\": \"Skill_Fascination\",       \"suggestedKey\": null,       \"isAsterisked\": false,       \"allowUntrainedPoolFallback\": true,       \"groupId\": null     }   } }"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "Actor.DubVcAsia226PlV0",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.1.0"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1767150690415,
+    "modifiedTime": 1768690037395,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "ownership": {
+    "default": 0
+  }
+}

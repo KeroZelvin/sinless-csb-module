@@ -1364,3 +1364,62 @@ Common pitfalls / fixes
 Reusable for Cyberdeck / MCP
 
 - Same pattern: add a support-item prop (e.g., `mcpBonusDice`), cache highest on actor via a hook, and reference via `bonusDiceActorKey` on related skill items.
+
+## Item Data Notes: `specialDamage`
+
+Use `system.props.specialDamage` to store **extra damage or special notes** that appear in tables but don't fit standard numeric fields (e.g., blast radius breakdowns, ground-only restrictions, per-ammo cost addenda).
+
+Rules
+- Prefer a short, plain-text note (no quotes).
+- Only use `specialDamage` for the **extra** note; keep core numeric stats in their normal fields.
+
+## Table-to-JSON Workflow (Sinless PDFs)
+
+Use this workflow whenever a task involves reading Sinless PDF tables and generating JSONs.
+
+1) Identify the source page
+- Confirm the exact page number(s) and table name.
+- Extract the page image if needed for visual verification.
+
+2) Pick the correct template + example
+- Always use a template JSON for structure and defaults.
+- Use an existing item/actor JSON as a mapping example (field ↔ column).
+- Do **not** invent keys; verify from the template.
+
+3) Map table columns to keys
+- Convert dashes/empty to `0` for numeric fields.
+- Keep non-numeric strings in text fields as-is (e.g., Core type).
+- Put extra notes (blast radius, restrictions, per‑ammo cost) in `specialDamage`.
+
+4) Generate JSONs
+- Use the template’s defaults; override only the mapped keys.
+- Keep JSON ASCII-safe.
+- Use stable filenames: `fvtt-Item-<category>-<slug>-<id>.json` or similar.
+
+5) Create/import macros
+- **Create** macro makes blank items from template (no stats).
+- **Import** macro updates `system.props.*` from JSON files.
+- Create a dedicated folder (e.g., `Weapons/Drone Weapons`), then import into it.
+
+6) Sanity check
+- Spot-check 1–2 items against the table (numeric values, action modes, cost).
+- Confirm template id/unique version matches the expected template file.
+
+## Macro Patterns (Create/Import)
+
+Create macros
+- Find template by id or name.
+- Ensure folder exists (create if missing).
+- Create items with the template set (no stats), then rely on import.
+
+Import macros
+- Browse JSONs from `modules/sinlesscsb/docs-internal/templateJSONS/...`.
+- Match items by name in the target folder.
+- Update only `system.props.*` keys.
+- Refresh open sheets.
+
+## Repo Hygiene: Compendiums (`packs/`)
+
+`D:\Git\sinlesscsb\packs` contains Foundry compendiums for the module. Treat these as **release artifacts**:
+- Do not edit, regenerate, or touch anything under `packs/` during normal work.
+- Only update `packs/` when packaging a release.

@@ -36,6 +36,18 @@ For Sinless CSB:
 - `*_Cur` pools are “remaining” (spend decreases).
 - `stunCur` / `physicalCur` are also treated as **remaining** (drain decreases; overflow handled explicitly).
 
+### 5) Item data conventions (tables)
+- Use `system.props.specialDamage` for extra damage notes or restrictions from tables (blast radius details, ground-only limits, per-ammo cost addenda).
+- Keep core numeric stats in their standard fields; `specialDamage` is for **extra** info only.
+
+### 6) Table → JSON best practice (Sinless PDFs)
+- Always identify the exact page and table name before mapping.
+- Use the correct **template JSON** as the structural source of truth.
+- Use an existing item/actor JSON as the **mapping example**.
+- Normalize dashes to `0` for numeric fields; keep text fields as-is.
+- Keep create macros **blank**; use import macros to apply all stats.
+- Spot-check at least two items against the table after generation.
+
 ## Code organization (current)
 - `scripts/api/_util.js`  
   Shared helpers: numeric parsing, actor/item resolution, dialog helpers, dice rolling.
@@ -53,6 +65,8 @@ For Sinless CSB:
    The JS error “An import declaration can only be used at the top level of a module” means an `import ...` was pasted inside a function/IIFE. Use `await import(...)` for runtime-only imports.
 3. **Dialog event binding leaks**  
    When using `onRender`, protect against double-binding via `root.dataset.* = "1"` and/or remove listeners on close.
+4. **Do not edit compendiums in repo**  
+   `D:\Git\sinlesscsb\packs` contains Foundry compendiums for release packaging. Do **not** touch or regenerate these from VS Code; only update them during explicit packaging steps.
 
 ## Open items (near-term)
 - None for Pools/Initiative: both are implemented in `scripts/api/pools-roll.js` and `scripts/api/initiative-roll.js`.

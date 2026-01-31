@@ -1,6 +1,6 @@
-﻿---
+---
 name: sinlesscsb-context
-description: Use only for SinlessCSB module/CSB coding tasks: Foundry v13 + CSB v5 APIs, dialogs, macros, CSS, templates, module.json, scripts. Do not use for rules/lore review.
+description: Synthesize and apply SinlessCSB repo context for Foundry v13 + CSB v5; use when working on the sinlesscsb module, API, dialogs, macros, CSS, templates, or when bootstrapping a task without re-stating project background.
 ---
 
 # SinlessCSB Context
@@ -42,4 +42,3 @@ Keep it short unless the user asks for a full synthesis.
 - `docs-internal/templateJSONS/`
 - `styles/sinlesscsb-ui-global.css`
 - `macros/`
-
