@@ -925,3 +925,62 @@ a.ui-control.icon.fa-brands::before {
 .wep-action-btn.wep-action-hidden {
   display: none !important;
 }
+
+/* Inline drone weapon block (PC sheet injection) */
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-inline {
+  margin: 8px 0 14px 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(83, 35, 180, 0.45);
+  border-radius: 6px;
+  background: rgba(10, 6, 24, 0.35);
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-inline-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--sl-ui-neon-aqua);
+  list-style: none;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-inline-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-inline-body {
+  margin-top: 6px;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-weapon-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-weapon-name {
+  font-weight: 600;
+  margin-right: 6px;
+  color: #e7e2ff;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sinless-drone-weapon-empty {
+  opacity: 0.8;
+  font-style: italic;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb button.wep-action-btn {
+  background: rgba(83, 35, 180, 0.35);
+  border: 1px solid rgba(83, 35, 180, 0.75);
+  color: #e7e2ff;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 0.95em;
+  line-height: 1.3;
+  min-height: 28px;
+  cursor: pointer;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb button.wep-action-btn:hover {
+  background: rgba(83, 35, 180, 0.6);
+}

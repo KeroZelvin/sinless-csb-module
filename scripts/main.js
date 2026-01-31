@@ -27,6 +27,7 @@ import { drawTableResultTile } from "./api/table-to-tile.js";
 import { drawChasePath, clearChaseBoard } from "./api/chase-controls.js";
 import { ensureOwnedDroneForItem, deployOwnedDrone, openOwnedDroneSheet } from "./api/drone-ops.js";
 import { registerDroneOwnershipHooks } from "./hooks/drone-ownership.js";
+import { registerDroneInlineActions } from "./hooks/drone-inline-actions.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -138,6 +139,9 @@ Hooks.once("init", () => {
 
   // Drone ownership + deploy helpers
   registerDroneOwnershipHooks();
+
+  // Inline drone weapon actions under owned drones
+  registerDroneInlineActions();
 
   // NEW: Enables token bars bound to system.props.*Bar and allows token HUD edits
   // to write back into stunCur / physicalCur while keeping your canonical keys.

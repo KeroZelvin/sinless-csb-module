@@ -256,6 +256,46 @@ export function registerDroneSocketHandler() {
   });
 }
 
+function gridCellKey(x, y, size) {
+  const gx = Math.round(x / size);
+  const gy = Math.round(y / size);
+  return `${gx},${gy}`;
+}
+
+function findAdjacentSpawnPosition(anchor, scene, maxRadius = 3) {
+  const gridSize = canvas?.grid?.size ?? 100;
+  const baseX = anchor?.document?.x ?? 0;
+  const baseY = anchor?.document?.y ?? 0;
+
+  const occupied = new Set();
+  for (const t of scene?.tokens?.contents ?? []) {
+    const x = t?.x ?? t?.document?.x ?? 0;
+    const y = t?.y ?? t?.document?.y ?? 0;
+    occupied.add(gridCellKey(x, y, gridSize));
+  }
+
+  for (let r = 1; r <= maxRadius; r += 1) {
+    const offsets = [];
+    for (let dx = -r; dx <= r; dx += 1) {
+      for (let dy = -r; dy <= r; dy += 1) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+        offsets.push([dx, dy]);
+      }
+    }
+
+    for (const [dx, dy] of offsets) {
+      const x = baseX + dx * gridSize;
+      const y = baseY + dy * gridSize;
+      const key = gridCellKey(x, y, gridSize);
+      if (occupied.has(key)) continue;
+      return { x, y };
+    }
+  }
+
+  // Fallback: place to the right of anchor
+  return { x: baseX + gridSize, y: baseY };
+}
+
 export async function ensureOwnedDroneForItem({
   itemUuid,
   actorUuid,
@@ -373,10 +413,7 @@ export async function deployOwnedDrone({ itemUuid, actorUuid } = {}) {
     return null;
   }
 
-  const gridSize = canvas?.grid?.size ?? 100;
-  const offsetX = (anchor.document?.width ?? 1) * gridSize;
-  const x = (anchor.document?.x ?? 0) + offsetX;
-  const y = anchor.document?.y ?? 0;
+  const { x, y } = findAdjacentSpawnPosition(anchor, canvas.scene);
 
   const proto = droneActor.prototypeToken;
   const tokenData = proto?.toObject ? proto.toObject() : foundry.utils.deepClone(proto ?? {});
