@@ -1,8 +1,8 @@
 // scripts/hooks/drone-ownership.js
-// Auto-create owned drone actors when drone items are added to actors.
+// Auto-create owned rig assets (drones/vehicles) when rig items are added to actors.
 
 import { MOD_ID } from "../api/_util.js";
-import { ensureOwnedDroneForItem, registerDroneSocketHandler } from "../api/drone-ops.js";
+import { ensureOwnedRigAssetForItem, registerDroneSocketHandler } from "../api/drone-ops.js";
 
 export function registerDroneOwnershipHooks() {
   registerDroneSocketHandler();
@@ -15,17 +15,20 @@ export function registerDroneOwnershipHooks() {
       // Only the initiating client should run creation logic.
       if (userId && game.user?.id && userId !== game.user.id) return;
 
-      const findKey = String(item?.system?.props?.findItemdrone ?? "").trim();
-      if (!findKey) return;
+      const findDrone = String(item?.system?.props?.findItemdrone ?? "").trim();
+      const findVehicle = String(item?.system?.props?.findItemvehicle ?? "").trim();
+      const rigType = findVehicle ? "vehicle" : (findDrone ? "drone" : null);
+      if (!rigType) return;
 
-      ensureOwnedDroneForItem({
+      ensureOwnedRigAssetForItem({
         itemUuid: item.uuid,
         actorUuid: item.parent.uuid,
         userId: userId || game.user?.id,
-        forceCreate: true
-      }).catch((e) => console.warn("SinlessCSB | ensureOwnedDroneForItem(createItem) failed", e));
+        forceCreate: true,
+        type: rigType
+      }).catch((e) => console.warn("SinlessCSB | ensureOwnedRigAssetForItem(createItem) failed", e));
     } catch (e) {
-      console.warn("SinlessCSB | createItem(drone) hook failed", e);
+      console.warn("SinlessCSB | createItem(rig) hook failed", e);
     }
   });
 }

@@ -10,7 +10,30 @@ const DRONE_WEAPON_TEMPLATES = new Set([
   "mCc3spF6itnvgfou"  // Rig Fly Skill Template
 ]);
 
-const DRONES_OWNED_CLASS = "sinless-drones-owned";
+const VEHICLE_WEAPON_TEMPLATES = new Set([
+  "WQoI2Ir3qVKJASl3", // Vehicle Ballistic Template
+  "jM4PHhDREfU7OUZ4", // Vehicle Energy W Template
+  "QtMNKYb9rrdKwv0k", // Rig Drive Skill Template
+  "mCc3spF6itnvgfou"  // Rig Fly Skill Template
+]);
+
+const RIG_INLINE_CONFIGS = [
+  {
+    type: "drone",
+    containerClass: "sinless-drones-owned",
+    flagKey: "droneActorUuid",
+    itemFindKey: "findItemdrone",
+    templates: DRONE_WEAPON_TEMPLATES
+  },
+  {
+    type: "vehicle",
+    containerClass: "sinless-vehicles-owned",
+    flagKey: "vehicleActorUuid",
+    itemFindKey: "findItemvehicle",
+    templates: VEHICLE_WEAPON_TEMPLATES
+  }
+];
+
 const DRONE_INLINE_CLASS = "sinless-drone-inline";
 const DRONE_INLINE_ROW_CLASS = "sinless-drone-inline-row";
 
@@ -22,21 +45,16 @@ function getRootElement(app, element) {
   return null;
 }
 
-function findDronesOwnedRoot(root) {
+function findRigOwnedRoot(root, className, titleFallback) {
   if (!root?.querySelector) return null;
 
-  const byClass = root.querySelector(`.${DRONES_OWNED_CLASS}`);
+  const byClass = className ? root.querySelector(`.${className}`) : null;
   if (byClass) return byClass;
 
-  const byKey =
-    root.querySelector('[data-key="dronesOwned"]') ||
-    root.querySelector('[data-component-key="dronesOwned"]') ||
-    root.querySelector('[data-componentid="dronesOwned"]');
-
-  if (byKey) return byKey;
-
   const headings = [...root.querySelectorAll("h1,h2,h3,h4,header,.custom-system-component-title")];
-  const titleEl = headings.find(h => (h?.textContent ?? "").trim() === "Drones Owned");
+  const titleEl = titleFallback
+    ? headings.find(h => (h?.textContent ?? "").trim() === titleFallback)
+    : null;
   if (!titleEl) return null;
 
   return titleEl.closest(".custom-system-component, .custom-system-item-container, .custom-system-component-contents, form") ?? null;
@@ -91,15 +109,15 @@ function collectRowElements(container) {
   return [...out.values()];
 }
 
-function getDroneWeaponItems(droneActor) {
-  const items = droneActor?.items?.contents ?? [];
+function getRigActionItems(rigActor, templateSet) {
+  const items = rigActor?.items?.contents ?? [];
   return items.filter(i => {
     const tpl = String(i?.system?.template ?? "").trim();
-    return DRONE_WEAPON_TEMPLATES.has(tpl);
+    return templateSet?.has?.(tpl);
   });
 }
 
-function makeWeaponRow({ weaponItem, droneActor }) {
+function makeWeaponRow({ weaponItem, rigActor }) {
   const row = document.createElement("div");
   row.className = "sinless-drone-weapon-row";
 
@@ -123,7 +141,7 @@ function makeWeaponRow({ weaponItem, droneActor }) {
     btn.textContent = label;
     btn.dataset.action = "drone-roll";
     btn.dataset.itemUuid = weaponItem.uuid;
-    btn.dataset.actorUuid = droneActor.uuid;
+    btn.dataset.actorUuid = rigActor.uuid;
     btn.dataset.bonusDiceDelta = String(bonus);
 
     row.appendChild(btn);
@@ -132,7 +150,7 @@ function makeWeaponRow({ weaponItem, droneActor }) {
   return row;
 }
 
-function buildInlineBlock({ ownedItem, droneActor }) {
+function buildInlineBlock({ ownedItem, rigActor, title, templateSet, emptyText }) {
   const wrap = document.createElement("div");
   wrap.className = DRONE_INLINE_CLASS;
   wrap.dataset.ownedItemId = ownedItem.id;
@@ -142,20 +160,20 @@ function buildInlineBlock({ ownedItem, droneActor }) {
   details.open = false;
 
   const summary = document.createElement("summary");
-  summary.textContent = "Drone Weapons";
+  summary.textContent = title || "Rig Weapons";
   details.appendChild(summary);
 
   const body = document.createElement("div");
   body.className = "sinless-drone-inline-body";
 
-  const weapons = getDroneWeaponItems(droneActor);
+  const weapons = getRigActionItems(rigActor, templateSet);
   if (!weapons.length) {
     const empty = document.createElement("div");
     empty.className = "sinless-drone-weapon-empty";
-    empty.textContent = "No drone weapons installed.";
+    empty.textContent = emptyText || "No rig weapons installed.";
     body.appendChild(empty);
   } else {
-    for (const w of weapons) body.appendChild(makeWeaponRow({ weaponItem: w, droneActor }));
+    for (const w of weapons) body.appendChild(makeWeaponRow({ weaponItem: w, rigActor }));
   }
 
   details.appendChild(body);
@@ -194,60 +212,68 @@ function bindInlineHandler(root) {
   root.addEventListener("click", handler, true);
 }
 
-async function injectDroneInlineActions(app, element) {
+async function injectRigInlineActions(app, element) {
   const root = getRootElement(app, element);
   if (!root) return;
 
   const actor = app?.actor ?? app?.document ?? null;
   if (!actor || actor.documentName !== "Actor") return;
 
-  const container = findDronesOwnedRoot(root);
-  if (!container) return;
+  for (const cfg of RIG_INLINE_CONFIGS) {
+    const container = findRigOwnedRoot(root, cfg.containerClass, cfg.type === "drone" ? "Drones Owned" : "Vehicles Owned");
+    if (!container) continue;
 
-  // Clear previous injection
-  for (const el of container.querySelectorAll(`.${DRONE_INLINE_CLASS}, .${DRONE_INLINE_ROW_CLASS}`)) el.remove();
+    // Clear previous injection
+    for (const el of container.querySelectorAll(`.${DRONE_INLINE_CLASS}, .${DRONE_INLINE_ROW_CLASS}`)) el.remove();
 
-  const rows = collectRowElements(container);
-  if (!rows.length) return;
+    const rows = collectRowElements(container);
+    if (!rows.length) continue;
 
-  for (const row of rows) {
-    const { itemId, itemUuid } = extractItemIdFromElement(row);
-    const ownedItem =
-      (itemId ? actor.items.get(itemId) : null) ||
-      (itemUuid ? actor.items.get(itemUuid.split(".").pop()) : null) ||
-      null;
+    for (const row of rows) {
+      const { itemId, itemUuid } = extractItemIdFromElement(row);
+      const ownedItem =
+        (itemId ? actor.items.get(itemId) : null) ||
+        (itemUuid ? actor.items.get(itemUuid.split(".").pop()) : null) ||
+        null;
 
-    if (!ownedItem) continue;
+      if (!ownedItem) continue;
 
-    const findKey = String(ownedItem?.system?.props?.findItemdrone ?? "").trim();
-    if (!findKey) continue;
+      const findKey = String(ownedItem?.system?.props?.[cfg.itemFindKey] ?? "").trim();
+      if (!findKey) continue;
 
-    const droneUuid = String(ownedItem.getFlag?.(MOD_ID, "droneActorUuid") ?? "").trim();
-    if (!droneUuid) continue;
+      const rigUuid = String(ownedItem.getFlag?.(MOD_ID, cfg.flagKey) ?? "").trim();
+      if (!rigUuid) continue;
 
-    const rowAnchor = row.closest("tr") || row;
-    if (!rowAnchor?.insertAdjacentElement) continue;
+      const rowAnchor = row.closest("tr") || row;
+      if (!rowAnchor?.insertAdjacentElement) continue;
 
-    let droneActor = null;
-    try {
-      const doc = await fromUuid(droneUuid);
-      if (doc?.documentName === "Actor") droneActor = doc;
-    } catch (_e) {}
+      let rigActor = null;
+      try {
+        const doc = await fromUuid(rigUuid);
+        if (doc?.documentName === "Actor") rigActor = doc;
+      } catch (_e) {}
 
-    if (!droneActor) continue;
+      if (!rigActor) continue;
 
-    const inline = buildInlineBlock({ ownedItem, droneActor });
+      const inline = buildInlineBlock({
+        ownedItem,
+        rigActor,
+        title: cfg.type === "vehicle" ? "Vehicle Weapons" : "Drone Weapons",
+        templateSet: cfg.templates,
+        emptyText: cfg.type === "vehicle" ? "No vehicle weapons installed." : "No drone weapons installed."
+      });
 
-    if (rowAnchor.tagName === "TR") {
-      const tr = document.createElement("tr");
-      tr.className = DRONE_INLINE_ROW_CLASS;
-      const td = document.createElement("td");
-      td.colSpan = 99;
-      td.appendChild(inline);
-      tr.appendChild(td);
-      rowAnchor.insertAdjacentElement("afterend", tr);
-    } else {
-      rowAnchor.insertAdjacentElement("afterend", inline);
+      if (rowAnchor.tagName === "TR") {
+        const tr = document.createElement("tr");
+        tr.className = DRONE_INLINE_ROW_CLASS;
+        const td = document.createElement("td");
+        td.colSpan = 99;
+        td.appendChild(inline);
+        tr.appendChild(td);
+        rowAnchor.insertAdjacentElement("afterend", tr);
+      } else {
+        rowAnchor.insertAdjacentElement("afterend", inline);
+      }
     }
   }
 
@@ -258,7 +284,7 @@ export function registerDroneInlineActions() {
   const handler = (app, element) => {
     if (!game.settings?.get?.(MOD_ID, "enableAutomation")) return;
     queueMicrotask(() => {
-      injectDroneInlineActions(app, element).catch((e) =>
+      injectRigInlineActions(app, element).catch((e) =>
         console.warn("SinlessCSB | drone inline inject failed", e)
       );
     });

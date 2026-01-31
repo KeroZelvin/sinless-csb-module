@@ -1,7 +1,7 @@
 {
   "name": "DroneTEST4GM",
   "type": "character",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "modules/sinlesscsb/assets/icons/SR5/importer/drone/large.svg",
   "system": {
     "body": {
       "contents": [
@@ -155,7 +155,9 @@
               "nameLabel": "Name",
               "templateFilter": [
                 "8L2WHN9Spx1TyIys",
-                "lOAPMavVjtRre3OI"
+                "lOAPMavVjtRre3OI",
+                "QtMNKYb9rrdKwv0k",
+                "mCc3spF6itnvgfou"
               ],
               "itemFilterFormula": "",
               "sortPredicates": []
@@ -1033,23 +1035,23 @@
           "wepAction4": "\n\n"
         }
       },
-      "physicalCur": "0",
-      "findDrone": "",
+      "physicalCur": "6",
+      "findDrone": "droneTest",
       "ActorUuid": "Actor.8Uh7zPESMQVeRtpd",
       "actorUuid": "Actor.8Uh7zPESMQVeRtpd"
     },
     "activeConditionalModifierGroups": [],
     "template": "lL9MiN64F7mRGhuj",
-    "templateSystemUniqueVersion": 3270592533
+    "templateSystemUniqueVersion": 143914480
   },
   "prototypeToken": {
     "name": "DroneTEST",
-    "displayName": 0,
-    "actorLink": false,
+    "displayName": 50,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "modules/sinlesscsb/assets/icons/SR5/importer/drone/large.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "offsetX": 0,
@@ -1064,13 +1066,13 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
-    "displayBars": 0,
+    "disposition": 1,
+    "displayBars": 50,
     "bar1": {
-      "attribute": null
+      "attribute": "attributeBar.physicalCur"
     },
     "bar2": {
-      "attribute": null
+      "attribute": "attributeBar.stunCur"
     },
     "light": {
       "negative": false,
@@ -1118,7 +1120,7 @@
         "ring": null,
         "background": null
       },
-      "effects": 1,
+      "effects": 0,
       "subject": {
         "scale": 1,
         "texture": null
@@ -4109,7 +4111,7 @@
     }
   },
   "_stats": {
-    "compendiumSource": "Actor.8Uh7zPESMQVeRtpd",
+    "compendiumSource": null,
     "duplicateSource": "Actor.uZC1brtyb8oeS8PT",
     "exportSource": {
       "worldId": "sinless",
@@ -4122,7 +4124,7 @@
     "systemId": "custom-system-builder",
     "systemVersion": "5.1.0",
     "createdTime": 1769187564605,
-    "modifiedTime": 1769662666251,
+    "modifiedTime": 1769835930649,
     "lastModifiedBy": "KoiB8oaGNkPdgzdM"
   },
   "_id": "8Uh7zPESMQVeRtpd",

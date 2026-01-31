@@ -9,19 +9,45 @@ import {
   propPath
 } from "./_util.js";
 
-const DRONE_HANGAR_NAME = "DroneHangar";
-const DRONE_FOLDER_SUFFIX = " Drones";
 const SOCKET_CHANNEL = `module.${MOD_ID}`;
 
 const pendingRequests = new Map();
 let socketBound = false;
 
-function getFindItemDrone(item) {
-  return String(item?.system?.props?.findItemdrone ?? "").trim();
+const RIG_ASSET_TYPES = {
+  drone: {
+    itemFindKey: "findItemdrone",
+    actorFindKey: "findDrone",
+    hangarFolder: "DroneHangar",
+    ownedFolderSuffix: " Drones",
+    flagKey: "droneActorUuid"
+  },
+  vehicle: {
+    itemFindKey: "findItemvehicle",
+    actorFindKey: "findVehicle",
+    hangarFolder: "VehicleHangar",
+    ownedFolderSuffix: " Vehicles",
+    flagKey: "vehicleActorUuid"
+  }
+};
+
+function detectAssetTypeFromItem(item) {
+  const props = item?.system?.props ?? {};
+  if (String(props.findItemvehicle ?? "").trim()) return "vehicle";
+  if (String(props.findItemdrone ?? "").trim()) return "drone";
+  return null;
 }
 
-function getFindDrone(actor) {
-  return String(actor?.system?.props?.findDrone ?? "").trim();
+function getFindItemKey(item, type) {
+  const key = RIG_ASSET_TYPES?.[type]?.itemFindKey;
+  if (!key) return "";
+  return String(item?.system?.props?.[key] ?? "").trim();
+}
+
+function getFindActorKey(actor, type) {
+  const key = RIG_ASSET_TYPES?.[type]?.actorFindKey;
+  if (!key) return "";
+  return String(actor?.system?.props?.[key] ?? "").trim();
 }
 
 function pickDroneOwnerUserId(ownerActor, fallbackUserId) {
@@ -60,20 +86,33 @@ async function getPilotActorUuid(ownerActor) {
   return String(props.ActorUuid ?? props.actorUuid ?? canon?.uuid ?? "").trim();
 }
 
-async function ensureDroneFolderForOwner(ownerActor, ownerUserId) {
+async function ensureRigFolderForOwner(ownerActor, ownerUserId, type) {
   const canon = await resolveCanonicalActor(ownerActor);
   if (!canon) return null;
 
   const ownerUuid = await getPilotActorUuid(canon);
   if (!ownerUuid) return null;
 
+  const cfg = RIG_ASSET_TYPES?.[type];
+  if (!cfg) return null;
+
   const folders = game.folders?.contents ?? [];
   const flagged = folders.find(f =>
-    f.type === "Actor" && f.flags?.[MOD_ID]?.droneOwnerActorUuid === ownerUuid
+    f.type === "Actor" &&
+    f.flags?.[MOD_ID]?.rigOwnerActorUuid === ownerUuid &&
+    f.flags?.[MOD_ID]?.rigType === type
   );
   if (flagged) return flagged;
 
-  const name = `${canon.name}${DRONE_FOLDER_SUFFIX}`;
+  // Legacy drone folders
+  if (type === "drone") {
+    const legacy = folders.find(f =>
+      f.type === "Actor" && f.flags?.[MOD_ID]?.droneOwnerActorUuid === ownerUuid
+    );
+    if (legacy) return legacy;
+  }
+
+  const name = `${canon.name}${cfg.ownedFolderSuffix}`;
   const byName = folders.find(f => f.type === "Actor" && f.name === name);
   if (byName) return byName;
 
@@ -83,64 +122,79 @@ async function ensureDroneFolderForOwner(ownerActor, ownerUserId) {
       type: "Actor",
       flags: {
         [MOD_ID]: {
-          droneOwnerActorUuid: ownerUuid,
-          droneOwnerUserId: ownerUserId || null
+          rigOwnerActorUuid: ownerUuid,
+          rigOwnerUserId: ownerUserId || null,
+          rigType: type
         }
       }
     });
   } catch (e) {
-    console.warn("SinlessCSB | ensureDroneFolderForOwner failed", e);
+    console.warn("SinlessCSB | ensureRigFolderForOwner failed", e);
     return null;
   }
 }
 
-async function findSourceDroneActor(findKey) {
+async function findSourceRigActor(findKey, type) {
   if (!findKey) return null;
+  const cfg = RIG_ASSET_TYPES?.[type];
+  if (!cfg) return null;
 
   const actors = game.actors?.contents ?? [];
-  const matches = actors.filter(a => getFindDrone(a) === findKey);
+  const matches = actors.filter(a => getFindActorKey(a, type) === findKey);
   if (!matches.length) return null;
 
-  const hangarFolder = game.folders?.contents?.find(f => f.type === "Actor" && f.name === DRONE_HANGAR_NAME) ?? null;
+  const hangarFolder = game.folders?.contents?.find(f => f.type === "Actor" && f.name === cfg.hangarFolder) ?? null;
   if (!hangarFolder) return matches[0];
 
   const inHangar = matches.filter(a => a.folder?.id === hangarFolder.id);
   return inHangar[0] ?? matches[0] ?? null;
 }
 
-async function updateItemDroneLink(item, droneActor, pilotUuid, findKey, ownerUserId) {
-  if (!item?.update || !droneActor?.uuid) return;
+async function updateItemRigLink(item, rigActor, pilotUuid, findKey, ownerUserId, type) {
+  if (!item?.update || !rigActor?.uuid) return;
+  const cfg = RIG_ASSET_TYPES?.[type];
+  if (!cfg) return;
 
   const update = {
-    [`flags.${MOD_ID}.droneActorUuid`]: droneActor.uuid
+    [`flags.${MOD_ID}.${cfg.flagKey}`]: rigActor.uuid,
+    [`flags.${MOD_ID}.rigType`]: type
   };
 
-  if (pilotUuid) update[`flags.${MOD_ID}.droneOwnerActorUuid`] = pilotUuid;
-  if (ownerUserId) update[`flags.${MOD_ID}.droneOwnerUserId`] = ownerUserId;
-  if (findKey) update[`flags.${MOD_ID}.droneSourceFindDrone`] = findKey;
+  if (pilotUuid) update[`flags.${MOD_ID}.rigOwnerActorUuid`] = pilotUuid;
+  if (ownerUserId) update[`flags.${MOD_ID}.rigOwnerUserId`] = ownerUserId;
+  if (findKey) update[`flags.${MOD_ID}.rigSourceFindKey`] = findKey;
+
+  if (type === "drone") {
+    if (pilotUuid) update[`flags.${MOD_ID}.droneOwnerActorUuid`] = pilotUuid;
+    if (ownerUserId) update[`flags.${MOD_ID}.droneOwnerUserId`] = ownerUserId;
+    if (findKey) update[`flags.${MOD_ID}.droneSourceFindDrone`] = findKey;
+  }
 
   try {
     await item.update(update);
   } catch (e) {
-    console.warn("SinlessCSB | updateItemDroneLink failed", e);
+    console.warn("SinlessCSB | updateItemRigLink failed", e);
   }
 }
 
-async function createOwnedDroneActor({ item, ownerActor, userId }) {
-  const findKey = getFindItemDrone(item);
+async function createOwnedRigActor({ item, ownerActor, userId, type }) {
+  const cfg = RIG_ASSET_TYPES?.[type];
+  if (!cfg) return null;
+
+  const findKey = getFindItemKey(item, type);
   if (!findKey) {
-    ui.notifications?.warn?.("Drone item missing findItemdrone; cannot create owned drone.");
+    ui.notifications?.warn?.("Rig item missing findItem* key; cannot create owned rig asset.");
     return null;
   }
 
-  const source = await findSourceDroneActor(findKey);
+  const source = await findSourceRigActor(findKey, type);
   if (!source) {
-    ui.notifications?.error?.(`Drone source not found for findDrone "${findKey}" in ${DRONE_HANGAR_NAME}.`);
+    ui.notifications?.error?.(`Rig source not found for ${cfg.actorFindKey} "${findKey}" in ${cfg.hangarFolder}.`);
     return null;
   }
 
   const ownerUserId = pickDroneOwnerUserId(ownerActor, userId);
-  const folder = await ensureDroneFolderForOwner(ownerActor, ownerUserId);
+  const folder = await ensureRigFolderForOwner(ownerActor, ownerUserId, type);
   const pilotUuid = await getPilotActorUuid(ownerActor);
 
   const data = source.toObject();
@@ -154,11 +208,18 @@ async function createOwnedDroneActor({ item, ownerActor, userId }) {
   data.flags = data.flags ?? {};
   data.flags[MOD_ID] = {
     ...(data.flags[MOD_ID] ?? {}),
-    droneOwnerActorUuid: pilotUuid || ownerActor?.uuid || "",
-    droneOwnerUserId: ownerUserId || null,
-    droneSourceFindDrone: findKey,
-    droneItemUuid: item?.uuid || ""
+    rigOwnerActorUuid: pilotUuid || ownerActor?.uuid || "",
+    rigOwnerUserId: ownerUserId || null,
+    rigSourceFindKey: findKey,
+    rigItemUuid: item?.uuid || "",
+    rigType: type
   };
+
+  if (type === "drone") {
+    data.flags[MOD_ID].droneOwnerActorUuid = pilotUuid || ownerActor?.uuid || "";
+    data.flags[MOD_ID].droneOwnerUserId = ownerUserId || null;
+    data.flags[MOD_ID].droneSourceFindDrone = findKey;
+  }
 
   if (pilotUuid) {
     foundry.utils.setProperty(data, propPath("pilotActorUuid"), pilotUuid);
@@ -167,11 +228,11 @@ async function createOwnedDroneActor({ item, ownerActor, userId }) {
   const created = await Actor.create(data, { renderSheet: false });
   if (!created) return null;
 
-  await updateItemDroneLink(item, created, pilotUuid, findKey, ownerUserId);
+  await updateItemRigLink(item, created, pilotUuid, findKey, ownerUserId, type);
   return created;
 }
 
-async function requestDroneCreateViaSocket({ itemUuid, actorUuid, userId }) {
+async function requestDroneCreateViaSocket({ itemUuid, actorUuid, userId, type }) {
   if (!game.socket?.emit) {
     ui.notifications?.error?.("SinlessCSB: socket unavailable; cannot request GM drone creation.");
     return null;
@@ -192,7 +253,8 @@ async function requestDroneCreateViaSocket({ itemUuid, actorUuid, userId }) {
       requestId,
       itemUuid,
       actorUuid,
-      userId: userId || null
+      userId: userId || null,
+      rigType: type || null
     });
   });
 
@@ -233,15 +295,16 @@ export function registerDroneSocketHandler() {
     const activeGm = game.users?.activeGM ?? null;
     if (activeGm && activeGm.id !== game.user.id) return;
 
-    const { requestId, itemUuid, actorUuid, userId } = payload;
+    const { requestId, itemUuid, actorUuid, userId, rigType } = payload;
     let actorDoc = null;
 
     try {
-      actorDoc = await ensureOwnedDroneForItem({
+      actorDoc = await ensureOwnedRigAssetForItem({
         itemUuid,
         actorUuid,
         userId,
-        allowSocket: false
+        allowSocket: false,
+        type: rigType || null
       });
     } catch (e) {
       console.warn("SinlessCSB | GM socket drone create failed", e);
@@ -296,32 +359,40 @@ function findAdjacentSpawnPosition(anchor, scene, maxRadius = 3) {
   return { x: baseX + gridSize, y: baseY };
 }
 
-export async function ensureOwnedDroneForItem({
+export async function ensureOwnedRigAssetForItem({
   itemUuid,
   actorUuid,
   userId,
   allowSocket = true,
-  forceCreate = false
+  forceCreate = false,
+  type = null
 } = {}) {
   const item = await resolveItemDoc({ itemUuid, actorUuid });
   if (!item || item.documentName !== "Item") {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve drone item.");
+    ui.notifications?.warn?.("SinlessCSB: could not resolve rig item.");
     return null;
   }
 
   const ownerActor = await resolveActorForContext({ scope: { actorUuid }, item });
   if (!ownerActor || ownerActor.documentName !== "Actor") {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for drone item.");
+    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for rig item.");
     return null;
   }
 
-  const findKey = getFindItemDrone(item);
+  const resolvedType = type || detectAssetTypeFromItem(item);
+  const cfg = RIG_ASSET_TYPES?.[resolvedType];
+  if (!cfg) {
+    ui.notifications?.warn?.("SinlessCSB: rig item missing findItem key (drone/vehicle).");
+    return null;
+  }
+
+  const findKey = getFindItemKey(item, resolvedType);
   if (!findKey) {
-    ui.notifications?.warn?.("Drone item missing findItemdrone; cannot create owned drone.");
+    ui.notifications?.warn?.("SinlessCSB: rig item missing findItem key (drone/vehicle).");
     return null;
   }
 
-  const existing = String(item.getFlag?.(MOD_ID, "droneActorUuid") ?? "").trim();
+  const existing = String(item.getFlag?.(MOD_ID, cfg.flagKey) ?? "").trim();
   if (!forceCreate && existing) {
     try {
       const doc = await fromUuid(existing);
@@ -330,99 +401,126 @@ export async function ensureOwnedDroneForItem({
   }
 
   try {
-    return await createOwnedDroneActor({ item, ownerActor, userId });
+    return await createOwnedRigActor({ item, ownerActor, userId, type: resolvedType });
   } catch (e) {
     if (!allowSocket) {
-      console.warn("SinlessCSB | createOwnedDroneActor failed", e);
+      console.warn("SinlessCSB | createOwnedRigActor failed", e);
       return null;
     }
 
     return await requestDroneCreateViaSocket({
       itemUuid: item.uuid,
       actorUuid: ownerActor.uuid,
-      userId: userId || null
+      userId: userId || null,
+      type: resolvedType
     });
   }
 }
 
-export async function openOwnedDroneSheet({ itemUuid, actorUuid } = {}) {
-  const item = await resolveItemDoc({ itemUuid, actorUuid });
-  if (!item) {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve drone item.");
-    return null;
-  }
-
-  const ownerActor = await resolveActorForContext({ scope: { actorUuid }, item });
-  if (!ownerActor) {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for drone item.");
-    return null;
-  }
-
-  const droneActor = await ensureOwnedDroneForItem({
-    itemUuid: item.uuid,
-    actorUuid: ownerActor.uuid,
-    userId: game.user?.id
-  });
-
-  if (!droneActor) return null;
-
-  try {
-    droneActor.sheet?.render?.(true);
-  } catch (_e) {}
-
-  return droneActor;
+export async function ensureOwnedDroneForItem(opts = {}) {
+  return await ensureOwnedRigAssetForItem({ ...opts, type: "drone" });
 }
 
-export async function deployOwnedDrone({ itemUuid, actorUuid } = {}) {
+export async function ensureOwnedVehicleForItem(opts = {}) {
+  return await ensureOwnedRigAssetForItem({ ...opts, type: "vehicle" });
+}
+
+async function openOwnedRigAssetSheet({ itemUuid, actorUuid, type }) {
   const item = await resolveItemDoc({ itemUuid, actorUuid });
   if (!item) {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve drone item.");
+    ui.notifications?.warn?.("SinlessCSB: could not resolve rig item.");
     return null;
   }
 
   const ownerActor = await resolveActorForContext({ scope: { actorUuid }, item });
   if (!ownerActor) {
-    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for drone item.");
+    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for rig item.");
     return null;
   }
 
-  const droneActor = await ensureOwnedDroneForItem({
+  const rigActor = await ensureOwnedRigAssetForItem({
     itemUuid: item.uuid,
     actorUuid: ownerActor.uuid,
-    userId: game.user?.id
+    userId: game.user?.id,
+    type
   });
 
-  if (!droneActor) return null;
+  if (!rigActor) return null;
+
+  try {
+    rigActor.sheet?.render?.(true);
+  } catch (_e) {}
+
+  return rigActor;
+}
+
+export async function openOwnedDroneSheet({ itemUuid, actorUuid } = {}) {
+  return await openOwnedRigAssetSheet({ itemUuid, actorUuid, type: "drone" });
+}
+
+export async function openOwnedVehicleSheet({ itemUuid, actorUuid } = {}) {
+  return await openOwnedRigAssetSheet({ itemUuid, actorUuid, type: "vehicle" });
+}
+
+async function deployOwnedRigAsset({ itemUuid, actorUuid, type }) {
+  const item = await resolveItemDoc({ itemUuid, actorUuid });
+  if (!item) {
+    ui.notifications?.warn?.("SinlessCSB: could not resolve rig item.");
+    return null;
+  }
+
+  const ownerActor = await resolveActorForContext({ scope: { actorUuid }, item });
+  if (!ownerActor) {
+    ui.notifications?.warn?.("SinlessCSB: could not resolve owning actor for rig item.");
+    return null;
+  }
+
+  const rigActor = await ensureOwnedRigAssetForItem({
+    itemUuid: item.uuid,
+    actorUuid: ownerActor.uuid,
+    userId: game.user?.id,
+    type
+  });
+
+  if (!rigActor) return null;
 
   const pilotUuid = await getPilotActorUuid(ownerActor);
   if (pilotUuid) {
-    const current = String(droneActor?.system?.props?.pilotActorUuid ?? "").trim();
+    const current = String(rigActor?.system?.props?.pilotActorUuid ?? "").trim();
     if (current !== pilotUuid) {
-      await droneActor.update({ [propPath("pilotActorUuid")]: pilotUuid });
+      await rigActor.update({ [propPath("pilotActorUuid")]: pilotUuid });
     }
   }
 
   const anchor = canvas?.tokens?.controlled?.[0];
   if (!anchor) {
-    ui.notifications?.warn?.("Select an actor token to spawn drone next to.");
+    ui.notifications?.warn?.("Select an actor token to spawn rig asset next to.");
     return null;
   }
 
   if (!canvas?.scene) {
-    ui.notifications?.warn?.("No active scene available to spawn the drone.");
+    ui.notifications?.warn?.("No active scene available to spawn the rig asset.");
     return null;
   }
 
   const { x, y } = findAdjacentSpawnPosition(anchor, canvas.scene);
 
-  const proto = droneActor.prototypeToken;
+  const proto = rigActor.prototypeToken;
   const tokenData = proto?.toObject ? proto.toObject() : foundry.utils.deepClone(proto ?? {});
 
   tokenData.x = x;
   tokenData.y = y;
-  tokenData.actorId = droneActor.id;
-  tokenData.name = droneActor.name;
+  tokenData.actorId = rigActor.id;
+  tokenData.name = rigActor.name;
 
   await canvas.scene.createEmbeddedDocuments("Token", [tokenData]);
-  return droneActor;
+  return rigActor;
+}
+
+export async function deployOwnedDrone({ itemUuid, actorUuid } = {}) {
+  return await deployOwnedRigAsset({ itemUuid, actorUuid, type: "drone" });
+}
+
+export async function deployOwnedVehicle({ itemUuid, actorUuid } = {}) {
+  return await deployOwnedRigAsset({ itemUuid, actorUuid, type: "vehicle" });
 }

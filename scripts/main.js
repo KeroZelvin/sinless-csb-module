@@ -25,7 +25,15 @@ import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
 import { drawTableResultTile } from "./api/table-to-tile.js";
 import { drawChasePath, clearChaseBoard } from "./api/chase-controls.js";
-import { ensureOwnedDroneForItem, deployOwnedDrone, openOwnedDroneSheet } from "./api/drone-ops.js";
+import {
+  ensureOwnedRigAssetForItem,
+  ensureOwnedDroneForItem,
+  ensureOwnedVehicleForItem,
+  deployOwnedDrone,
+  deployOwnedVehicle,
+  openOwnedDroneSheet,
+  openOwnedVehicleSheet
+} from "./api/drone-ops.js";
 import { registerDroneOwnershipHooks } from "./hooks/drone-ownership.js";
 import { registerDroneInlineActions } from "./hooks/drone-inline-actions.js";
 
@@ -110,9 +118,13 @@ function exposeModuleAPI() {
     drawTableResultTile,
     drawChasePath,
     clearChaseBoard,
+    ensureOwnedRigAssetForItem,
     ensureOwnedDroneForItem,
+    ensureOwnedVehicleForItem,
     deployOwnedDrone,
-    openOwnedDroneSheet
+    deployOwnedVehicle,
+    openOwnedDroneSheet,
+    openOwnedVehicleSheet
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
