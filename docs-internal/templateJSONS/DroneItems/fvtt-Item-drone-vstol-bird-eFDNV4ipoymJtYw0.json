@@ -1,0 +1,106 @@
+{
+  "folder": "DswGzl1e1TynhREL",
+  "name": "VSTOL Bird",
+  "type": "equippableItem",
+  "_id": "eFDNV4ipoymJtYw0",
+  "img": "modules/sinlesscsb/assets/icons/SR5/importer/drone/mini.svg",
+  "system": {
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "findItemdrone",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "findItemdrone",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 64,
+      "pp_height": 64
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "modifiers": [],
+    "props": {
+      "findItemdrone": "VSTOL Bird"
+    },
+    "unique": false,
+    "uniqueId": "eFDNV4ipoymJtYw0",
+    "template": "UOzfdwCey4axeP6O",
+    "templateSystemUniqueVersion": 384432826
+  },
+  "effects": [],
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "Item.eFDNV4ipoymJtYw0",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.1.0"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1769746480094,
+    "modifiedTime": 1769824333876,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "items": [],
+  "ownership": {
+    "default": 0
+  }
+}
