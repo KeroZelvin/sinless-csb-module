@@ -371,6 +371,50 @@ async function updateActorWithMirrors(sheetActor, update) {
   }
 }
 
+async function syncCyberdeckMcpCur(actor, value) {
+  if (!actor || actor.documentName !== "Actor") return;
+  if (!Number.isFinite(Number(value))) return;
+
+  const v = Math.max(0, Math.floor(Number(value)));
+  const items = actor.items ?? [];
+  const updates = [];
+
+  for (const it of items) {
+    const tpl = String(it?.system?.template ?? "").trim();
+    if (tpl !== "b2F3cWZSzUeZvam8") continue;
+    if (!Object.prototype.hasOwnProperty.call(it?.system?.props ?? {}, "mcpCur")) continue;
+    const cur = Number(it?.system?.props?.mcpCur ?? NaN);
+    if (Number.isFinite(cur) && Math.floor(cur) === v) continue;
+    updates.push({ _id: it.id, "system.props.mcpCur": v });
+  }
+
+  if (!updates.length) return;
+  try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+}
+
+async function syncVcrBonusCur(actor, value) {
+  if (!actor || actor.documentName !== "Actor") return;
+  if (!Number.isFinite(Number(value))) return;
+
+  const v = Math.max(0, Math.floor(Number(value)));
+  const items = actor.items ?? [];
+  const updates = [];
+
+  for (const it of items) {
+    const p = it?.system?.props ?? {};
+    const hasVcr = Object.prototype.hasOwnProperty.call(p, "vcrbonusCur") ||
+      Object.prototype.hasOwnProperty.call(p, "vcrBonusDice");
+    if (!hasVcr) continue;
+
+    const cur = Number(p?.vcrbonusCur ?? NaN);
+    if (Number.isFinite(cur) && Math.floor(cur) === v) continue;
+    updates.push({ _id: it.id, "system.props.vcrbonusCur": v });
+  }
+
+  if (!updates.length) return;
+  try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+}
+
 
 /* ----------------------------- */
 /* Main API function             */
@@ -799,6 +843,12 @@ const spendHelp = (mode === "untrainedPool")
     if (bonusPool?.curKey) update[propPath(bonusPool.curKey)] = newBonusCur ?? 0;
 
     await updateActorWithMirrors(rollingActor, update);
+    if (bonusPool?.kind === "mcp") {
+      await syncCyberdeckMcpCur(rollingActor, newBonusCur ?? 0);
+    }
+    if (bonusPool?.kind === "vcr") {
+      await syncVcrBonusCur(rollingActor, newBonusCur ?? 0);
+    }
 
 
     const diceHTML = await roll.render();

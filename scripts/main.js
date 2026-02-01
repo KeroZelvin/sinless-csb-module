@@ -37,6 +37,9 @@ import {
 } from "./api/drone-ops.js";
 import { registerDroneOwnershipHooks } from "./hooks/drone-ownership.js";
 import { registerDroneInlineActions } from "./hooks/drone-inline-actions.js";
+import { registerHackingInlineActions } from "./hooks/hacking-inline-actions.js";
+import { registerSoftwareSlotRefreshHooks } from "./hooks/software-slot-refresh.js";
+import { registerCyberdeckSingleHooks } from "./hooks/cyberdeck-single.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -156,6 +159,9 @@ Hooks.once("init", () => {
 
   // Inline drone weapon actions under owned drones
   registerDroneInlineActions();
+  registerHackingInlineActions();
+  registerSoftwareSlotRefreshHooks();
+  registerCyberdeckSingleHooks();
 
   // NEW: Enables token bars bound to system.props.*Bar and allows token HUD edits
   // to write back into stunCur / physicalCur while keeping your canonical keys.

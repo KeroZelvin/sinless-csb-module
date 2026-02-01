@@ -65,6 +65,18 @@ async function syncMcpForActor(actor) {
   if (Object.keys(update).length === 0) return;
   await updateActorWithMirrors(actor, update);
 
+  // Keep cyberdeck item display in sync with actor MCP cur
+  const updates = [];
+  for (const it of actor.items ?? []) {
+    const tpl = String(it?.system?.template ?? "").trim();
+    if (tpl !== "b2F3cWZSzUeZvam8") continue;
+    if (!Object.prototype.hasOwnProperty.call(it?.system?.props ?? {}, MCP_CUR_KEY)) continue;
+    updates.push({ _id: it.id, "system.props.mcpCur": curNext });
+  }
+  if (updates.length) {
+    try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+  }
+
   if (game.settings?.get?.(MOD_ID, "debugLogs")) {
     console.log("SinlessCSB | MCP deck sync", {
       actor: actor.name,

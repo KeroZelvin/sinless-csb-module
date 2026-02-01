@@ -122,6 +122,8 @@ const diceHTML = await roll.render();  // for chat cards
   Ensure `openDialogV2` is defined/exported exactly once.
 - **Relying on `this.form` in DialogV2**  
   Use `getDialogFormFromCallbackArgs(...)` and query the dialog root.
+- **Template JSON imports in Foundry**  
+  Prefer manual edits inside Foundry for templates; JSON imports have repeatedly caused template loss/corruption. Only import JSONs when absolutely necessary and verify the templates still exist afterward.
 
 ---
 

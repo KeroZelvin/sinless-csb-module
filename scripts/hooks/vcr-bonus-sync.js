@@ -65,6 +65,19 @@ async function syncVcrBonusForActor(actor) {
   if (Object.keys(update).length === 0) return;
   await updateActorWithMirrors(actor, update);
 
+  // Keep VCR item display in sync with actor vcrbonusCur
+  const updates = [];
+  for (const it of actor.items ?? []) {
+    const p = it?.system?.props ?? {};
+    const hasVcr = Object.prototype.hasOwnProperty.call(p, VCR_CUR_KEY) ||
+      Object.prototype.hasOwnProperty.call(p, VCR_KEY);
+    if (!hasVcr) continue;
+    updates.push({ _id: it.id, "system.props.vcrbonusCur": curNext });
+  }
+  if (updates.length) {
+    try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+  }
+
   if (game.settings?.get?.(MOD_ID, "debugLogs")) {
     console.log("SinlessCSB | VCR bonus sync", {
       actor: actor.name,

@@ -1,4 +1,5 @@
 const MOD_ID = "sinlesscsb";
+const CYBERDECK_TEMPLATE = "b2F3cWZSzUeZvam8";
 
 /**
  * Parse numbers robustly from CSB props.
@@ -165,6 +166,27 @@ export async function refreshPoolsForActor(actor) {
   if (Object.keys(update).length === 0) return;
 
   await actor.update(update);
+
+  // Keep cyberdeck and VCR item display in sync with refresh
+  const updates = [];
+  for (const it of actor.items ?? []) {
+    const tpl = String(it?.system?.template ?? "").trim();
+    const p = it?.system?.props ?? {};
+
+    if (tpl === CYBERDECK_TEMPLATE && Object.prototype.hasOwnProperty.call(p, "mcpCur")) {
+      updates.push({ _id: it.id, "system.props.mcpCur": mcpMax });
+      continue;
+    }
+
+    const hasVcr = Object.prototype.hasOwnProperty.call(p, "vcrbonusCur") ||
+      Object.prototype.hasOwnProperty.call(p, "vcrBonusDice");
+    if (hasVcr) {
+      updates.push({ _id: it.id, "system.props.vcrbonusCur": vcrMax });
+    }
+  }
+  if (updates.length) {
+    try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+  }
 }
 
 export async function refreshPoolsForCombat(combat) {

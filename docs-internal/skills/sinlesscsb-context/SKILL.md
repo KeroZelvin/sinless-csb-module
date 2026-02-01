@@ -15,8 +15,15 @@ Bootstrap new tasks by synthesizing repo context, known-good patterns, and revie
    - `docs-internal/review-notes.md`
    - `docs-internal/known_good_patterns.md`
 3) Note the template JSON location for Foundry exports: `docs-internal/templateJSONS/`.
-4) If the task is CSB-specific and internet access is allowed, consult the CSB wiki:
-   `https://gitlab.com/custom-system-builder/custom-system-builder/-/wikis/stable/en/Home`
+4) If the task is CSB-specific, consult the CSB wiki:
+   - Preferred (online): `https://gitlab.com/custom-system-builder/custom-system-builder/-/wikis/stable/en/Home`
+   - Fallback (local clone): `D:/Git/sinlesscsb/.tmp/csb-wiki/stable/en/Home.md`
+     - If the clone is missing, create it with:
+       `git clone --depth 1 https://gitlab.com/custom-system-builder/custom-system-builder.wiki.git D:/Git/sinlesscsb/.tmp/csb-wiki`
+     - If the clone exists, refresh it with:
+       `git -C D:/Git/sinlesscsb/.tmp/csb-wiki pull --ff-only`
+     - Local page paths mirror the URL path, e.g.:
+       `.../stable/en/Component-Library/Item-Displayer.md`
 
 ## Use the context
 - Prefer API-first implementations: keep logic in `scripts/api/*`; macros/rollMessage should be thin callers.

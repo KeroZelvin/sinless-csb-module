@@ -14,6 +14,19 @@ We are consolidating all “game logic” into a module API surface:
 
 World macros and CSB template scripts should become **thin callers** into the API.
 
+## Template editing policy (important)
+- Prefer **manual edits in Foundry** for template changes when possible.
+- Importing JSON exports has repeatedly caused template loss/corruption in the world (e.g., PC sheet templates disappearing or being replaced).
+- Only use JSON imports when absolutely necessary and verify templates exist afterward.
+
+### Post-import sanity checklist (fast)
+- Confirm critical templates exist and are `_equippableItemTemplate`:
+  - `Hacking Threads Template` (id `8CMq8JmyHbRCglOv`)
+  - `E War Threads Template` (id `lBNLLAeL3gcJs2RQ`)
+  - PC actor sheet template(s)
+- Spot-check one software item: `system.template` should match the template id, not a spell template.
+- Open the PC sheet to confirm no CSB errors on render.
+
 ## Implemented API functions
 ### Item Roll
 - File: `scripts/api/item-roll.js`

@@ -168,6 +168,41 @@ function buildPoolsUpdate({ brawn, finesse, resolve, focus }) {
   };
 }
 
+async function syncCyberdeckMcpCur(actor, value) {
+  if (!actor || actor.documentName !== "Actor") return;
+  if (!Number.isFinite(Number(value))) return;
+
+  const v = Math.max(0, Math.floor(Number(value)));
+  const updates = [];
+  for (const it of actor.items ?? []) {
+    const tpl = String(it?.system?.template ?? "").trim();
+    if (tpl !== "b2F3cWZSzUeZvam8") continue;
+    if (!Object.prototype.hasOwnProperty.call(it?.system?.props ?? {}, "mcpCur")) continue;
+    updates.push({ _id: it.id, "system.props.mcpCur": v });
+  }
+  if (updates.length) {
+    try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+  }
+}
+
+async function syncVcrBonusCur(actor, value) {
+  if (!actor || actor.documentName !== "Actor") return;
+  if (!Number.isFinite(Number(value))) return;
+
+  const v = Math.max(0, Math.floor(Number(value)));
+  const updates = [];
+  for (const it of actor.items ?? []) {
+    const p = it?.system?.props ?? {};
+    const hasVcr = Object.prototype.hasOwnProperty.call(p, "vcrbonusCur") ||
+      Object.prototype.hasOwnProperty.call(p, "vcrBonusDice");
+    if (!hasVcr) continue;
+    updates.push({ _id: it.id, "system.props.vcrbonusCur": v });
+  }
+  if (updates.length) {
+    try { await actor.updateEmbeddedDocuments("Item", updates); } catch (_e) {}
+  }
+}
+
 /* ----------------------------- */
 /* API: refreshPools (no dialog) */
 /* ----------------------------- */
@@ -217,6 +252,16 @@ export async function refreshPools(scope = {}) {
         await updateActorWithMirrors(sheetActor, enforce);
       }
 
+      const propsNow = readProps(canon);
+      const mcpCurNow = Math.floor(num(propsNow?.mcpCur, NaN));
+      if (Number.isFinite(mcpCurNow)) {
+        await syncCyberdeckMcpCur(sheetActor, mcpCurNow);
+      }
+      const vcrCurNow = Math.floor(num(propsNow?.vcrbonusCur, NaN));
+      if (Number.isFinite(vcrCurNow)) {
+        await syncVcrBonusCur(sheetActor, vcrCurNow);
+      }
+
       ui.notifications?.info?.("Pools refreshed.");
       return { actorUuid: canon.uuid, mode: "rulesModule" };
     }
@@ -249,6 +294,8 @@ export async function refreshPools(scope = {}) {
   });
 
   await updateActorWithMirrors(sheetActor, update);
+  await syncCyberdeckMcpCur(sheetActor, mcpMax);
+  await syncVcrBonusCur(sheetActor, vcrMax);
 
   ui.notifications?.info?.("Pools refreshed.");
   return { actorUuid: canon.uuid, mode: "fallback", update };
