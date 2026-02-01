@@ -1,8 +1,8 @@
-2026/01/31-06:06:49.623 8f58 Recovering log #401
-2026/01/31-06:06:49.627 8f58 Delete type=0 #401
-2026/01/31-06:06:49.627 8f58 Delete type=3 #400
-2026/01/31-09:33:11.860 898 Level-0 table #405: started
-2026/01/31-09:33:11.860 898 Level-0 table #405: 0 bytes OK
-2026/01/31-09:33:11.863 898 Delete type=0 #403
-2026/01/31-09:33:11.863 898 Manual compaction at level-0 from '!tables!PTSQwapI1EWjuAlX' @ 72057594037927935 : 1 .. '!tables.results!PTSQwapI1EWjuAlX.zw520xXSs3hUf8Tf' @ 0 : 0; will stop at (end)
-2026/01/31-09:33:11.863 898 Manual compaction at level-1 from '!tables!PTSQwapI1EWjuAlX' @ 72057594037927935 : 1 .. '!tables.results!PTSQwapI1EWjuAlX.zw520xXSs3hUf8Tf' @ 0 : 0; will stop at (end)
+2026/01/31-09:33:48.763 8f58 Recovering log #404
+2026/01/31-09:33:48.768 8f58 Delete type=0 #404
+2026/01/31-09:33:48.768 8f58 Delete type=3 #402
+2026/01/31-13:35:40.239 898 Level-0 table #409: started
+2026/01/31-13:35:40.240 898 Level-0 table #409: 0 bytes OK
+2026/01/31-13:35:40.242 898 Delete type=0 #407
+2026/01/31-13:35:40.251 898 Manual compaction at level-0 from '!tables!PTSQwapI1EWjuAlX' @ 72057594037927935 : 1 .. '!tables.results!PTSQwapI1EWjuAlX.zw520xXSs3hUf8Tf' @ 0 : 0; will stop at (end)
+2026/01/31-13:35:40.251 898 Manual compaction at level-1 from '!tables!PTSQwapI1EWjuAlX' @ 72057594037927935 : 1 .. '!tables.results!PTSQwapI1EWjuAlX.zw520xXSs3hUf8Tf' @ 0 : 0; will stop at (end)
