@@ -1,26 +1,26 @@
-// scripts/hooks/vcr-bonus-sync.js
-// Maintain actor.system.props.vcrBonusDice from VCR items (highest wins)
+// scripts/hooks/mcp-deck-sync.js
+// Maintain actor.system.props.mcpDeck (max) and mcpCur (clamped) from cyberdeck items
 
 import { MOD_ID, num, propPath, readProps, resolveCanonicalActor } from "../api/_util.js";
 
-const VCR_KEY = "vcrBonusDice";
-const VCR_CUR_KEY = "vcrbonusCur";
+const MCP_KEY = "mcpDeck";
+const MCP_CUR_KEY = "mcpCur";
 
 function int(x, fallback = 0) {
   return Math.floor(num(x, fallback));
 }
 
-function hasVcrBonusProp(item) {
+function hasMcpProp(item) {
   const p = item?.system?.props ?? {};
-  return Object.prototype.hasOwnProperty.call(p, VCR_KEY);
+  return Object.prototype.hasOwnProperty.call(p, MCP_KEY);
 }
 
-function computeVcrMax(actor) {
+function computeMcpMax(actor) {
   let max = 0;
   for (const it of actor?.items ?? []) {
     const p = it?.system?.props ?? {};
-    if (!Object.prototype.hasOwnProperty.call(p, VCR_KEY)) continue;
-    const v = int(p[VCR_KEY], 0);
+    if (!Object.prototype.hasOwnProperty.call(p, MCP_KEY)) continue;
+    const v = int(p[MCP_KEY], 0);
     if (v > max) max = v;
   }
   return Math.max(0, max);
@@ -45,28 +45,28 @@ async function updateActorWithMirrors(sheetActor, update) {
   }
 }
 
-async function syncVcrBonusForActor(actor) {
+async function syncMcpForActor(actor) {
   if (!actor || actor.documentName !== "Actor") return;
 
   const props = readProps(actor);
-  const current = int(props?.[VCR_KEY], 0);
-  const next = computeVcrMax(actor);
+  const current = int(props?.[MCP_KEY], 0);
+  const next = computeMcpMax(actor);
 
-  const curRaw = props?.[VCR_CUR_KEY];
+  const curRaw = props?.[MCP_CUR_KEY];
   const curVal = Number.isFinite(Number(curRaw)) ? int(curRaw, 0) : next;
   const curNext = Math.min(curVal, next);
 
   const update = {};
-  if (current != next) update[propPath(VCR_KEY)] = next;
+  if (current != next) update[propPath(MCP_KEY)] = next;
   if (!Number.isFinite(Number(curRaw)) || curNext !== curVal) {
-    update[propPath(VCR_CUR_KEY)] = curNext;
+    update[propPath(MCP_CUR_KEY)] = curNext;
   }
 
   if (Object.keys(update).length === 0) return;
   await updateActorWithMirrors(actor, update);
 
   if (game.settings?.get?.(MOD_ID, "debugLogs")) {
-    console.log("SinlessCSB | VCR bonus sync", {
+    console.log("SinlessCSB | MCP deck sync", {
       actor: actor.name,
       current,
       next,
@@ -81,13 +81,13 @@ function getParentActor(item) {
   return (a?.documentName === "Actor") ? a : null;
 }
 
-export function registerVcrBonusHooks() {
+export function registerMcpDeckHooks() {
   Hooks.on("createItem", (item) => {
     const actor = getParentActor(item);
     if (!actor) return;
-    if (!hasVcrBonusProp(item)) return;
-    syncVcrBonusForActor(actor).catch((e) =>
-      console.warn("SinlessCSB | VCR sync (createItem) failed", e)
+    if (!hasMcpProp(item)) return;
+    syncMcpForActor(actor).catch((e) =>
+      console.warn("SinlessCSB | MCP sync (createItem) failed", e)
     );
   });
 
@@ -95,29 +95,28 @@ export function registerVcrBonusHooks() {
     const actor = getParentActor(item);
     if (!actor) return;
 
-    const changed = changes?.system?.props?.[VCR_KEY];
-    if (!hasVcrBonusProp(item) && changed === undefined) return;
+    const changed = changes?.system?.props?.[MCP_KEY];
+    if (!hasMcpProp(item) && changed === undefined) return;
 
-    syncVcrBonusForActor(actor).catch((e) =>
-      console.warn("SinlessCSB | VCR sync (updateItem) failed", e)
+    syncMcpForActor(actor).catch((e) =>
+      console.warn("SinlessCSB | MCP sync (updateItem) failed", e)
     );
   });
 
   Hooks.on("deleteItem", (item) => {
     const actor = getParentActor(item);
     if (!actor) return;
-    if (!hasVcrBonusProp(item)) return;
-    syncVcrBonusForActor(actor).catch((e) =>
-      console.warn("SinlessCSB | VCR sync (deleteItem) failed", e)
+    if (!hasMcpProp(item)) return;
+    syncMcpForActor(actor).catch((e) =>
+      console.warn("SinlessCSB | MCP sync (deleteItem) failed", e)
     );
   });
 
-  // Ready sweep to initialize cached value for owned actors
   Hooks.once("ready", () => {
     for (const a of game.actors?.contents ?? []) {
       if (!game.user?.isGM && !a.isOwner) continue;
-      syncVcrBonusForActor(a).catch((e) =>
-        console.warn("SinlessCSB | VCR sync (ready sweep) failed", e)
+      syncMcpForActor(a).catch((e) =>
+        console.warn("SinlessCSB | MCP sync (ready sweep) failed", e)
       );
     }
   });

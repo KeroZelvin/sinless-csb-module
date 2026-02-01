@@ -1,8 +1,8 @@
-2026/01/31-13:39:26.046 17a8 Recovering log #409
-2026/01/31-13:39:26.050 17a8 Delete type=0 #409
-2026/01/31-13:39:26.050 17a8 Delete type=3 #407
-2026/01/31-19:45:42.195 898 Level-0 table #414: started
-2026/01/31-19:45:42.195 898 Level-0 table #414: 0 bytes OK
-2026/01/31-19:45:42.197 898 Delete type=0 #412
-2026/01/31-19:45:42.197 898 Manual compaction at level-0 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
-2026/01/31-19:45:42.197 898 Manual compaction at level-1 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
+2026/02/01-08:15:43.123 a44 Recovering log #418
+2026/02/01-08:15:43.128 a44 Delete type=0 #418
+2026/02/01-08:15:43.128 a44 Delete type=3 #417
+2026/02/01-08:44:27.136 3a2c Level-0 table #422: started
+2026/02/01-08:44:27.136 3a2c Level-0 table #422: 0 bytes OK
+2026/02/01-08:44:27.138 3a2c Delete type=0 #420
+2026/02/01-08:44:27.138 3a2c Manual compaction at level-0 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)
+2026/02/01-08:44:27.138 3a2c Manual compaction at level-1 from '!scenes!DUt3x3pfhvU0JgrN' @ 72057594037927935 : 1 .. '!scenes.tiles!wDCY5jFqLQGsyNkg.p3DJGBIRHHgO5bQ3' @ 0 : 0; will stop at (end)

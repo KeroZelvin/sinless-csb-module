@@ -141,6 +141,17 @@ function computePoolsFromAttrs(actor) {
   };
 }
 
+function computeItemMax(actor, key) {
+  let max = 0;
+  for (const it of actor?.items ?? []) {
+    const props = it?.system?.props ?? {};
+    if (!Object.prototype.hasOwnProperty.call(props, key)) continue;
+    const v = Math.floor(num(props[key], 0));
+    if (v > max) max = v;
+  }
+  return Math.max(0, max);
+}
+
 /**
  * Build a Cur/Max update object from computed pools.
  */
@@ -216,6 +227,20 @@ export async function refreshPools(scope = {}) {
   // Fallback compute + mirror-safe update
   const computed = computePoolsFromAttrs(canon);
   const update = buildPoolsUpdate(computed);
+
+  const mcpFromItems = computeItemMax(canon, "mcpDeck");
+  const mcpProp = Math.floor(num(readProps(canon)?.mcpDeck, 0));
+  const mcpMax = Math.max(0, Math.max(mcpProp, mcpFromItems));
+
+  update[propPath("mcpDeck")] = mcpMax;
+  update[propPath("mcpCur")] = mcpMax;
+
+  const vcrFromItems = computeItemMax(canon, "vcrBonusDice");
+  const vcrProp = Math.floor(num(readProps(canon)?.vcrBonusDice, 0));
+  const vcrMax = Math.max(0, Math.max(vcrProp, vcrFromItems));
+
+  update[propPath("vcrBonusDice")] = vcrMax;
+  update[propPath("vcrbonusCur")] = vcrMax;
 
   console.log("SinlessCSB | refreshPools fallback update", {
     sheetActor: { name: sheetActor.name, uuid: sheetActor.uuid },

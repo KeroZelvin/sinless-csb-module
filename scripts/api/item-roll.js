@@ -112,6 +112,68 @@ function readItemProp(item, key) {
   return undefined;
 }
 
+const VCR_SKILL_KEYS = new Set([
+  "Skill_Gunnery",
+  "Skill_ArticulatedManeuvers",
+  "Skill_Drive",
+  "Skill_Fly",
+  "Skill_Engineering"
+]);
+
+const MCP_SKILL_KEYS = new Set([
+  "Skill_Hacking",
+  "Skill_EWarfare",
+  "Skill_Safecracking"
+]);
+
+function resolveBonusPool({ item, skillKey, skillInfo, poolKeyCanon, actorProps, bonusDiceActorKey }) {
+  const poolKey = String(poolKeyCanon ?? "").trim().toLowerCase();
+  const groupId = skillInfo?.groupId ?? null;
+
+  const useMcp =
+    poolKey === "focus" &&
+    (groupId === "hacking" || MCP_SKILL_KEYS.has(String(skillKey ?? "").trim()) || Boolean(readItemProp(item, "useMcpPool")));
+
+  if (useMcp) {
+    const max = Math.max(0, Math.floor(num(actorProps?.mcpDeck, 0)));
+    const curRaw = num(actorProps?.mcpCur, NaN);
+    const cur = Number.isFinite(curRaw) ? Math.max(0, Math.floor(curRaw)) : max;
+
+    return {
+      kind: "mcp",
+      label: "MCP",
+      curKey: "mcpCur",
+      maxKey: "mcpDeck",
+      cur,
+      max,
+      actorKey: null
+    };
+  }
+
+  const useVcr =
+    bonusDiceActorKey === "vcrBonusDice" ||
+    VCR_SKILL_KEYS.has(String(skillKey ?? "").trim()) ||
+    Boolean(readItemProp(item, "useVcrPool"));
+
+  if (useVcr) {
+    const max = Math.max(0, Math.floor(num(actorProps?.vcrBonusDice, 0)));
+    const curRaw = num(actorProps?.vcrbonusCur, NaN);
+    const cur = Number.isFinite(curRaw) ? Math.max(0, Math.floor(curRaw)) : max;
+
+    return {
+      kind: "vcr",
+      label: "VCR",
+      curKey: "vcrbonusCur",
+      maxKey: "vcrBonusDice",
+      cur,
+      max,
+      actorKey: "vcrBonusDice"
+    };
+  }
+
+  return null;
+}
+
 /* ----------------------------- */
 /* DialogV2 (preferred)          */
 /* ----------------------------- */
@@ -362,14 +424,30 @@ const aprops = readProps(rollingActor);
     const TN = readTN(sessionActor);
     const skillMeta = getSkillMeta(sessionActor);
 
+    const skillKeyOverrideRaw =
+      (typeof scope?.skillKeyOverride === "string" && scope.skillKeyOverride.trim())
+        ? String(scope.skillKeyOverride).trim()
+        : "";
     const skillKeyRaw = readItemProp(item, "skillKey");
-    const skillKey = String(skillKeyRaw ?? "").trim();
+    const skillKey = (skillKeyOverrideRaw || String(skillKeyRaw ?? "").trim());
     if (!skillKey) {
       ui.notifications?.error?.(`Item "${item.name}" missing skillKey (e.g., "Skill_Firearms").`);
       return null;
     }
 
-    const gearFeature = num(readItemProp(item, "gearFeature"), 0);
+    const gearFeatureBase = Math.floor(num(readItemProp(item, "gearFeature"), 0));
+    const gearFeatureOverrideRaw =
+      (scope?.gearFeatureOverride === 0 || scope?.gearFeatureOverride)
+        ? num(scope.gearFeatureOverride, NaN)
+        : NaN;
+    const gearFeatureOverride = Number.isFinite(gearFeatureOverrideRaw)
+      ? Math.floor(gearFeatureOverrideRaw)
+      : null;
+    const gearFeature = (gearFeatureOverride !== null) ? gearFeatureOverride : gearFeatureBase;
+    const limitBonusSourceOverride =
+      (typeof scope?.limitBonusSourceOverride === "string")
+        ? String(scope.limitBonusSourceOverride).trim()
+        : "";
     // Optional: for Drive/Rig actions, pull the limit bonus from actor props (e.g., rigHandling)
     const limitBonusActorKey = String(readItemProp(item, "limitBonusActorKey") ?? "").trim();
 
@@ -392,11 +470,6 @@ const bonusDiceCore = (bonusDiceOverride !== null)
 
 // Optional actor-sourced bonus dice (e.g., VCR bonus on the pilot)
 const bonusDiceActorKey = String(readItemProp(item, "bonusDiceActorKey") ?? "").trim();
-const bonusDiceActor = bonusDiceActorKey
-  ? Math.floor(num(aprops?.[bonusDiceActorKey], 0))
-  : 0;
-
-const bonusDice = bonusDiceCore + bonusDiceActor;
 
 const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
 
@@ -410,6 +483,12 @@ const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
       : null;
 
     const specialDamageText = String(readItemProp(item, "specialDamage") ?? "").trim();
+    const softwareAlertText = String(
+      readItemProp(item, "softwareAlert") ??
+      readItemProp(item, "softwareAlert_copy1") ??
+      ""
+    ).trim();
+    const trackAlertText = String(sessionActor?.system?.props?.trackAlert ?? "").trim();
 
     const weaponDamageRaw = readItemProp(item, "weaponDamage");
     const weaponDamage = Number.isFinite(Number(weaponDamageRaw))
@@ -478,6 +557,24 @@ if (poolCurRaw === undefined) {
 
     const poolCur = Math.max(0, Math.floor(num(poolCurRaw, 0)));
 
+    const bonusPool = resolveBonusPool({
+      item,
+      skillKey,
+      skillInfo,
+      poolKeyCanon,
+      actorProps: aprops,
+      bonusDiceActorKey
+    });
+
+    const bonusPoolCur = bonusPool ? Math.max(0, Math.floor(num(bonusPool.cur, 0))) : 0;
+    const poolCurTotal = poolCur + bonusPoolCur;
+
+    const bonusDiceActor = (bonusDiceActorKey && (!bonusPool || bonusPool.actorKey !== bonusDiceActorKey))
+      ? Math.floor(num(aprops?.[bonusDiceActorKey], 0))
+      : 0;
+
+    const bonusDice = bonusDiceCore + bonusDiceActor;
+
     const baseSkillVal = Math.max(0, Math.floor(num(aprops?.[skillKey], 0)));
 
     const groupId = skillInfo?.groupId ?? null;
@@ -517,27 +614,33 @@ if (poolCurRaw === undefined) {
       }
     }
 
-    // Limit bonus: either item gearFeature OR actor-based handling (never both)
+    // Limit bonus: scope override > actor-based handling > item gearFeature
     let limitBonus = Math.floor(num(gearFeature, 0));
-    let limitBonusSource = "item.gearFeature";
+    let limitBonusSource = (gearFeatureOverride !== null)
+      ? (limitBonusSourceOverride || "scope.gearFeatureOverride")
+      : "item.gearFeature";
 
-    if (limitBonusActorKey) {
+    if (limitBonusActorKey && gearFeatureOverride === null) {
       limitBonus = Math.floor(num(contextProps?.[limitBonusActorKey], 0));
       limitBonusSource = `contextActor.${limitBonusActorKey}`;
-    } else {
-      limitBonus = Math.floor(num(gearFeature, 0));
-      limitBonusSource = "item.gearFeature";
     }
 
     const limit = Math.max(0, effectiveSkillVal + limitBonus);
 
     const spendCap = (mode === "untrainedPool")
-      ? poolCur
-      : Math.max(0, Math.min(poolCur, limit));
+      ? poolCurTotal
+      : Math.max(0, Math.min(poolCurTotal, limit));
 
     const displayLines = [];
     displayLines.push(`<strong>TN</strong> ${escapeHTML(TN)}+`);
-    displayLines.push(`<strong>Pool</strong> ${escapeHTML(poolCurK)}: ${escapeHTML(poolCur)}`);
+
+    if (bonusPool && bonusPoolCur > 0) {
+      displayLines.push(
+        `<strong>Pool</strong> ${escapeHTML(poolCurK)}: ${escapeHTML(poolCur)} + ${escapeHTML(bonusPool.label)} ${escapeHTML(bonusPoolCur)} = ${escapeHTML(poolCurTotal)}`
+      );
+    } else {
+      displayLines.push(`<strong>Pool</strong> ${escapeHTML(poolCurK)}: ${escapeHTML(poolCur)}`);
+    }
 
     if (mode === "trained") {
       displayLines.push(`<strong>Skill</strong> ${escapeHTML(skillKey)}: ${escapeHTML(baseSkillVal)}`);
@@ -549,7 +652,10 @@ if (poolCurRaw === undefined) {
       displayLines.push(`<strong>Untrained fallback</strong>: every 4 successes = 1 success`);
     }
 
-    displayLines.push(`<strong>GearFeature</strong>: ${escapeHTML(gearFeature)}`);
+    const gearFeatureNote = (gearFeatureOverride !== null)
+      ? ` <span style="font-size:12px; opacity:0.85;">(override)</span>`
+      : "";
+    displayLines.push(`<strong>GearFeature</strong>: ${escapeHTML(gearFeature)}${gearFeatureNote}`);
     displayLines.push(`<strong>Limit Bonus</strong>: ${escapeHTML(limitBonus)} <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>`);
     displayLines.push(`<strong>Limit</strong>: ${escapeHTML(limit)}`);
 
@@ -559,9 +665,9 @@ if (poolCurRaw === undefined) {
     const defaultSpend = spendCap;
 
 const spendHelp = (mode === "untrainedPool")
-  ? `Spend up to <strong>${escapeHTML(poolCur)}</strong> from ${escapeHTML(poolCurK)}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
-  : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + LimitBonus ${escapeHTML(limitBonus)}; Pool ${escapeHTML(poolCur)}).<br/>
-     <span style="font-size:12px; opacity:0.85;">Bonus dice are added after spend and do <strong>not</strong> deplete the pool. Only <strong>Spend from Pool</strong> reduces ${escapeHTML(poolCurK)}.</span>`;
+  ? `Spend up to <strong>${escapeHTML(poolCurTotal)}</strong> from ${escapeHTML(poolCurK)}${bonusPool && bonusPoolCur > 0 ? ` + ${escapeHTML(bonusPool.label)} pool` : ""}. Untrained fallback still applies: every <strong>4</strong> successes = <strong>1</strong> success.`
+  : `Max spend = <strong>${escapeHTML(spendCap)}</strong> (Limit <strong>${escapeHTML(limit)}</strong> = EffectiveSkill ${escapeHTML(effectiveSkillVal)} + LimitBonus ${escapeHTML(limitBonus)}; Pool ${escapeHTML(poolCurTotal)}).<br/>
+     <span style="font-size:12px; opacity:0.85;">Bonus pool dice${bonusPool && bonusPoolCur > 0 ? ` (${escapeHTML(bonusPool.label)})` : ""} are spent first before ${escapeHTML(poolCurK)}. Bonus dice from items/actions are added after spend and do <strong>not</strong> deplete pools.</span>`;
 
 
     const runtime = await promptRuntimeInputs({
@@ -578,10 +684,13 @@ const spendHelp = (mode === "untrainedPool")
 
     const sitMod = Math.floor(num(runtime.sit, 0));
 
-    let spend = allowSpend ? Math.floor(num(runtime.spend, 0)) : poolCur;
-    if (mode === "untrainedPool") spend = poolCur;
+    let spend = allowSpend ? Math.floor(num(runtime.spend, 0)) : poolCurTotal;
+    if (mode === "untrainedPool") spend = poolCurTotal;
 
     spend = Math.max(0, Math.min(spend, spendCap));
+
+    const bonusSpend = bonusPool ? Math.min(spend, bonusPoolCur) : 0;
+    const poolSpend = Math.max(0, spend - bonusSpend);
 
     const totalDice = Math.max(0, spend + bonusDice + diceMod + sitMod);
 
@@ -683,9 +792,13 @@ const spendHelp = (mode === "untrainedPool")
       damageValue = weaponDamage;
     }
 
-    const newPool = Math.max(0, poolCur - spend);
+    const newPool = Math.max(0, poolCur - poolSpend);
+    const newBonusCur = bonusPool ? Math.max(0, bonusPoolCur - bonusSpend) : null;
+
     const update = { [propPath(poolCurK)]: newPool };
-   await updateActorWithMirrors(rollingActor, update);
+    if (bonusPool?.curKey) update[propPath(bonusPool.curKey)] = newBonusCur ?? 0;
+
+    await updateActorWithMirrors(rollingActor, update);
 
 
     const diceHTML = await roll.render();
@@ -710,6 +823,18 @@ const spendHelp = (mode === "untrainedPool")
     const specialDamageLineHTML = specialDamageText ? `
       <p style="margin:0 0 6px 0;">
         Special Damage: <strong>${escapeHTML(specialDamageText)}</strong>
+      </p>
+    ` : "";
+
+    const alertLineHTML = softwareAlertText ? `
+      <p style="margin:0 0 6px 0;">
+        Alert: <strong>${escapeHTML(softwareAlertText)}</strong>
+      </p>
+    ` : "";
+
+    const trackAlertLineHTML = trackAlertText ? `
+      <p style="margin:0 0 6px 0;">
+        Track Alert: <strong>${escapeHTML(trackAlertText)}</strong>
       </p>
     ` : "";
 
@@ -757,9 +882,20 @@ const spendHelp = (mode === "untrainedPool")
       ? (bonusDiceActorKey === "vcrBonusDice" ? "VCR" : bonusDiceActorKey)
       : "";
 
-    const bonusBreakdown = bonusDiceActorKey
+    const bonusBreakdown = (bonusDiceActorKey && bonusDiceActor !== 0)
       ? `Bonus ${escapeHTML(bonusDice)} (Item/Action ${escapeHTML(bonusDiceCore)} + ${escapeHTML(bonusActorLabel)} ${escapeHTML(bonusDiceActor)})`
       : `Bonus ${escapeHTML(bonusDice)} (Item/Action ${escapeHTML(bonusDiceCore)})`;
+
+    const poolSpendLineHTML = bonusPool
+      ? `<p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)}) = ${escapeHTML(bonusSpend)} ${escapeHTML(bonusPool.label)} + ${escapeHTML(poolSpend)} ${escapeHTML(poolCurK)}</p>`
+      : `<p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>`;
+
+    const poolStatusLineHTML = bonusPool
+      ? `
+        <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>
+        <p style="margin:0 0 6px 0;"><strong>${escapeHTML(bonusPool.label)} Pool:</strong> ${escapeHTML(bonusPoolCur)} → ${escapeHTML(newBonusCur)}</p>
+      `
+      : `<p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>`;
 
 
     const content = `
@@ -771,6 +907,7 @@ const spendHelp = (mode === "untrainedPool")
           <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLine)}</div>
         </div>
 
+        ${alertLineHTML}
         ${damageLineHTML}
         ${specialDamageLineHTML}
 
@@ -784,6 +921,7 @@ const spendHelp = (mode === "untrainedPool")
           <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
           ${pilotLine}
           <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
+          ${trackAlertLineHTML}
           <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>
 
           <p style="margin:0 0 6px 0;"><strong>Target Skill:</strong> ${escapeHTML(skillKey)} (base ${escapeHTML(baseSkillVal)})</p>
@@ -799,12 +937,12 @@ const spendHelp = (mode === "untrainedPool")
             <span style="font-size:12px; opacity:0.85;">(${escapeHTML(limitBonusSource)})</span>
           </p>
 
-          <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
+          ${poolSpendLineHTML}
           <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> ${bonusBreakdown} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
           <p style="margin:0 0 6px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
           ${untrainedCalcHTML}
 
-          <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>
+          ${poolStatusLineHTML}
 
           ${damageInfoHTML}
 
@@ -830,6 +968,11 @@ const spendHelp = (mode === "untrainedPool")
       poolCurK,
       poolCur,
       spend,
+      poolSpend,
+      bonusPool: bonusPool?.kind ?? null,
+      bonusPoolCur,
+      bonusPoolSpend: bonusSpend,
+      bonusPoolNew: newBonusCur,
       newPool,
       totalDice,
       rawSuccesses,

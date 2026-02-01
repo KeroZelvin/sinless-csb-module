@@ -11,6 +11,21 @@ function num(v, fallback = 0) {
   return Number.isFinite(n) ? n : fallback;
 }
 
+function hasItemProp(item, key) {
+  const p = item?.system?.props ?? {};
+  return Object.prototype.hasOwnProperty.call(p, key);
+}
+
+function computeItemMax(actor, key) {
+  let max = 0;
+  for (const it of actor?.items ?? []) {
+    if (!hasItemProp(it, key)) continue;
+    const v = Math.floor(num(it.system.props[key], 0));
+    if (v > max) max = v;
+  }
+  return Math.max(0, max);
+}
+
 function getPropsRoot() {
   // e.g. "system.props"
   return String(game.settings.get(MOD_ID, "csbPropsRoot") || "system.props");
@@ -131,6 +146,20 @@ export async function refreshPoolsForActor(actor) {
   if (!Number.isFinite(focusMaxNow) || focusMaxNow !== focus) {
     update[writePropUpdate("Focus_Max")] = focus;
   }
+
+  const mcpFromItems = computeItemMax(actor, "mcpDeck");
+  const mcpProp = Math.floor(num(readProp(actor, "mcpDeck"), 0));
+  const mcpMax = Math.max(0, Math.max(mcpProp, mcpFromItems));
+
+  update[writePropUpdate("mcpDeck")] = mcpMax;
+  update[writePropUpdate("mcpCur")] = mcpMax;
+
+  const vcrFromItems = computeItemMax(actor, "vcrBonusDice");
+  const vcrProp = Math.floor(num(readProp(actor, "vcrBonusDice"), 0));
+  const vcrMax = Math.max(0, Math.max(vcrProp, vcrFromItems));
+
+  update[writePropUpdate("vcrBonusDice")] = vcrMax;
+  update[writePropUpdate("vcrbonusCur")] = vcrMax;
 
   // Avoid a no-op update call (optional, but clean)
   if (Object.keys(update).length === 0) return;
