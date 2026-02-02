@@ -1,0 +1,19 @@
+{
+  "name": "The Seven Chimes of Forceful Approbation",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/sound.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "2500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Seven Chimes of Forceful Approbation</h2><p>The caster causes a target to hear mesmerizing chimes. If the target fails the <span style=\"font-family:'Bruno Ace', sans-serif;\">Resolve</span> pool test, the chimes cause them to stand up and rhythmically clap, dropping whatever's held in their hands. This prevents taking any action that uses your hands.</p>",
+      "spellTags": ""
+    }
+  }
+}

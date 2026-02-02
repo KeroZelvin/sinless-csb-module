@@ -1,0 +1,19 @@
+{
+  "name": "Blight",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/biohazard.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "1200",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per force of the spell",
+      "drainFormula": "1+Force/2",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Blight</h2><p>This spell sickens the target, covering their skin in boils and pustules. On a successful attack, the target is penalized a number of dice equal to the force of the spell on all their actions. They take one-half force damage per round to their physical condition track.</p>",
+      "spellTags": ""
+    }
+  }
+}

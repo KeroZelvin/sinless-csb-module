@@ -1,0 +1,19 @@
+{
+  "name": "Enthrall",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mystery-man.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "5000",
+      "spellResistance": "Focus pool",
+      "spellDuration": "Variable",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Enthrall</h2><p>This powerful spell strongly influences the target's mind. On a success, the target becomes charmed and treats the caster as a trusted friend. The length of time this lasts is dependent on the intelligence of the target. Intelligence lower than five, it lasts one month per force, between five and ten, one week per force, between eleven and fifteen, one day per force, and fifteen and above is one hour per force. After the spell ends, the target is aware that they were charmed.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "The Marvelous Cursed Sigil of Athozog",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/circle.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "3000",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Marvelous Cursed Sigil of Athozog</h2><p>This creates a shadow double of the caster. It moves with the caster and obscures its form. Using dice to dodge does not remove them from the <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span> pool.</p>",
+      "spellTags": ""
+    }
+  }
+}

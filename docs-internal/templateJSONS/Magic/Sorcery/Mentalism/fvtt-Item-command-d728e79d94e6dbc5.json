@@ -1,0 +1,19 @@
+{
+  "name": "Command",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/cowled.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1400",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Command</h2><p>The caster selects a target and issues a oneword command. If they acquire more successes than the target, the target must use its next turn to do the action. If the caster asks the target to do something against its nature (harm itself, attack their allies) the target can refuse to do the action, and take damage to their stun condition track equal to 3 + force + net successes.</p>",
+      "spellTags": ""
+    }
+  }
+}

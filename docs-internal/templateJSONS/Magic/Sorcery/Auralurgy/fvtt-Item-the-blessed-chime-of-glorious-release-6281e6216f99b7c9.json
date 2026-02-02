@@ -1,0 +1,19 @@
+{
+  "name": "The Blessed Chime of Glorious Release",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR5/Carvalho/bell-shield.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "2000",
+      "spellResistance": "N/A",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Blessed Chime of Glorious Release</h2><p>The caster causes a bell to ring. In an area 1 m (.5\") per point of force all locked and restrained targets release, as long as they have a hardening of less than 1 + the force of the spell. Locks, knots, anything that is bound or sealed is released. This has unpredictable effects on living creatures, sometimes causing them to cry, lash out, or spasm in ecstasy.</p>",
+      "spellTags": ""
+    }
+  }
+}

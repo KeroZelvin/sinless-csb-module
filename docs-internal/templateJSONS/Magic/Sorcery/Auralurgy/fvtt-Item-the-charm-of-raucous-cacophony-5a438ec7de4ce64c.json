@@ -1,0 +1,19 @@
+{
+  "name": "The Charm of Raucous Cacophony",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/gear/drum_syntheziser.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "500",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Charm of Raucous Cacophony</h2><p>This spell creates a noise of up to 20 decibels per point of force. The caster can determine the sound, it could be music or a concerto, the sounds of guards, an explosion, anything they wish. At high force (force 7+ decibels in excess of 130) this spell does damage equal to half the total successes to the physical condition track to any target within 2 meters (1\") of the target point, and half that to anyone within 20 meters.</p><p><em><<It'll also alert everyone within like 2 miles, so there's that>> --R4D10F4N</em></p>",
+      "spellTags": ""
+    }
+  }
+}

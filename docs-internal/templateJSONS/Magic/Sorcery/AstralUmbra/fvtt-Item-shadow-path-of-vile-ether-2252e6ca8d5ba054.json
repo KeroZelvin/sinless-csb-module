@@ -1,0 +1,19 @@
+{
+  "name": "Shadow Path of Vile Ether",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR5/importer/critter/shadow-spirits.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "1000",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "2+Force/2",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Shadow Path of Vile Ether</h2><p>This spell allows the caster to move from any area of darkness to any other area of darkness within his line of sight. He steps into the darkness and appears at his destination. Moving this way is a simple action.</p>",
+      "spellTags": ""
+    }
+  }
+}

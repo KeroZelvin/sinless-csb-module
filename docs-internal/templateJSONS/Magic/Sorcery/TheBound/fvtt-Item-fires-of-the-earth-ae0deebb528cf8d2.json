@@ -1,0 +1,19 @@
+{
+  "name": "Fires of the Earth",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/fire.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "600",
+      "spellResistance": "N/A",
+      "spellDuration": "3 rounds",
+      "drainFormula": "2+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Fires of the Earth</h2><p>This spell raises the temperature of metal items till they glow from the heat. Anyone in contact with the heated metal takes 1/2 force damage in the first round, force damage in the second, and 2 * force damage in the third and ongoing round. Energy weapons can be targeted, giving them levels of heat equal to the damage. Objects that take damage in excess of their health melt.</p>",
+      "spellTags": ""
+    }
+  }
+}

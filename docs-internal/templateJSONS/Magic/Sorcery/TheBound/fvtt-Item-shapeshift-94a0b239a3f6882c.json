@@ -1,0 +1,19 @@
+{
+  "name": "Shapeshift",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/pawprint.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "1200",
+      "spellResistance": "N/A",
+      "spellDuration": "Ten minutes per force of the spell",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Shapeshift</h2><p>This spell allows the bound to choose a number of animals equal to the Force of the spell when learned. For the duration of the spell, the caster may switch between any of the animal forms they have selected as a complex action. Each time they shift, they heal 1d6 boxes of damage from both their physical and stun condition track. See animals in Chapter 10 for animal statistics. You may not speak or cast spells while shapeshifted. You can add an additional animal form known per point of force learned of the spell.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Suggestion",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/target.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1500",
+      "spellResistance": "Focus pool",
+      "spellDuration": "One action",
+      "drainFormula": "1+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Suggestion</h2><p>This spell allows a caster to make a suggestion to a number of targets equal to the spell's force, no more than a sentence or two in length. On a success, the target is compelled to complete the suggestion. The suggestion cannot be one that is directly harmful to the target (shoot yourself, etc.) or the spell will fail, but the suggestion may be one that the target is unaware will cause harm to themselves (push this button).</p><p><em><<Frakking Jedi mind tricks>> -- Chisake Rei</em></p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Natural Fury",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/blood.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "800",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per force of the spell",
+      "drainFormula": "1+Force/2",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Natural Fury</h2><p>This spell draws on ferocious natural powers. A bark-like encasement surrounds the caster and their attacks are imbued with strength. The caster gets force in bonus dice on all <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span> pool tests, they gain 2 points of ballistic and impact armor in their under armor slot, and their melee attacks do +1 damage.</p>",
+      "spellTags": ""
+    }
+  }
+}

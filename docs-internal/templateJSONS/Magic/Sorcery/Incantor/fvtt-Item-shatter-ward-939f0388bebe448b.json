@@ -1,0 +1,19 @@
+{
+  "name": "Shatter Ward",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/fire-shield.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "2500",
+      "spellResistance": "N/A",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Shatter Ward</h2><p>Use manons to sunder a ward with great violence. If the force + number of successes is equal to or higher than the ward's force value, the ward is torn asunder. If there are fewer successes than the ward's force, the force of the ward is lowered by one.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Massage the Bones of the Earth",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/stone-path.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "1000",
+      "spellResistance": "N/A",
+      "spellDuration": "Permanent",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Massage the Bones of the Earth</h2><p>This spell allows the bound to shape stone. During combat, it can be used to raise a barrier 2 m in width and 1 m in height per point of force. E.g. a force six massage the bones of the earth can be used to raise a barrier up to 12 m (6\") wide and 6 m (3 \") high. The barrier has armor equal to 4. The barrier need not be contiguous, but no section can be smaller than 2 m in width and 1 m high. The barrier can be shaped as the caster wishes to the extent that it is made of solid blocks of stone or concrete and re-bar. This may also be used to precisely and permanently shape one cubic meter of stone per point of force.</p>",
+      "spellTags": ""
+    }
+  }
+}

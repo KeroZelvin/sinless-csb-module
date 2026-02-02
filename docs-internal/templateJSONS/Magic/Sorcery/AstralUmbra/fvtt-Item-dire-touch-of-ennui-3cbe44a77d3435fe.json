@@ -1,0 +1,19 @@
+{
+  "name": "Dire Touch of Ennui",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/daze.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "700",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Dire Touch of Ennui</h2><p>When you touch a target, they take 3 + force + net successes in damage to their stun condition track.</p>",
+      "spellTags": ""
+    }
+  }
+}

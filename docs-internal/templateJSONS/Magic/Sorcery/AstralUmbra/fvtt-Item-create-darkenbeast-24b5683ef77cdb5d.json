@@ -1,0 +1,19 @@
+{
+  "name": "Create Darkenbeast",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/pawprint.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "4000",
+      "spellResistance": "N/A",
+      "spellDuration": "Special",
+      "drainFormula": "3+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Create Darkenbeast</h2><p>Turns an animal into a darkenbeast under control of the caster. The animal gains ballistic and impact armor equal to half the force of the spell, it gains +3 <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span>, <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span>, and <span style=\"font-family:'Bruno Ace', sans-serif;\">Resolve</span> dice, and its melee attacks do an extra 2 points of damage. The spell lasts until the animal is exposed to sunlight. It takes a simple action to instruct the darkenbeast, and the caster gets an exploit action that can be used for instructing the darkenbeast. The darkenbeast acts as a cohort. incantations: borne of the deepest caverns. Light the candles of azure flame, imbued with the tears of the</p>",
+      "spellTags": ""
+    }
+  }
+}

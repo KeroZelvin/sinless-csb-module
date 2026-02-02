@@ -1,0 +1,19 @@
+{
+  "name": "Chant of Dire Malady",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/biohazard.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "2000",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Chant of Dire Malady</h2><p>This caster chooses a point. A field extends out from this point 2 m (1 \") per point of force, causing all caught within to feel dizzy and nauseous. Anyone in or who enters or is in this area who fails their resistance test vomits on their next turn and the following turn can only perform simple actions. Even if they succeed, everyone in the field receives -2 penalty dice on all tests.</p>",
+      "spellTags": ""
+    }
+  }
+}

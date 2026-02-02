@@ -1,0 +1,19 @@
+{
+  "name": "Geas",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/padlock.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "2500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "Special",
+      "drainFormula": "4+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Geas</h2><p>This powerful <span style=\"font-family:'Bruno Ace', sans-serif;\">sorcery</span> greatly warps the target's mind. On a successful <span style=\"font-family:'Bruno Ace', sans-serif;\">sorcery</span> test plus force versus the victim's resistance, they are tasked with a quest or geas. They must complete the tasks set before them by the caster, or they feel ill. Every day that passes that they don't work towards accomplishing the goal, they weaken, losing access to one die from all their pools (<span style=\"font-family:'Bruno Ace', sans-serif;\">Focus</span>, <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span>, <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span>, and <span style=\"font-family:'Bruno Ace', sans-serif;\">Resolve</span>). Upon taking action to complete the tasks, these dice return.</p>",
+      "spellTags": ""
+    }
+  }
+}

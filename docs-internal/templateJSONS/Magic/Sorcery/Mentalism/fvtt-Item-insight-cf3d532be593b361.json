@@ -1,0 +1,19 @@
+{
+  "name": "Insight",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/eye.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "3500",
+      "spellResistance": "Focus pool",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Insight</h2><p>This spell grants instant insight into another person. For every success up to the force of the spell the character can get one answer to any question about that person, by instantly assessing them. The questions can be anything; for example, did this person commit a murder, do they love their mother, what did they have for dinner last night, etc. The spell always provides a chain of deductions that lead to the answer.</p>",
+      "spellTags": ""
+    }
+  }
+}

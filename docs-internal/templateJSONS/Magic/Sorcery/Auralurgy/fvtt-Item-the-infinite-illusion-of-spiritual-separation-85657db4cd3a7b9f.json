@@ -1,0 +1,19 @@
+{
+  "name": "The Infinite Illusion of Spiritual Separation",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/sleep.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "3000",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "Unknown",
+      "drainFormula": "9+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Infinite Illusion of Spiritual Separation</h2><p>The caster selects a target, and they hear an orotund gonging. Even if the target resists the spell, they are stunned for one round, unable to act. If they fail to resist the mind of the target becomes separated from all sensation and they are unable to control their body. There are rumors of people recovering, but the condition appears to be permanent.</p>",
+      "spellTags": ""
+    }
+  }
+}

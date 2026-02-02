@@ -1,0 +1,19 @@
+{
+  "name": "The Serene Conjuration of Ehon's Gate",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/door-secret-outline.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "1100",
+      "spellResistance": "N/A",
+      "spellDuration": "1 minute per point of force",
+      "drainFormula": "2+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Serene Conjuration of Ehon's Gate</h2><p>This opens the ninth gate to a parallel realm of shadow. Few who have entered have returned, and there is little information on what exists in this fallow shadow realm.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Light",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/light.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "200",
+      "spellResistance": "N/A",
+      "spellDuration": "2 hours per point of force + 2 hours per success",
+      "drainFormula": "1",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Light</h2><p>The caster chooses a point within visual range. A light appears and illuminates the area, casting bright light that emanates from that point out to 40 m (20\"), and raising all adjacent light levels by one.</p>",
+      "spellTags": ""
+    }
+  }
+}

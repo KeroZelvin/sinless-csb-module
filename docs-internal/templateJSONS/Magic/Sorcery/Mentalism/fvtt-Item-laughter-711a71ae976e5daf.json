@@ -1,0 +1,19 @@
+{
+  "name": "Laughter",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/sound.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1300",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Laughter</h2><p>This spell targets a single living creature. On a success, the target falls prone, dropping anything held, and begins laughing uncontrollably. This lasts one round per point of force. This spell is difficult to overcome. The target needs more successes than the force of the spell + the caster's net successes to resist and recover from the enchantment (as opposed to the default test against net successes). incantations: borne of the deepest caverns. Light the candles of azure flame, imbued with the tears of the</p>",
+      "spellTags": ""
+    }
+  }
+}

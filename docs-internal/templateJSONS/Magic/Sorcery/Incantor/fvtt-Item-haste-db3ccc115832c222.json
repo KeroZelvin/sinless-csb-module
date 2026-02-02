@@ -1,0 +1,19 @@
+{
+  "name": "Haste",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/wingfoot.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "1400",
+      "spellResistance": "Resolve pool (optional)",
+      "spellDuration": "1 round per point of force + 1 round per success",
+      "drainFormula": "4+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Haste</h2><p>The caster chooses a number of targets equal to the force of the spell. All characters receive an extra simple action at the start of their turn while the spell is active, along with a +4 m (+2\") increase to their movement rate for the duration of the spell.</p>",
+      "spellTags": ""
+    }
+  }
+}

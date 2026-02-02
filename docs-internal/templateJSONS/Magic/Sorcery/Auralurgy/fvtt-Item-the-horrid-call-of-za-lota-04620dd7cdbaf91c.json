@@ -1,0 +1,19 @@
+{
+  "name": "The Horrid Call of Za'lota",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR5/importer/critter/insect-spirits.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "2000",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Horrid Call of Za'lota</h2><p>The caster selects a target and it begins emanating a deep resonance that is extremely attractive to insects. Vermin swarm the target, silverfish, electrical ants, cockroaches, bedbugs, and more, depending on the environment. The target is unable to concentrate on any actions, preventing them from taking any complex actions while the spell lasts.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,276 @@
+# Folder Tree (Actors + Items)
+
+- World: **PacificNorthWestMarches**
+- Generated: 2/1/2026, 8:30:12 PM
+
+## Actors
+- **DroneHangar**
+  - Aerial Warden
+  - Anthrobrute
+  - Anthrodroid
+  - Bug-Spy
+  - Disc
+  - Dog-Patrol Drone
+  - Gladiator
+  - Hawk
+  - Mobile Sentinel
+  - Orb
+  - Roto-Drone
+  - Shield Drone
+  - Shield-Wall Drone
+  - VSTOL Bird
+- **TestSpell Drones**
+  - Drone Test
+  - Drone Test
+- **TestSpell Vehicles**
+  - Vehicle Test
+- **VehicleHangar**
+  - Armored Car
+  - Battle Cycle
+  - Cargo Heli
+  - Cessna
+  - Chopper
+  - Delivery Van
+  - Family Sedan
+  - Limo
+  - Luxury Sedan
+  - Luxury Van
+  - Motorcycle
+  - Nightwing
+  - Patrol Boat
+  - Pickup
+  - Racing Bike
+  - Scooter
+  - Seaplane
+  - Small Boat
+  - Speedboat
+  - Sports Car
+  - Sports Sedan
+  - Transport Heli
+  - Two-Seater
+- **NPCs**
+  - NPCtest
+  - Session Settings
+- **Templates**
+  - Session Settings Template
+  - Drone Template
+  - Vehicle Template
+  - Sinless PC
+  - Sinless NPC
+- **PCs**
+  - TestSpell
+
+## Items
+- **VCR**
+  - Basic VCR
+  - Advanced VCR
+  - Master VCR
+- **Drones (drag to sheet)**
+  - Aerial Warden
+  - Anthrobrute
+  - Anthrodroid
+  - Bug-Spy
+  - Disc
+  - Dog-Patrol Drone
+  - Drone Test
+  - Gladiator
+  - Hawk
+  - Mobile Sentinel
+  - Orb
+  - Roto-Drone
+  - Shield Drone
+  - Shield-Wall Drone
+  - VSTOL Bird
+- **Sorcery**
+  - SpellTest
+  - SpellTest (Copy)
+  - SpellTest (Copy) (Copy)
+- **Vehicles (drag to sheet)**
+  - Armored Car
+  - Battle Cycle
+  - Cargo Heli
+  - Cessna
+  - Chopper
+  - Delivery Van
+  - Family Sedan
+  - Limo
+  - Luxury Sedan
+  - Luxury Van
+  - Motorcycle
+  - Nightwing
+  - Patrol Boat
+  - Pickup
+  - Racing Bike
+  - Scooter
+  - Seaplane
+  - Small Boat
+  - Speedboat
+  - Sports Car
+  - Sports Sedan
+  - Transport Heli
+  - Two-Seater
+- **Amplification**
+- **Astral Umbra**
+- **Auralurgy**
+- **Conjuring**
+- **CSB - Embedded Items Folder - DO NOT RENAME OR REMOVE**
+- **Cyberdecks**
+  - MasterDeck
+  - Shingo Activa
+  - Semi Point Razor
+  - Mars Claymore
+  - Fujitsu Edge
+  - Orb Epsilon
+  - Orpheus Dreamweaver
+  - Royal Durandal
+- **Incantor**
+- **Mentalism**
+- **Spirit Maps**
+- **The Bound**
+- **Drive / Fly Skills**
+  - Drive Test
+  - Fly Test
+  - OverDrive
+  - OverFly
+- **Hacking Threads**
+  - Alert Monitor
+  - Crack Encryption
+  - Decoy
+  - Electric Strike
+  - Emotional Influence
+  - Encrypt File
+  - Ghost Protocol
+  - Shadow Protocols
+  - Situational Advantage
+  - Sonic Sickness
+  - Universal Translator
+  - Vent Gas
+- **Melee**
+  - Arm-Blades
+  - Axe
+  - Baton
+  - Brass Knuckles
+  - Cudgel
+  - Katana
+  - Knife
+  - Monofilament Whip
+  - Plasma Axe
+  - Plasma Sword
+  - Polearm
+  - Power Fist
+  - Sickstick
+  - Staff
+  - Stun Baton
+  - Sword
+  - Vibroaxe
+  - Vibrosword
+- **Drone Weapons**
+  - Autocannon
+  - Dazzleray
+  - Grenade Launcher
+  - Heavy Swell
+  - Mini gun
+  - Missile Launcher
+  - Oil Slick
+  - Particle Projectile Cannon
+  - Pulse Minigun
+  - Pulse Rifle
+  - Railgun
+  - Recoilless Gun
+  - Recoilless Rifle
+  - Sentry Gun
+  - Smokescreen
+  - Sonic Disruption
+- **Thrown**
+  - Explosive Grenade
+  - Incendiary Grenade
+  - Knife
+  - Shock Grenade
+  - Shuriken
+  - Smoke Grenade
+- **Projectile**
+  - Compound Bow
+  - Light Crossbow
+  - Crossbow
+  - Heavy Crossbow
+- **Vehicle Weapons**
+  - 25mm Cannon
+  - 30mm Cannon
+  - Autocannons
+  - Machine Guns
+  - Missile Launcher
+  - Oil Slick
+  - Particle Projection Cannon
+  - Plasma Cannons
+  - Pulse Cannon
+  - Railgun
+  - Rocket Propelled Grenade Launcher
+  - Tactical Tsunami
+  - Tank Cannon
+  - Vulcan Cannon
+- **Firearms**
+  - 450 Tek-Urban
+  - Defender
+  - DV-662 Devotion
+  - Hardliner
+  - Highwayman
+  - Ironbark SMT
+  - Kaos-9x
+  - KL-.89 Klaw
+  - Reaper
+  - Ripper
+  - S-U Epsilon 'Sunshine'
+  - Sentinel
+  - Slimline Defender
+  - Syncsight Hunter
+  - Tiger Beat
+  - TRGT-9 "Target"
+  - V-100 Vigilant
+  - Viper
+  - Warhammer H40mm-ER
+- **Energy**
+  - Thunderbolt Vanguard
+  - Neon Fang
+  - Photon Reaver Ei-7
+- **E War Threads**
+  - Acid Burn
+  - Analysis Locus
+  - Corrupt IFF
+  - De-Rez
+  - Device Control
+  - Hypnotic Projection
+  - Refraction Field
+  - Targeted Disruption
+  - Vermin Call
+- **Decking**
+- **Rigging**
+- **Manon**
+  - Conjuring Template
+  - Ritual Template
+  - Sorcery Template
+- **Weapons**
+- **_Templates**
+  - E War Threads Template
+  - Hacking Threads Template
+  - Melee Weapon Template
+  - Thrown Weapon Template
+  - Drone Energy W Template
+  - Vehicle Energy W Template
+  - Drone Ballistic Template
+  - Vehicle Ballistic Template
+  - Rig Fly Skill Template
+  - VCR Template
+  - DroneItems Template
+  - VehicleItems Template
+  - Rig Drive Skill Template
+  - Projectile Template
+  - Firearms Template
+  - Energy Wep Template
+  - Sinless Roll Config
+  - Cyberdeck Template
+- **(Unfoldered)**
+  - Active Effects
+  - Device Control
+  - Ewar
+  - Hacking
+

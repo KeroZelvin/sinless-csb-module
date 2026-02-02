@@ -1,0 +1,19 @@
+{
+  "name": "Ensorcell",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mystery-man-black.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "10000",
+      "spellResistance": "Focus pool",
+      "spellDuration": "Variable",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Ensorcell</h2><p>This spell further dominates those under the influence of the spell Enthrall. The caster chooses a target under the effect of the enthrall spell. This spell allows the caster to go into the target's mind and change it. They can change thoughts and beliefs, ideas, behaviors, and even perceptions of reality. For every net success, the target has their intelligence permanently lowered by one, and changes equal to the spell's force can be made to the target's mind. These changes are permanent, and functionally without limit. A target told they could only breathe water would quickly drown, believing it to be true.</p>",
+      "spellTags": ""
+    }
+  }
+}

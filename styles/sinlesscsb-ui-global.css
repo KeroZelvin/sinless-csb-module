@@ -718,16 +718,28 @@ html[data-sinless-theme] .custom-system-label-root * {
   font-family: var(--sinless-font-body) !important;
 }
 
-/* If you want this “subtitle” to be lighter/italic (common subtitle look) */
-html[data-sinless-theme] .custom-system-label-root {
+/* Subtitle labels: only force italic when the subtitle class is present */
+html[data-sinless-theme] .custom-system-label-root.subtitle,
+html[data-sinless-theme] .custom-system-label-root.sub-title,
+html[data-sinless-theme] .custom-system-label-root.subheader,
+html[data-sinless-theme] .custom-system-label-root.header-subtitle,
+html[data-sinless-theme] .custom-system-label-root.is-subtitle {
   font-weight: 400 !important;
   font-style: italic;
 }
 
-/* If there is also a “title root” you want bold, keep it bold explicitly */
+/* Title labels: keep bold explicitly */
 html[data-sinless-theme] .custom-system-label-root.title,
 html[data-sinless-theme] .custom-system-label-root.header-title,
 html[data-sinless-theme] .custom-system-label-root.is-title {
+  font-weight: 700 !important;
+  font-style: normal !important;
+}
+
+/* Bold label style (if CSB exposes a class for it) */
+html[data-sinless-theme] .custom-system-label-root.bold,
+html[data-sinless-theme] .custom-system-label-root.bold-text,
+html[data-sinless-theme] .custom-system-label-root.is-bold {
   font-weight: 700 !important;
   font-style: normal !important;
 }

@@ -1,0 +1,19 @@
+{
+  "name": "Disguise Astral Aura",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/aura.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "800",
+      "spellResistance": "Focus pool",
+      "spellDuration": "2 hours per point of force + 2 hours per net success.",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Disguise Astral Aura</h2><p>Alter a target's aura, disguising magical abili ties and hiding things revealed to astral sight</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Fiery Lash",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/weapons/flamethrower.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "800",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "3+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Fiery Lash</h2><p>This spell strikes the target with a bolt of flame. It does force + net successes of fire damage to the target's physical condition track. The target may be set aflame.</p>",
+      "spellTags": ""
+    }
+  }
+}

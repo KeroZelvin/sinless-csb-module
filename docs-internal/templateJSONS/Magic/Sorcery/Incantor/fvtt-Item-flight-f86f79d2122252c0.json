@@ -1,0 +1,19 @@
+{
+  "name": "Flight",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/wing.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "1000",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force + 1 round per success",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Flight</h2><p>This spell allows the caster (only) to fly. For the duration of the spell, the caster can move in any direction using his normal movement rate.</p>",
+      "spellTags": ""
+    }
+  }
+}

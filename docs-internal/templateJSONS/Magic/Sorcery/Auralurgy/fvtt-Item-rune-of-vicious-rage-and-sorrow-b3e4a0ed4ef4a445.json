@@ -1,0 +1,19 @@
+{
+  "name": "Rune of Vicious Rage and Sorrow",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/terror.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Auralurgy",
+      "forceCost": "1500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "1 round",
+      "drainFormula": "3+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Rune of Vicious Rage and Sorrow</h2><p>The caster chooses a target. If the target fails their resistance test, they become inflamed with rage and charge the nearest target, and attempt to kill them with melee, whether friend or foe.</p>",
+      "spellTags": ""
+    }
+  }
+}

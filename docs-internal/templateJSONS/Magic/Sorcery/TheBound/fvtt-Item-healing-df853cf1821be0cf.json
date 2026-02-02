@@ -1,0 +1,19 @@
+{
+  "name": "Healing",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/heal.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "900",
+      "spellResistance": "N/A",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "Force/2",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Healing</h2><p>This spell allows the caster to heal a target for half the total of force + net successes of the spell. They may heal a number of boxes equal to this value from their physical condition track. This can only be used once per wound. After the target has been healed, they must take new damage in order to have it healed.</p>",
+      "spellTags": ""
+    }
+  }
+}

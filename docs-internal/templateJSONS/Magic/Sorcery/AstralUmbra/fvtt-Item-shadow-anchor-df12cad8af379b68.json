@@ -1,0 +1,19 @@
+{
+  "name": "Shadow Anchor",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/anchor.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "1500",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Shadow Anchor</h2><p>The caster picks a target, and the target's shadow becomes anchored to the ground and fights against the target if they try to move. They are anchored to the ground and cannot move, but are free to act otherwise.</p>",
+      "spellTags": ""
+    }
+  }
+}

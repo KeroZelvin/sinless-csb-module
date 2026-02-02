@@ -1,0 +1,19 @@
+{
+  "name": "Horrors of the Unknown Dark",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/terror.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "1500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "1 round",
+      "drainFormula": "2+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Horrors of the Unknown Dark</h2><p>Select a number of targets equal to the force of the spell. They can see dimensional creatures normally hidden, obscene to the structure of the human mind. Any who fail to resist must roll a 1d6 on their next turn. On a 1-3 they stand agog, moving 1 \" away from cover, on a 4-6 they use their turn to move away from the caster.</p>",
+      "spellTags": ""
+    }
+  }
+}

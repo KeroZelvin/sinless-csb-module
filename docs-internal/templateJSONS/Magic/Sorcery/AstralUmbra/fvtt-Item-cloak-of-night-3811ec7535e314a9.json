@@ -1,0 +1,19 @@
+{
+  "name": "Cloak of Night",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/invisible.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "1100",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "4+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Cloak of Night</h2><p>Select a number of targets equal to the force of the spell. As long as these targets are in areas of dim light or darkness, they are protected and obscured by swelling palpable darkness. In dim light and darkness, targets can reroll 1s on dodge tests. Elemental Serpents are fickle and capricious. fraught with peril, and only the wise and resolute shall prevail.</p>",
+      "spellTags": ""
+    }
+  }
+}

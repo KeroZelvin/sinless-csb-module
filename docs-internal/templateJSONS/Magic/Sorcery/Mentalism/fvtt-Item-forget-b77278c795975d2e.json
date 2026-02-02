@@ -1,0 +1,19 @@
+{
+  "name": "Forget",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/blind.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1800",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "Instantaneous",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Forget</h2><p>The caster selects a number of targets equal to the force. Anyone who fails their resistance test versus the <span style=\"font-family:'Bruno Ace', sans-serif;\">sorcery</span> test forgets the last minute.</p>",
+      "spellTags": ""
+    }
+  }
+}

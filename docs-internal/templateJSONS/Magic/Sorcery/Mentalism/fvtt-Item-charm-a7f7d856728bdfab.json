@@ -1,0 +1,19 @@
+{
+  "name": "Charm",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mystery-man.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1000",
+      "spellResistance": "N/A",
+      "spellDuration": "1 hour",
+      "drainFormula": "2",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Charm</h2><p>The caster becomes more charming, this grants them a number of extra dice on <span style=\"font-family:'Bruno Ace', sans-serif;\">leadership</span> and <span style=\"font-family:'Bruno Ace', sans-serif;\">negotiation</span> tests equal to the force of the spell.</p>",
+      "spellTags": ""
+    }
+  }
+}

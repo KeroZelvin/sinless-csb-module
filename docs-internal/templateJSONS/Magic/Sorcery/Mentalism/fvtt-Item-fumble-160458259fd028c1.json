@@ -1,0 +1,19 @@
+{
+  "name": "Fumble",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/falling.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "900",
+      "spellResistance": "Finesse pool",
+      "spellDuration": "10 minutes",
+      "drainFormula": "3+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Fumble</h2><p>On a successful <span style=\"font-family:'Bruno Ace', sans-serif;\">sorcery</span> test, the caster creates a 12 m (6\") diameter field. Anyone in or entering this field during their turn must succeed at a resistance test versus the force of the spell. On a failure, they drop anything held and fall prone. On a success they are unaffected.</p>",
+      "spellTags": ""
+    }
+  }
+}

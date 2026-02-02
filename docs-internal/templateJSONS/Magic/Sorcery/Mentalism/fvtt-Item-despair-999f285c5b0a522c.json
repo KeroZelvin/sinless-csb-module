@@ -1,0 +1,19 @@
+{
+  "name": "Despair",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/skull.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "10 minutes",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Despair</h2><p>The caster selects a target point. Everyone within 4 m (2\") per point of force becomes overwhelmed with despair. Everyone who fails to resist the spell has -1 penalty die on all tests per two points of force of the spell (minimum 1). Elemental Serpents are fickle and capricious. fraught with peril, and only the wise and resolute shall prevail.</p>",
+      "spellTags": ""
+    }
+  }
+}

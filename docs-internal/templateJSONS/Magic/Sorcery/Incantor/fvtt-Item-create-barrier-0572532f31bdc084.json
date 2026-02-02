@@ -1,0 +1,19 @@
+{
+  "name": "Create Barrier",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mage-shield.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Incantor",
+      "forceCost": "1400",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force, plus 1 round per success",
+      "drainFormula": "Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Create Barrier</h2><p>This creates a barrier of force, 20 m (10 \") in length, and anywhere from four to twenty feet in height. The barrier is translucent and solid. It has a condition track equal to twice the number of successes plus the force or the spell, and armor equal to 1/2 the force of the spell.</p>",
+      "spellTags": ""
+    }
+  }
+}

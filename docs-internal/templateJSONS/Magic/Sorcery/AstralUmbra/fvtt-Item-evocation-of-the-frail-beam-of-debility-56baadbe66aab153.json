@@ -1,0 +1,19 @@
+{
+  "name": "Evocation of the Frail Beam of Debility",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR5/Carvalho/bubbling-beam.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "900",
+      "spellResistance": "Brawn pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "1+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Evocation of the Frail Beam of Debility</h2><p>You choose a target and a dark silvery beam strikes them, freezing and necrotizing their flesh. They receive a penalty to their <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span> and <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span> dice pools equal to Force+net successes. If this reduces either pool to 0, they fall to the ground debilitated until the spell ends.</p>",
+      "spellTags": ""
+    }
+  }
+}

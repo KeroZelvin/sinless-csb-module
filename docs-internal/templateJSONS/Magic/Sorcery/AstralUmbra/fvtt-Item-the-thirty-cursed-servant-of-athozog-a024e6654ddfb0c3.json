@@ -1,0 +1,19 @@
+{
+  "name": "The Thirty Cursed Servant of Athozog",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mole.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "400",
+      "spellResistance": "N/A",
+      "spellDuration": "Ends at sunrise",
+      "drainFormula": "(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Thirty Cursed Servant of Athozog</h2><p>This summons a cat made from smoke and shadow with glowing yellow eyes. The shadowcat moves with the caster and can go where the caster wishes. The caster can see and hear through the shadow cat as well as he does with their own eyes. The servant of Athozog provides one additional die to <span style=\"font-family:'Bruno Ace', sans-serif;\">observation</span> and <span style=\"font-family:'Bruno Ace', sans-serif;\">Reconnaissance</span> skill tests per point of force.</p>",
+      "spellTags": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Sorcery of the Wraith's Flight",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/wing.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "2500",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "3+(Force/2)",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Sorcery of the Wraith's Flight</h2><p>Wings of shadow and smoke billow behind the caster. They gain a flight movement rate of 12 m (6\").</p>",
+      "spellTags": ""
+    }
+  }
+}

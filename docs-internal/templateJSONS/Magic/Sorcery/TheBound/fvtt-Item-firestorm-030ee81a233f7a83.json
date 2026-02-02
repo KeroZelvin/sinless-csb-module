@@ -1,0 +1,19 @@
+{
+  "name": "Firestorm",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/explosion.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "The Bound",
+      "forceCost": "3600",
+      "spellResistance": "Finesse pool",
+      "spellDuration": "1 round per force of the spell",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Firestorm</h2><p>This spell creates an area of swirling flame and fire equal to a radius of 4 m (2 \") per point of force. Anyone in the area takes 3 damage + net successes + Force in damage. This storm continues to rage in the meantime. Anyone entering or starting their turn in the storm takes 1d6 direct (fire) damage to their physical condition track.</p>",
+      "spellTags": ""
+    }
+  }
+}

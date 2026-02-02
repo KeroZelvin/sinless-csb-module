@@ -1,0 +1,19 @@
+{
+  "name": "Hold",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/paralysis.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "2500",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "2+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Hold</h2><p>This spell targets a number of people equal to 1/2 the force of the spell (minimum 1). On a success, the targets become paralyzed, unable to control their voluntary functions. They are able to speak, though otherwise are unable to move or act.</p>",
+      "spellTags": ""
+    }
+  }
+}

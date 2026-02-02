@@ -1,0 +1,19 @@
+{
+  "name": "Calm",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/holy-shield.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1400",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "10 minutes",
+      "drainFormula": "1+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Calm</h2><p>The caster selects a number of targets equal to the spell's Force. If the target fails its resistance test, they lose the will to fight. As long as they are not attacked, they will not attack for the duration of the spell. Note that this only prevents melee, ranged, and spell combat. Characters may still raise an alarm, flee, or take any other actions.</p>",
+      "spellTags": ""
+    }
+  }
+}

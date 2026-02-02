@@ -1,0 +1,19 @@
+{
+  "name": "The Uncountable Tendrils of Ehon",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/poison.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Astral Umbra",
+      "forceCost": "3500",
+      "spellResistance": "N/A",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "4+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">The Uncountable Tendrils of Ehon</h2><p>Choose a point. A murky haze covers a radius of 4 meters (2\") per point of force. All who are within this field, are assaulted by dark tentacles covered in eyes, hair, and oozing open sores. There are 1d6+Force tentacles in this area that make melee attacks each round. They have a <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span> pool of 5 and do 3 damage. On the caster's turn, including the turn, the spell was successfully cast, the tentacles all attack targets within the haze chosen by the caster. Any person moving through the area without a melee weapon or firing a weapon is subject to one free attack by a tentacle, not one per tentacle. The tentacles are immune to destruction and damage. The tentacles beg and plead for you to help them.</p>",
+      "spellTags": ""
+    }
+  }
+}

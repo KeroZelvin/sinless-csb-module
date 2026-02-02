@@ -1,0 +1,19 @@
+{
+  "name": "Confusion",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/daze.svg",
+  "system": {
+    "template": "SpelTplSinlssA1X",
+    "templateSystemUniqueVersion": 1247909274,
+    "props": {
+      "actionLabel": "Cast",
+      "spellCategory": "Mentalism",
+      "forceCost": "1800",
+      "spellResistance": "Resolve pool",
+      "spellDuration": "1 round per point of force",
+      "drainFormula": "3+Force",
+      "spellRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Confusion</h2><p>The caster selects a target location. Everyone within 2 m (1\") per point of force is subject to a malign brain fog. Everyone who fails to resist the spell is confused, and on their turn must roll a 1d6 to find out what they do: 1-2 attack an ally, 3-4 do nothing, 5-6 act normally.</p>",
+      "spellTags": ""
+    }
+  }
+}
