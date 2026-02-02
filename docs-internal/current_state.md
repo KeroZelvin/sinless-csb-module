@@ -206,6 +206,7 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 - **Hide row artifacts:** remove the green check via `.custom-system-dynamicRow i.fa-circle-check { display:none; }` and clear `a.content-link` background/padding to eliminate the “text box sliver.”
 - **Column alignment:** CSB may emit `td.custom-system-cell-hidden` for empty action buttons; force `display: table-cell` to keep columns aligned.
 - **Chat cards:** item/spell cards now insert an image block between title and successes; CSS size targets `.sl-card-item-img img` (pool cards have no item image). Inline `width/height` on the `<img>` is the reliable fallback when theme scope doesn’t apply.
+- **Folder tree reference:** use `docs-internal/folder-tree.md` to route Create/Import JSON macros and locate content by folder.
 
 ## Test checklist (fast)
 - Call item-roll from:
