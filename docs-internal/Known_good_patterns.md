@@ -1240,6 +1240,131 @@ Fix: ensure only one instance of each wepActionN* key exists on the template; st
 
 ---
 
+## CSB Item Displayer CSS: icons, row alignment, and hiding artifacts
+
+### Target the real icon element
+In CSB item displayers, the default icon is usually:
+
+`a.content-link > img.custom-system-item-container-image`
+
+So size that class directly (not generic item icons):
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table img.custom-system-item-container-image {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+```
+
+### Remove the “text box sliver” behind the name
+The content link can carry a background/border. Make it transparent:
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table a.content-link {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+```
+
+### Hide row checkmarks (if desired)
+The green check icon in item rows can be hidden:
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table .custom-system-dynamicRow i.fa-circle-check {
+  display: none !important;
+}
+```
+
+### Keep columns aligned when CSB hides empty action cells
+When “Hide Empty” is enabled, CSB can emit `td.custom-system-cell-hidden`,
+which collapses the column and shifts the row. Force the cell to remain:
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table td.custom-system-cell-hidden {
+  display: table-cell !important;
+}
+```
+
+### Larger item names for readability
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table a.content-link {
+  font-size: 1.125em;
+}
+```
+
+### Optional background square for transparent icons
+If images have transparent backgrounds, add a square “plate” behind them.
+You can match theme colors via `--sl-ui-surface-2`.
+
+```css
+html[data-sinless-theme] .custom-system.sinlesscsb
+  .custom-system-component-contents table img.custom-system-item-container-image {
+  background: var(--sl-ui-surface-2, #151824);
+  padding: 1px;           /* 72x72 image -> 74x74 square */
+  box-sizing: content-box;
+}
+```
+
+---
+
+## Chat cards: item/spell image block
+
+### Goal
+Render the item image between the cyan title and the success line, centered,
+no padding. Pool cards have no item image and should be skipped.
+
+### Implementation (item-roll + cast-spell)
+
+Insert an optional image block after the title and rule:
+
+```js
+const itemImgHTML = item?.img
+  ? `<div class="sl-card-item-img"><img src="${escapeHTML(item.img)}" alt="${escapeHTML(item.name)}"></div>`
+  : "";
+```
+
+Then include `${itemImgHTML}` above the success line.
+
+### CSS sizing
+
+```css
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message)
+  .message-content :is(.sinlesscsb.item-roll-card, .sinlesscsb.spell-card) .sl-card-item-img {
+  margin: 6px 0 8px 0;
+  text-align: center;
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message)
+  .message-content :is(.sinlesscsb.item-roll-card, .sinlesscsb.spell-card) .sl-card-item-img img {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+```
+
+### If CSS doesn’t apply (chat popouts / theme scope)
+Use inline styles on the `<img>` tag to force size:
+
+```html
+<img src="..." alt="..." style="width:120px; height:120px; object-fit:contain; display:block; margin:0 auto;">
+```
+
+---
+
 ## CSB rich-text image panels (Weapon Card / TarotLand)
 
 Symptom
@@ -1327,6 +1452,46 @@ html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-cont
   display: block;
 }
 ```
+
+## Alert tracking (softwareAlert rules)
+
+Use the alert rules evaluator for any Decking software alert text, then update Session Settings `trackAlert`.
+
+Core rule evaluation (item-roll):
+- File: `scripts/rules/alert-formula.js`
+- Inputs:
+  - `successes`: **final** successes (after untrained fallback)
+  - `targetCount`: **hostile targets only** (token disposition < 0)
+  - `targetHardeningTotal`: **sum** of hardening across hostile targets
+  - `fileSecurity`: Session Settings `system.props.fileSec` (mission-level), default 1
+  - `alertMode` override:
+    - `brute-force` → 2 × successes
+    - `stealth` → flat 1
+- Outputs:
+  - `delta` (number) and `formula` (string)
+
+Update behavior:
+- GM rolls: `await addTrackAlert(...)` so chat shows the new value immediately.
+- Player rolls: **fire-and-forget** via `addTrackAlertAsync(...)` to avoid chat delays caused by GM socket response.
+
+Per-roll overrides:
+- `rollItem({ alertFileSecurity })` can override the session file security rating.
+
+Chat card:
+- Show the computed Alert delta **and** the rule text (e.g., “2 × successes”).
+- If the rule depends on targets/hardening, include the hostile target count and/or the hardening sum in roll info.
+
+## CSS: Item Browser + Chat Cards (CSB)
+
+Item browser (directory) styling:
+- Scope to `html[data-sinless-theme] #sidebar` or `.directory` so sheet layouts aren’t affected.
+- Target `.directory-item`, `.document-name`, and `.document-icon` (avoid global `li`, `a`, or `img` rules).
+
+Chat cards:
+- Style both `.message-content .sinlesscsb` **and** `.message-flavor .sinlesscsb` (Roll.toMessage uses flavor).
+- Keep the `.sinlesscsb` root wrapper on all cards.
+- Use `<hr class="sl-card-rule" />` for separators.
+- Avoid broad font rules that clobber Font Awesome; keep the FA isolation block last in the CSS.
 
 Notes
 - If you add a custom class like `weapon-card-panel` to the CSB panel, verify it actually appears in the rendered DOM. If not, target `weaponCard` directly.

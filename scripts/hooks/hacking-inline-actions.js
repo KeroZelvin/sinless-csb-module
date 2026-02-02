@@ -92,7 +92,7 @@ function rollItemByUuid(itemUuid, actorUuid, scope = {}) {
   api.rollItem({ itemUuid, actorUuid, ...scope });
 }
 
-function rollHackingGeneral({ actor, actorUuid, deckItem }) {
+function rollHackingGeneral({ actor, actorUuid, deckItem, alertMode = "" }) {
   const hacking = findItemByName(actor, "Hacking");
   const source = deckItem || hacking;
   if (!source) {
@@ -100,7 +100,8 @@ function rollHackingGeneral({ actor, actorUuid, deckItem }) {
     return;
   }
   rollItemByUuid(source.uuid, actorUuid, {
-    skillKeyOverride: "Skill_Hacking"
+    skillKeyOverride: "Skill_Hacking",
+    alertMode
   });
 }
 
@@ -256,9 +257,9 @@ function bindInlineHandler(root, actor) {
       case "hack-device":
         return rollHackingGeneral({ actor, actorUuid, deckItem });
       case "brute-force":
-        return rollHackingGeneral({ actor, actorUuid, deckItem });
+        return rollHackingGeneral({ actor, actorUuid, deckItem, alertMode: "brute-force" });
       case "stealth":
-        return rollHackingGeneral({ actor, actorUuid, deckItem });
+        return rollHackingGeneral({ actor, actorUuid, deckItem, alertMode: "stealth" });
       case "camera-off":
         return rollCameraOffFromDeck({ actor, actorUuid, deckItem });
       case "loop-1":

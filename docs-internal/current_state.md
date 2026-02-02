@@ -45,6 +45,12 @@ World macros and CSB template scripts should become **thin callers** into the AP
     - `Damage:` only renders when `itemDamage` or `weaponDamage` is > 0
     - Priority: melee/throwing/cyber/unarmed formula total (if a legacy formula string exists) → flat numeric `itemDamage` → flat `weaponDamage`
     - `Special Damage:` renders only when `specialDamage` is non-empty (escaped text)
+  - Alert tracking (Decking):
+    - Rules: `scripts/rules/alert-formula.js` parses `softwareAlert` strings (e.g., `per target`, `hardening of target`, `2x successes`, `3 + 1 per success`)
+    - State: Session Settings `system.props.trackAlert` (current) and `system.props.fileSec` (mission file security, default 1 if missing)
+    - Context: uses **final successes**, **hostile targets only** (token disposition < 0), and **sum of target hardening** (prefers `npcHardening`, then fallbacks)
+    - Overrides: `alertMode` (`brute-force` = 2 × successes, `stealth` = flat 1), `alertFileSecurity` to override fileSec
+    - Update behavior: GM rolls update synchronously; non‑GM rolls fire‑and‑forget to avoid chat delay
 
 ### Cast Spell
 - File: `scripts/api/cast-spell.js`
@@ -194,6 +200,12 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 ## Recent completions
 - Pools roller is now API-backed (`scripts/api/pools-roll.js`) with DialogV2 and refresh.
 - Initiative (PC + NPC) is now API-backed (`scripts/api/initiative-roll.js`).
+
+## UI/CSS learnings (CSB)
+- **Item Displayer icon sizing:** target `img.custom-system-item-container-image` inside the displayer table; this is the actual icon element in rows.
+- **Hide row artifacts:** remove the green check via `.custom-system-dynamicRow i.fa-circle-check { display:none; }` and clear `a.content-link` background/padding to eliminate the “text box sliver.”
+- **Column alignment:** CSB may emit `td.custom-system-cell-hidden` for empty action buttons; force `display: table-cell` to keep columns aligned.
+- **Chat cards:** item/spell cards now insert an image block between title and successes; CSS size targets `.sl-card-item-img img` (pool cards have no item image). Inline `width/height` on the `<img>` is the reliable fallback when theme scope doesn’t apply.
 
 ## Test checklist (fast)
 - Call item-roll from:

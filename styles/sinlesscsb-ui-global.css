@@ -405,6 +405,22 @@ html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
   text-shadow: 0 0 12px rgba(0,245,255,0.25) !important;
 }
 
+/* Item roll card image (between title and successes) */
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content :is(.sinlesscsb.item-roll-card, .sinlesscsb.spell-card) .sl-card-item-img {
+  margin: 6px 0 8px 0;
+  text-align: center;
+}
+
+html[data-sinless-theme] :is(#chat-log, #chat .chat-log, .chat-popout .chat-log)
+  :is(li.chat-message, .chat-message) .message-content :is(.sinlesscsb.item-roll-card, .sinlesscsb.spell-card) .sl-card-item-img img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
 html[data-sinless-theme] :is(
   #chat-log,
   #chat .chat-log,
@@ -714,6 +730,159 @@ html[data-sinless-theme] .custom-system-label-root.header-title,
 html[data-sinless-theme] .custom-system-label-root.is-title {
   font-weight: 700 !important;
   font-style: normal !important;
+}
+
+/* =========================================================
+   Item Displayer sizing (bigger rows + icons)
+   ========================================================= */
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container {
+  --sinless-item-row-height: 52px;
+  --sinless-item-icon-size: 44px;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container table tbody tr {
+  height: var(--sinless-item-row-height) !important;
+  min-height: var(--sinless-item-row-height) !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container table td,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container table th {
+  vertical-align: middle;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container table td {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(img, .item-image, .item-icon, .custom-system-item-image, .custom-system-item-icon) {
+  width: var(--sinless-item-icon-size) !important;
+  height: var(--sinless-item-icon-size) !important;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item, .custom-system-item-row, .item, li) {
+  min-height: var(--sinless-item-row-height) !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hide the default reference-column icon (leave text + click target intact) */
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name, td.item-name, td.item-reference) img {
+  display: none !important;
+}
+
+/* Direct icon element used by CSB in item rows */
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container img.custom-system-item-container-image {
+  width: 72px !important;
+  height: 72px !important;
+  object-fit: cover;
+  padding: 1px;
+  box-sizing: content-box;
+  background-color: var(--sl-ui-surface-2, #151824);
+  margin-right: 8px;
+}
+
+/* Fallback: apply even if theme root marker isn't present */
+.custom-system .custom-system-item-container img.custom-system-item-container-image {
+  width: 72px !important;
+  height: 72px !important;
+  object-fit: cover;
+  padding: 1px;
+  box-sizing: content-box;
+  background-color: var(--sl-ui-surface-2, #151824);
+  margin-right: 8px;
+}
+
+/* Item Displayer rows can render without .custom-system-item-container */
+.custom-system .custom-system-component-contents table img.custom-system-item-container-image {
+  width: 72px !important;
+  height: 72px !important;
+  max-width: 72px !important;
+  max-height: 72px !important;
+  object-fit: cover;
+  padding: 1px;
+  box-sizing: content-box;
+  background-color: var(--sl-ui-surface-2, #151824);
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Remove left padding/background from Foundry content-link to prevent left "stub" */
+.custom-system .custom-system-component-contents table a.content-link {
+  padding-left: 0 !important;
+  background-image: none !important;
+}
+
+/* Hide the leading status icon in item displayer rows (removes left stub) */
+.custom-system .custom-system-component-contents table .custom-system-dynamicRow i.fa-circle-check {
+  display: none !important;
+}
+
+/* Match item-name highlight to row background to remove left sliver */
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents table a.content-link,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents table a.entity-link {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Slightly larger item names in item displayers */
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents table a.content-link,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-component-contents table a.entity-link {
+  font-size: 1.125em;
+}
+
+/* Keep hidden cells from collapsing columns in item displayers */
+.custom-system .custom-system-component-contents table td.custom-system-cell-hidden {
+  display: table-cell !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name, td.item-name, td.item-reference) {
+  background-image: none !important;
+  padding-left: 0 !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name, td.item-name, td.item-reference)::before,
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name, td.item-name, td.item-reference)::after {
+  content: none !important;
+  display: none !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name, td.item-name, td.item-reference) :is(a.entity-link, a.content-link) {
+  background-image: none !important;
+  padding-left: 0 !important;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name)::before {
+  width: var(--sinless-item-icon-size);
+  height: var(--sinless-item-icon-size);
+  background-size: cover;
+}
+
+html[data-sinless-theme] .custom-system.sinlesscsb .custom-system-item-container :is(.custom-system-item-reference, .item-reference, .item-name, .custom-system-item-name)[style*="background-image"] {
+  background-size: var(--sinless-item-icon-size) var(--sinless-item-icon-size);
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: calc(var(--sinless-item-icon-size) + 10px);
+  min-height: var(--sinless-item-row-height);
+}
+
+/* =========================================================
+   Sheet portraits (Actor + Item) display safety
+   ========================================================= */
+
+html[data-sinless-theme] .custom-system.sinlesscsb .sheet-header :is(.profile-img, img.profile-img, img[data-edit="img"], .profile, .custom-system-picture, .custom-system-picture img) {
+  object-fit: contain;
+  object-position: left bottom;
 }
 
 /* =========================================================

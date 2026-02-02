@@ -1,5 +1,6 @@
 // scripts/hooks/combat.js
 import { refreshPoolsForCombat } from "../rules/pools.js";
+import { resetTrackAlert } from "../api/alert-tracking.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -55,14 +56,29 @@ export function registerCombatHooks() {
   Hooks.on("updateCombat", async (combat, changed, options, userId) => {
     try {
       await maybeRefreshPools(combat, changed);
+
+      if (!automationEnabled()) return;
+      if (
+        (Object.prototype.hasOwnProperty.call(changed ?? {}, "active") && changed.active === false) ||
+        (Object.prototype.hasOwnProperty.call(changed ?? {}, "started") && changed.started === false)
+      ) {
+        await resetTrackAlert({ allowSocket: false, reason: "combatEnd" });
+      }
     } catch (e) {
       console.error("SinlessCSB | Pools refresh failed", e);
     }
   });
 
   // Cleanup state when an encounter is deleted
-  Hooks.on("deleteCombat", (combat) => {
+  Hooks.on("deleteCombat", async (combat) => {
     if (combat?.id) POOL_REFRESH_STATE.delete(combat.id);
+    try {
+      if (automationEnabled()) {
+        await resetTrackAlert({ allowSocket: false, reason: "deleteCombat" });
+      }
+    } catch (e) {
+      console.warn("SinlessCSB | Track Alert reset (deleteCombat) failed", e);
+    }
   });
 
   console.log("SinlessCSB | Combat hooks registered (pools)");

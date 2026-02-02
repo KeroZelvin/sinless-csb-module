@@ -24,6 +24,8 @@ import {
 } from "./_util.js";
 
 import { evaluateDamageFormula } from "../rules/damage-formula.js";
+import { evaluateAlertFormula } from "../rules/alert-formula.js";
+import { addTrackAlert, addTrackAlertAsync } from "./alert-tracking.js";
 
 /* ----------------------------- */
 /* Session Settings helpers      */
@@ -532,7 +534,7 @@ const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
       readItemProp(item, "softwareAlert_copy1") ??
       ""
     ).trim();
-    const trackAlertText = String(sessionActor?.system?.props?.trackAlert ?? "").trim();
+    let trackAlertText = String(sessionActor?.system?.props?.trackAlert ?? "").trim();
 
     const weaponDamageRaw = readItemProp(item, "weaponDamage");
     const weaponDamage = Number.isFinite(Number(weaponDamageRaw))
@@ -746,6 +748,94 @@ const spendHelp = (mode === "untrainedPool")
     const { roll, results, successes: rawSuccesses } = await rollXd6Successes({ dice: totalDice, tn: TN });
     const finalSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
 
+    // Alert tracking (post-roll so we can use successes/targets)
+    const alertMode = String(scope?.alertMode ?? "").trim();
+    const fileSecurityRaw =
+      (scope?.alertFileSecurity !== undefined ? scope.alertFileSecurity : undefined) ??
+      sessionActor?.system?.props?.fileSec ??
+      readItemProp(item, "fileSecurity") ??
+      readItemProp(item, "fileSecurityRating") ??
+      readItemProp(item, "fileSecurityLevel") ??
+      "";
+
+    const targets = Array.from(game.user?.targets ?? []);
+    const isHostileTarget = (t) => {
+      const disp = Number(t?.document?.disposition ?? t?.disposition ?? NaN);
+      return Number.isFinite(disp) ? disp < 0 : false;
+    };
+    const hostileTargets = targets.filter(isHostileTarget);
+    const targetActors = hostileTargets
+      .map(t => t?.actor ?? t?.document?.actor ?? null)
+      .filter(a => a && a.documentName === "Actor");
+
+    const getTargetHardening = (a) => {
+      const p = a?.system?.props ?? {};
+      const keys = ["npcHardening", "hardening", "hardeningRig", "hardeningDeck", "wepHardening"];
+      for (const k of keys) {
+        const v = num(p?.[k], NaN);
+        if (Number.isFinite(v)) return Math.max(0, Math.floor(v));
+      }
+      return NaN;
+    };
+
+    const hardeningValues = targetActors
+      .map(a => getTargetHardening(a))
+      .filter(v => Number.isFinite(v));
+
+    const targetHardeningTotal = hardeningValues.reduce((acc, v) => acc + v, 0);
+    const targetHardeningMax = hardeningValues.length ? Math.max(...hardeningValues) : NaN;
+
+    let fileSecurityValue = Number.isFinite(num(fileSecurityRaw, NaN))
+      ? Math.max(0, Math.floor(num(fileSecurityRaw, 0)))
+      : 1;
+
+    let alertEval = evaluateAlertFormula(softwareAlertText, {
+      alertMode,
+      successes: finalSuccesses,
+      targetCount: hostileTargets.length,
+      targetHardeningTotal,
+      targetHardeningMax,
+      fileSecurity: fileSecurityValue
+    });
+
+    if (alertEval?.kind === "file-security" && !Number.isFinite(alertEval?.delta)) {
+      alertEval = evaluateAlertFormula(softwareAlertText, {
+        alertMode,
+        successes: finalSuccesses,
+        targetCount: hostileTargets.length,
+        targetHardeningTotal,
+        targetHardeningMax,
+        fileSecurity: fileSecurityValue
+      });
+    }
+
+    const alertDelta = Number.isFinite(alertEval?.delta) ? Math.max(0, Math.floor(alertEval.delta)) : null;
+    const alertFormulaText = String(alertEval?.formula ?? softwareAlertText ?? "").trim();
+
+    if (Number.isFinite(alertDelta) && alertDelta !== 0) {
+      try {
+        if (game.user?.isGM) {
+          const res = await addTrackAlert({
+            delta: alertDelta,
+            allowSocket: true,
+            reason: alertEval?.kind || "softwareAlert"
+          });
+          if (Number.isFinite(res?.value)) {
+            trackAlertText = String(res.value);
+          }
+        } else {
+          // Fire-and-forget for players so chat output isn't delayed by GM socket response
+          addTrackAlertAsync({
+            delta: alertDelta,
+            allowSocket: true,
+            reason: alertEval?.kind || "softwareAlert"
+          });
+        }
+      } catch (e) {
+        console.warn("SinlessCSB | trackAlert update failed", { alertDelta, e });
+      }
+    }
+
     let damage = null;
     let damageValue = null;
 
@@ -876,9 +966,12 @@ const spendHelp = (mode === "untrainedPool")
       </p>
     ` : "";
 
-    const alertLineHTML = softwareAlertText ? `
+    const alertLineHTML = (alertFormulaText || Number.isFinite(alertDelta)) ? `
       <p style="margin:0 0 6px 0;">
-        Alert: <strong>${escapeHTML(softwareAlertText)}</strong>
+        Alert: <strong>${escapeHTML(Number.isFinite(alertDelta) ? alertDelta : alertFormulaText)}</strong>
+        ${Number.isFinite(alertDelta) && alertFormulaText
+          ? `<span style="font-size:12px; opacity:0.85;">(${escapeHTML(alertFormulaText)})</span>`
+          : ""}
       </p>
     ` : "";
 
@@ -886,6 +979,53 @@ const spendHelp = (mode === "untrainedPool")
       <p style="margin:0 0 6px 0;">
         Track Alert: <strong>${escapeHTML(trackAlertText)}</strong>
       </p>
+    ` : "";
+
+    const alertDetailLines = [];
+    if (alertFormulaText) {
+      alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Alert rule:</strong> ${escapeHTML(alertFormulaText)}</p>`);
+    }
+    if (Number.isFinite(alertDelta)) {
+      alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Alert delta:</strong> ${escapeHTML(alertDelta)}</p>`);
+    }
+
+    const alertUsesSuccesses = ["brute-force", "mult-success", "per-success", "base-plus-success"].includes(alertEval?.kind);
+    if (alertUsesSuccesses) {
+      alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Successes:</strong> ${escapeHTML(finalSuccesses)}</p>`);
+    }
+
+    if (alertEval?.kind === "per-target") {
+      alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Targets (hostile):</strong> ${escapeHTML(hostileTargets.length)}</p>`);
+      if (targets.length !== hostileTargets.length) {
+        alertDetailLines.push(`<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Targets (all):</strong> ${escapeHTML(targets.length)}</p>`);
+      }
+    }
+
+    if (alertEval?.kind === "hardening") {
+      if (hardeningValues.length) {
+        alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Target hardening:</strong> ${escapeHTML(hardeningValues.join(", "))}</p>`);
+      } else {
+        alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>Target hardening:</strong> (none found)</p>`);
+      }
+    }
+
+    if (alertEval?.kind === "file-security") {
+      const fs = Number.isFinite(num(fileSecurityValue, NaN)) ? Math.max(0, Math.floor(num(fileSecurityValue, 0))) : null;
+      if (Number.isFinite(fs)) {
+        alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>File security:</strong> ${escapeHTML(fs)}</p>`);
+      } else {
+        alertDetailLines.push(`<p style="margin:0 0 6px 0;"><strong>File security:</strong> (not provided)</p>`);
+      }
+    }
+
+    if ((alertEval?.notes ?? []).length) {
+      alertDetailLines.push(`<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Alert note:</strong> ${escapeHTML(alertEval.notes.join("; "))}</p>`);
+    }
+
+    const alertDetailHTML = alertDetailLines.length ? `
+      <div style="margin:0 0 6px 0;">
+        ${alertDetailLines.join("")}
+      </div>
     ` : "";
 
     const damageDetailsHTML = (damage && damage.kind === "formula" && damageValue) ? `
@@ -948,10 +1088,19 @@ const spendHelp = (mode === "untrainedPool")
       : `<p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(newPool)}</p>`;
 
 
+    const itemImgHTML = item?.img
+      ? `<div class="sl-card-item-img" style="text-align:center; margin:6px 0 8px 0;">
+          <img src="${escapeHTML(item.img)}" alt="${escapeHTML(item.name)}"
+               style="width:120px; height:120px; object-fit:contain; display:block; margin:0 auto;">
+         </div>`
+      : "";
+
     const content = `
       <div class="sinlesscsb item-roll-card">
         <h3 style="margin:0 0 6px 0;">${escapeHTML(item.name)}</h3>
         <hr class="sl-card-rule"/>
+
+        ${itemImgHTML}
 
         <div style="text-align:center; margin:10px 0 12px 0;">
           <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLine)}</div>
@@ -972,6 +1121,7 @@ const spendHelp = (mode === "untrainedPool")
           ${pilotLine}
           <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
           ${trackAlertLineHTML}
+          ${alertDetailHTML}
           <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>
 
           <p style="margin:0 0 6px 0;"><strong>Target Skill:</strong> ${escapeHTML(skillKey)} (base ${escapeHTML(baseSkillVal)})</p>

@@ -11,7 +11,8 @@ import {
   getDialogFormFromCallbackArgs,
   readDialogNumber,
   openDialogV2,
-  propPath
+  propPath,
+  escapeHTML
 } from "./_util.js";
 
 /**
@@ -119,13 +120,22 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
     <p style="margin:0 0 6px 0;">${drainAppliedLabel}: <strong>${drain.applied}</strong></p>
   `;
 
+  const itemImgHTML = item?.img
+    ? `<div class="sl-card-item-img" style="text-align:center; margin:6px 0 8px 0;">
+        <img src="${escapeHTML(item.img)}" alt="${escapeHTML(item.name)}"
+             style="width:120px; height:120px; object-fit:contain; display:block; margin:0 auto;">
+       </div>`
+    : "";
+
   const content = `
     <div class="sinlesscsb spell-card">
       <div class="sl-card-title">
-        <h3>${title}</h3>
-        <div class="sl-badge">${actor?.name ?? "—"}</div>
+        <h3>${escapeHTML(title)}</h3>
+        <div class="sl-badge">${escapeHTML(actor?.name ?? "—")}</div>
       </div>
       <hr class="sl-card-rule"/>
+
+      ${itemImgHTML}
 
       <div style="text-align:center; margin:10px 0 12px 0;">
         <div style="font-size:28px; font-weight:bold;">${successLabel}</div>

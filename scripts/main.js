@@ -23,6 +23,7 @@ import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
 import { rollPools, refreshPools } from "./api/pools-roll.js";
 import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
+import { resetTrackAlert, registerAlertSocketHandler } from "./api/alert-tracking.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
 import { drawTableResultTile } from "./api/table-to-tile.js";
 import { drawChasePath, clearChaseBoard } from "./api/chase-controls.js";
@@ -119,6 +120,7 @@ function exposeModuleAPI() {
     refreshPools,
     rollInitiative,
     rollNpcInitiative,
+    resetTrackAlert,
     drawTableResultTile,
     drawChasePath,
     clearChaseBoard,
@@ -162,6 +164,7 @@ Hooks.once("init", () => {
   registerHackingInlineActions();
   registerSoftwareSlotRefreshHooks();
   registerCyberdeckSingleHooks();
+  registerAlertSocketHandler();
 
   // NEW: Enables token bars bound to system.props.*Bar and allows token HUD edits
   // to write back into stunCur / physicalCur while keeping your canonical keys.

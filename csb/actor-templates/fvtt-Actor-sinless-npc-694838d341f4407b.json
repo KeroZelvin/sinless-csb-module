@@ -83,8 +83,8 @@
       "width": 500,
       "height": 500,
       "fix_size": false,
-      "pp_width": 64,
-      "pp_height": 64
+      "pp_width": 200,
+      "pp_height": 200
     },
     "header": {
       "contents": [
