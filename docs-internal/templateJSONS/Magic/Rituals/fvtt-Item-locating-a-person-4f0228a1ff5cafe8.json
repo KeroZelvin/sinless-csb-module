@@ -1,0 +1,13 @@
+{
+  "name": "Locating a Person",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/target.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "3",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Locating a Person</h2><p>This <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span> requires something important to the person being located. The number of successes indicates the range of the spell. If the target is outside this range, the spell fails. The ritualist will follow where the spell leads for a short distance, and then will be granted a vision of the subject and knowledge of where they are in relation to the caster. This <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span> costs 1 manastelliate to perform, and takes 10 minutes.</p><ul><li>10 miles</li><li>100 miles</li><li>1,000 miles</li><li>The entire planet</li><li>The entire solar system</li><li>Other planes/realms of existence.</li></ul>"
+    }
+  }
+}

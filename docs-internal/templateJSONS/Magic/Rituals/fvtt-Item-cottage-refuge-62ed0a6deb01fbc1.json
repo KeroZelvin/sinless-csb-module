@@ -1,0 +1,13 @@
+{
+  "name": "Cottage Refuge",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/house.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "1",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Cottage Refuge</h2><p>This is a traditional home protection spell. If you sleep in a residence for at least 30 days, you can perform the <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span>. Make a test using a number of dice equal to their <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span> skill rank. Anyone attempting to enter the house not invited must succeed at a <span style=\"font-family:'Bruno Ace', sans-serif;\">Resolve</span> pool resistance test and exceed the number of successes scored on the <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span>.</p>"
+    }
+  }
+}

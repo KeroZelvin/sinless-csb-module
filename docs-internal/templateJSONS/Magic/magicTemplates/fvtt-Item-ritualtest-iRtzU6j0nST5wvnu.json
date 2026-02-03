@@ -1,0 +1,222 @@
+{
+  "folder": "6lAsZV9lPeO51DJT",
+  "name": "RitualTest",
+  "type": "equippableItem",
+  "_id": "iRtzU6j0nST5wvnu",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "spellforceMax",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "full-size",
+              "label": "Ritual Skill lvl",
+              "defaultValue": "1",
+              "allowDecimal": false,
+              "minVal": "1",
+              "maxVal": "",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "hover",
+              "controlsCustomIncrements": "",
+              "inputStyle": "text"
+            },
+            {
+              "key": "spellforceDefault",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "full-size",
+              "label": "Ritual Force Used",
+              "defaultValue": "1",
+              "allowDecimal": false,
+              "minVal": "1",
+              "maxVal": "${spellforceMax}$",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "hover",
+              "controlsCustomIncrements": "",
+              "inputStyle": "text"
+            },
+            {
+              "key": "ritualDrain",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "medium",
+              "label": "Drain",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "grid-2",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "ritualRulestext",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textArea",
+              "size": "full-size",
+              "label": "",
+              "defaultValue": "<p>Paste text from book / other useful info here.</p>",
+              "style": "sheet"
+            }
+          ],
+          "flow": "horizontal",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": true,
+          "title": "Ritual Rules",
+          "titleStyle": "default"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 4,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [],
+          "flow": "grid-2",
+          "align": "center",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": true,
+          "title": "hidden",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "modifiers": [],
+    "props": {
+      "spellforceDefault": "1",
+      "spellforceMax": "1",
+      "ritualRulestext": "<p>Paste text from book / other useful info here.</p>",
+      "ritualDrain": "3"
+    },
+    "unique": false,
+    "templateSystemUniqueVersion": 1319411609,
+    "uniqueId": "iRtzU6j0nST5wvnu",
+    "template": "25Qy5a7maYi8KQOX"
+  },
+  "effects": [],
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "Item.iRtzU6j0nST5wvnu",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.1.0"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1770096453757,
+    "modifiedTime": 1770096566304,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "items": [],
+  "ownership": {
+    "default": 0
+  }
+}

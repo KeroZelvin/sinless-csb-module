@@ -1,0 +1,13 @@
+{
+  "name": "Recall Device",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/item-bag.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "3",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Recall Device</h2><p>Enchant a small object with 1 manastelliate of weight one or less, and with a simple action summon that object to your pocket or hand. The drain occurs every time the object is called.</p><p><em><<Never lose your keys again! Pick up a Recall <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span> from the world leader in dimensional technologies, Nexus inc.>> --NexusAdPlay</em></p>"
+    }
+  }
+}

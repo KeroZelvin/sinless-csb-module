@@ -1,0 +1,13 @@
+{
+  "name": "Preservation",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/ice-shield.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "2",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Preservation</h2><p>This lowers the energy in a system, preventing decay. It takes 30 minutes. Objects and food age and spoil at 1/10 the speed they normally do. You can preserve 1 square meter per success.</p>"
+    }
+  }
+}

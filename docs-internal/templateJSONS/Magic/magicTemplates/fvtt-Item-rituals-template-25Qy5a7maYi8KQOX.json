@@ -1,0 +1,6780 @@
+{
+  "name": "Rituals Template",
+  "type": "_equippableItemTemplate",
+  "img": "systems/custom-system-builder/img/template-logo.svg",
+  "system": {
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "spellforceMax",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "full-size",
+              "label": "Ritual Skill lvl",
+              "defaultValue": "1",
+              "allowDecimal": false,
+              "minVal": "1",
+              "maxVal": "",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "hover",
+              "controlsCustomIncrements": "",
+              "inputStyle": "text"
+            },
+            {
+              "key": "spellforceDefault",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "numberField",
+              "size": "full-size",
+              "label": "Ritual Force Used",
+              "defaultValue": "1",
+              "allowDecimal": false,
+              "minVal": "1",
+              "maxVal": "${spellforceMax}$",
+              "allowRelative": false,
+              "showControls": true,
+              "controlsStyle": "hover",
+              "controlsCustomIncrements": "",
+              "inputStyle": "text"
+            },
+            {
+              "key": "ritualDrain",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "medium",
+              "label": "Drain",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "grid-2",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "ritualRulestext",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textArea",
+              "size": "full-size",
+              "label": "",
+              "defaultValue": "<p>Paste text from book / other useful info here.</p>",
+              "style": "sheet"
+            }
+          ],
+          "flow": "horizontal",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": true,
+          "title": "Ritual Rules",
+          "titleStyle": "default"
+        },
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 4,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [],
+          "flow": "grid-2",
+          "align": "center",
+          "verticalAlign": "top",
+          "collapsible": true,
+          "defaultCollapsed": true,
+          "title": "hidden",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "modifiers": [],
+    "templateSystemUniqueVersion": 1319411609,
+    "uniqueId": "25Qy5a7maYi8KQOX"
+  },
+  "effects": [],
+  "folder": "oWRM8pNMOUkbZHoV",
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.0.2",
+      "templateHistory": [
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              9,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              8,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              7,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              6,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              5,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "key"
+            ],
+            "lhs": "spellRulestext",
+            "rhs": "ritualRulestext"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "label"
+            ],
+            "lhs": "Spell Rules",
+            "rhs": "Ritual Rules"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              9,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              8,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              7,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              6,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              5,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "label"
+            ],
+            "lhs": "Ritual Rules",
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              3,
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              9,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              8,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              7,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              6,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              5,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "title"
+            ],
+            "lhs": "Rules Text",
+            "rhs": "Ritual Rules"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents"
+            ],
+            "index": 3,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 4,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "panel",
+                "contents": [
+                  {
+                    "key": "",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "sinlesscsb-marker",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "panel",
+                    "contents": [
+                      {
+                        "key": "",
+                        "colSpan": 1,
+                        "rowSpan": 1,
+                        "cssClass": "",
+                        "role": 0,
+                        "editRole": 0,
+                        "permission": 0,
+                        "tooltip": "",
+                        "visibilityFormula": "",
+                        "editableFormula": "",
+                        "escapeHTML": false,
+                        "type": "label",
+                        "size": "full-size",
+                        "icon": "star",
+                        "value": "${actionLabel ? actionLabel : \"Cast\"}$",
+                        "prefix": "",
+                        "suffix": "",
+                        "rollMessage": "%{\n  // Prefer linkedEntity (inventory row) then entity (item sheet)\n  const doc = (typeof linkedEntity !== \"undefined\" && linkedEntity) ? linkedEntity\n            : (typeof entity !== \"undefined\" && entity) ? entity\n            : null;\n\n  const itemUuid = String(doc?.uuid ?? \"\").trim();\n\n  // Actor resolution: embedded parent wins; otherwise token/character fallbacks.\n  const embeddedActorUuid =\n    (doc?.parent?.documentName === \"Actor\" && doc?.parent?.uuid) ? String(doc.parent.uuid) : \"\";\n\n  const scopeActorUuid =\n    (typeof actor !== \"undefined\" && actor?.documentName === \"Actor\" && actor?.uuid) ? String(actor.uuid) : \"\";\n\n  const controlledActorUuid = (() => {\n    const t = canvas?.tokens?.controlled?.[0];\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const targetedActorUuid = (() => {\n    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const userCharUuid = game.user?.character?.uuid ? String(game.user.character.uuid) : \"\";\n\n  const actorUuid = String(\n    embeddedActorUuid ||\n    scopeActorUuid ||\n    controlledActorUuid ||\n    targetedActorUuid ||\n    userCharUuid ||\n    \"\"\n  ).trim();\n\n  if (!itemUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: missing spell item context (itemUuid).\");\n    return \"\";\n  }\n\n  if (!actorUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: No actor context. Control or target a token, then try again.\");\n    return \"\";\n  }\n\n  const api = game.modules.get(\"sinlesscsb\")?.api;\n  if (typeof api?.castSpell !== \"function\") {\n    ui.notifications?.error?.(\"SinlessCSB: castSpell API not available (module not ready / not exposed).\");\n    return \"\";\n  }\n\n  api.castSpell({ itemUuid, actorUuid });\n  return \"\";\n}%\n",
+                        "altRollMessage": "",
+                        "rollMessageToChat": false,
+                        "altRollMessageToChat": false,
+                        "style": "button"
+                      }
+                    ],
+                    "flow": "vertical",
+                    "align": "center",
+                    "verticalAlign": "top",
+                    "collapsible": false,
+                    "defaultCollapsed": false,
+                    "title": "",
+                    "titleStyle": "default"
+                  },
+                  {
+                    "key": "spellCategory",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "textField",
+                    "size": "full-size",
+                    "label": "Category",
+                    "defaultValue": "Combat",
+                    "charList": "",
+                    "maxLength": null,
+                    "autocomplete": ""
+                  },
+                  {
+                    "key": "drainForceMult",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "numberField",
+                    "size": "full-size",
+                    "label": "Drain xForce",
+                    "defaultValue": "1",
+                    "allowDecimal": true,
+                    "minVal": "0",
+                    "maxVal": "",
+                    "allowRelative": false,
+                    "showControls": true,
+                    "controlsStyle": "hover",
+                    "controlsCustomIncrements": "",
+                    "inputStyle": "text"
+                  },
+                  {
+                    "key": "skillKey",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "textField",
+                    "size": "full-size",
+                    "label": "skillKey",
+                    "defaultValue": "Skill_Sorcery",
+                    "charList": "",
+                    "maxLength": null,
+                    "autocomplete": ""
+                  },
+                  {
+                    "key": "poolKey",
+                    "colSpan": 1,
+                    "rowSpan": 1,
+                    "cssClass": "",
+                    "role": 0,
+                    "editRole": 0,
+                    "permission": 0,
+                    "tooltip": "",
+                    "visibilityFormula": "",
+                    "editableFormula": "",
+                    "escapeHTML": false,
+                    "type": "textField",
+                    "size": "full-size",
+                    "label": "poolKey",
+                    "defaultValue": "Resolve",
+                    "charList": "",
+                    "maxLength": null,
+                    "autocomplete": ""
+                  }
+                ],
+                "flow": "grid-2",
+                "align": "center",
+                "verticalAlign": "top",
+                "collapsible": true,
+                "defaultCollapsed": true,
+                "title": "hidden",
+                "titleStyle": "default"
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "role"
+            ],
+            "lhs": 0,
+            "rhs": 4
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "key"
+            ],
+            "lhs": "spellTags",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "label"
+            ],
+            "lhs": "Tags",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "defaultValue"
+            ],
+            "lhs": "",
+            "rhs": "Resolve"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              4,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "key"
+            ],
+            "lhs": "",
+            "rhs": "skillKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "type"
+            ],
+            "lhs": "panel",
+            "rhs": "textField"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "contents"
+            ],
+            "lhs": [
+              {
+                "key": "exampleForce",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textArea",
+                "size": "full-size",
+                "label": "",
+                "defaultValue": "<ol><li data-start=\"5936\" data-end=\"6018\"><p data-start=\"5938\" data-end=\"5952\">Use <code data-start=\"5906\" data-end=\"5913\">Force</code> for the chosen Force.</p><p></p></li><li data-start=\"5936\" data-end=\"6018\"><p data-start=\"5938\" data-end=\"5952\">Allowed example forms:</p><ul data-start=\"5955\" data-end=\"6018\"><li data-start=\"5955\" data-end=\"5968\"><p data-start=\"5957\" data-end=\"5968\"><code data-start=\"5957\" data-end=\"5968\">3 + Force</code></p></li><li data-start=\"5971\" data-end=\"5988\"><p data-start=\"5973\" data-end=\"5988\"><code data-start=\"5973\" data-end=\"5988\">1 + (Force/2)</code></p></li><li data-start=\"5991\" data-end=\"6004\"><p data-start=\"5993\" data-end=\"6004\"><code data-start=\"5993\" data-end=\"6004\">(Force/2)</code></p><p data-start=\"6021\" data-end=\"6098\"></p></li></ul></li></ol>",
+                "style": "sheet"
+              }
+            ]
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "flow"
+            ],
+            "lhs": "horizontal"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "align"
+            ],
+            "lhs": "left"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "verticalAlign"
+            ],
+            "lhs": "top"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "collapsible"
+            ],
+            "lhs": true
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "defaultCollapsed"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "title"
+            ],
+            "lhs": "Drain Formula Syntax Guidelines"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "titleStyle"
+            ],
+            "lhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "size"
+            ],
+            "rhs": "full-size"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "label"
+            ],
+            "rhs": "skillKey"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "defaultValue"
+            ],
+            "rhs": "Skill_Sorcery"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "charList"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "maxLength"
+            ],
+            "rhs": null
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "autocomplete"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "key"
+            ],
+            "lhs": "drainFormula",
+            "rhs": "drainForceMult"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "type"
+            ],
+            "lhs": "textField",
+            "rhs": "numberField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "label"
+            ],
+            "lhs": "Drain Formula",
+            "rhs": "Drain xForce"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "defaultValue"
+            ],
+            "lhs": "1 + (Force/2) ---example, REPLACE with correct formula---",
+            "rhs": "1"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "charList"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "maxLength"
+            ],
+            "lhs": null
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "autocomplete"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "allowDecimal"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "minVal"
+            ],
+            "rhs": "0"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "maxVal"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "allowRelative"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "showControls"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "controlsStyle"
+            ],
+            "rhs": "hover"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "controlsCustomIncrements"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "inputStyle"
+            ],
+            "rhs": "text"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "key"
+            ],
+            "lhs": "",
+            "rhs": "spellCategory"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "type"
+            ],
+            "lhs": "panel",
+            "rhs": "textField"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "contents"
+            ],
+            "lhs": [
+              {
+                "key": "spellFociRank",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Foci Rank",
+                "defaultValue": "1",
+                "allowDecimal": false,
+                "minVal": "1",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "forceCost",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Cost (per lvl Force)",
+                "defaultValue": "",
+                "allowDecimal": false,
+                "minVal": "0",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": false,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "fetishRank",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Fetish Rank",
+                "defaultValue": "0",
+                "allowDecimal": false,
+                "minVal": "0",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "bonusDice",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "bonusDice",
+                "defaultValue": "0",
+                "allowDecimal": false,
+                "minVal": "",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": false,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "spellDuration",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "Duration",
+                "defaultValue": "Instantaneous",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              },
+              {
+                "key": "diceMod",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "diceMod",
+                "defaultValue": "0",
+                "allowDecimal": false,
+                "minVal": "",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": false,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "spellArea",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "Area",
+                "defaultValue": "Single",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              },
+              {
+                "key": "fociCost",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Foci Cost (per lvl)",
+                "defaultValue": "1000",
+                "allowDecimal": false,
+                "minVal": "",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              },
+              {
+                "key": "spellResistance",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "Target Resistance",
+                "defaultValue": "Brawn Pool",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              },
+              {
+                "key": "fetishCost",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Fetish Cost (per lvl)",
+                "defaultValue": "1000",
+                "allowDecimal": false,
+                "minVal": "",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": false,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              }
+            ]
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "flow"
+            ],
+            "lhs": "grid-2"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "align"
+            ],
+            "lhs": "left"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "verticalAlign"
+            ],
+            "lhs": "top"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "collapsible"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "defaultCollapsed"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "title"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "titleStyle"
+            ],
+            "lhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "size"
+            ],
+            "rhs": "full-size"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "label"
+            ],
+            "rhs": "Category"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "defaultValue"
+            ],
+            "rhs": "Combat"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "charList"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "maxLength"
+            ],
+            "rhs": null
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "autocomplete"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "key"
+            ],
+            "lhs": "actionLabel",
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "cssClass"
+            ],
+            "lhs": "",
+            "rhs": "sinlesscsb-marker"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "type"
+            ],
+            "lhs": "textField",
+            "rhs": "panel"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "size"
+            ],
+            "lhs": "full-size"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "label"
+            ],
+            "lhs": "actionLabel"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "defaultValue"
+            ],
+            "lhs": "Ritual"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "charList"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "maxLength"
+            ],
+            "lhs": null
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "autocomplete"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "contents"
+            ],
+            "rhs": [
+              {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "label",
+                "size": "full-size",
+                "icon": "star",
+                "value": "${actionLabel ? actionLabel : \"Cast\"}$",
+                "prefix": "",
+                "suffix": "",
+                "rollMessage": "%{\n  // Prefer linkedEntity (inventory row) then entity (item sheet)\n  const doc = (typeof linkedEntity !== \"undefined\" && linkedEntity) ? linkedEntity\n            : (typeof entity !== \"undefined\" && entity) ? entity\n            : null;\n\n  const itemUuid = String(doc?.uuid ?? \"\").trim();\n\n  // Actor resolution: embedded parent wins; otherwise token/character fallbacks.\n  const embeddedActorUuid =\n    (doc?.parent?.documentName === \"Actor\" && doc?.parent?.uuid) ? String(doc.parent.uuid) : \"\";\n\n  const scopeActorUuid =\n    (typeof actor !== \"undefined\" && actor?.documentName === \"Actor\" && actor?.uuid) ? String(actor.uuid) : \"\";\n\n  const controlledActorUuid = (() => {\n    const t = canvas?.tokens?.controlled?.[0];\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const targetedActorUuid = (() => {\n    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const userCharUuid = game.user?.character?.uuid ? String(game.user.character.uuid) : \"\";\n\n  const actorUuid = String(\n    embeddedActorUuid ||\n    scopeActorUuid ||\n    controlledActorUuid ||\n    targetedActorUuid ||\n    userCharUuid ||\n    \"\"\n  ).trim();\n\n  if (!itemUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: missing spell item context (itemUuid).\");\n    return \"\";\n  }\n\n  if (!actorUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: No actor context. Control or target a token, then try again.\");\n    return \"\";\n  }\n\n  const api = game.modules.get(\"sinlesscsb\")?.api;\n  if (typeof api?.castSpell !== \"function\") {\n    ui.notifications?.error?.(\"SinlessCSB: castSpell API not available (module not ready / not exposed).\");\n    return \"\";\n  }\n\n  api.castSpell({ itemUuid, actorUuid });\n  return \"\";\n}%\n",
+                "altRollMessage": "",
+                "rollMessageToChat": false,
+                "altRollMessageToChat": false,
+                "style": "button"
+              }
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "defaultCollapsed"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "flow"
+            ],
+            "lhs": "vertical",
+            "rhs": "grid-2"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "align"
+            ],
+            "lhs": "left",
+            "rhs": "center"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "defaultCollapsed"
+            ],
+            "lhs": false,
+            "rhs": true
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "title"
+            ],
+            "lhs": "Roll Config",
+            "rhs": "hidden"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents"
+            ],
+            "index": 4,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "poolKey",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "poolKey",
+                "defaultValue": "Resolve",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "key"
+            ],
+            "lhs": "skillKey",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "label"
+            ],
+            "lhs": "skillKey",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "defaultValue"
+            ],
+            "lhs": "Skill_Sorcery",
+            "rhs": "Resolve"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              3,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "key"
+            ],
+            "lhs": "drainForceMult",
+            "rhs": "skillKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "type"
+            ],
+            "lhs": "numberField",
+            "rhs": "textField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "label"
+            ],
+            "lhs": "Drain xForce",
+            "rhs": "skillKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "defaultValue"
+            ],
+            "lhs": "1",
+            "rhs": "Skill_Sorcery"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "allowDecimal"
+            ],
+            "lhs": true
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "minVal"
+            ],
+            "lhs": "0"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "maxVal"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "allowRelative"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "showControls"
+            ],
+            "lhs": true
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "controlsStyle"
+            ],
+            "lhs": "hover"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "controlsCustomIncrements"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "inputStyle"
+            ],
+            "lhs": "text"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "charList"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "maxLength"
+            ],
+            "rhs": null
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "autocomplete"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "key"
+            ],
+            "lhs": "spellCategory",
+            "rhs": "drainForceMult"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "type"
+            ],
+            "lhs": "textField",
+            "rhs": "numberField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "label"
+            ],
+            "lhs": "Category",
+            "rhs": "Drain xForce"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "defaultValue"
+            ],
+            "lhs": "Combat",
+            "rhs": "1"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "charList"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "maxLength"
+            ],
+            "lhs": null
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "autocomplete"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "allowDecimal"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "minVal"
+            ],
+            "rhs": "0"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "maxVal"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "allowRelative"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "showControls"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "controlsStyle"
+            ],
+            "rhs": "hover"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "controlsCustomIncrements"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "inputStyle"
+            ],
+            "rhs": "text"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "key"
+            ],
+            "lhs": "",
+            "rhs": "spellCategory"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "cssClass"
+            ],
+            "lhs": "sinlesscsb-marker",
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "type"
+            ],
+            "lhs": "panel",
+            "rhs": "textField"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "contents"
+            ],
+            "lhs": [
+              {
+                "key": "",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "label",
+                "size": "full-size",
+                "icon": "star",
+                "value": "${actionLabel ? actionLabel : \"Cast\"}$",
+                "prefix": "",
+                "suffix": "",
+                "rollMessage": "%{\n  // Prefer linkedEntity (inventory row) then entity (item sheet)\n  const doc = (typeof linkedEntity !== \"undefined\" && linkedEntity) ? linkedEntity\n            : (typeof entity !== \"undefined\" && entity) ? entity\n            : null;\n\n  const itemUuid = String(doc?.uuid ?? \"\").trim();\n\n  // Actor resolution: embedded parent wins; otherwise token/character fallbacks.\n  const embeddedActorUuid =\n    (doc?.parent?.documentName === \"Actor\" && doc?.parent?.uuid) ? String(doc.parent.uuid) : \"\";\n\n  const scopeActorUuid =\n    (typeof actor !== \"undefined\" && actor?.documentName === \"Actor\" && actor?.uuid) ? String(actor.uuid) : \"\";\n\n  const controlledActorUuid = (() => {\n    const t = canvas?.tokens?.controlled?.[0];\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const targetedActorUuid = (() => {\n    const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;\n    return t?.actor?.uuid ? String(t.actor.uuid) : \"\";\n  })();\n\n  const userCharUuid = game.user?.character?.uuid ? String(game.user.character.uuid) : \"\";\n\n  const actorUuid = String(\n    embeddedActorUuid ||\n    scopeActorUuid ||\n    controlledActorUuid ||\n    targetedActorUuid ||\n    userCharUuid ||\n    \"\"\n  ).trim();\n\n  if (!itemUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: missing spell item context (itemUuid).\");\n    return \"\";\n  }\n\n  if (!actorUuid) {\n    ui.notifications?.warn?.(\"SinlessCSB: No actor context. Control or target a token, then try again.\");\n    return \"\";\n  }\n\n  const api = game.modules.get(\"sinlesscsb\")?.api;\n  if (typeof api?.castSpell !== \"function\") {\n    ui.notifications?.error?.(\"SinlessCSB: castSpell API not available (module not ready / not exposed).\");\n    return \"\";\n  }\n\n  api.castSpell({ itemUuid, actorUuid });\n  return \"\";\n}%\n",
+                "altRollMessage": "",
+                "rollMessageToChat": false,
+                "altRollMessageToChat": false,
+                "style": "button"
+              }
+            ]
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "flow"
+            ],
+            "lhs": "vertical"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "align"
+            ],
+            "lhs": "center"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "verticalAlign"
+            ],
+            "lhs": "top"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "collapsible"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "defaultCollapsed"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "title"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "titleStyle"
+            ],
+            "lhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "size"
+            ],
+            "rhs": "full-size"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "label"
+            ],
+            "rhs": "Category"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "defaultValue"
+            ],
+            "rhs": "Combat"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "charList"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "maxLength"
+            ],
+            "rhs": null
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "autocomplete"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents"
+            ],
+            "index": 3,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "poolKey",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "poolKey",
+                "defaultValue": "Resolve",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "key"
+            ],
+            "lhs": "skillKey",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "label"
+            ],
+            "lhs": "skillKey",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "defaultValue"
+            ],
+            "lhs": "Skill_Sorcery",
+            "rhs": "Resolve"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "poolKey",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "poolKey",
+                "defaultValue": "Resolve",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "key"
+            ],
+            "lhs": "drainForceMult",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "type"
+            ],
+            "lhs": "numberField",
+            "rhs": "textField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "label"
+            ],
+            "lhs": "Drain xForce",
+            "rhs": "poolKey"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "defaultValue"
+            ],
+            "lhs": "1",
+            "rhs": "Resolve"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "allowDecimal"
+            ],
+            "lhs": true
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "minVal"
+            ],
+            "lhs": "0"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "maxVal"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "allowRelative"
+            ],
+            "lhs": false
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "showControls"
+            ],
+            "lhs": true
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "controlsStyle"
+            ],
+            "lhs": "hover"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "controlsCustomIncrements"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "inputStyle"
+            ],
+            "lhs": "text"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "charList"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "maxLength"
+            ],
+            "rhs": null
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              1,
+              "autocomplete"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "key"
+            ],
+            "lhs": "spellCategory",
+            "rhs": "drainForceMult"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "type"
+            ],
+            "lhs": "textField",
+            "rhs": "numberField"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "label"
+            ],
+            "lhs": "Category",
+            "rhs": "Drain xForce"
+          },
+          {
+            "kind": "E",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "defaultValue"
+            ],
+            "lhs": "Combat",
+            "rhs": "1"
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "charList"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "maxLength"
+            ],
+            "lhs": null
+          },
+          {
+            "kind": "D",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "autocomplete"
+            ],
+            "lhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "allowDecimal"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "minVal"
+            ],
+            "rhs": "0"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "maxVal"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "allowRelative"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "showControls"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "controlsStyle"
+            ],
+            "rhs": "hover"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "controlsCustomIncrements"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "inputStyle"
+            ],
+            "rhs": "text"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents"
+            ],
+            "index": 1,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "poolKey",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "full-size",
+                "label": "poolKey",
+                "defaultValue": "Resolve",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents"
+            ],
+            "index": 2,
+            "item": {
+              "kind": "N",
+              "rhs": {
+                "key": "ritualDrain",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "textField",
+                "size": "medium",
+                "label": "Drain",
+                "defaultValue": "",
+                "charList": "",
+                "maxLength": null,
+                "autocomplete": ""
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ],
+        [
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "header",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          },
+          {
+            "kind": "A",
+            "path": [
+              "body",
+              "contents",
+              2,
+              "contents"
+            ],
+            "index": 0,
+            "item": {
+              "kind": "D",
+              "lhs": {
+                "key": "drainForceMult",
+                "colSpan": 1,
+                "rowSpan": 1,
+                "cssClass": "",
+                "role": 0,
+                "editRole": 0,
+                "permission": 0,
+                "tooltip": "",
+                "visibilityFormula": "",
+                "editableFormula": "",
+                "escapeHTML": false,
+                "type": "numberField",
+                "size": "full-size",
+                "label": "Drain xForce",
+                "defaultValue": "1",
+                "allowDecimal": true,
+                "minVal": "0",
+                "maxVal": "",
+                "allowRelative": false,
+                "showControls": true,
+                "controlsStyle": "hover",
+                "controlsCustomIncrements": "",
+                "inputStyle": "text"
+              }
+            }
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              1,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              2,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              1,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "contents",
+              0,
+              "contents",
+              0,
+              "customSize"
+            ]
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "colSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "rowSpan"
+            ],
+            "rhs": 1
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "cssClass"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "role"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editRole"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "permission"
+            ],
+            "rhs": 0
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "tooltip"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "visibilityFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "editableFormula"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "escapeHTML"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "flow"
+            ],
+            "rhs": "vertical"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "align"
+            ],
+            "rhs": "center"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "verticalAlign"
+            ],
+            "rhs": "top"
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "collapsible"
+            ],
+            "rhs": false
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "defaultCollapsed"
+            ],
+            "rhs": true
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "title"
+            ],
+            "rhs": ""
+          },
+          {
+            "kind": "N",
+            "path": [
+              "body",
+              "titleStyle"
+            ],
+            "rhs": "default"
+          }
+        ]
+      ],
+      "templateHistoryRedo": []
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": "Item.SpelTplSinlssA1X",
+    "exportSource": {
+      "worldId": "sinless",
+      "uuid": "Item.25Qy5a7maYi8KQOX",
+      "coreVersion": "13.351",
+      "systemId": "custom-system-builder",
+      "systemVersion": "5.1.0"
+    },
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1770095421790,
+    "modifiedTime": 1770096499170,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "_id": "25Qy5a7maYi8KQOX",
+  "items": [],
+  "ownership": {
+    "default": 0
+  }
+}

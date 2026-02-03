@@ -1,0 +1,13 @@
+{
+  "name": "Break Ward",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/fire-shield.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "Force of ward * 2",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Break Ward</h2><p>Breaking a ward takes one hour. At the end of the <span style=\"font-family:'Bruno Ace', sans-serif;\">ritual</span>, the mage must roll their <span style=\"font-family:'Bruno Ace', sans-serif;\">sorcery</span>. For every success, the force of the ward is lowered by one.</p>"
+    }
+  }
+}

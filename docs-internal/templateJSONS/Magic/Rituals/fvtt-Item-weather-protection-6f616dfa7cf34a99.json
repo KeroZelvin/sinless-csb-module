@@ -1,0 +1,13 @@
+{
+  "name": "Weather Protection",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/ice-aura.svg",
+  "system": {
+    "template": "25Qy5a7maYi8KQOX",
+    "templateSystemUniqueVersion": 1319411609,
+    "props": {
+      "ritualDrain": "3",
+      "ritualRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Weather Protection</h2><p>This spell protects you from the effects of the weather. Pollen is repelled, water is repelled keeping you dry in rain. The caster's temperature is moved up to 10 C toward 21 C. It lasts for 1 hour per success.</p>"
+    }
+  }
+}
