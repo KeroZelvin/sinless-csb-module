@@ -1,9 +1,14 @@
 # Folder Tree (Actors + Items)
 
 - World: **PacificNorthWestMarches**
-- Generated: 2/1/2026, 8:30:12 PM
+- Generated: 2/6/2026, 1:03:52 PM
 
 ## Actors
+- **PCs**
+  - TestSpell
+- **NPCs**
+  - NPCtest
+  - Session Settings
 - **DroneHangar**
   - Aerial Warden
   - Anthrobrute
@@ -19,16 +24,10 @@
   - Shield Drone
   - Shield-Wall Drone
   - VSTOL Bird
-- **TestSpell Drones**
-  - Drone Test
-  - Drone Test
-- **TestSpell Vehicles**
-  - Vehicle Test
 - **VehicleHangar**
   - Armored Car
   - Battle Cycle
   - Cargo Heli
-  - Cessna
   - Chopper
   - Delivery Van
   - Family Sedan
@@ -40,39 +39,40 @@
   - Patrol Boat
   - Pickup
   - Racing Bike
-  - Skate
   - Seaplane
+  - Skate
   - Small Boat
   - Speedboat
   - Sports Car
   - Sports Sedan
   - Transport Heli
   - Two-Seater
-- **NPCs**
-  - NPCtest
-  - Session Settings
 - **Templates**
   - Session Settings Template
   - Drone Template
   - Vehicle Template
   - Sinless PC
+  - Sinless PC (Copy)
   - Sinless NPC
-- **PCs**
-  - TestSpell
+- **TestSpell Drones**
+  - Drone Test
+  - Drone Test
+- **TestSpell Vehicles**
+  - Vehicle Test
 
 ## Items
+- **CSB - Embedded Items Folder - DO NOT RENAME OR REMOVE**
 - **VCR**
   - Basic VCR
   - Advanced VCR
   - Master VCR
-- **Drones (drag to sheet)**
+- **Drones**
   - Aerial Warden
   - Anthrobrute
   - Anthrodroid
   - Bug-Spy
   - Disc
   - Dog-Patrol Drone
-  - Drone Test
   - Gladiator
   - Hawk
   - Mobile Sentinel
@@ -82,14 +82,40 @@
   - Shield-Wall Drone
   - VSTOL Bird
 - **Sorcery**
-  - SpellTest
-  - SpellTest (Copy)
-  - SpellTest (Copy) (Copy)
-- **Vehicles (drag to sheet)**
+- **Weapons**
+- **Astral Umbra**
+  - Black Bolt of Uthal
+  - Cloak of Night
+  - Create Darkenbeast
+  - Dire Touch of Ennui
+  - Evocation of the Frail Beam of Debility
+  - Horrors of the Unknown Dark
+  - Moment of Eclipse
+  - Night's Chill
+  - Shadow Anchor
+  - Shadow Path of Vile Ether
+  - Sorcery of the Wraith's Flight
+  - The Marvelous Cursed Sigil of Athozog
+  - The Serene Conjuration of Ehon's Gate
+  - The Thirty Cursed Servant of Athozog
+  - The Uncountable Tendrils of Ehon
+- **Conjuring**
+  - Bind Spirit
+- **Cyberdecks**
+  - MasterDeck
+  - Shingo Activa
+  - Semi Point Razor
+  - Mars Claymore
+  - Fujitsu Edge
+  - Orb Epsilon
+  - Orpheus Dreamweaver
+  - Royal Durandal
+- **Spirit Maps**
+  - Shaman Spirit Map
+- **Vehicles**
   - Armored Car
   - Battle Cycle
   - Cargo Heli
-  - Cessna
   - Chopper
   - Delivery Van
   - Family Sedan
@@ -101,8 +127,9 @@
   - Patrol Boat
   - Pickup
   - Racing Bike
-  - Skate
   - Seaplane
+  - Seaplane
+  - Skate
   - Small Boat
   - Speedboat
   - Sports Car
@@ -110,23 +137,41 @@
   - Transport Heli
   - Two-Seater
 - **Amplification**
-- **Astral Umbra**
-- **Auralurgy**
-- **Conjuring**
-- **CSB - Embedded Items Folder - DO NOT RENAME OR REMOVE**
-- **Cyberdecks**
-  - MasterDeck
-  - Shingo Activa
-  - Semi Point Razor
-  - Mars Claymore
-  - Fujitsu Edge
-  - Orb Epsilon
-  - Orpheus Dreamweaver
-  - Royal Durandal
-- **Incantor**
-- **Mentalism**
-- **Spirit Maps**
-- **The Bound**
+  - Adrenaline Boost
+  - Aspect of the Chelonian
+  - Astral Resistance
+  - Attribute Boost
+  - Attribute Increase
+  - Body Equilibrium
+  - Combat Mastery
+  - Expertise
+  - Eyes of the Raptor
+  - Fade From Vision
+  - Far Sight
+  - Flash Step
+  - Flying Crane
+  - Ghost
+  - Hidden Presence
+  - Iron Fist
+  - Perfect Situational Awareness
+  - Rasputin's Blessing
+  - Returning the Fang
+  - Self-healing
+  - Shadow Double
+  - Suspended Animation
+  - Telekinesis
+  - Touch of the Spider
+- **Decking**
+- **Rituals**
+  - Break Ward
+  - Cottage Refuge
+  - Locating a Person
+  - Preservation
+  - Raise Ward
+  - Recall Device
+  - Sterilize
+  - Travel Over Distance
+  - Weather Protection
 - **Drive / Fly Skills**
   - Drive Test
   - Fly Test
@@ -188,11 +233,24 @@
   - Shock Grenade
   - Shuriken
   - Smoke Grenade
+- **Auralurgy**
+  - Chant of Dire Malady
+  - Forbidden Glamour of Accord
+  - Rune of the Unspeakable Alarm
+  - Rune of Vicious Rage and Sorrow
+  - The Ancestral Working of the Savage Peal
+  - The Blessed Chime of Glorious Release
+  - The Charm of Raucous Cacophony
+  - The Confounding Rhythms of Dire Doom
+  - The Horrid Call of Za'lota
+  - The Infinite Illusion of Spiritual Separation
+  - The Seven Chimes of Forceful Approbation
 - **Projectile**
   - Compound Bow
   - Light Crossbow
   - Crossbow
   - Heavy Crossbow
+- **Rigging**
 - **Vehicle Weapons**
   - 25mm Cannon
   - 30mm Cannon
@@ -242,15 +300,51 @@
   - Refraction Field
   - Targeted Disruption
   - Vermin Call
-- **Decking**
-- **Rigging**
+- **Incantor**
+  - Create Barrier
+  - Disguise Astral Aura
+  - Flight
+  - Haste
+  - Light
+  - Manon Ball
+  - Manon Bolt
+  - Mind Link
+  - Power Bolt
+  - Powerball
+  - Shatter Ward
+- **Mentalism**
+  - Calm
+  - Charm
+  - Command
+  - Confusion
+  - Despair
+  - Ensorcell
+  - Enthrall
+  - Forget
+  - Fumble
+  - Geas
+  - Hold
+  - Insight
+  - Laughter
+  - Suggestion
+  - Taunt
+- **The Bound**
+  - Blight
+  - Bound Servant
+  - Fiery Lash
+  - Fires of the Earth
+  - Firestorm
+  - Grasp of Spring
+  - Healing
+  - Lightning Strike
+  - Massage the Bones of the Earth
+  - Natural Fury
+  - Shapeshift
+  - Summon Elemental
 - **Manon**
-  - Conjuring Template
-  - Ritual Template
-  - Sorcery Template
-- **Weapons**
 - **_Templates**
   - E War Threads Template
+  - Spirit Map Template
   - Hacking Threads Template
   - Melee Weapon Template
   - Thrown Weapon Template
@@ -268,9 +362,12 @@
   - Energy Wep Template
   - Sinless Roll Config
   - Cyberdeck Template
+  - Sorcery Template
+  - Ritual Template
+  - Amps Template
+  - Conjuring Template
 - **(Unfoldered)**
   - Active Effects
   - Device Control
   - Ewar
   - Hacking
-
