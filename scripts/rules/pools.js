@@ -27,6 +27,38 @@ function computeItemMax(actor, key) {
   return Math.max(0, max);
 }
 
+const SOUL_KEYS = {
+  brawn: "soulBrawn",
+  finesse: "soulFinesse",
+  resolve: "soulResolve",
+  focus: "soulFocus"
+};
+
+function computeSoulBonuses(actor) {
+  const out = { brawn: 0, finesse: 0, resolve: 0, focus: 0 };
+  for (const it of actor?.items ?? []) {
+    const p = it?.system?.props ?? {};
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.brawn)) {
+      out.brawn += Math.floor(num(p[SOUL_KEYS.brawn], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.finesse)) {
+      out.finesse += Math.floor(num(p[SOUL_KEYS.finesse], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.resolve)) {
+      out.resolve += Math.floor(num(p[SOUL_KEYS.resolve], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.focus)) {
+      out.focus += Math.floor(num(p[SOUL_KEYS.focus], 0));
+    }
+  }
+  return {
+    brawn: Math.max(0, out.brawn),
+    finesse: Math.max(0, out.finesse),
+    resolve: Math.max(0, out.resolve),
+    focus: Math.max(0, out.focus)
+  };
+}
+
 function getPropsRoot() {
   // e.g. "system.props"
   return String(game.settings.get(MOD_ID, "csbPropsRoot") || "system.props");
@@ -107,18 +139,25 @@ export async function refreshPoolsForActor(actor) {
   const qN = num(readProp(actor, "chaQuarterPoolN"), 0);
   const chaQ = Math.floor(CHA / 4);
 
+  const soul = computeSoulBonuses(actor);
+
   // Derived max pools
-  const brawn =
+  const brawnBase =
     STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
 
-  const finesse =
+  const finesseBase =
     REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
 
-  const resolve =
+  const resolveBase =
     WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
 
-  const focus =
+  const focusBase =
     INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
+
+  const brawn = Math.max(0, Math.floor(brawnBase + soul.brawn));
+  const finesse = Math.max(0, Math.floor(finesseBase + soul.finesse));
+  const resolve = Math.max(0, Math.floor(resolveBase + soul.resolve));
+  const focus = Math.max(0, Math.floor(focusBase + soul.focus));
 
   const update = {};
 
@@ -127,6 +166,25 @@ export async function refreshPoolsForActor(actor) {
   update[writePropUpdate("Finesse_Cur")] = finesse;
   update[writePropUpdate("Resolve_Cur")] = resolve;
   update[writePropUpdate("Focus_Cur")] = focus;
+
+  // Persist computed max values for CSB formulas and API use
+  const brawnComputedNow = Math.floor(num(readProp(actor, "brawnComputed"), NaN));
+  const finesseComputedNow = Math.floor(num(readProp(actor, "finesseComputed"), NaN));
+  const resolveComputedNow = Math.floor(num(readProp(actor, "resolveComputed"), NaN));
+  const focusComputedNow = Math.floor(num(readProp(actor, "focusComputed"), NaN));
+
+  if (!Number.isFinite(brawnComputedNow) || brawnComputedNow !== brawn) {
+    update[writePropUpdate("brawnComputed")] = brawn;
+  }
+  if (!Number.isFinite(finesseComputedNow) || finesseComputedNow !== finesse) {
+    update[writePropUpdate("finesseComputed")] = finesse;
+  }
+  if (!Number.isFinite(resolveComputedNow) || resolveComputedNow !== resolve) {
+    update[writePropUpdate("resolveComputed")] = resolve;
+  }
+  if (!Number.isFinite(focusComputedNow) || focusComputedNow !== focus) {
+    update[writePropUpdate("focusComputed")] = focus;
+  }
 
   // Only update Max pools if they have changed (attribute changes are rare)
   // Note: num() now trims strings like "21\n\n" safely.

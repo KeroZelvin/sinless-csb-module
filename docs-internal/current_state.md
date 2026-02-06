@@ -73,6 +73,13 @@ World macros and CSB template scripts should become **thin callers** into the AP
   - Session Settings integration (`TN_Global`)
   - Canonical actor resolution + mirror-safe updates
   - Refresh prefers rules module when available; falls back to computed pools
+  - Pool max math (rules + API fallback) includes **Spirit Map soul bonuses** (sum of item props):
+    - `soulBrawn`, `soulFinesse`, `soulResolve`, `soulFocus`
+  - Computed pool mirrors are persisted on the actor for CSB labels:
+    - `brawnComputed`, `finesseComputed`, `resolveComputed`, `focusComputed`
+  - Pool max sync hook (PCs only):
+    - Recomputes on Foundry load, on attribute changes, and on Spirit Map item changes
+    - When Max increases, Cur increases by the delta; when Max decreases, Cur clamps down
 
 ### Initiative Roll
 - File: `scripts/api/initiative-roll.js`

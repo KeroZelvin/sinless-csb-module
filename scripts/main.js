@@ -14,6 +14,7 @@ import { registerCombatHooks } from "./hooks/combat.js";
 import { registerActorInitHooks } from "./hooks/actor-init.js";
 import { registerVcrBonusHooks } from "./hooks/vcr-bonus-sync.js";
 import { registerMcpDeckHooks } from "./hooks/mcp-deck-sync.js";
+import { registerPoolMaxSyncHooks } from "./hooks/pool-max-sync.js";
 
 // NEW: Token bar mirroring + token-HUD editing for stunCur/physicalCur
 import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirectional.js";
@@ -155,6 +156,7 @@ Hooks.once("init", () => {
   // VCR bonus sync (highest vcrBonusDice from VCR items)
   registerVcrBonusHooks();
   registerMcpDeckHooks();
+  registerPoolMaxSyncHooks();
 
   // Drone ownership + deploy helpers
   registerDroneOwnershipHooks();

@@ -128,16 +128,18 @@ function computePoolsFromAttrs(actor) {
   const qN = num(p.chaQuarterPoolN, 0);
   const chaQ = Math.floor(CHA / 4);
 
-  const brawn   = STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
-  const finesse = REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
-  const resolve = WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
-  const focus   = INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
+  const brawnBase   = STR + Math.floor(BOD / 2) + Math.floor(WIL / 4) + (qN === 1 ? chaQ : 0);
+  const finesseBase = REA + Math.floor(BOD / 2) + Math.floor(INT / 4) + (qN === 2 ? chaQ : 0);
+  const resolveBase = WIL + Math.floor(INT / 2) + Math.floor(CHA / 2) + (qN === 3 ? chaQ : 0);
+  const focusBase   = INT + Math.floor(REA / 2) + Math.floor(WIL / 4) + (qN === 4 ? chaQ : 0);
+
+  const soul = computeSoulBonuses(actor);
 
   return {
-    brawn:   Math.max(0, Math.floor(brawn)),
-    finesse: Math.max(0, Math.floor(finesse)),
-    resolve: Math.max(0, Math.floor(resolve)),
-    focus:   Math.max(0, Math.floor(focus))
+    brawn:   Math.max(0, Math.floor(brawnBase + soul.brawn)),
+    finesse: Math.max(0, Math.floor(finesseBase + soul.finesse)),
+    resolve: Math.max(0, Math.floor(resolveBase + soul.resolve)),
+    focus:   Math.max(0, Math.floor(focusBase + soul.focus))
   };
 }
 
@@ -152,6 +154,38 @@ function computeItemMax(actor, key) {
   return Math.max(0, max);
 }
 
+const SOUL_KEYS = {
+  brawn: "soulBrawn",
+  finesse: "soulFinesse",
+  resolve: "soulResolve",
+  focus: "soulFocus"
+};
+
+function computeSoulBonuses(actor) {
+  const out = { brawn: 0, finesse: 0, resolve: 0, focus: 0 };
+  for (const it of actor?.items ?? []) {
+    const p = it?.system?.props ?? {};
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.brawn)) {
+      out.brawn += Math.floor(num(p[SOUL_KEYS.brawn], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.finesse)) {
+      out.finesse += Math.floor(num(p[SOUL_KEYS.finesse], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.resolve)) {
+      out.resolve += Math.floor(num(p[SOUL_KEYS.resolve], 0));
+    }
+    if (Object.prototype.hasOwnProperty.call(p, SOUL_KEYS.focus)) {
+      out.focus += Math.floor(num(p[SOUL_KEYS.focus], 0));
+    }
+  }
+  return {
+    brawn: Math.max(0, out.brawn),
+    finesse: Math.max(0, out.finesse),
+    resolve: Math.max(0, out.resolve),
+    focus: Math.max(0, out.focus)
+  };
+}
+
 /**
  * Build a Cur/Max update object from computed pools.
  */
@@ -159,12 +193,16 @@ function buildPoolsUpdate({ brawn, finesse, resolve, focus }) {
   return {
     [propPath("Brawn_Max")]: brawn,
     [propPath("Brawn_Cur")]: brawn,
+    [propPath("brawnComputed")]: brawn,
     [propPath("Finesse_Max")]: finesse,
     [propPath("Finesse_Cur")]: finesse,
+    [propPath("finesseComputed")]: finesse,
     [propPath("Resolve_Max")]: resolve,
     [propPath("Resolve_Cur")]: resolve,
+    [propPath("resolveComputed")]: resolve,
     [propPath("Focus_Max")]: focus,
-    [propPath("Focus_Cur")]: focus
+    [propPath("Focus_Cur")]: focus,
+    [propPath("focusComputed")]: focus
   };
 }
 
