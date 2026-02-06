@@ -1,5 +1,5 @@
 {
-  "name": "Scooter",
+  "name": "Skate",
   "type": "character",
   "img": "modules/sinlesscsb/assets/icons/SR5/importer/vehicle/bike.svg",
   "system": {
@@ -1026,7 +1026,7 @@
       "droneBallistic": "0",
       "droneImpact": "0",
       "vehicleCost": "1200",
-      "findVehicle": "Scooter",
+      "findVehicle": "Skate",
       "pilotActorUuid": "",
       "vehicleInertia": "0",
       "inventoryWeapons": {},
@@ -1038,7 +1038,7 @@
     "templateSystemUniqueVersion": 1268989888
   },
   "prototypeToken": {
-    "name": "Scooter",
+    "name": "Skate",
     "displayName": 50,
     "actorLink": true,
     "width": 1,

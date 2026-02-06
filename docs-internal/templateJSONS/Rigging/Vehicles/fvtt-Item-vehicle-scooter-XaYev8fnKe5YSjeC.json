@@ -1,6 +1,6 @@
 {
   "folder": "DswGzl1e1TynhREL",
-  "name": "Scooter",
+  "name": "Skate",
   "type": "equippableItem",
   "_id": "XaYev8fnKe5YSjeC",
   "img": "modules/sinlesscsb/assets/icons/SR5/importer/vehicle/bike.svg",
@@ -69,7 +69,7 @@
     "hidden": [],
     "modifiers": [],
     "props": {
-      "findItemvehicle": "Scooter"
+      "findItemvehicle": "Skate"
     },
     "unique": false,
     "uniqueId": "XaYev8fnKe5YSjeC",

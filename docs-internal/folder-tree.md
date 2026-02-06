@@ -40,7 +40,7 @@
   - Patrol Boat
   - Pickup
   - Racing Bike
-  - Scooter
+  - Skate
   - Seaplane
   - Small Boat
   - Speedboat
@@ -101,7 +101,7 @@
   - Patrol Boat
   - Pickup
   - Racing Bike
-  - Scooter
+  - Skate
   - Seaplane
   - Small Boat
   - Speedboat

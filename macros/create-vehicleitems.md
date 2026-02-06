@@ -3,7 +3,7 @@
   const TEMPLATE_NAME = "VehicleItems Template";
 
   const vehicles = [
-    { name: "Scooter", icon: "bike" },
+    { name: "Skate", icon: "bike" },
     { name: "Motorcycle", icon: "bike" },
     { name: "Chopper", icon: "bike" },
     { name: "Battle Cycle", icon: "bike" },
