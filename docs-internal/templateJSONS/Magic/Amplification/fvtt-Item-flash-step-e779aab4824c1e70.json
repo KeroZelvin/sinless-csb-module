@@ -1,0 +1,14 @@
+{
+  "name": "Flash Step",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/wingfoot.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "4",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Flash Step</h2><p>The amp can move faster than the eye can see. To use Flash Step, the user takes a box of damage on the stun condition track and then moves to a point within 10 m (5\"). This is free action (i.e. can be performed once per simple action taken).</p>",
+      "ampSummary": ""
+    }
+  }
+}

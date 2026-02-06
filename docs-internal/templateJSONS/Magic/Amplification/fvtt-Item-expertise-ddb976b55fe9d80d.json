@@ -1,0 +1,14 @@
+{
+  "name": "Expertise",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/book.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "2",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Expertise</h2><p>You achieve mastery of a skill. Choose a skill. You gain two ranks in the skill, and the skill maximum is increased by two ranks.</p>",
+      "ampSummary": ""
+    }
+  }
+}

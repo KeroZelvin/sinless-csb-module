@@ -1,0 +1,14 @@
+{
+  "name": "Iron Fist",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/thrust.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "1",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Iron Fist</h2><p>This allows the amp to do physical damage with their bare hands, instead of being restricted to only damaging the stun condition track if unarmed. Their unarmed damage becomes 1/2 <span style=\"font-family:'Bruno Ace', sans-serif;\">Strength</span> + 6. Optionally, the amp may have this ability to manifest as a reach 0 melee weapon when taking the ability.</p>",
+      "ampSummary": ""
+    }
+  }
+}

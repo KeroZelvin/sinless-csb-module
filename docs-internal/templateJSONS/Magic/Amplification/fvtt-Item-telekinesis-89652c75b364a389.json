@@ -1,0 +1,14 @@
+{
+  "name": "Telekinesis",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR5/importer/critter_power/mana.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "2",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Telekinesis</h2><p>This allows you to physically manipulate objects with your mind. Any object within range of sight, not within the aura of a living creature, can be moved. If the object is subject to any physical test, you use your <span style=\"font-family:'Bruno Ace', sans-serif;\">Focus</span> pool instead of your <span style=\"font-family:'Bruno Ace', sans-serif;\">Brawn</span> pool, and your <span style=\"font-family:'Bruno Ace', sans-serif;\">Resolve</span> pool instead of your <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span> pool. Your range for throwing objects is twice your <span style=\"font-family:'Bruno Ace', sans-serif;\">Willpower</span>, and your damage for thrown objects is equal to 2 plus half your <span style=\"font-family:'Bruno Ace', sans-serif;\">Willpower</span>.</p>",
+      "ampSummary": ""
+    }
+  }
+}

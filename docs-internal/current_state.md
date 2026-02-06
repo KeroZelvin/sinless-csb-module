@@ -19,6 +19,11 @@ World macros and CSB template scripts should become **thin callers** into the AP
 - Importing JSON exports has repeatedly caused template loss/corruption in the world (e.g., PC sheet templates disappearing or being replaced).
 - Only use JSON imports when absolutely necessary and verify templates exist afterward.
 
+## Repo hygiene (critical)
+- **Do not touch `packs/`** in this repo. That folder is Foundry’s compendium storage (database-backed) and is not safely editable from VS Code.
+- Treat any `packs/` changes in `git status` as **noise** unless the task is explicitly “build/repack compendiums.”
+- Never create, edit, delete, or regenerate files under `packs/` during normal work.
+
 ### Post-import sanity checklist (fast)
 - Confirm critical templates exist and are `_equippableItemTemplate`:
   - `Hacking Threads Template` (id `8CMq8JmyHbRCglOv`)
@@ -207,6 +212,7 @@ This is required to prevent the “token-synthetic drift” issues we have repea
 ## Recent completions
 - Pools roller is now API-backed (`scripts/api/pools-roll.js`) with DialogV2 and refresh.
 - Initiative (PC + NPC) is now API-backed (`scripts/api/initiative-roll.js`).
+- Amplification (Amps) content uses template id `XtU8rTt7uOjlTxx0`; JSONs live in `docs-internal/templateJSONS/Magic/Amplification` with create/import macros targeting `Manon/Amplification`.
 
 ## UI/CSS learnings (CSB)
 - **Item Displayer icon sizing:** target `img.custom-system-item-container-image` inside the displayer table; this is the actual icon element in rows.

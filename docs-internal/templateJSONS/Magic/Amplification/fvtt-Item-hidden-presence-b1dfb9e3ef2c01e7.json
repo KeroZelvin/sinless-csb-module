@@ -1,0 +1,14 @@
+{
+  "name": "Hidden Presence",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/silenced.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "1",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Hidden Presence</h2><p>Anytime the amp is still, their skin and clothes subtly change to match their surroundings. This gives the amp two bonus dice to use on <span style=\"font-family:'Bruno Ace', sans-serif;\">Shadow</span> and <span style=\"font-family:'Bruno Ace', sans-serif;\">Subterfuge</span> tests.</p>",
+      "ampSummary": ""
+    }
+  }
+}

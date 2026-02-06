@@ -1,0 +1,14 @@
+{
+  "name": "Adrenaline Boost",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/blood.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "4",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Adrenaline Boost</h2><p>This grants the amp an additional simple action each round, three total, usable for any type of action. This can only be taken once.</p>",
+      "ampSummary": ""
+    }
+  }
+}

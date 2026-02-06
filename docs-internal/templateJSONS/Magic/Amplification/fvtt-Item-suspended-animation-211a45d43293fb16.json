@@ -1,0 +1,14 @@
+{
+  "name": "Suspended Animation",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/sleep.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "0.5",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Suspended Animation</h2><p>The amp can enter a state of suspended animation. During this period the amp does not require food, water, or air. This state can safely be maintained for a number of weeks equal to the amps total spent Zoetic Potential, although successful cases of suspended animation have gone on for much longer.</p>",
+      "ampSummary": ""
+    }
+  }
+}

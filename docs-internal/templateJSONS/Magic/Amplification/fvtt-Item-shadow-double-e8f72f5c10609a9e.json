@@ -1,0 +1,14 @@
+{
+  "name": "Shadow Double",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/mystery-man-black.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "2",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Shadow Double</h2><p>The amp can manifest a <span style=\"font-family:'Bruno Ace', sans-serif;\">shadow</span> double once per day as a complex action for one minute. While manifested the amp can re-roll all ones and twos on <span style=\"font-family:'Bruno Ace', sans-serif;\">Dodge</span> tests.</p>",
+      "ampSummary": ""
+    }
+  }
+}

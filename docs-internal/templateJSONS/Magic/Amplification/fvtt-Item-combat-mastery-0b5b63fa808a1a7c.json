@@ -1,0 +1,14 @@
+{
+  "name": "Combat Mastery",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/sword.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "4",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Combat Mastery</h2><p>This grants the amp an additional two exploit actions that can be used for melee combat.</p>",
+      "ampSummary": ""
+    }
+  }
+}

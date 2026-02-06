@@ -1,0 +1,14 @@
+{
+  "name": "Self-healing",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/heal.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "1",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Self-healing</h2><p>As a complex action, you can convert a single physical wound into a wound on the stun condition track.</p>",
+      "ampSummary": ""
+    }
+  }
+}

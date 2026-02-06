@@ -1,0 +1,14 @@
+{
+  "name": "Body Equilibrium",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/waterfall.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "1",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Body Equilibrium</h2><p>The amp has such control over his body that they are able to walk across liquid. Liquids such as acid, water, lava, and others can be moved across using normal movement. If they end a turn without taking at least one movement action, they fall through the surface of the liquid. This also allows them to move without leaving any traces of their passage down to DNA.</p>",
+      "ampSummary": ""
+    }
+  }
+}

@@ -1587,6 +1587,8 @@ Import macros
 
 ## Repo Hygiene: Compendiums (`packs/`)
 
-`D:\Git\sinlesscsb\packs` contains Foundry compendiums for the module. Treat these as **release artifacts**:
-- Do not edit, regenerate, or touch anything under `packs/` during normal work.
-- Only update `packs/` when packaging a release.
+`D:\Git\sinlesscsb\packs` contains Foundry compendium data (database-backed). Treat this as **read‑only release artifacts**:
+- **Do not touch `packs/`** during normal work (no edits, no deletes, no regen).
+- Ignore any `packs/` changes that show up in `git status` unless the task explicitly says “rebuild/pack compendiums.”
+- Never write automation that scans or patches `packs/` files; they are not reliable source‑of‑truth in the repo.
+- Only update `packs/` as a deliberate packaging step, after explicit confirmation.

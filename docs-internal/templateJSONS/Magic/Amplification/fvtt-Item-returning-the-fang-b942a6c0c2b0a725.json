@@ -1,0 +1,14 @@
+{
+  "name": "Returning the Fang",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/wall-direction.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "1",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Returning the Fang</h2><p>As long as there are dice in your <span style=\"font-family:'Bruno Ace', sans-serif;\">Finesse</span> pool and you are conscious, anytime an object is thrown or shot from a bow or crossbow at you, you may deflect it automatically. Alternatively, you may immediately make a <span style=\"font-family:'Bruno Ace', sans-serif;\">Throwing Weapons</span> test without using an action to attack someone nearby with the missile fired at you.</p>",
+      "ampSummary": ""
+    }
+  }
+}

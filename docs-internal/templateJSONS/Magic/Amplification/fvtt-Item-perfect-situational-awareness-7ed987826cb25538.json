@@ -1,0 +1,14 @@
+{
+  "name": "Perfect Situational Awareness",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/target.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "2",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Perfect Situational Awareness</h2><p>The amp is hyper aware of his environment, and his ability to anticipate danger is enhanced. This provides three bonus dice on the defensive combat tests: <span style=\"font-family:'Bruno Ace', sans-serif;\">Dodge</span>, <span style=\"font-family:'Bruno Ace', sans-serif;\">Soak</span>, and <span style=\"font-family:'Bruno Ace', sans-serif;\">Resistance</span>.</p>",
+      "ampSummary": ""
+    }
+  }
+}

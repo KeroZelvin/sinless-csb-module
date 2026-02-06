@@ -1,0 +1,14 @@
+{
+  "name": "Far Sight",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/icons/SR6/default/video.svg",
+  "system": {
+    "template": "XtU8rTt7uOjlTxx0",
+    "templateSystemUniqueVersion": 2973042114,
+    "props": {
+      "ampzoeticCost": "2",
+      "ampRulestext": "<h2 style=\"font-family:'Bruno Ace', sans-serif; margin:0 0 0.5em 0;\">Far Sight</h2><p>You have the ability to see and hear nearby (within about a city block) without actually being present. This ability provides the amp with +2 bonus dice to use on <span style=\"font-family:'Bruno Ace', sans-serif;\">Reconnaissance</span> tests. Using this ability to examine areas nearby (i.e. the room behind a closed door) requires the amp to enter a trance as a complex action. This 'far sight' is visible to anyone with astral senses in the location being scried upon.</p>",
+      "ampSummary": ""
+    }
+  }
+}
