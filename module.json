@@ -1,8 +1,8 @@
 {
   "id": "sinlesscsb",
   "title": "SinlessCSB",
-  "description": "<p>Sinless automation and Custom System Builder support (combat hooks, pool spend and management with refresh per combat turn, and utilities).</p>",
-  "version": "0.0.7",
+  "description": "<p>Sinless module for CSB system).</p>",
+  "version": "0.0.8",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
