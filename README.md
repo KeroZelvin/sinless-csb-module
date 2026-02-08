@@ -12,7 +12,7 @@ Game assets are used with permission from Courtney Campbell, please do not re-us
 
 [Sinless Third Party License](https://www.patreon.com/posts/sinless-license-120365187)
 
-If you love SINless condsider supporting future content at Courtney's [Patreon](https://patreon.com/hackandslash?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link)
+If you love SINless consider supporting future content at Courtney's [Patreon](https://patreon.com/hackandslash?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link)
 
 #####
 
