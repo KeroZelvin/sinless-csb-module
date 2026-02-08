@@ -61,7 +61,7 @@ function computePhysicalMax(actor) {
  * Chat output
  * ========================= */
 
-async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
+async function postSpellChat({ actor, item, forceChosen, cast, drain, rolls } = {}) {
   const title = `${item.name} — Cast`;
 
   const rollInfoRows = [];
@@ -149,9 +149,12 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain } = {}) {
     </div>
   `;
 
+  const rollList = Array.isArray(rolls) ? rolls.filter(r => r) : [];
+
   return ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
-    content
+    content,
+    ...(rollList.length ? { rolls: rollList } : {})
   });
 }
 
@@ -572,6 +575,7 @@ export async function castSpell(scope = {}) {
   // Drain resolution
   let resistDice = 0;
   let resistSuccesses = 0;
+  let resistRoll = null;
   let appliedDrain = 0;
 
   let stunCur = stunCur0;
@@ -589,6 +593,7 @@ export async function castSpell(scope = {}) {
     resistDice = Math.max(0, spendDrainAllowed);
     const resist = await rollXd6Successes({ dice: resistDice, tn });
     resistSuccesses = resist.successes;
+    resistRoll = resist.roll;
 
     let remaining = Math.max(0, drain - resistSuccesses);
     if (drain > 0) remaining = Math.max(1, remaining); // minimum 1 on non-lethal drain>0
@@ -660,7 +665,8 @@ export async function castSpell(scope = {}) {
       resistSuccesses,
       applied: appliedDrain,
       tn
-    }
+    },
+    rolls: [cast.roll, resistRoll]
   });
 
   return true;

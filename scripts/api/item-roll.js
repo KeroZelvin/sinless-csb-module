@@ -1154,7 +1154,8 @@ const spendHelp = (mode === "untrainedPool")
 
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor: contextActor }),
-      content
+      content,
+      rolls: [roll]
     });
 
     return {

@@ -651,7 +651,8 @@ const content = `
 
         await ChatMessage.create({
           speaker: ChatMessage.getSpeaker({ actor }),
-          content
+          content,
+          rolls: [roll]
         });
       };
 

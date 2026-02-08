@@ -5,6 +5,7 @@ import { openDialogV2 } from "./_util.js";
 const MOD_ID = "sinlesscsb";
 const PILES_FLAG_KEY = "carchasePilesV1";   // scene flag: dealt piles + cursors
 const PATHS_FLAG_KEY = "carchasePaths";     // scene flag: 2 or 3 (GM-controlled)
+const CHASE_TABLE_SETTING = "chaseTableUuid";
 
 /* ----------------------------- Dialog helpers ----------------------------- */
 
@@ -68,6 +69,27 @@ function num(x, fallback = 0) {
   return Number.isFinite(n) ? n : fallback;
 }
 
+function isChaseTableName(name) {
+  const n = String(name ?? "").trim().toLowerCase();
+  return n === "carchase" || n === "car chase";
+}
+
+async function tryResolveRollTable(uuid) {
+  const u = String(uuid ?? "").trim();
+  if (!u) return null;
+  const doc = await fromUuid(u);
+  return (doc?.documentName === "RollTable") ? doc : null;
+}
+
+async function storeChaseTableUuid(doc) {
+  if (!doc || doc.documentName !== "RollTable") return;
+  // Only persist world tables (avoid pinning compendium UUIDs).
+  if (doc.pack) return;
+  try {
+    await game.settings?.set?.(MOD_ID, CHASE_TABLE_SETTING, doc.uuid);
+  } catch (_e) {}
+}
+
 function tileMatchesSlotRect(tile, { x, y, width, height }, tol = 2) {
   if (!tile) return false;
   return (
@@ -79,10 +101,53 @@ function tileMatchesSlotRect(tile, { x, y, width, height }, tol = 2) {
 }
 
 async function resolveRollTableByUuid(tableUuid) {
-  const u = String(tableUuid ?? "");
-  const doc = await fromUuid(u);
-  if (doc?.documentName !== "RollTable") throw new Error(`Not a RollTable UUID: ${u}`);
-  return doc;
+  const u = String(tableUuid ?? "").trim();
+
+  // 1) Prefer a stored world-table UUID (user-dragged tables get new ids).
+  const stored = game.settings?.get?.(MOD_ID, CHASE_TABLE_SETTING);
+  let doc = await tryResolveRollTable(stored);
+  if (doc) return doc;
+
+  // 2) Use the provided UUID if it resolves.
+  doc = await tryResolveRollTable(u);
+  if (doc) {
+    await storeChaseTableUuid(doc);
+    return doc;
+  }
+
+  // 3) Legacy compendium UUIDs sometimes included the document type segment.
+  if (u.includes(".RollTable.")) {
+    const normalized = u.replace(".RollTable.", ".");
+    doc = await tryResolveRollTable(normalized);
+    if (doc) {
+      console.warn(`SinlessCSB | Normalized RollTable UUID: ${u} -> ${normalized}`);
+      await storeChaseTableUuid(doc);
+      return doc;
+    }
+  }
+
+  // 4) Prefer a world table by name if present.
+  const worldTable = (game.tables ?? []).find(t => isChaseTableName(t?.name));
+  if (worldTable) {
+    await storeChaseTableUuid(worldTable);
+    return worldTable;
+  }
+
+  // 5) Fallback to compendium by name if needed.
+  const pack = game.packs?.get(`${MOD_ID}.sinlesscsb-rollabletables`);
+  if (pack) {
+    const index = await pack.getIndex();
+    const entry = index.find(e => isChaseTableName(e?.name));
+    if (entry?.uuid) {
+      doc = await tryResolveRollTable(entry.uuid);
+      if (doc) {
+        console.warn(`SinlessCSB | Fallback to chase table by name (${entry.name}) for UUID ${u || "(none)"}`);
+        return doc;
+      }
+    }
+  }
+
+  throw new Error(`Not a RollTable UUID: ${u || "(none)"}`);
 }
 
 /* ---------------------------- Pile state logic ---------------------------- */
@@ -206,7 +271,6 @@ export async function drawChasePath({
 
   const scene = (sceneId && game.scenes?.get(sceneId)) || canvas?.scene || null;
   if (!scene) throw new Error("No active scene and no sceneId provided.");
-  if (!tableUuid) throw new Error("drawChasePath requires tableUuid.");
 
   const table = await resolveRollTableByUuid(tableUuid);
 
@@ -248,7 +312,7 @@ export async function drawChasePath({
 
   // Place the chosen card as a tile (TOP-LEFT coords; no tag replacement)
   const out = await drawTableResultTile({
-    tableUuid,
+    tableUuid: table.uuid,
     sceneId: scene.id,
     x, y, width, height,
     center: false,               // top-left semantics

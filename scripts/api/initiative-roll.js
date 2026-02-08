@@ -211,7 +211,11 @@ export async function rollInitiative({ actorUuid } = {}) {
       </div>
     `;
 
-    await ChatMessage.create({ speaker, content });
+    await ChatMessage.create({
+      speaker,
+      content,
+      rolls: [rolled.roll]
+    });
 
     return {
       actorUuid: actor.uuid,

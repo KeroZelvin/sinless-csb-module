@@ -115,6 +115,29 @@ const diceHTML = await roll.render();  // for chat cards
 
 ---
 
+## 4.5) ChatMessage + Rolls (v13+ safe, Dice So Nice compatible)
+When posting custom chat cards, **attach the Roll to `rolls`** and do **not** set `type` or `style`.
+Foundry v13 deprecated `ChatMessage#type` and even `CONST.CHAT_MESSAGE_STYLES.ROLL` is deprecated in favor of simply providing `rolls`.
+
+```js
+const roll = new Roll(`${dice}d6`);
+await roll.evaluate();
+
+await ChatMessage.create({
+  speaker: ChatMessage.getSpeaker({ actor }),
+  content,          // your custom card HTML
+  rolls: [roll]      // triggers Dice So Nice + roll tooling
+});
+```
+
+Do **not** use:
+- `type: CONST.CHAT_MESSAGE_TYPES.ROLL`
+- `style: CONST.CHAT_MESSAGE_STYLES.ROLL`
+
+Both generate deprecation warnings in v13 and will break in v14.
+
+---
+
 ## 5) Avoid these pitfalls
 - **Import declarations inside functions**  
   If you see “An import declaration can only be used at the top level of a module”, move `import ...` to the top of the file or use `await import(...)`.

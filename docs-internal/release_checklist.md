@@ -44,3 +44,7 @@ This checklist is for building and publishing a new GitHub release for the Sinle
 ## Post-release sanity
 1. Install the release in a clean Foundry instance and confirm the module loads.
 2. Spot-check a compendium or two to confirm pack contents are updated.
+
+## Code tracking
+1. in powershell: tokei -e packs -e dist -e .tmp -e dist-snapshot .
+

@@ -44,6 +44,53 @@ import { registerSoftwareSlotRefreshHooks } from "./hooks/software-slot-refresh.
 import { registerCyberdeckSingleHooks } from "./hooks/cyberdeck-single.js";
 
 const MOD_ID = "sinlesscsb";
+const CHASE_TABLE_SETTING = "chaseTableUuid";
+
+function isChaseTableName(name) {
+  const n = String(name ?? "").trim().toLowerCase();
+  return n === "carchase" || n === "car chase";
+}
+
+async function findChaseTableUuidFromWorld() {
+  const table = (game.tables ?? []).find(t => isChaseTableName(t?.name));
+  return table?.uuid ?? "";
+}
+
+async function findChaseTableUuidFromPack() {
+  const pack = game.packs?.get(`${MOD_ID}.sinlesscsb-rollabletables`);
+  if (!pack) return "";
+  const index = await pack.getIndex();
+  const entry = index.find(e => isChaseTableName(e?.name));
+  return entry?.uuid ?? "";
+}
+
+async function ensureChaseTableUuid() {
+  const cur = String(game.settings?.get?.(MOD_ID, CHASE_TABLE_SETTING) ?? "").trim();
+
+  let doc = null;
+  if (cur) {
+    try { doc = await fromUuid(cur); } catch (_e) {}
+  }
+
+  // Prefer a world table if present.
+  const worldUuid = await findChaseTableUuidFromWorld();
+  if (worldUuid) {
+    if (worldUuid !== cur) {
+      await game.settings?.set?.(MOD_ID, CHASE_TABLE_SETTING, worldUuid);
+      console.log("SinlessCSB | CarChase RollTable set from world table", worldUuid);
+    }
+    return;
+  }
+
+  // If current UUID is missing/invalid, fall back to compendium by name.
+  if (!doc || doc?.documentName !== "RollTable") {
+    const packUuid = await findChaseTableUuidFromPack();
+    if (packUuid && packUuid !== cur) {
+      await game.settings?.set?.(MOD_ID, CHASE_TABLE_SETTING, packUuid);
+      console.log("SinlessCSB | CarChase RollTable set from compendium", packUuid);
+    }
+  }
+}
 
 /* ===============================
  * Force-load module CSS (robust)
@@ -184,6 +231,15 @@ Hooks.once("init", () => {
     default: true
   });
 
+  game.settings.register(MOD_ID, CHASE_TABLE_SETTING, {
+    name: "Car Chase RollTable UUID (internal)",
+    hint: "Internal storage for the active Car Chase rolltable UUID.",
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
+
   game.settings.register(MOD_ID, "poolsEnable", {
     name: "Auto-refresh pools",
     hint: "Automatically refresh PC attribute pools from base stats.",
@@ -256,6 +312,15 @@ Hooks.once("init", () => {
       hasElement: !!app?.element
     });
   });
+
+  Hooks.on("createRollTable", (doc) => {
+    if (!doc || doc.documentName !== "RollTable") return;
+    if (!isChaseTableName(doc?.name)) return;
+    try {
+      game.settings?.set?.(MOD_ID, CHASE_TABLE_SETTING, doc.uuid);
+      console.log("SinlessCSB | CarChase RollTable captured on create", doc.uuid);
+    } catch (_e) {}
+  });
 });
 
 Hooks.once("ready", () => {
@@ -272,6 +337,9 @@ Hooks.once("ready", () => {
     const apiKeys = Object.keys(game.modules?.get(MOD_ID)?.api ?? {});
     console.log("SinlessCSB | API keys (ready)", apiKeys);
   } catch (_e) {}
+
+  // Cache the active CarChase RollTable UUID (world table preferred).
+  ensureChaseTableUuid().catch?.(() => {});
 
   registerSheetThemeHooks();
   registerCombatHooks();

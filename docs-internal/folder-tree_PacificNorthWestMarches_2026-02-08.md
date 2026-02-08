@@ -1,10 +1,12 @@
 # Folder Tree (Actors + Items)
 
 - World: **PacificNorthWestMarches**
-- Generated: 2/6/2026, 1:03:52 PM
+- Generated: 2/7/2026, 6:31:46 PM
 
 ## Actors
+- **PreGens**
 - **PCs**
+  - PC Sheet (duplicate & rename)
   - TestSpell
 - **NPCs**
   - NPCtest
@@ -55,10 +57,11 @@
   - Sinless PC (Copy)
   - Sinless NPC
 - **TestSpell Drones**
-  - Drone Test
-  - Drone Test
+  - Aerial Warden
+  - Dog-Patrol Drone
+  - Orb
 - **TestSpell Vehicles**
-  - Vehicle Test
+  - Family Sedan
 
 ## Items
 - **CSB - Embedded Items Folder - DO NOT RENAME OR REMOVE**

@@ -1,8 +1,30 @@
-2026/02/06-07:27:30.650 111c Recovering log #464
-2026/02/06-07:27:30.654 111c Delete type=0 #464
-2026/02/06-07:27:30.654 111c Delete type=3 #463
-2026/02/06-07:52:58.587 28cc Level-0 table #468: started
-2026/02/06-07:52:58.587 28cc Level-0 table #468: 0 bytes OK
-2026/02/06-07:52:58.589 28cc Delete type=0 #466
-2026/02/06-07:52:58.589 28cc Manual compaction at level-0 from '!actors!409875cd45a544c0' @ 72057594037927935 : 1 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at (end)
-2026/02/06-07:52:58.589 28cc Manual compaction at level-1 from '!actors!409875cd45a544c0' @ 72057594037927935 : 1 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at (end)
+2026/02/06-08:48:39.074 19dc Recovering log #467
+2026/02/06-08:48:39.078 19dc Delete type=0 #467
+2026/02/06-08:48:39.078 19dc Delete type=3 #465
+2026/02/06-12:48:06.690 28cc Level-0 table #472: started
+2026/02/06-12:48:06.699 28cc Level-0 table #472: 794550 bytes OK
+2026/02/06-12:48:06.701 28cc Delete type=0 #470
+2026/02/06-12:48:06.799 28cc Compacting 1@1 + 1@2 files
+2026/02/06-12:48:06.810 28cc Generated table #473@1: 61 keys, 420644 bytes
+2026/02/06-12:48:06.810 28cc Compacted 1@1 + 1@2 files => 420644 bytes
+2026/02/06-12:48:06.812 28cc compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/06-12:48:06.812 28cc Delete type=2 #320
+2026/02/06-12:48:06.812 28cc Delete type=2 #472
+2026/02/06-12:48:11.325 28cc Level-0 table #475: started
+2026/02/06-12:48:11.333 28cc Level-0 table #475: 733234 bytes OK
+2026/02/06-12:48:11.335 28cc Delete type=0 #471
+2026/02/06-12:48:11.475 28cc Compacting 1@1 + 1@2 files
+2026/02/06-12:48:11.487 28cc Generated table #476@1: 84 keys, 595911 bytes
+2026/02/06-12:48:11.487 28cc Compacted 1@1 + 1@2 files => 595911 bytes
+2026/02/06-12:48:11.488 28cc compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/06-12:48:11.489 28cc Delete type=2 #473
+2026/02/06-12:48:11.489 28cc Delete type=2 #475
+2026/02/06-12:54:44.391 28cc Level-0 table #478: started
+2026/02/06-12:54:44.401 28cc Level-0 table #478: 905188 bytes OK
+2026/02/06-12:54:44.402 28cc Delete type=0 #474
+2026/02/06-12:56:19.902 28cc Compacting 1@1 + 1@2 files
+2026/02/06-12:56:19.915 28cc Generated table #479@1: 84 keys, 597274 bytes
+2026/02/06-12:56:19.915 28cc Compacted 1@1 + 1@2 files => 597274 bytes
+2026/02/06-12:56:19.916 28cc compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/06-12:56:19.916 28cc Delete type=2 #476
+2026/02/06-12:56:19.916 28cc Delete type=2 #478
