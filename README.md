@@ -95,7 +95,7 @@ https://github.com/SR5-FoundryVTT/SR5-FoundryVTT
 
     Non Bella Carvalho Icons in the SR5 are sourced from game-icons.net, see atributions in that folder.
 
-Some icons originally from the FoundryFoundry Shadowrun 6 module:
+Some icons originally from the Foundry Shadowrun 6 module:
 https://github.com/yjeroen/foundry-shadowrun6-eden
 
     Icons were created by the talented folks over at www.game-icons.net and used under the terms of Creative Commons 3.0 BY license.
