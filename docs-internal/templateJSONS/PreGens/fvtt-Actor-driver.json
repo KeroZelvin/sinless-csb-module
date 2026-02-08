@@ -1,0 +1,130 @@
+{
+  "name": "DRIVER",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 0,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 6,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 3,
+      "Skill_Gunnery": 6,
+      "Skill_HeavyWeapons": 3,
+      "Skill_AstralSenses": 0,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 0,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 6,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 6,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 0,
+      "Skill_Reconnaissance": 0,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 0,
+      "etiqCorpo": 0,
+      "etiqAristoc": 0,
+      "etiqStreet": 4,
+      "etiqMilitary": 0,
+      "etiqCivil": 0,
+      "etiqCriminal": 4,
+      "etiqWaste": 0,
+      "pcHeritage": "Human",
+      "pcTags": "",
+      "magicalTalent": "Hedge",
+      "ghostRating": 3,
+      "invTxt": "<p>Datajack, Commlink, Smartlink, Nerve Rig, AR optical, Synaptic Enhancers, Advanced VCR, Hardener + ECM. Vehicles and drones with multiple linked weapons; quantity details remain in this note.</p>",
+      "pcNotes": "",
+      "lifePrepurchased": 6,
+      "STR": 4,
+      "BOD": 4,
+      "REA": 16,
+      "INT": 11,
+      "WIL": 5,
+      "CHA": 4,
+      "pcLifestyle": "pcLifemiddle"
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p59",
+      "pregenCompendiumItems": [
+        {
+          "name": "Advanced VCR",
+          "qty": 1
+        },
+        {
+          "name": "Sports Car",
+          "qty": 1
+        },
+        {
+          "name": "Armored Car",
+          "qty": 1
+        },
+        {
+          "name": "Delivery Van",
+          "qty": 1
+        },
+        {
+          "name": "Autocannon",
+          "qty": 4
+        },
+        {
+          "name": "Machine Guns",
+          "qty": 4
+        },
+        {
+          "name": "Oil Slick",
+          "qty": 1
+        },
+        {
+          "name": "30mm Cannon",
+          "qty": 1
+        },
+        {
+          "name": "Roto-Drone",
+          "qty": 4
+        },
+        {
+          "name": "Shield Drone",
+          "qty": 8
+        },
+        {
+          "name": "Dog-Patrol Drone",
+          "qty": 1
+        },
+        {
+          "name": "Mobile Sentinel",
+          "qty": 1
+        },
+        {
+          "name": "Sentry Gun",
+          "qty": 1
+        },
+        {
+          "name": "Recoilless Gun",
+          "qty": 1
+        },
+        {
+          "name": "Mini gun",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "WASTELAND MAGE",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 0,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 3,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 6,
+      "Skill_Channeling": 6,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 6,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 6,
+      "Skill_Subterfuge": 0,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 3,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 0,
+      "Skill_Reconnaissance": 0,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 0,
+      "etiqCorpo": 0,
+      "etiqAristoc": 0,
+      "etiqStreet": 0,
+      "etiqMilitary": 0,
+      "etiqCivil": 0,
+      "etiqCriminal": 0,
+      "etiqWaste": 6,
+      "pcHeritage": "Synthetic",
+      "pcTags": "Arcano-manon Interface Matrix",
+      "magicalTalent": "Archmage",
+      "ghostRating": 6,
+      "invTxt": "<p>Datajack, AR Optical, Low-light, Thermographic, Chipjack. Powerbolt foci 6.</p>",
+      "pcNotes": "",
+      "lifePrepurchased": 0,
+      "STR": 3,
+      "BOD": 6,
+      "REA": 6,
+      "INT": 10,
+      "WIL": 13,
+      "CHA": 3
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p57",
+      "pregenCompendiumItems": [
+        {
+          "name": "Flight",
+          "qty": 1
+        },
+        {
+          "name": "Light",
+          "qty": 1
+        },
+        {
+          "name": "Power Bolt",
+          "qty": 1
+        },
+        {
+          "name": "Massage the Bones of the Earth",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

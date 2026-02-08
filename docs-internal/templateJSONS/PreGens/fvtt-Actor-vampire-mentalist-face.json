@@ -1,0 +1,105 @@
+{
+  "name": "Vampire Mentalist Face",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 5,
+      "Skill_CyberCombat": 2,
+      "Skill_MartialArts": 4,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 4,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 0,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 2,
+      "Skill_Channeling": 1,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 1,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 6,
+      "Skill_Subterfuge": 2,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 0,
+      "Skill_Reconnaissance": 0,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 6,
+      "etiqCorpo": 0,
+      "etiqAristoc": 0,
+      "etiqStreet": 0,
+      "etiqMilitary": 0,
+      "etiqCivil": 0,
+      "etiqCriminal": 0,
+      "etiqWaste": 0,
+      "pcHeritage": "Green",
+      "pcTags": "",
+      "magicalTalent": "Mentalist",
+      "ghostRating": 8,
+      "invTxt": "<p>Katana. Shuriken x2. Hold/Enthrall/Suggestion foci and fetish values from sheet. Redcap soak bonus and nature-bound notes retained in disambiguation file.</p>",
+      "pcNotes": "<p>Quickstart best-effort extraction. Some pips and modifiers were hard to read; see disambiguationPREGEN.md.</p>",
+      "lifePrepurchased": 0,
+      "STR": 10,
+      "BOD": 8,
+      "REA": 10,
+      "INT": 10,
+      "WIL": 8,
+      "CHA": 8
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Quickstart p28-29",
+      "pregenCompendiumItems": [
+        {
+          "name": "Katana",
+          "qty": 1
+        },
+        {
+          "name": "Shuriken",
+          "qty": 2
+        },
+        {
+          "name": "Hold",
+          "qty": 1
+        },
+        {
+          "name": "Enthrall",
+          "qty": 1
+        },
+        {
+          "name": "Suggestion",
+          "qty": 1
+        },
+        {
+          "name": "Shapeshift",
+          "qty": 1
+        },
+        {
+          "name": "Ensorcell",
+          "qty": 1
+        },
+        {
+          "name": "Forget",
+          "qty": 1
+        },
+        {
+          "name": "Command",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

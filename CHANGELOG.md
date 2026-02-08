@@ -2,7 +2,8 @@ v0.0.9
     Fixed Speaker skills
     Fixed Car Chase
     Fixed 3d Dice appearing from API rolls logic
-
+    ADD Bestiary (first pass)
+    ADD PC PreGens (first pass)
 
 
 

@@ -1,0 +1,82 @@
+{
+  "name": "DETECTIVE",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 0,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 2,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 4,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 0,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 4,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 6,
+      "Skill_Leadership": 2,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 5,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 3,
+      "Skill_Hacking": 2,
+      "Skill_Drive": 2,
+      "Skill_EWarfare": 2,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 3,
+      "Skill_Observation": 8,
+      "Skill_Reconnaissance": 5,
+      "Skill_Safecracking": 3,
+      "Skill_Shadow": 5,
+      "etiqCorpo": 2,
+      "etiqAristoc": 2,
+      "etiqStreet": 6,
+      "etiqMilitary": 0,
+      "etiqCivil": 6,
+      "etiqCriminal": 6,
+      "etiqWaste": 0,
+      "pcHeritage": "Uplifted",
+      "pcTags": "",
+      "magicalTalent": "Hedge",
+      "ghostRating": 5,
+      "invTxt": "<p>Two-seater car, Syncsight Hunter. Datajack, commlink, subvocal mic, dampener, recorder, echolocational positioning, memory 250 EB, cybernetic eyes (AR optical, camera, flare compensation, low light). MasterDeck.</p>",
+      "pcNotes": "<p>Skill_Observation set to 8 from Observation 6 + 2 per instructions.</p>",
+      "lifePrepurchased": 3,
+      "STR": 6,
+      "BOD": 6,
+      "REA": 6,
+      "INT": 7,
+      "WIL": 7,
+      "CHA": 11,
+      "pcLifestyle": "pclifeLow"
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p58",
+      "pregenCompendiumItems": [
+        {
+          "name": "Two-Seater",
+          "qty": 1
+        },
+        {
+          "name": "Syncsight Hunter",
+          "qty": 1
+        },
+        {
+          "name": "MasterDeck",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

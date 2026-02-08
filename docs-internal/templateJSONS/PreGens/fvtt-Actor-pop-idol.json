@@ -1,0 +1,82 @@
+{
+  "name": "POP IDOL",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 2,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 3,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 0,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 4,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 6,
+      "Skill_Leadership": 2,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 0,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 6,
+      "Skill_Observation": 2,
+      "Skill_Reconnaissance": 0,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 2,
+      "etiqCorpo": 6,
+      "etiqAristoc": 6,
+      "etiqStreet": 4,
+      "etiqMilitary": 0,
+      "etiqCivil": 6,
+      "etiqCriminal": 4,
+      "etiqWaste": 0,
+      "pcHeritage": "Uplifted",
+      "pcTags": "",
+      "magicalTalent": "Hedge",
+      "ghostRating": 9,
+      "invTxt": "<p>Datajack, commlink, subvocal mic, dampener, recorder, echolocational positioning, cybernetic eyes (AR optical, camera, flare compensation, low light), compartment, covert synthskin. Limo, Luxury Sedan, Sports Car.</p>",
+      "pcNotes": "",
+      "lifePrepurchased": 24,
+      "STR": 4,
+      "BOD": 4,
+      "REA": 12,
+      "INT": 6,
+      "WIL": 6,
+      "CHA": 13,
+      "pcLifestyle": "pclifeWealthy"
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p56",
+      "pregenCompendiumItems": [
+        {
+          "name": "Limo",
+          "qty": 1
+        },
+        {
+          "name": "Luxury Sedan",
+          "qty": 1
+        },
+        {
+          "name": "Sports Car",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

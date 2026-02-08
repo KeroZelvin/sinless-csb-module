@@ -1,0 +1,1207 @@
+===== PAGE 28 =====
+Bra wn  Pool
+r esol ve  Pool Focus  Pool
+Finesse  Pool
+e tiquettes
+Aristocracy
+Milit ary
+Criminal
+Civil
+Corpora te
+Street
+W asteland
+Ghost Ra ting:
+Name:
+Body
+r eaction
+i ntelligence
+w ill Power
+c harismas trength
+g ear
+    Shruiken 4 damage (9)
+    Shruiken 4 damage (9)
+    Hold Foci (6)
+    Enthrall Foci (3) Suggestion Fetish (3)
+Enthrall Fetish (3)
+Hold Fetish (6)
+ Suggestion Foci (3)
+r ituals
++1 r ecoil  r eduction  
+a t  12 & 24 
+½ s trength  is  Base   
+m elee /t hrown  
+w ea Pon  d amage  
+100%
+50% 50%
+6+50%
+i nitia tive  =  
+r eaction  + r eaction  test
+50%
+100%
+100%50%
+25%
+25%
+100% 25%
+6+50%
+50%
+a dd  25% o F c harisma  
+to  the  Pool  o F your  
+choice  
+ 
+g ain  ×2 c harisma  in  
+etiquette  skills  
+k ismet k ismet  
+Pool
+Magical T alent:
+Base Zoetic 
+Potential
+Herit age:
+Dodge              Tot alsoak                 Tot al
+Armor-Ballistic/Imp act  
+Internal  
+ 
+Under  
+ 
+Outer  
+t hrown  
+wea Pons
+Physical Condition
+Stun condition
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+OVerflow
+close   range  
+ 
+ 
+max    range
+100%
+200%
+“
+“
+Melee Weapon                   rEACH    ap
+Katana 8 damage  1 1
+Reflexweave 1/1
+1 wt . Per  s tr  
+Per  weight  over  -1 die  on  all  tests , -1” movement
+Mentalist
+Green
+Melee Weapons
+Unarmed Comba t
+Martial Art
+Cybernetic Cmbt.
+Throwing Weapons
+A thletics
+Jump Vertical .5” Horizont al 1”
+bra wn pool skills
+Channeling
+Sorcery
+Astral Senses
+Surviv al
+Conjuring
+Leadership
+Subterfuge
+Coercion
+Fascina tion
+Resol ve pool skills
+Shadow
+Drive
+F ly
+Observ a tion
+Biotech
+Safecracking
+Computer Hacking
+Electronic W ar
+Artificing
+Negotia tion
+Engineering 
+Focus pool skills
+Reconnaissance
+h ea t
+No Disruption
+Suspicious
+Alerted +1 die on all tests
+Alarm! T arget Number -1
+2d6 rounds to HTR arriv al  
++1 Simple Action 
+l i Festyle
+s qua tter
+m iddle
+h igh
+w eal thy  
+Free   1 Damage, -1 die
+300ㄓ 1 damage or -1 die
+800ㄓ —
+1,200ㄓ Ignore first penalty die
+5,000ㄓ +1 on all etiquette tests
+l ow
+Firearms
+Gunnery
+Hea vy Weapons
+Energy Weapons
+Archery
+Articula ted Mnvs,
+Finesse pool skills
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+66
+                    Total               Total
+8
+m ovement
+Green 3”
+Brand:
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Place Dice Here
+3” 6
+1
+8 8
+10  8
+Brawn
+10
+10
+10
+20
+18 16
+17 15
+Concept: Vampire Mentalist Face
+Redcap: +2 Bonus 
+Dice on Soak
+
+===== PAGE 29 =====
+Hacking Ra ting
+c y Berw are  - Zc  - e FFect
+Biogenic    e FFect  Bi
+    Nature Bound (running water, sunlight, invitation)
+   Redcap +2 Strength +2 Strength Cap
+t ot al  Body  i ndex
+d rug          d F
+cy Berdeck
+s Pells /a m P Powers
+Shapeshift (Wolf)    Complex action
+Enthrall F6 (focus 3/fetish 3) Focus - 3+F
+Suggestion F6 (foci 3/fetish 3) Focus - 1+F
+Hold F6 (foci 6/fetish 6)  Resolve -2+F
+Ensorcell F3 (0/0)   Focus - 3+F
+Forget F1 (0/0)    Resolve - F
+Command F3    Resolve - F
+Name    /Cores /I/O
+MCP / Hardening/
+T
+h
+r
+e
+a
+d
+s
+Mods
+Softw are ra ting NAN Required y /n
+Name           Force  foci fetish   Res Drain
+roll  1d 6 Per  accumula ted  de Pendence  Factor  during  Fallout
+i F > Body , roll  a  1d 6 and  add  it  to  the  
+amount  over  during  the  Fallout  Phase , 
+and  suFFer  the  listed  eFFect  in  chaPter  11
+vcr
+d rones /v ehicles
+Exploit Actions Drone Links          Hardening
+Mods
+Name Handling/Hardening       Body
+Weapon/ Acc/dam/modes/pen Mv” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Weapon/ Acc/dam/modes/pen MV” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Name Handling/Hardening       Body
+-1 -1 -1 -1 -1 -1
+-1 -1 -1 -1 -1 -1
+
+===== PAGE 30 =====
+Bra wn  Pool
+r esol ve  Pool Focus  Pool
+Finesse  Pool
+e tiquettes
+Aristocracy
+Milit ary
+Criminal
+Civil
+Corpora te
+Street
+W asteland
+Ghost Ra ting:
+Name:
+Body
+r eaction
+i ntelligence
+w ill Power
+c harismas trength
+g ear
+   Electronic Doctor Kit
+   Krieg V-100 Vigilant
+    Warhammer H40mm-ER
+   Krieg Defender Diaweave
+BioGel
+BioGel
+BioGel
+r ituals
++1 r ecoil  r eduction  
+a t  12 & 24 
+½ s trength  is  Base   
+m elee /t hrown  
+w ea Pon  d amage  
+100%
+50% 50%
+6+50%
+i nitia tive  =  
+r eaction  + r eaction  test
+50%
+100%
+100%50%
+25%
+25%
+100% 25%
+6+50%
+50%
+a dd  25% o F c harisma  
+to  the  Pool  o F your  
+choice  
+ 
+g ain  ×2 c harisma  in  
+etiquette  skills  
+k ismet k ismet  
+Pool
+Magical T alent:
+Base Zoetic 
+Potential
+Herit age:
+Dodge              Tot alsoak                 Tot al
+Armor-Ballistic/Imp act  
+Internal  
+ 
+Under  
+ 
+Outer  
+t hrown  
+wea Pons
+Physical Condition
+Stun condition
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+OVerflow
+close   range  
+ 
+ 
+max    range
+100%
+200%
+“
+“
+Melee Weapon                   rEACH    ap
+Grapple Cannon 7  * 0
+Dermanl Plating 1/2
+Diaweave   3/3
+1 wt . Per  s tr  
+Per  weight  over  -1 die  on  all  tests , -1” movement
+Hedge
+Human
+Melee Weapons
+Unarmed Comba t
+Martial Art
+Cybernetic Cmbt.
+Throwing Weapons
+A thletics
+Jump Vertical .5” Horizont al 1”
+bra wn pool skills
+Channeling
+Sorcery
+Astral Senses
+Surviv al
+Conjuring
+Leadership
+Subterfuge
+Coercion
+Fascina tion
+Resol ve pool skills
+Shadow
+Drive
+F ly
+Observ a tion
+Biotech
+Safecracking
+Computer Hacking
+Electronic W ar
+Artificing
+Negotia tion
+Engineering 
+Focus pool skills
+Reconnaissance
+h ea t
+No Disruption
+Suspicious
+Alerted +1 die on all tests
+Alarm! T arget Number -1
+2d6 rounds to HTR arriv al  
++1 Simple Action 
+l i Festyle
+s qua tter
+m iddle
+h igh
+w eal thy  
+Free   1 Damage, -1 die
+300ㄓ 1 damage or -1 die
+800ㄓ —
+1,200ㄓ Ignore first penalty die
+5,000ㄓ +1 on all etiquette tests
+l ow
+Firearms
+Gunnery
+Hea vy Weapons
+Energy Weapons
+Archery
+Articula ted Mnvs,
+Finesse pool skills
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+66
+                    Total               Total
+4
+m ovement
+Movement Enhancement 1
+Grapple Cannon (complex)
+Brand:
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Concept: Cybered firearms 
+recon with grapple cannon
+4”
+9”
+6
+1
+4 13
+9  4
+Finesse
+4
+14
+9
+18
+16 22
+7 10
+
+===== PAGE 31 =====
+Name Handling/Hardening       Body
+Hacking Ra ting
+c y Berw are  - Zc  - e FFect
+Commlink    .3 
+Datajack   .2
+Smartlink   .5 +1 Firearms die
+Subvocal Mic   .1 Silent Comms
+Sound Filter .2 +1 Observation die
+Recorder .3
+Echolocation Positioning .4 Vision in 20m
+Dampener .1 Sonic Immunity
+Amplification  .2 reroll 1’s on observation
+Grapple Cannon 1.0 Move or attack 9” 
+Biogenic    e FFect  Bi
+t ot al  Body  i ndex
+d rug          d F
+cy Berdeck
+s Pells /a m P Powers
+Grapple combat- can use wired reflexes to make
+Exploit attacks at targets within 9” with the grapple
+This uses the  Cybertechtronic combat skill. 
+cannon, each target adds 1 to the current recoil. 
+Vision Magnification 1 .2
+Thermographic .2 Eliminates Darkness penalty
+Name    /Cores /I/O
+MCP / Hardening/
+T
+h
+r
+e
+a
+d
+s
+Mods
+AR Optical + Camera .5
+Flare Compensation .1 
+Laser Designator .5
+Softw are ra ting NAN Required y /n
+Low-Light .2 Eliminates low light penalty
+Name           Force  foci fetish   Res Drain
+roll  1d 6 Per  accumula ted  de Pendence  Factor  during  Fallout
+i F > Body , roll  a  1d 6 and  add  it  to  the  
+amount  over  during  the  Fallout  Phase , 
+and  suFFer  the  listed  eFFect  in  chaPter  11
+vcr
+d rones /v ehicles
+Exploit Actions Drone Links          Hardening
+Mods
+Motorcycle - 4 /2
+Weapon/ Acc/dam/modes/pen Mv” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Weapon/ Acc/dam/modes/pen MV” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Name Handling/Hardening       Body
+-1 -1 -1 -1 -1 -1
+-1 -1 -1 -1 -1 -1
+Dermal Plating 3  2.0
+Wired Reflexes 2 4.0 +2 melee attack Exploit Actions
+Gyromount 1.5 Recoil capacity +2
+Muscle Replacement 3 3.0 +3 Strength
+Movement Enhancment 1  +1” movement
+
+===== PAGE 32 =====
+Bra wn  Pool
+r esol ve  Pool Focus  Pool
+Finesse  Pool
+e tiquettes
+Aristocracy
+Milit ary
+Criminal
+Civil
+Corpora te
+Street
+W asteland
+Ghost Ra ting:
+Name:
+Body
+r eaction
+i ntelligence
+w ill Power
+c harismas trength
+g ear
+   Fujitsu Edge
+   Goliath Highwayman
+   Krieg Viper
+    Diaweave armor
+r ituals
++1 r ecoil  r eduction  
+a t  12 & 24 
+½ s trength  is  Base   
+m elee /t hrown  
+w ea Pon  d amage  
+100%
+50% 50%
+6+50%
+i nitia tive  =  
+r eaction  + r eaction  test
+50%
+100%
+100%50%
+25%
+25%
+100% 25%
+6+50%
+50%
+a dd  25% o F c harisma  
+to  the  Pool  o F your  
+choice  
+ 
+g ain  ×2 c harisma  in  
+etiquette  skills  
+k ismet k ismet  
+Pool
+Magical T alent:
+Base Zoetic 
+Potential
+Herit age:
+Dodge              Tot alsoak                 Tot al
+Armor-Ballistic/Imp act  
+Internal  
+ 
+Under  
+ 
+Outer  
+t hrown  
+wea Pons
+Physical Condition
+Stun condition
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+OVerflow
+close   range  
+ 
+ 
+max    range
+100%
+200%
+“
+“
+Melee Weapon                   rEACH    ap
+Diaweave 3/3
+1 wt . Per  s tr  
+Per  weight  over  -1 die  on  all  tests , -1” movement
+Hedge
+Uplifted Gorilla
+Melee Weapons
+Unarmed Comba t
+Martial Art
+Cybernetic Cmbt.
+Throwing Weapons
+A thletics
+Jump Vertical .5” Horizont al 1”
+bra wn pool skills
+Channeling
+Sorcery
+Astral Senses
+Surviv al
+Conjuring
+Leadership
+Subterfuge
+Coercion
+Fascina tion
+Resol ve pool skills
+Shadow
+Drive
+F ly
+Observ a tion
+Biotech
+Safecracking
+Computer Hacking
+Electronic W ar
+Artificing
+Negotia tion
+Engineering 
+Electrical
+Focus pool skills
+Reconnaissance
+h ea t
+No Disruption
+Suspicious
+Alerted +1 die on all tests
+Alarm! T arget Number -1
+2d6 rounds to HTR arriv al  
++1 Simple Action 
+l i Festyle
+s qua tter
+m iddle
+h igh
+w eal thy  
+Free   1 Damage, -1 die
+300ㄓ 1 damage or -1 die
+800ㄓ —
+1,200ㄓ Ignore first penalty die
+5,000ㄓ +1 on all etiquette tests
+l ow
+Firearms
+Gunnery
+Hea vy Weapons
+Energy Weapons
+Archery
+Articula ted Mnvs,
+Finesse pool skills
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+66
+                    Total               Total
+9
+m ovement
+Brand:
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Place Dice Here
+3” 5
+1
+6 6
+6 4
+Finesse
+11
+16
+6
+12
+10 21
+12 20
+Concept: Uplifted 
+Gorilla hacker
+
+===== PAGE 33 =====
+MCP / Hardening/
+Name    /Cores /I/OFujisu Edge /Tri / 3
+Hacking 6 Ra ting
+c y Berw are  - Zc  - e FFect
+Datajack .2
+Nerve Rig 1.0 
+Smartlink .5 +1 bonus die on firearms
+Subvocal Mic  .1
+AR optical .1
+Synaptic Enhancers  Int/Reaction +2
+Biogenic    e FFect  Bi
+    Pain penalties doubled from Reaction Enhancer
+4  Reaction Enhancer  +4 Reaction 
+t ot al  Body  i ndex
+d rug          d F
+cy Berdeck
+s Pells /a m P Powers
+Electric Strike   6  Y
+Device Control   6
+ 8 / 4  
+T
+h
+r
+e
+a
+d
+s
+Mods
+Alert Monitor
+Acid Burn    6
+Corrupt IFF   6
+Crack Encryption   6
+Softw are ra ting NAN Required y /n
+Derez    6
+Name           Force  foci fetish   Res Drain
+roll  1d 6 Per  accumula ted  de Pendence  Factor  during  Fallout
+i F > Body , roll  a  1d 6 and  add  it  to  the  
+amount  over  during  the  Fallout  Phase , 
+and  suFFer  the  listed  eFFect  in  chaPter  11
+vcr
+d rones /v ehicles
+Exploit Actions Drone Links          Hardening
+Mods
+    16m (8”) 4
+Name Handling/Hardening       Body
+Weapon/ Acc/dam/modes/pen Mv” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Weapon/ Acc/dam/modes/pen MV” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Name Handling/Hardening       Body
+-1 -1 -1 -1 -1 -1
+-1 -1 -1 -1 -1 -1
+Ghost Protocals   4
+Shadow Protocols   3
+Range Extension
+Sports car 4 2
+
+===== PAGE 34 =====
+Bra wn  Pool
+r esol ve  Pool Focus  Pool
+Finesse  Pool
+e tiquettes
+Aristocracy
+Milit ary
+Criminal
+Civil
+Corpora te
+Street
+W asteland
+Ghost Ra ting:
+Name:
+Body
+r eaction
+i ntelligence
+w ill Power
+c harismas trength
+g ear
+r ituals
++1 r ecoil  r eduction  
+a t  12 & 24 
+½ s trength  is  Base   
+m elee /t hrown  
+w ea Pon  d amage  
+100%
+50% 50%
+6+50%
+i nitia tive  =  
+r eaction  + r eaction  test
+50%
+100%
+100%50%
+25%
+25%
+100% 25%
+6+50%
+50%
+a dd  25% o F c harisma  
+to  the  Pool  o F your  
+choice  
+ 
+g ain  ×2 c harisma  in  
+etiquette  skills  
+k ismet k ismet  
+Pool
+Magical T alent:
+Base Zoetic 
+Potential
+Herit age:
+Dodge              Tot alsoak                 Tot al
+Armor-Ballistic/Imp act  
+Internal  
+ 
+Under  
+ 
+Outer  
+t hrown  
+wea Pons
+Physical Condition
+Stun condition
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+OVerflow
+close   range  
+ 
+ 
+max    range
+100%
+200%
+“
+“
+Melee Weapon                   rEACH    ap
+1 wt . Per  s tr  
+Per  weight  over  -1 die  on  all  tests , -1” movement
+Hedge
+Human
+Melee Weapons
+Unarmed Comba t
+Martial Art
+Cybernetic Cmbt.
+Throwing Weapons
+A thletics
+Jump Vertical .5” Horizont al 1”
+bra wn pool skills
+Channeling
+Sorcery
+Astral Senses
+Surviv al
+Conjuring
+Leadership
+Subterfuge
+Coercion
+Fascina tion
+Resol ve pool skills
+Shadow
+Drive
+F ly
+Observ a tion
+Biotech
+Safecracking
+Computer Hacking
+Electronic W ar
+Artificing
+Negotia tion
+Engineering 
+Focus pool skills
+Reconnaissance
+h ea t
+No Disruption
+Suspicious
+Alerted +1 die on all tests
+Alarm! T arget Number -1
+2d6 rounds to HTR arriv al  
++1 Simple Action 
+l i Festyle
+s qua tter
+m iddle
+h igh
+w eal thy  
+Free   1 Damage, -1 die
+300ㄓ 1 damage or -1 die
+800ㄓ —
+1,200ㄓ Ignore first penalty die
+5,000ㄓ +1 on all etiquette tests
+l ow
+Firearms
+Gunnery
+Hea vy Weapons
+Energy Weapons
+Archery
+Articula ted Mnvs,
+Finesse pool skills
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+66
+                    Total               Total
+m ovement
+Brand:
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Place Dice Here
+3” 6
+1
+6 5
+5 8
+Focus
+10
+8
+5
+10
+9 13
+15 15
+Concept: Detective 
+Rigger Data analyst
+
+===== PAGE 35 =====
+Weapon/ Acc/dam/modes/pen  Armor
+Weapon/ Acc/dam/modes/pen Mv” Cargo
+Exploit Actions Drone Links          Hardening
+Softw are ra ting
+MCP / Hardening/
+Name Handling/Hardening       Body
+Name Handling/Hardening       Body
+Hacking Ra ting
+c y Berw are  - Zc  - e FFect
+Datajack .2
+Nerve Rig 1.0
+Synaptic Enhancers .6
+Dog Drone 8m(4”) 4 handling 2impact Armor
+Can mount Sentry Gun 6 body
+Roto Drone x 2 10m(5”) 4 handling 1b armor
+VSTOL +4 reconissance automapping p. 146
+More drones
+Can mount Sentry & Minigun 10 body
+Biogenic    e FFect  Bi
+t ot al  Body  i ndex
+d rug          d F
+cy Berdeck
+s Pells /a m P Powers
+Semi-Point Razor/ Double /2Name    /Cores /I/O
+  6 / 4 /
+T
+h
+r
+e
+a
+d
+s
+Mods
+  6
+Acid Burn 6
+Alert Monitor
+Corrupt IFF 6
+Device Control 6
+De-rez 6
+NAN Required y /n
+Name           Force  foci fetish   Res Drain
+roll  1d 6 Per  accumula ted  de Pendence  Factor  during  Fallout
+i F > Body , roll  a  1d 6 and  add  it  to  the  
+amount  over  during  the  Fallout  Phase , 
+and  suFFer  the  listed  eFFect  in  chaPter  11
+vcr
+d rones /v ehicles
+Quad (4) / 4 Links / +2
+Mods
+Armored Car      48 body
+Sentry Gun/2acc/4damage/SS/3 10m (5”) 14
+Minigun/1acc/3damage/SS, B, FA/ 3 2I/4b
+Battle Cycle   20body
+Weapon/ Acc/dam/modes/pen MV” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+-1 -1 -1 -1 -1 -1
+-1 -1 -1 -1 -1 -1
+Disc Up to 20m (10”) bright light
+Bug Spy +1 reconnaissance and observation 
++2 dice to initiative
+Master +6 Dice for Drone/Vehicle actions per 
+turn
+
+===== PAGE 36 =====
+Bra wn  Pool
+r esol ve  Pool Focus  Pool
+Finesse  Pool
+e tiquettes
+Aristocracy
+Milit ary
+Criminal
+Civil
+Corpora te
+Street
+W asteland
+Ghost Ra ting:
+Name:
+Body
+r eaction
+i ntelligence
+w ill Power
+c harismas trength
+g ear
+    Powerbolt Foci (6)
+r ituals
++1 r ecoil  r eduction  
+a t  12 & 24 
+½ s trength  is  Base   
+m elee /t hrown  
+w ea Pon  d amage  
+100%
+50% 50%
+6+50%
+i nitia tive  =  
+r eaction  + r eaction  test
+50%
+100%
+100%50%
+25%
+25%
+100% 25%
+6+50%
+50%
+a dd  25% o F c harisma  
+to  the  Pool  o F your  
+choice  
+ 
+g ain  ×2 c harisma  in  
+etiquette  skills  
+k ismet k ismet  
+Pool
+Magical T alent:
+Base Zoetic 
+Potential
+Herit age:
+Dodge              Tot alsoak                 Tot al
+Armor-Ballistic/Imp act  
+Internal  
+ 
+Under  
+ 
+Outer  
+t hrown  
+wea Pons
+Physical Condition
+Stun condition
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+-1 -1 -1 -1
+OVerflow
+close   range  
+ 
+ 
+max    range
+100%
+200%
+“
+“
+Melee Weapon                   rEACH    ap
+1 wt . Per  s tr  
+Per  weight  over  -1 die  on  all  tests , -1” movement
+Archmage
+Synthetic (AMIM)
+Melee Weapons
+Unarmed Comba t
+Martial Art
+Cybernetic Cmbt.
+Throwing Weapons
+A thletics
+Jump Vertical .5” Horizont al 1”
+bra wn pool skills
+Channeling
+Sorcery
+Astral Senses
+Surviv al
+Conjuring
+Leadership
+Subterfuge
+Coercion
+Fascina tion
+Resol ve pool skills
+Shadow
+Drive
+F ly
+Observ a tion
+Biotech
+Safecracking
+Computer Hacking
+Electronic W ar
+Artificing
+Negotia tion
+Engineering 
+Focus pool skills
+Reconnaissance
+h ea t
+No Disruption
+Suspicious
+Alerted +1 die on all tests
+Alarm! T arget Number -1
+2d6 rounds to HTR arriv al  
++1 Simple Action 
+l i Festyle
+s qua tter
+m iddle
+h igh
+w eal thy  
+Free   1 Damage, -1 die
+300ㄓ 1 damage or -1 die
+800ㄓ —
+1,200ㄓ Ignore first penalty die
+5,000ㄓ +1 on all etiquette tests
+l ow
+Firearms
+Gunnery
+Hea vy Weapons
+Energy Weapons
+Archery
+Articula ted Mnvs,
+Finesse pool skills
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+6
+66
+66
+6
+6
+66
+                    Total               Total
+6
+m ovement
+Brand:
+Place Dice Here
+Place Dice Here
+Place Dice Here
+Place Dice Here
+3” 4
+1
+13 6
+3 3
+Finesse
+10
+6
+3
+6
+9 11
+19 16
+Concept: Synthetic
+wasteland archmage
+
+===== PAGE 37 =====
+Hacking Ra ting
+c y Berw are  - Zc  - e FFect
+Datajack
+AR Optical
+Low-Light Eliminate Low Light Penalties
+Thermographic - Eliminate Dark Penalties
+Chipjack
+Biogenic    e FFect  Bi
+t ot al  Body  i ndex
+d rug          d F
+cy Berdeck
+s Pells /a m P Powers
+Flight F2               Drain 1 + 1/2F
+Light F4     1
+Massage the Bones of the Earth F2 3+F
+Powerbolt F4 + Foci (6)     3+ 1/2F
+Powerball F4    3+F
+Counfounding Rhythms of Dire Doom F4 -Resolve-  F
+Cloak of Night F4   Drain 4 + 1/2F
+Uncountable Tendrils of Ehon F4  4+F
+Plus 7 more Force of spells (player choice)
+Name    /Cores /I/O
+MCP / Hardening/
+T
+h
+r
+e
+a
+d
+s
+Mods
+Softw are ra ting NAN Required y /n
+Name           Force  foci fetish   Res Drain
+roll  1d 6 Per  accumula ted  de Pendence  Factor  during  Fallout
+i F > Body , roll  a  1d 6 and  add  it  to  the  
+amount  over  during  the  Fallout  Phase , 
+and  suFFer  the  listed  eFFect  in  chaPter  11
+vcr
+d rones /v ehicles
+Exploit Actions Drone Links          Hardening
+Mods
+Name Handling/Hardening       Body
+Weapon/ Acc/dam/modes/pen Mv” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Weapon/ Acc/dam/modes/pen MV” Cargo
+Weapon/ Acc/dam/modes/pen  Armor
+Name Handling/Hardening       Body
+-1 -1 -1 -1 -1 -1
+-1 -1 -1 -1 -1 -1

@@ -1,0 +1,74 @@
+{
+  "name": "ASSASSIN",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 3,
+      "Skill_CyberCombat": 6,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 3,
+      "Skill_Firearms": 6,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 0,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 0,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 4,
+      "Skill_Reconnaissance": 4,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 4,
+      "etiqCorpo": 0,
+      "etiqAristoc": 0,
+      "etiqStreet": 2,
+      "etiqMilitary": 2,
+      "etiqCivil": 0,
+      "etiqCriminal": 2,
+      "etiqWaste": 0,
+      "pcHeritage": "Synthetic",
+      "pcTags": "",
+      "magicalTalent": "Hedge",
+      "ghostRating": 5,
+      "invTxt": "<p>Smart Highwayman with laser sight and silencer. Diaweave. Chipjack, datajack, commlink, subvocal mic, dampener, amplification, recorder, AR optical, camera, low-light, thermographic vision, magnification, titanium bone lacing, broadcaster jammer, dermal plating 3, muscle replacement 6, wired reflexes II, retractable spurs, rocket boots, strength enhancement 2.</p>",
+      "pcNotes": "",
+      "lifePrepurchased": 12,
+      "STR": 18,
+      "BOD": 19,
+      "REA": 13,
+      "INT": 3,
+      "WIL": 3,
+      "CHA": 3,
+      "pcLifestyle": "pcLifemiddle"
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p54",
+      "pregenCompendiumItems": [
+        {
+          "name": "Highwayman",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

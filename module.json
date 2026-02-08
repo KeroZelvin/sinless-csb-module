@@ -2,7 +2,7 @@
   "id": "sinlesscsb",
   "title": "SinlessCSB",
   "description": "<p>Sinless module for CSB system).</p>",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "compatibility": {
     "minimum": "13",
     "verified": "13"

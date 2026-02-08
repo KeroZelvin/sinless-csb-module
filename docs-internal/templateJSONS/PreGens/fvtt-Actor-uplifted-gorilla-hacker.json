@@ -1,0 +1,121 @@
+{
+  "name": "Uplifted Gorilla hacker",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 6,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 0,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 0,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 6,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 0,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 6,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 6,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 6,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 0,
+      "Skill_Reconnaissance": 0,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 0,
+      "etiqCorpo": 1,
+      "etiqAristoc": 0,
+      "etiqStreet": 3,
+      "etiqMilitary": 3,
+      "etiqCivil": 0,
+      "etiqCriminal": 0,
+      "etiqWaste": 0,
+      "pcHeritage": "Uplifted Gorilla",
+      "pcTags": "",
+      "magicalTalent": "Hedge",
+      "ghostRating": 9,
+      "invTxt": "<p>Fujitsu Edge cyberdeck. Highwayman. Viper. Diaweave armor. Sports car. Software list from quickstart page 33 included via compendium where available.</p>",
+      "pcNotes": "<p>Quickstart best-effort extraction. Multiple right-column skill pips were faint; verify against source sheet.</p>",
+      "lifePrepurchased": 0,
+      "STR": 6,
+      "BOD": 6,
+      "REA": 16,
+      "INT": 11,
+      "WIL": 6,
+      "CHA": 4
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Quickstart p32-33",
+      "pregenCompendiumItems": [
+        {
+          "name": "Fujitsu Edge",
+          "qty": 1
+        },
+        {
+          "name": "Highwayman",
+          "qty": 1
+        },
+        {
+          "name": "Viper",
+          "qty": 1
+        },
+        {
+          "name": "Sports Car",
+          "qty": 1
+        },
+        {
+          "name": "Alert Monitor",
+          "qty": 1
+        },
+        {
+          "name": "Acid Burn",
+          "qty": 1
+        },
+        {
+          "name": "Corrupt IFF",
+          "qty": 1
+        },
+        {
+          "name": "Crack Encryption",
+          "qty": 1
+        },
+        {
+          "name": "De-Rez",
+          "qty": 1
+        },
+        {
+          "name": "Device Control",
+          "qty": 1
+        },
+        {
+          "name": "Electric Strike",
+          "qty": 1
+        },
+        {
+          "name": "Ghost Protocol",
+          "qty": 1
+        },
+        {
+          "name": "Shadow Protocols",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

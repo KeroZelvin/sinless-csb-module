@@ -1,0 +1,110 @@
+{
+  "name": "MARTIAL ARTIST",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "props": {
+      "Skill_Athletics": 6,
+      "Skill_CyberCombat": 0,
+      "Skill_MartialArts": 6,
+      "Skill_MeleeWeapons": 0,
+      "Skill_ThrowingWeapons": 0,
+      "Skill_UnarmedCombat": 6,
+      "Skill_Archery": 0,
+      "Skill_ArticulatedManeuvers": 0,
+      "Skill_EnergyWeapons": 0,
+      "Skill_Firearms": 0,
+      "Skill_Gunnery": 0,
+      "Skill_HeavyWeapons": 0,
+      "Skill_AstralSenses": 2,
+      "Skill_Channeling": 0,
+      "Skill_Coercion": 0,
+      "Skill_Conjuring": 0,
+      "Skill_Fascination": 0,
+      "Skill_Leadership": 0,
+      "Skill_Sorcery": 0,
+      "Skill_Subterfuge": 3,
+      "Skill_Survival": 0,
+      "Skill_Artificing": 0,
+      "Skill_Biotech": 0,
+      "Skill_Hacking": 0,
+      "Skill_Drive": 0,
+      "Skill_EWarfare": 0,
+      "Skill_Engineering": 0,
+      "Skill_Fly": 0,
+      "Skill_Negotiation": 0,
+      "Skill_Observation": 2,
+      "Skill_Reconnaissance": 2,
+      "Skill_Safecracking": 0,
+      "Skill_Shadow": 3,
+      "etiqCorpo": 2,
+      "etiqAristoc": 4,
+      "etiqStreet": 6,
+      "etiqMilitary": 0,
+      "etiqCivil": 0,
+      "etiqCriminal": 4,
+      "etiqWaste": 0,
+      "pcHeritage": "Human",
+      "pcTags": "",
+      "magicalTalent": "Amp",
+      "ghostRating": 5,
+      "invTxt": "<p>Smart DV-662 Devotion with laser sight and bayonet. Nanoweave. Racing Bike. 12 months of middle lifestyle in addition to the high lifestyle months represented in fields.</p>",
+      "pcNotes": "<p>Lifestyle fields represent High x6. Additional Middle x12 is in inventory text.</p>",
+      "lifePrepurchased": 6,
+      "STR": 14,
+      "BOD": 12,
+      "REA": 9,
+      "INT": 7,
+      "WIL": 8,
+      "CHA": 8,
+      "pcLifestyle": "pclifeHigh"
+    }
+  },
+  "flags": {
+    "sinlesscsb": {
+      "pregenSource": "Sinless Core p53",
+      "pregenCompendiumItems": [
+        {
+          "name": "DV-662 Devotion",
+          "qty": 1
+        },
+        {
+          "name": "Racing Bike",
+          "qty": 1
+        },
+        {
+          "name": "Adrenaline Boost",
+          "qty": 1
+        },
+        {
+          "name": "Attribute Boost",
+          "qty": 2
+        },
+        {
+          "name": "Attribute Increase",
+          "qty": 4
+        },
+        {
+          "name": "Flying Crane",
+          "qty": 1
+        },
+        {
+          "name": "Ghost",
+          "qty": 1
+        },
+        {
+          "name": "Hidden Presence",
+          "qty": 1
+        },
+        {
+          "name": "Iron Fist",
+          "qty": 1
+        },
+        {
+          "name": "Touch of the Spider",
+          "qty": 1
+        }
+      ]
+    }
+  }
+}

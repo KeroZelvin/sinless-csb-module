@@ -1,0 +1,337 @@
+===== PAGE 53 =====
+Heritage (E): Human
+Attributes (A): STR 14/21, 
+BOD 12/21, REA 9/20, INT 7/20, 
+WILL 8/20, CHA 8/20
+Ghost Rating: 5
+Skills (B):
+Brawn Pool 22+2
+Unarmed Combat: 6
+Martial Art: Weirding Way: 6
+Athletics: 6
+Finesse Pool 16
+Focus Pool 13
+Shadow : 3
+Observation : 2
+Reconnaissance : 2
+Resolve Pool 15
+Astral Senses : 2
+Subterfuge: 3
+Magic (C): Amp
+Adrenaline boost
+Attribute Boost x 2
+Attribute Increase x 4
+Flying Crane
+Ghost
+Hidden Presence
+Iron Fist
+Touch of the Spider
+Gear (D):
+Smart DV-662 Devotion, with 
+laser sight and bayonet
+Nanoweave
+Racing Bike
+12 months of middle lifestyle
+6 months of high lifestyle
+Etiquettes 
+Corporate 2
+Street 6
+Aristocracy 4
+Criminal 4
+MARTIAL
+ARTIST
+
+===== PAGE 54 =====
+Sinless
+54
+Heritage (D): Synthetic
+Attributes (A): STR 18/28, 
+BOD 19/26, REA 13/24, INT 3/20, 
+WILL 3/20, CHA 3/20
+Ghost Rating: 5
+Skills (C):
+Brawn Pool 28
+Cyber Combat: 6
+Athletics: 3
+Finesse Pool 23
+Firearms: 6
+Energy Weapons : 3
+Focus Pool 10
+Shadow : 4
+Observation : 4
+Reconnaissance : 4
+Resolve Pool 6
+Magic (E): Hedge
+Gear (B):
+Smart Goliath Highwayman 
+with laser sight and silencer
+Diaweave
+Chipjack, datajack, commlink, 
+subvocal mic
+Dampener, Amplification, re -
+corder
+AR optical, camera, low-light 
+and thrmographic vision, with 
+three levels of vision magnifi -
+cation.
+Titanium Bone Lacing, Broad -
+caster Jammer, Dermal Plating 
+3, Muscle Replacement 6, 
+Wired reflexes II, Retractable 
+spurs, Rocket Boots, Strength 
+Enhancement 2
+12 months of middle lifestyle
+Etiquettes 
+Military 2
+Street 2
+Criminal 2
+ASSASSIN
+
+===== PAGE 55 =====
+Sinless
+55
+ 
+Heritage (C): Green
+Antlers, Enchanting,   
+Nature’s Blessing
+Attributes (B): STR 6/20,  
+BOD 7/20, REA 7/20,   
+INT 10/23, WILL 6/20,   
+CHA 14/20
+Ghost Rating: 8
+Skills (A):
+Brawn Pool 11
+Melee Weapons: 3
+Athletics: 6
+Finesse Pool 13+3
+Firearms (Rifles) : 5/7
+Focus Pool 15
+Shadow : 6
+Observation : 6
+Reconnaissance : 6
+Resolve Pool 18
+Subterfuge: 6
+Coercion: 3
+Fascination: 3
+Leadership: 3
+Magic (E): Hedge
+Enchantment (4)
+Gear (D):
+3 months of Wealthy lifestyle
+Smart 450 Tek-Urban
+Nanoweave, Tactical Plate
+Datajack, commlink, smartlink, 
+subvocal mic, AR optical
+Mazada Sedan
+Etiquettes 
+Corporate 3
+Criminal 4 
+Civic 6
+Street 6
+Aristocracy 3
+Military 6
+COVERT
+OPERATIVE
+
+===== PAGE 56 =====
+Sinless
+56
+Heritage (C): Uplifted
+Attributes (B): STR 4/12, 
+BOD 4/12, REA 12/24, INT 
+6/20, WILL 6/20, CHA 13/20
+Ghost Rating: 9
+Skills (D):
+Brawn Pool 7
+Athletics: 2
+Finesse Pool 11+3
+Firearms: 3
+Focus Pool 11
+Shadow : 2
+Observation : 2
+Negotiation : 6
+Resolve Pool 15
+Coercion : 4
+Fascination : 6
+Leadership : 2
+Magic (E): Hedge
+Gear (A):
+Wealthy lifestyle × 24 months
+Datajack, Commlink, Subvocal Mic, 
+Dampener, Recorder,   
+Echolocational positioning
+Cybernetic eyes, AR optical, 
+Camera, Flare Compensation, 
+Low Light
+Compartment,   
+Covert Synthskin
+Limo, Luxury Sedan, Sportscar
+Etiquettes 
+Corporate 6, Street 4,
+Civic 6, Aristocracy 6,
+Criminal 4,
+POP IDOL
+
+===== PAGE 57 =====
+Sinless
+57
+  
+Heritage (D): Synthetic,   
+Arcano-manon Interface Matrix
+Attributes (B): STR 3/20, 
+BOD 6/20, REA 6/20, INT 
+10/20, WILL 13/20, CHA 3/20
+Ghost Rating: 6
+Skills (C):
+Brawn Pool 9
+Finesse Pool 11
+Firearms: 3
+Focus Pool 16
+Artificer : 3
+Resolve Pool 19
+Channeling : 6
+Sorcery : 6
+Astral Senses : 6  
+Conjuring : 6
+Magic (A): Archmage
+Flight F2, Light F4, Powerbolt F4, 
+Massage the bones of the earth 
+F2.
+Powerbolt Foci 6
+Gear (E):
+Datajack, AR Optical, Low-light, 
+Thermographic, Chipjack
+Etiquettes 
+Wasteland 6
+WASTELAND 
+MAGE
+
+===== PAGE 58 =====
+Sinless
+58
+      
+  
+Heritage (C): Uplifted
+Attributes (B): STR 6/20, 
+BOD 6/20, REA 6/22, INT 7/20, 
+WILL 7/19, CHA 11/20
+Ghost Rating: 5
+Skills (A):
+Brawn Pool 10
+Unarmed Combat: 2
+Finesse Pool 9+2
+Firearms: 4
+Focus Pool 11
+Shadow : 5,     Drive: 2,
+Observation : 6 + 2,    
+Negotiation: 3,
+Biotech/Medical : 3,
+Reconnaissance: 5,
+Locksmithing/Safecracking: 3,
+Computer Hacking: 2,
+Computer Electronic Warfare: 2
+Resolve Pool 15
+Subterfuge : 5
+Coercion : 4
+Fascination : 6
+Leadership : 2
+Magic (E): Hedge
+Gear (D):3 months of low life -
+style
+Two-seater car, Syncsight Hunter.
+Datajack, Commlink, Subvocal Mic, 
+Dampener, Recorder, Echolocational 
+positioning, memory 250 EB
+Cybernetic eyes, AR optical, Camera, 
+Flare Compensation, Low Light
+MasterDeck   
+ -Hacking 2
+Etiquettes 
+Corporate 2, Street 6,
+Civic 6, Aristocracy 2,
+Criminal 6,
+DETECTIVE
+
+===== PAGE 59 =====
+Sinless
+59
+Heritage (E): Human
+Attributes (B): STR 4/20, 
+BOD 4/20, REA 16/22, INT 11/22, 
+WILL 5/20, CHA 4/20
+Ghost Rating: 3
+Skills (C):
+Brawn Pool 7
+Finesse Pool 20
+Firearms : 3, Gunnery : 6,
+Heavy Weapons : 3,   
+Articulated Maneuvers : 6
+Focus Pool 20+1
+Drive : 6, Fly : 6
+Resolve Pool 12
+Magic (D): Hedge
+Gear (A):
+6 months of middle lifestyle
+Datajack, Commlink, Smartlink, 
+Nerve Rig,  AR optical, Synaptic 
+Enhancers 
+Advanced VCR, Hardener + ECM
+Vehicles  + Vehicle  Weapons :  Sports-
+car, Armored Car, Delivery Van
+Autocannon ×2, Machine Gun ×4, 
+Oil Slick, 30mm cannon
+Drones  + D rone  W eapons : Roto-
+drone ×4, Shield drone ×8, Dog 
+Patrol Drone, Mobile Sentinel
+Sentry Gun, Recoiless Gun, Mini-
+gun, Autocannon ×2
+Etiquettes 
+Street 4,
+Criminal 4,
+DRIVER
+
+===== PAGE 60 =====
+Sinless
+60
+    
+Heritage (E): Human
+Attributes (B): STR 3/20, 
+BOD 7/20, REA 3/20, INT 11/20, 
+WILL 13/20, CHA 5/20
+Ghost Rating: 12
+Skills (C):
+Brawn Pool 9
+Finesse Pool 9
+Focus Pool 15
+Resolve Pool 21 + 1
+Channeling : 6,     Sorcery : 6
+Astral Senses : 6, Conjuring : 3
+Coercion : 3, Fascination : 3
+Leadership : 3
+Magic (A): Archmage
+ZP 5
+Amp Powers : Ghost, Attribute 
+Increase—Intelligence
+Incantor: Flight 2, Shatter Ward 
+4
+Auralurgy: The Ancestral Workings 
+of the Savage Peal 6
+Mentalism: Command 4 Enthrall 4, 
+Ensorcell 4, Hold 2
+Astral Umbra : Black Bolt of 
+Uthal 4
+Bound: Summon elemental 4, 
+Shapeshift 1 (Wolf)
+Gear (D)
+High x4
+Foci: Flight 6, Savage Peal 4, 
+Command 6, Black Bolt of Uthal 
+6, Summon Elemental 6
+Fetish: Shatter ward 4 Savage 
+Peal 3 Enthrall 3, Ensorcell 3, 
+black bolt of Uthal 6, Sum-
+mon Elemental 6.
+Etiquettes 
+Corporate 2, Civic 2,  
+Aristocracy 6,
+ARCHMAGE

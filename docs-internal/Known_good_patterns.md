@@ -64,6 +64,149 @@ Use the same pattern for `castSpell` and future `rollInitiative`, swapping the A
 
 ---
 
+## 2.5) Field button `rollMessage` helper pattern (actor-safe updates)
+
+Use this when a **button component** needs to directly update actor props (for example, Full Heal) and you are not routing through module API yet.
+
+```js
+%{
+  (async () => {
+    const propsPath = (k) => `system.props.${k}`;
+    const num = (x, fallback = 0) => {
+      const n = Number(x);
+      return Number.isFinite(n) ? n : fallback;
+    };
+    const int = (x, fallback = 0) => Math.max(0, Math.floor(num(x, fallback)));
+
+    const normalizeUuid = (u) => {
+      const s = String(u ?? "").trim();
+      if (!s) return "";
+      if (s.startsWith("Actor.")) return s;
+      if (s.includes(".")) return s;
+      return `Actor.${s}`;
+    };
+
+    const getActorByUuid = async (u) => {
+      const uu = normalizeUuid(u);
+      if (!uu) return null;
+      try {
+        const d = await fromUuid(uu);
+        return d?.documentName === "Actor" ? d : null;
+      } catch (_e) {
+        return null;
+      }
+    };
+
+    // 1) Resolve sheet actor from local CSB context first
+    const doc = (typeof linkedEntity !== "undefined" && linkedEntity) ? linkedEntity
+      : (typeof entity !== "undefined" && entity) ? entity
+      : (typeof rollActor !== "undefined" && rollActor) ? rollActor
+      : (typeof actor !== "undefined" && actor) ? actor
+      : null;
+
+    let sheetActor =
+      (doc?.documentName === "Actor") ? doc :
+      (doc?.parent?.documentName === "Actor") ? doc.parent :
+      null;
+
+    // 2) Fall back to UUID candidates
+    if (!sheetActor) {
+      const candidateUuid = String(
+        (typeof ActorUuid !== "undefined" ? ActorUuid : "") ||
+        (typeof actorUuid !== "undefined" ? actorUuid : "") ||
+        doc?.actor?.uuid ||
+        ((typeof rollActor !== "undefined" && rollActor?.uuid) ? rollActor.uuid : "") ||
+        ((typeof actor !== "undefined" && actor?.uuid) ? actor.uuid : "") ||
+        canvas?.tokens?.controlled?.[0]?.actor?.uuid ||
+        (() => {
+          const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+          return t?.actor?.uuid || "";
+        })() ||
+        game.user?.character?.uuid ||
+        ""
+      ).trim();
+
+      if (candidateUuid) sheetActor = await getActorByUuid(candidateUuid);
+    }
+
+    // 3) Final fallback
+    if (!sheetActor) {
+      sheetActor =
+        canvas?.tokens?.controlled?.[0]?.actor ||
+        (() => {
+          const t = game.user?.targets ? Array.from(game.user.targets)[0] : null;
+          return t?.actor ?? null;
+        })() ||
+        game.user?.character ||
+        null;
+    }
+
+    if (!sheetActor || sheetActor.documentName !== "Actor") {
+      ui.notifications?.warn?.("No actor context found for this button.");
+      return "";
+    }
+
+    // Resolve canonical actor (ActorUuid preferred, then actorUuid, then baseActor)
+    const sheetProps = sheetActor.system?.props ?? {};
+    const canonicalUuid = String(sheetProps.ActorUuid ?? sheetProps.actorUuid ?? "").trim();
+
+    let canonActor = await getActorByUuid(canonicalUuid);
+    if (!canonActor && sheetActor.isToken && sheetActor.parent?.baseActor?.documentName === "Actor") {
+      canonActor = sheetActor.parent.baseActor;
+    }
+    if (!canonActor) canonActor = sheetActor;
+
+    // Example update payload; replace with your own logic
+    const src = canonActor.system?.props ?? sheetProps;
+    const physicalMax = int(src.physicalMax, 6 + Math.floor(int(src.BOD, 0) / 2));
+    const stunMax = int(src.stunMax, 6 + Math.floor(int(src.WIL, 0) / 2));
+
+    const updateData = {
+      [propsPath("physicalCur")]: physicalMax,
+      [propsPath("stunCur")]: stunMax
+    };
+
+    // Mirror updates: sheet actor + canonical actor + matching controlled synthetics
+    const targets = new Map();
+    targets.set(sheetActor.uuid, sheetActor);
+    if (canonActor?.uuid) targets.set(canonActor.uuid, canonActor);
+
+    for (const t of (canvas?.tokens?.controlled ?? [])) {
+      const ta = t?.actor;
+      if (!ta || ta.documentName !== "Actor") continue;
+
+      const taProps = ta.system?.props ?? {};
+      const taCanonicalUuid = String(taProps.ActorUuid ?? taProps.actorUuid ?? "").trim();
+
+      let taCanon = await getActorByUuid(taCanonicalUuid);
+      if (!taCanon && ta.isToken && ta.parent?.baseActor?.documentName === "Actor") {
+        taCanon = ta.parent.baseActor;
+      }
+      if (!taCanon) taCanon = ta;
+
+      const matchesCanon = !!taCanon?.uuid && (taCanon.uuid === canonActor.uuid || taCanon.uuid === sheetActor.uuid);
+      if (!matchesCanon) continue;
+      targets.set(ta.uuid, ta);
+    }
+
+    for (const a of targets.values()) {
+      try { await a.update(updateData); } catch (_e) {}
+      try { if (a.sheet?.rendered) a.sheet.render(true); } catch (_e) {}
+    }
+
+    return "";
+  })();
+
+  return "";
+}%
+```
+
+Notes:
+- Prefer API calls for long-term logic (`game.modules.get("sinlesscsb")?.api?...`).
+- If you must script directly in a button field, always include canonical + mirror-safe updates to avoid token-synthetic drift.
+
+---
+
 ## 3) DialogV2: robust open + value capture
 
 ### Never call `DialogV2.wait()` directly
