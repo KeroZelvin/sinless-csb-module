@@ -88,7 +88,7 @@ https://gitlab.com/cyberpunk-red-team/fvtt-cyberpunk-red-core
     For further information or links to the icon authors please visit:
     https://game-icons.net/about.html
 
-Some icons originally from the FoundryFoundry Shadowrun 5 module:
+Some icons originally from the Foundry Shadowrun 5 module:
 https://github.com/SR5-FoundryVTT/SR5-FoundryVTT
 
     Icons : © Bella Carvalho, licensed under CC BY-SA 4.0. Source: [https://github.com/SR5-FoundryVTT/SR5-FoundryVTT](https://github.com/SR5-FoundryVTT/SR5-FoundryVTT). Changes: <none>. License: https://creativecommons.org/licenses/by-sa/4.0/  (Bella's Icons marked in folder with license info)
