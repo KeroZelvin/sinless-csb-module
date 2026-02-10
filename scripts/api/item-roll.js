@@ -541,6 +541,13 @@ const diceMod = Math.floor(num(readItemProp(item, "diceMod"), 0));
       ? Math.max(0, Math.floor(num(weaponDamageRaw, 0)))
       : null;
 
+    const hasSpiritForceProp = Object.prototype.hasOwnProperty.call(item?.system?.props ?? {}, "spiritForce");
+    const spiritForce = Math.max(0, Math.floor(num(readItemProp(item, "spiritForce"), 0)));
+    const isSpiritBindRoll =
+      Boolean(scope?.spiritBindMode) &&
+      hasSpiritForceProp &&
+      skillKey === "Skill_Conjuring";
+
     const hasWeaponDamage = Number.isFinite(weaponDamage) && weaponDamage > 0;
     const hasItemDamageNumeric = Number.isFinite(itemDamageNumeric) && itemDamageNumeric > 0;
     const hasItemDamageText = itemDamageText.length > 0;
@@ -748,6 +755,18 @@ const spendHelp = (mode === "untrainedPool")
     const { roll, results, successes: rawSuccesses } = await rollXd6Successes({ dice: totalDice, tn: TN });
     const finalSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
 
+    let spiritBindOutcomeText = "";
+    if (isSpiritBindRoll) {
+      if (finalSuccesses < spiritForce) {
+        spiritBindOutcomeText = "Spirit doesn't appear.";
+      } else if (finalSuccesses === spiritForce) {
+        spiritBindOutcomeText = "Spirit appears, and IS NOT CONTROLLED!";
+      } else {
+        const services = finalSuccesses - spiritForce;
+        spiritBindOutcomeText = `Services from Spirit: ${services}`;
+      }
+    }
+
     // Alert tracking (post-roll so we can use successes/targets)
     const alertMode = String(scope?.alertMode ?? "").trim();
     const fileSecurityRaw =
@@ -954,15 +973,21 @@ const spendHelp = (mode === "untrainedPool")
       ? `<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Untrained calc:</strong> raw ${escapeHTML(rawSuccesses)} ÷ 4 = ${escapeHTML(finalSuccesses)}</p>`
       : "";
 
-    const damageLineHTML = (damageValue && damageValue > 0) ? `
+    const damageLineHTML = (!isSpiritBindRoll && damageValue && damageValue > 0) ? `
       <p style="margin:0 0 6px 0;">
         Damage: <strong>${escapeHTML(damageValue)}</strong>
       </p>
     ` : "";
 
-    const specialDamageLineHTML = specialDamageText ? `
+    const specialDamageLineHTML = (!isSpiritBindRoll && specialDamageText) ? `
       <p style="margin:0 0 6px 0;">
         Special Damage: <strong>${escapeHTML(specialDamageText)}</strong>
+      </p>
+    ` : "";
+
+    const spiritBindOutcomeHTML = isSpiritBindRoll ? `
+      <p style="margin:0 0 8px 0; text-align:center;">
+        <strong>${escapeHTML(spiritBindOutcomeText)}</strong>
       </p>
     ` : "";
 
@@ -1057,11 +1082,21 @@ const spendHelp = (mode === "untrainedPool")
       </p>
     ` : "";
 
-    const damageInfoHTML = (damageDetailsHTML || damageSourceNoteHTML || weaponDamageHintHTML) ? `
+    const damageInfoHTML = (!isSpiritBindRoll && (damageDetailsHTML || damageSourceNoteHTML || weaponDamageHintHTML)) ? `
       ${damageDetailsHTML}
       ${damageSourceNoteHTML}
       ${weaponDamageHintHTML}
     ` : "";
+
+    const attackFlowHintHTML = isSpiritBindRoll
+      ? ""
+      : `<p style="margin:6px 0 6px 0; font-size:12px; opacity:0.85;">
+            Subtract target's dodge successes from rolled Successes. If hit, remaining successes + weapon damage = damage to target
+         </p>`;
+
+    const spiritBindDetailHTML = isSpiritBindRoll
+      ? `<p style="margin:0 0 6px 0;"><strong>Spirit Force:</strong> ${escapeHTML(spiritForce)}</p>`
+      : "";
 
     const pilotLine =
   (rollingActor && contextActor && rollingActor.uuid && contextActor.uuid && rollingActor.uuid !== contextActor.uuid)
@@ -1106,6 +1141,8 @@ const spendHelp = (mode === "untrainedPool")
           <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLine)}</div>
         </div>
 
+        ${spiritBindOutcomeHTML}
+
         ${alertLineHTML}
         ${damageLineHTML}
         ${specialDamageLineHTML}
@@ -1114,12 +1151,11 @@ const spendHelp = (mode === "untrainedPool")
 
         <details>
           <summary>roll info</summary>
-          <p style="margin:6px 0 6px 0; font-size:12px; opacity:0.85;">
-            Subtract target's dodge successes from rolled Successes. If hit, remaining successes + weapon damage = damage to target
-          </p>
+          ${attackFlowHintHTML}
           <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(contextActor.name)}</p>
           ${pilotLine}
           <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(TN)}+</p>
+          ${spiritBindDetailHTML}
           ${trackAlertLineHTML}
           ${alertDetailHTML}
           <p style="margin:0 0 6px 0;"><strong>Mode:</strong> ${escapeHTML(modeLine)}</p>

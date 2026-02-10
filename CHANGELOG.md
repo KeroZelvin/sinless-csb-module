@@ -1,5 +1,7 @@
 v0.1.0
     Soak / Dodge / Resist Buttons
+    Fixed Speaker rolls, new Invoke api
+    Added Spirit art
 
 v0.0.9
     Fixed Speaker skills

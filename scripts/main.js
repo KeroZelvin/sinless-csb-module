@@ -21,6 +21,7 @@ import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirect
 
 // API
 import { castSpell } from "./api/cast-spell.js";
+import { invokeSpirit } from "./api/invoke-spirit.js";
 import { rollItem } from "./api/item-roll.js";
 import { rollPools, refreshPools, rollPoolInline } from "./api/pools-roll.js";
 import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
@@ -163,6 +164,7 @@ function exposeModuleAPI() {
 
   Object.assign(mod.api, {
     castSpell,
+    invokeSpirit,
     rollItem,
     rollPools,
     refreshPools,
