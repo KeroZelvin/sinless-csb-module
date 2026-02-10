@@ -10,6 +10,7 @@ import {
 } from "./_util.js";
 
 const SOCKET_CHANNEL = `module.${MOD_ID}`;
+const ACTOR_TEMPLATE_PACK_ID = `${MOD_ID}.sinlesscsb-actor-templates`;
 
 const pendingRequests = new Map();
 let socketBound = false;
@@ -48,6 +49,83 @@ function getFindActorKey(actor, type) {
   const key = RIG_ASSET_TYPES?.[type]?.actorFindKey;
   if (!key) return "";
   return String(actor?.system?.props?.[key] ?? "").trim();
+}
+
+function normalizeKey(v) {
+  return String(v ?? "").trim().toLowerCase();
+}
+
+function isInNamedFolder(doc, folderName) {
+  if (!doc || !folderName) return false;
+  let f = doc.folder ?? null;
+  let depth = 0;
+  while (f && depth < 12) {
+    if (String(f.name ?? "").trim() === folderName) return true;
+    f = f.folder ?? f.parent ?? null;
+    depth += 1;
+  }
+  return false;
+}
+
+async function findSourceRigActorInCompendium(findKey, type) {
+  if (!findKey) return null;
+  const cfg = RIG_ASSET_TYPES?.[type];
+  if (!cfg) return null;
+
+  const pack = game.packs?.get(ACTOR_TEMPLATE_PACK_ID);
+  if (!pack) return null;
+
+  const target = normalizeKey(findKey);
+  const actorFindField = `system.props.${cfg.actorFindKey}`;
+
+  let index = [];
+  try {
+    index = await pack.getIndex({ fields: ["name", actorFindField] });
+  } catch (_e) {
+    try {
+      index = await pack.getIndex();
+    } catch (e) {
+      console.warn("SinlessCSB | rig compendium lookup failed (index)", { pack: ACTOR_TEMPLATE_PACK_ID, e });
+      return null;
+    }
+  }
+
+  const entries = Array.from(index ?? []);
+  if (!entries.length) return null;
+
+  const byFindKey = entries.filter((entry) => {
+    const v = foundry?.utils?.getProperty?.(entry, actorFindField);
+    return normalizeKey(v) === target;
+  });
+
+  const byName = entries.filter((entry) => normalizeKey(entry?.name) === target);
+  const candidates = byFindKey.length ? byFindKey : byName;
+  if (!candidates.length) return null;
+
+  const docs = [];
+  for (const entry of candidates) {
+    try {
+      const d = await pack.getDocument(entry._id);
+      if (d?.documentName === "Actor") docs.push(d);
+    } catch (_e) {}
+  }
+  if (!docs.length) return null;
+
+  const exactByProp = docs.filter((d) => normalizeKey(getFindActorKey(d, type)) === target);
+  const pool = exactByProp.length ? exactByProp : docs;
+  const inHangar = pool.filter((d) => isInNamedFolder(d, cfg.hangarFolder));
+
+  const picked = inHangar[0] ?? pool[0] ?? null;
+  if (picked) {
+    console.log("SinlessCSB | rig source resolved from compendium", {
+      type,
+      findKey,
+      source: picked.name,
+      pack: ACTOR_TEMPLATE_PACK_ID
+    });
+  }
+
+  return picked;
 }
 
 function pickDroneOwnerUserId(ownerActor, fallbackUserId) {
@@ -140,14 +218,17 @@ async function findSourceRigActor(findKey, type) {
   if (!cfg) return null;
 
   const actors = game.actors?.contents ?? [];
-  const matches = actors.filter(a => getFindActorKey(a, type) === findKey);
-  if (!matches.length) return null;
+  const target = normalizeKey(findKey);
+  const matches = actors.filter(a => normalizeKey(getFindActorKey(a, type)) === target);
+  if (matches.length) {
+    const hangarFolder = game.folders?.contents?.find(f => f.type === "Actor" && f.name === cfg.hangarFolder) ?? null;
+    if (!hangarFolder) return matches[0];
 
-  const hangarFolder = game.folders?.contents?.find(f => f.type === "Actor" && f.name === cfg.hangarFolder) ?? null;
-  if (!hangarFolder) return matches[0];
+    const inHangar = matches.filter(a => a.folder?.id === hangarFolder.id);
+    return inHangar[0] ?? matches[0] ?? null;
+  }
 
-  const inHangar = matches.filter(a => a.folder?.id === hangarFolder.id);
-  return inHangar[0] ?? matches[0] ?? null;
+  return await findSourceRigActorInCompendium(findKey, type);
 }
 
 async function updateItemRigLink(item, rigActor, pilotUuid, findKey, ownerUserId, type) {
@@ -189,7 +270,9 @@ async function createOwnedRigActor({ item, ownerActor, userId, type }) {
 
   const source = await findSourceRigActor(findKey, type);
   if (!source) {
-    ui.notifications?.error?.(`Rig source not found for ${cfg.actorFindKey} "${findKey}" in ${cfg.hangarFolder}.`);
+    ui.notifications?.error?.(
+      `Rig source not found for ${cfg.actorFindKey} "${findKey}" in world ${cfg.hangarFolder} or pack ${ACTOR_TEMPLATE_PACK_ID}.`
+    );
     return null;
   }
 

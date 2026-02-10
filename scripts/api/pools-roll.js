@@ -114,6 +114,21 @@ function poolDefs() {
   ];
 }
 
+function findPoolDef(ref) {
+  const raw = String(ref ?? "").trim().toLowerCase();
+  if (!raw) return null;
+  return poolDefs().find((p) => {
+    const name = p.name.toLowerCase();
+    return (
+      raw === name ||
+      raw === `${name}_cur` ||
+      raw === `${name}_max` ||
+      raw === p.curKey.toLowerCase() ||
+      raw === p.maxKey.toLowerCase()
+    );
+  }) ?? null;
+}
+
 function computePoolsFromAttrs(actor) {
   const p = readProps(actor);
 
@@ -337,6 +352,136 @@ export async function refreshPools(scope = {}) {
 
   ui.notifications?.info?.("Pools refreshed.");
   return { actorUuid: canon.uuid, mode: "fallback", update };
+}
+
+/* ----------------------------- */
+/* API: rollPoolInline (no dialog) */
+/* ----------------------------- */
+
+export async function rollPoolInline(scope = {}) {
+  const sheetActor = await resolveActorCandidate(scope);
+  if (!sheetActor) {
+    ui.notifications?.warn?.("Select a token or set a User Character (or pass actorUuid).");
+    return null;
+  }
+
+  const actor = await resolveCanonicalActor(sheetActor);
+  if (!actor) return null;
+
+  const poolRef = String(scope?.poolKey ?? scope?.curKey ?? scope?.pool ?? "").trim();
+  const pool = findPoolDef(poolRef);
+  if (!pool) {
+    ui.notifications?.warn?.(`SinlessCSB: unknown pool "${poolRef || "(blank)"}".`);
+    return null;
+  }
+
+  const props = readProps(actor);
+  const curVal = Math.max(0, Math.floor(num(props?.[pool.curKey], 0)));
+  if (curVal <= 0) {
+    ui.notifications?.warn?.(`${pool.name} pool is empty.`);
+    return null;
+  }
+
+  const spendKey = String(scope?.spendKey ?? "").trim();
+  const modKey = String(scope?.modKey ?? "").trim();
+
+  const hasSpendOverride = Object.prototype.hasOwnProperty.call(scope, "spend");
+  if (!hasSpendOverride && !spendKey) {
+    ui.notifications?.warn?.(`SinlessCSB: ${pool.name} roll is missing spendKey/spend.`);
+    return null;
+  }
+
+  const spendRaw = hasSpendOverride
+    ? scope?.spend
+    : props?.[spendKey];
+  const spendRequested = Math.floor(num(spendRaw, 0));
+
+  // Project rule: Soak / Dodge / Resist rolls require at least 1 spent.
+  if (spendRequested < 1) {
+    const spendLabel = spendKey || "spend";
+    ui.notifications?.warn?.(`${pool.name}: set ${spendLabel} to at least 1.`);
+    return null;
+  }
+
+  const spendClamped = Math.max(1, Math.min(curVal, spendRequested));
+
+  const hasModOverride = Object.prototype.hasOwnProperty.call(scope, "mod");
+  const modRaw = hasModOverride
+    ? scope?.mod
+    : (modKey ? props?.[modKey] : 0);
+  const mod = Math.floor(num(modRaw, 0));
+
+  const totalDice = Math.max(0, spendClamped + mod);
+  if (totalDice <= 0) {
+    ui.notifications?.warn?.(`${pool.name}: no dice to roll (Spend + Mod is 0).`);
+    return null;
+  }
+
+  const sessionActor = getSessionSettingsActor();
+  const tn = readTN(sessionActor);
+
+  const roll = new Roll(`${totalDice}d6`);
+  await roll.evaluate();
+
+  const results = roll.dice?.[0]?.results ?? [];
+  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+
+  const newCur = Math.max(0, curVal - spendClamped);
+  await updateActorWithMirrors(sheetActor, { [propPath(pool.curKey)]: newCur });
+
+  const label = String(scope?.label ?? `${pool.name} Test`).trim() || `${pool.name} Test`;
+  const diceList = results.map(r => r.result).join(", ") || "—";
+  const successLabel = `${successes} SUCCESS${successes === 1 ? "" : "ES"}`;
+  const spendDisplay = (spendRequested === spendClamped)
+    ? `${spendClamped}`
+    : `${spendClamped} (from ${spendRequested})`;
+
+  const content = `
+    <div class="sinlesscsb pool-roll-card">
+      <h2 style="margin:0 0 6px 0;">${escapeHTML(label)}</h2>
+      <hr class="sl-card-rule"/>
+
+      <div style="text-align:center; margin:10px 0 12px 0;">
+        <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLabel)}</div>
+      </div>
+
+      <hr class="sl-card-rule"/>
+
+      <details>
+        <summary>roll info</summary>
+        <p style="margin:6px 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Pool:</strong> ${escapeHTML(pool.name)} (${escapeHTML(pool.curKey)})</p>
+        <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(tn)}+</p>
+        <p style="margin:0 0 6px 0;">
+          <strong>Spend:</strong> ${escapeHTML(spendDisplay)} (depletes) &nbsp;|&nbsp;
+          <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
+          <strong>Total:</strong> ${escapeHTML(totalDice)}d6
+        </p>
+        <p style="margin:0 0 6px 0;"><strong>${escapeHTML(pool.name)} Pool:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
+      </details>
+    </div>
+  `;
+
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    content,
+    rolls: [roll]
+  });
+
+  return {
+    actorUuid: actor.uuid,
+    pool: pool.name,
+    poolKey: pool.curKey,
+    spendRequested,
+    spendUsed: spendClamped,
+    mod,
+    totalDice,
+    successes,
+    tn,
+    oldCur: curVal,
+    newCur
+  };
 }
 
 /* ----------------------------- */

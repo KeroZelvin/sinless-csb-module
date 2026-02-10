@@ -1,23 +1,8 @@
-2026/02/07-20:57:21.216 7900 Recovering log #482
-2026/02/07-20:57:21.216 7900 Level-0 table #485: started
-2026/02/07-20:57:21.218 7900 Level-0 table #485: 321 bytes OK
-2026/02/07-20:57:21.223 7900 Delete type=0 #482
-2026/02/07-20:57:21.223 7900 Delete type=3 #480
-2026/02/07-21:16:11.966 1128 Level-0 table #488: started
-2026/02/07-21:16:11.966 1128 Level-0 table #488: 0 bytes OK
-2026/02/07-21:16:11.968 1128 Delete type=0 #486
-2026/02/07-21:16:11.975 1128 Manual compaction at level-0 from '!actors!1fJQnIQ76TnvqdAz' @ 72057594037927935 : 1 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at '!actors.items!uZC1brtyb8oeS8PT.wyFzlM6JSSy8qzzb' @ 486 : 0
-2026/02/07-21:16:11.975 1128 Compacting 1@0 + 0@1 files
-2026/02/07-21:16:11.976 1128 Generated table #489@0: 4 keys, 321 bytes
-2026/02/07-21:16:11.976 1128 Compacted 1@0 + 0@1 files => 321 bytes
-2026/02/07-21:16:11.978 1128 compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/02/07-21:16:11.978 1128 Delete type=2 #485
-2026/02/07-21:16:11.983 1128 Manual compaction at level-0 from '!actors.items!uZC1brtyb8oeS8PT.wyFzlM6JSSy8qzzb' @ 486 : 0 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at (end)
-2026/02/07-21:16:11.999 1128 Manual compaction at level-1 from '!actors!1fJQnIQ76TnvqdAz' @ 72057594037927935 : 1 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at '!actors.items!uZC1brtyb8oeS8PT.wyFzlM6JSSy8qzzb' @ 486 : 0
-2026/02/07-21:16:11.999 1128 Compacting 1@1 + 1@2 files
-2026/02/07-21:16:12.007 1128 Generated table #490@1: 80 keys, 583316 bytes
-2026/02/07-21:16:12.007 1128 Compacted 1@1 + 1@2 files => 583316 bytes
-2026/02/07-21:16:12.009 1128 compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/02/07-21:16:12.009 1128 Delete type=2 #483
-2026/02/07-21:16:12.010 1128 Delete type=2 #489
-2026/02/07-21:16:12.012 1128 Manual compaction at level-1 from '!actors.items!uZC1brtyb8oeS8PT.wyFzlM6JSSy8qzzb' @ 486 : 0 .. '!folders!p6hbQkfl32SKkvGO' @ 0 : 0; will stop at (end)
+2026/02/08-11:13:10.702 1ea4 Recovering log #511
+2026/02/08-11:13:10.706 1ea4 Delete type=0 #511
+2026/02/08-11:13:10.706 1ea4 Delete type=3 #508
+2026/02/08-11:17:09.644 5fd8 Level-0 table #518: started
+2026/02/08-11:17:09.645 5fd8 Level-0 table #518: 0 bytes OK
+2026/02/08-11:17:09.646 5fd8 Delete type=0 #516
+2026/02/08-11:17:09.678 5fd8 Manual compaction at level-0 from '!actors!0e3viE19AKyJomoy' @ 72057594037927935 : 1 .. '!folders!w2u228ARPzSzv5YK' @ 0 : 0; will stop at (end)
+2026/02/08-11:17:09.678 5fd8 Manual compaction at level-1 from '!actors!0e3viE19AKyJomoy' @ 72057594037927935 : 1 .. '!folders!w2u228ARPzSzv5YK' @ 0 : 0; will stop at (end)

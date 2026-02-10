@@ -22,7 +22,7 @@ import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirect
 // API
 import { castSpell } from "./api/cast-spell.js";
 import { rollItem } from "./api/item-roll.js";
-import { rollPools, refreshPools } from "./api/pools-roll.js";
+import { rollPools, refreshPools, rollPoolInline } from "./api/pools-roll.js";
 import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
 import { resetTrackAlert, registerAlertSocketHandler } from "./api/alert-tracking.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
@@ -166,6 +166,7 @@ function exposeModuleAPI() {
     rollItem,
     rollPools,
     refreshPools,
+    rollPoolInline,
     rollInitiative,
     rollNpcInitiative,
     resetTrackAlert,
