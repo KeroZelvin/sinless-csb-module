@@ -1,3 +1,6 @@
+v0.1.0
+    Soak / Dodge / Resist Buttons
+
 v0.0.9
     Fixed Speaker skills
     Fixed Car Chase
