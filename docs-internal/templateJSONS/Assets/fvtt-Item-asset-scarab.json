@@ -1,0 +1,16 @@
+{
+  "name": "Scarab",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/scarab.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/scarab.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Grid Dossier.",
+      "assetSector": "Military connections. Purchase cybertechtronics or decks.",
+      "assetNotes": ""
+    }
+  }
+}

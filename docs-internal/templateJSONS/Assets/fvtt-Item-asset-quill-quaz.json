@@ -1,0 +1,16 @@
+{
+  "name": "Quill Quaz",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/quill_quaz.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/quill_quaz.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Criminal Dossier. Master of animals. Will provide trained animal assistance on operations.",
+      "assetSector": "Beastmaster training. Purchase living creatures.",
+      "assetNotes": ""
+    }
+  }
+}

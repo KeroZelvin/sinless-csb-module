@@ -1,0 +1,16 @@
+{
+  "name": "Harlequin",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/harlequin.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/harlequin.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Any Dossier. Successes on the etiquette tests can be applied to any test during the operation.",
+      "assetSector": "Mysterious influence. Provide one influence per success to two resources.",
+      "assetNotes": ""
+    }
+  }
+}

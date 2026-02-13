@@ -1,0 +1,16 @@
+{
+  "name": "Bo Darville",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bo_darville.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bo_darville.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Convoy. Assist brand on operation as a rigger.",
+      "assetSector": "The bandit. Increase heat by one and improve MC of vice and science resources by 10% per success. suece",
+      "assetNotes": ""
+    }
+  }
+}

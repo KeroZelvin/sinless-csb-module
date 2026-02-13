@@ -1,0 +1,16 @@
+{
+  "name": "Q",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/q.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/q.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "16",
+      "assetPrice": "8",
+      "assetOp": "Field testing. Aquire any one item for the operation.",
+      "assetSector": "Experimental research. Gain 10 techtronics per success.",
+      "assetNotes": ""
+    }
+  }
+}

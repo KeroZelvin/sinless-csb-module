@@ -1,0 +1,16 @@
+{
+  "name": "Anthony Chow",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/anthony_chow.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/anthony_chow.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "3",
+      "assetPrice": "1",
+      "assetOp": "Ugly bastard. Pays 10,000: per slain creature who's organs are recovered.",
+      "assetSector": "Black market. Purchase guns, weapons, and exotic creatures.",
+      "assetNotes": ""
+    }
+  }
+}

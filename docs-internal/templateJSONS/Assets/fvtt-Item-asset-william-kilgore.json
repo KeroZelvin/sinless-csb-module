@@ -1,0 +1,16 @@
+{
+  "name": "William Kilgore",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bill_killgore.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bill_killgore.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Someday this war is onna end. Any ally in low cover is treated as if \u00e9 er eae near they are in high cover during the operation.",
+      "assetSector": "J love the smell of napalm in the morning. Deal three damage to a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

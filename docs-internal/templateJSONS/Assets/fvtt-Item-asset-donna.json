@@ -1,0 +1,16 @@
+{
+  "name": "Donna",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/donna.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/donna.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "Grid Dossier or Light touch.Opens electronic locks on operation.",
+      "assetSector": "Botnet blitz. Increase the market cap of a resources by 20%. e@ e @ e . .",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "King of Lost Socks",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/king_of_lost_socks.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/king_of_lost_socks.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Socks are important. Foes all have forgotten their socks. -1\" movement.",
+      "assetSector": "Sock bubble. Bank one Market Cap per success via sock arbitrage.",
+      "assetNotes": ""
+    }
+  }
+}

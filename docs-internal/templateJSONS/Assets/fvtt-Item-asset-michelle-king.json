@@ -1,0 +1,16 @@
+{
+  "name": "Michelle King",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/michelle_king.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/michelle_king.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "6",
+      "assetPrice": "4",
+      "assetOp": "A lone crusader. Gain access to the King Industries Transport Tech supercar.",
+      "assetSector": "A world of criminals who operate above the law. A brand member is released from confinement and gains 2d6 ghost rating.",
+      "assetNotes": ""
+    }
+  }
+}

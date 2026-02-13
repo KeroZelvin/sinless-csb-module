@@ -1,0 +1,16 @@
+{
+  "name": "Dr. Ween",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/dr_ween.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/dr_ween.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "Treasures of the Golden Zills. Mesmerizing bellydancers assist during the operation.",
+      "assetSector": "Veiled gaze. Raise the market cap of a vice resource by 30%.",
+      "assetNotes": ""
+    }
+  }
+}

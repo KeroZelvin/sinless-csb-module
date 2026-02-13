@@ -1,0 +1,16 @@
+{
+  "name": "Double Helix",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/double_helix.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/double_helix.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Espionage dossier. Helix: \u201cINEPT!\u201d Other Helix:\u201cINSUFFICIENT!\u201d Both: \u201cINEXCUSEABLE!\u201d",
+      "assetSector": "Legal action. One influence per success on a resource.",
+      "assetNotes": ""
+    }
+  }
+}

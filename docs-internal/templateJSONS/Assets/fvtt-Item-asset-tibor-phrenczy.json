@@ -1,0 +1,16 @@
+{
+  "name": "Tibor Phrenczy",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/tibor.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/tibor.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "What Sweet Music they Make. Several darkenbeast (CRB pg. 175) wolves are available for the operation.",
+      "assetSector": "Blood Rave. Give any housing, business, or service tagged resource the vice tag.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Clefton",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/clefton.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/clefton.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Low bandwidth protocols. Riggers can control an extra drone on the mission.",
+      "assetSector": "Percussive maintenance. Add two dice and reroll ones on engineering tests.",
+      "assetNotes": ""
+    }
+  }
+}

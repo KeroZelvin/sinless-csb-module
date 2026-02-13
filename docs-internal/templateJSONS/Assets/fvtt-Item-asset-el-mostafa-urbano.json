@@ -1,0 +1,16 @@
+{
+  "name": "El Mostafa Urbano",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/el_mostafa_urbano.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/el_mostafa_urbano.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Magic Dossier.",
+      "assetSector": "Devil's night. For every two successes raise sector heat by 1.",
+      "assetNotes": ""
+    }
+  }
+}

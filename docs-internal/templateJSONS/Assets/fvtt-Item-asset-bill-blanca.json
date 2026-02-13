@@ -1,0 +1,16 @@
+{
+  "name": "Bill Blanca",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bill_blanca.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bill_blanca.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "I am the one who knocks. Set up a triggerable bomb in the operation site; 30 damage in a 10m (5\") radius.",
+      "assetSector": "J sleep just fine. Sell drugs, gain 2d6 x 10,000, per success. Raise heat by one.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Present Head",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/present_head.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/present_head.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Unexpected gift. Six Present Head goons are provided for operations.",
+      "assetSector": "Surprise. An explosive left in a present box does one damage per success to a resource.",
+      "assetNotes": ""
+    }
+  }
+}

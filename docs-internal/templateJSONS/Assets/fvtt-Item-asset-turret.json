@@ -1,0 +1,16 @@
+{
+  "name": "Turret",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/turret.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/turret.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Civil Dossier.",
+      "assetSector": "Reroute Authority. Change city permits for a resource. Gain 1 influence and cause one damage per success.",
+      "assetNotes": ""
+    }
+  }
+}

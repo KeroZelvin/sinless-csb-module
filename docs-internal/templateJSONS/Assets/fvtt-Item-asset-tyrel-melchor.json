@@ -1,0 +1,16 @@
+{
+  "name": "Tyrel Melchor",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/tyrel_melchor.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/tyrel_melchor.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "6",
+      "assetPrice": "6",
+      "assetOp": "Sythetic aid. Gain access to a brand selected sythetic.",
+      "assetSector": "Nexus beta. Replace someone with a synthetic duplicate; purchase cybertechtronics.",
+      "assetNotes": ""
+    }
+  }
+}

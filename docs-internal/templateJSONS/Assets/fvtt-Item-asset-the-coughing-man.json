@@ -1,0 +1,16 @@
+{
+  "name": "The Coughing Man",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/the_coughing_man.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/the_coughing_man.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Risky Negotiations. Roll a 1d6. 4+ double payout, otherwise get nothing.",
+      "assetSector": "I'm back! Resurrect one dead person for one sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

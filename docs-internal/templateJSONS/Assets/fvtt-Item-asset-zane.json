@@ -1,0 +1,16 @@
+{
+  "name": "Zane",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/zane.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/zane.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Magic Dossier.",
+      "assetSector": "Corporate arcana. Raise a brand's magic stat for the turn by 1 per success.",
+      "assetNotes": ""
+    }
+  }
+}

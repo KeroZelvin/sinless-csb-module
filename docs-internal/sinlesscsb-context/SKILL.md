@@ -10,12 +10,24 @@ Bootstrap new tasks by synthesizing repo context, known-good patterns, and revie
 
 ## Startup checklist
 1) Confirm you are in the SinlessCSB repo. If not, locate it by searching for `module.json` and `scripts/main.js`, or ask the user for the repo path.
-2) Read the three context sources, in order:
+2) Sync recent Foundry JSON exports from Downloads into the repo template folder:
+   - Run:
+     `powershell -ExecutionPolicy Bypass -File D:/Git/sinlesscsb/docs-internal/skills/sinlesscsb-context/scripts/sync-recent-foundry-exports.ps1 -LookbackDays 2 -Apply`
+   - Default scan path is `%USERPROFILE%\\Downloads`; include copied/pending files from JSON output in your task summary.
+   - Download detection uses filesystem timestamps and `Zone.Identifier` metadata when present.
+   - One-line run status is written to: `docs-internal/temp/export-sync-last-run.md` (override with `-SummaryPath`).
+3) Read the three context sources, in order:
    - `docs-internal/current_state.md`
    - `docs-internal/review-notes.md`
    - `docs-internal/known_good_patterns.md`
-3) Note the template JSON location for Foundry exports: `docs-internal/templateJSONS/`.
-4) If the task is CSB-specific and internet access is allowed, consult the CSB wiki:
+4) If the task involves routing Create/Import JSON macros or locating content by folder,
+   resolve and read the latest folder tree snapshot:
+   - Run:
+     `powershell -ExecutionPolicy Bypass -File D:/Git/sinlesscsb/docs-internal/skills/sinlesscsb-context/scripts/select-latest-folder-tree.ps1 -PruneTracked`
+   - Read the `latestFile` returned in the JSON output.
+   - If `prunedTracked` contains paths, include them in your task summary.
+5) Note the template JSON location for Foundry exports: `docs-internal/templateJSONS/`.
+6) If the task is CSB-specific and internet access is allowed, consult the CSB wiki:
    `https://gitlab.com/custom-system-builder/custom-system-builder/-/wikis/stable/en/Home`
 
 ## Use the context
@@ -39,6 +51,10 @@ Keep it short unless the user asks for a full synthesis.
 - `docs-internal/current_state.md`
 - `docs-internal/review-notes.md`
 - `docs-internal/known_good_patterns.md`
+- `docs-internal/folder-tree_*.md`
+- `docs-internal/skills/sinlesscsb-context/scripts/sync-recent-foundry-exports.ps1`
+- `docs-internal/skills/sinlesscsb-context/scripts/select-latest-folder-tree.ps1`
+- `docs-internal/temp/export-sync-last-run.md`
 - `docs-internal/templateJSONS/`
 - `styles/sinlesscsb-ui-global.css`
 - `macros/`

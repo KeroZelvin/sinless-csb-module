@@ -1,0 +1,16 @@
+{
+  "name": "The Certified Accountant",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/the_certified_accountant.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/the_certified_accountant.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "8",
+      "assetOp": "Shoot them in the head. Eliminate a target on the operation site. \"No, I don't live here. This is a storage unit. That would be weird.\"",
+      "assetSector": "Money Laundering. Transfer any amount of money from petty cash to MC at a 10,000:1 ratio.",
+      "assetNotes": ""
+    }
+  }
+}

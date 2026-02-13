@@ -1,0 +1,16 @@
+{
+  "name": "Juinan",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/juinan.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/juinan.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "The best way to perdict the future is to create it. Magic and espionage dossiers.",
+      "assetSector": "[ suggest that we drink. Raise the market cap of a vice resource by two.",
+      "assetNotes": ""
+    }
+  }
+}

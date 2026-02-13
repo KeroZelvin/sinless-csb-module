@@ -1,0 +1,16 @@
+{
+  "name": "Nathaniel Essex",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/nathaniel_essex.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/nathaniel_essex.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Haunted: macabre atmosphere penalizes opponents one die on tests.",
+      "assetSector": "Headless horseman. Terrify a resource's workers. One influence to a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

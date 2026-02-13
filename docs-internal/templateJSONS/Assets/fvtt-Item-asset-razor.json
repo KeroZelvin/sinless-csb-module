@@ -1,0 +1,16 @@
+{
+  "name": "Razor",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/razor.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/razor.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Loner. Will aid on operations as a rigger.",
+      "assetSector": "Chop-shop. Purchase vehicles, vehicle weapons, drones, and drone weapons",
+      "assetNotes": ""
+    }
+  }
+}

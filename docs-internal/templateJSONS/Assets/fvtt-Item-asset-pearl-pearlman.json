@@ -1,0 +1,16 @@
+{
+  "name": "Pearl Pearlman",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/pearl_pearlman.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/pearl_pearlman.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "Bull in a china shop, Goes to operational site and breaks something.",
+      "assetSector": "Trinket Dealer, Purchase any Rarity 3 or lower item, and get 1,000\u00bb per success.",
+      "assetNotes": ""
+    }
+  }
+}

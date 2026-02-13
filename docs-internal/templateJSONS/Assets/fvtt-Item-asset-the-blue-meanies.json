@@ -1,0 +1,16 @@
+{
+  "name": "The Blue Meanies",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/the_blue_meanies.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/the_blue_meanies.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Stop Resisting. Cover an area of the operation with thorns and thistles that cause a petrifying sickness.",
+      "assetSector": "The dreaded flying glove. Deals one damage and one influence per success.",
+      "assetNotes": ""
+    }
+  }
+}

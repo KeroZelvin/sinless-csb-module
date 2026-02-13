@@ -1,0 +1,16 @@
+{
+  "name": "Alexis Marin",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/alexis_marin.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/alexis_marin.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "6",
+      "assetPrice": "3",
+      "assetOp": "Espionage Dossier.",
+      "assetSector": "Friends in high places. For each success, apply 2 influence to a resource.",
+      "assetNotes": ""
+    }
+  }
+}

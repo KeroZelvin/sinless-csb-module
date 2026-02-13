@@ -1,0 +1,16 @@
+{
+  "name": "Melfidius",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/melfidius.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/melfidius.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Reanimator. Raise one chemical zombie per success for the operation.",
+      "assetSector": "Bind the soul. Gain one influence on a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

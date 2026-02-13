@@ -1,0 +1,16 @@
+{
+  "name": "Skeletron",
+  "type": "equippableItem",
+  "img": "",
+  "system": {
+    "props": {
+      "assetPic": "",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "4",
+      "assetPrice": "3",
+      "assetOp": "Magic Dossier",
+      "assetSector": "Gain access to 2 random wasteland assets for the current sector turn, the next operation, and the following sector turn",
+      "assetNotes": ""
+    }
+  }
+}

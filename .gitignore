@@ -25,3 +25,6 @@ dist-snapshot/
 
 # Logs
 *.log
+
+# Local sync status marker
+docs-internal/temp/export-sync-last-run.md

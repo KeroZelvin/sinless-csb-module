@@ -1,0 +1,16 @@
+{
+  "name": "Bunny Delish",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bunny_delish.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bunny_delish.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "6",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "High stroll. for every success, apply two influence to a resource",
+      "assetNotes": ""
+    }
+  }
+}

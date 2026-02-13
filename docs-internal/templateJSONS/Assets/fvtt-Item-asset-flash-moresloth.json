@@ -1,0 +1,16 @@
+{
+  "name": "Flash Moresloth",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/flash_moresloth.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/flash_moresloth.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "FST NMI Flash will act as a rigger driving an escape vehicle. W \u00b0 Flash is the fastest sloth we have . . W working in the department.",
+      "assetSector": "You want it when? Apply 3 influence per success to a resource at the start of the following sector turn. e epe,e .",
+      "assetNotes": ""
+    }
+  }
+}

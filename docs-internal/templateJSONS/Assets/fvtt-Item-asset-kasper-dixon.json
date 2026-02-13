@@ -1,0 +1,16 @@
+{
+  "name": "Kasper Dixon",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/kasper_dixon.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/kasper_dixon.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "Uncover a scandal. Cause 1 influence and damage per success to a resource",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Catapult",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/catapult.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/catapult.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Magic dossier.",
+      "assetSector": "Subliminal cloaked drones. Apply two influence per success.",
+      "assetNotes": ""
+    }
+  }
+}

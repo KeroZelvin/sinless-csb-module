@@ -1,0 +1,16 @@
+{
+  "name": "Yahya Boulos",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/yahya_boulos.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/yahya_boulos.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Espionage Dossier.",
+      "assetSector": "Radio Shack. Purchase rarity 1+ drones.",
+      "assetNotes": ""
+    }
+  }
+}

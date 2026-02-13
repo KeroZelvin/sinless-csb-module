@@ -1,0 +1,16 @@
+{
+  "name": "Serpent Pliskin",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/serpent_pliskin.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/serpent_pliskin.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "When I get back, I'm going to kill you. Disable one emplacement or gate during a mission per success.",
+      "assetSector": "Oh, you mean I can't count on you? good! Acquire a piece of gear at no cost, one success per rarity.",
+      "assetNotes": ""
+    }
+  }
+}

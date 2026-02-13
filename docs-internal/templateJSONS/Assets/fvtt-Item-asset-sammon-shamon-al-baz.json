@@ -1,0 +1,16 @@
+{
+  "name": "Sammon Shamon Al-Baz",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/sammon_shamon_al_baz.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/sammon_shamon_al_baz.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "4",
+      "assetPrice": "3",
+      "assetOp": "Magic Dossier.",
+      "assetSector": "Arcane realignment. Gain 2 points per success to adjust damage or influence on a resource.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Reverand Dr. Syn",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/reverand_dr_syn.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/reverand_dr_syn.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Pass judgement. Appear during an operation to judge a target and attack them with spectral bullets.",
+      "assetSector": "Fear of God. Lowers heat by one and increases profits from resources with the service tag by 10% per success.",
+      "assetNotes": ""
+    }
+  }
+}

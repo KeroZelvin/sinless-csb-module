@@ -1,0 +1,16 @@
+{
+  "name": "Madelyn Bishop Bates",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/madelyn_bishop_bates.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/madelyn_bishop_bates.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "6",
+      "assetPrice": "6",
+      "assetOp": "Nightmares. One penalty die for all living beings on the operation.",
+      "assetSector": "Dream advertisement. One influence to every resource in the sector per success.",
+      "assetNotes": ""
+    }
+  }
+}

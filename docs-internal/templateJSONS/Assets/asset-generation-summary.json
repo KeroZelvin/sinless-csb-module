@@ -1,0 +1,15 @@
+{
+  "table_rows": 116,
+  "extras": 10,
+  "total_json": 126,
+  "intentional_blank_image_rows": [
+    67,
+    74,
+    114
+  ],
+  "intentional_blank_image_names": [
+    "Bob Gadling",
+    "James Connor",
+    "Skeletron"
+  ]
+}

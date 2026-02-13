@@ -1,0 +1,16 @@
+{
+  "name": "W. H. Loh",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/w_h_loh.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/w_h_loh.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Any Dossier. . \u00b0 W",
+      "assetSector": "Digital track. Locate any one person. e e e e .",
+      "assetNotes": ""
+    }
+  }
+}

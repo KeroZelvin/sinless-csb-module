@@ -1,0 +1,16 @@
+{
+  "name": "Kate Barker",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/kate_barker.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/kate_barker.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "My boys. Ma and her sons will stage a distraction during the operation.",
+      "assetSector": "Gang robbery. Raise sector heat by 2. Gain 50,000 per success.",
+      "assetNotes": ""
+    }
+  }
+}

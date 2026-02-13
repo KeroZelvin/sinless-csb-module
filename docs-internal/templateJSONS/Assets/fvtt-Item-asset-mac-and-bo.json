@@ -1,0 +1,16 @@
+{
+  "name": "Mac & Bo",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/mac_and_bo.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/mac_and_bo.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "3",
+      "assetPrice": "1",
+      "assetOp": "Time for lunch. One drone, vehicle, or mechanical defense falls apart during the operation.",
+      "assetSector": "Maintenance & repair. Repair three damage per success.",
+      "assetNotes": ""
+    }
+  }
+}

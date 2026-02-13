@@ -1,0 +1,16 @@
+{
+  "name": "Bob Gadling",
+  "type": "equippableItem",
+  "img": "",
+  "system": {
+    "props": {
+      "assetPic": "",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Any Dossier",
+      "assetSector": "Meet the endless: Can, if the need is great, contact mythological figures",
+      "assetNotes": ""
+    }
+  }
+}

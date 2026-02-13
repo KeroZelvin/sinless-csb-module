@@ -1,0 +1,16 @@
+{
+  "name": "Katia Frangos",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/katia_frangos.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/katia_frangos.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Civic Dossier.",
+      "assetSector": "Efficient Finances. For every success, nullify the upkeep cost of one resource.",
+      "assetNotes": ""
+    }
+  }
+}

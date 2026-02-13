@@ -1,0 +1,16 @@
+{
+  "name": "John Smith",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/colonel_john_smith.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/colonel_john_smith.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Hire the Alpha Team. Have Col John Smith and his team assist.",
+      "assetSector": "If you have a problem. Repair 1 damage to a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Big Al (Vehicle Emporium)",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/uncle_al.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/uncle_al.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "gain access to up to 50,000 Zuzu's of firearms, energy weapons, vehicles, and drones, for use on the next mission. Vehicles and drones count as half their list price for this ability.",
+      "assetSector": "Vehicle and drone prices are 30% cheaper",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Royal Continental",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/royal_continental.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/royal_continental.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "The Devil's Wind. Summon one naked bagpiper.",
+      "assetSector": "Old Money. Purchase a resource outright for its upkeep. e e e e . .",
+      "assetNotes": ""
+    }
+  }
+}

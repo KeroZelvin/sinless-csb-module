@@ -1,0 +1,16 @@
+{
+  "name": "Phizzvan",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/phizzvan.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/phizzvan.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "0",
+      "assetOp": "Magic Dossier.",
+      "assetSector": "Ensorcellment. Lower heat in a sector to 0.",
+      "assetNotes": ""
+    }
+  }
+}

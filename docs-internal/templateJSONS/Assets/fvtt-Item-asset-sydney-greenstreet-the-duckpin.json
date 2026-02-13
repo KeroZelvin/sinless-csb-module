@@ -1,0 +1,16 @@
+{
+  "name": "Sydney Greenstreet the Duckpin",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/sydney_greenstreet_the_duckpin.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/sydney_greenstreet_the_duckpin.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "6",
+      "assetPrice": "2",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "A fowl tactic. Increases profit of all brand vice resources by 50%, raises heat in all affected sectors by 1.",
+      "assetNotes": ""
+    }
+  }
+}

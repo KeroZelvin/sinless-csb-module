@@ -1,0 +1,16 @@
+{
+  "name": "Murdok Mark",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/murdok_mark.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/murdok_mark.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "/'m asking forgiveness for what I'm about to do. Fight up to a dozen opponents in a hallway\u2014And win.",
+      "assetSector": "Legal Immunity. Eliminate Kismet pool penalty for mission failure.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Dom Rotetto",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/dom_rotetto.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/dom_rotetto.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Ride or die. Will assist on operation as a Rigger.",
+      "assetSector": "A quarter mile at a time. Purchase vehicles, vehicle weapons.",
+      "assetNotes": ""
+    }
+  }
+}

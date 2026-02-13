@@ -1,0 +1,16 @@
+{
+  "name": "Bluebeard",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bluebeard.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bluebeard.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Marriage. Cause a woman to disappear, never to be seen again.",
+      "assetSector": "Social Privilege. Allow purchasing firearms, energy weapons, and armor.",
+      "assetNotes": ""
+    }
+  }
+}

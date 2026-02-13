@@ -1,0 +1,16 @@
+{
+  "name": "Albretcht",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/albretcht.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/albretcht.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Moving trees. Lower heat by 2 during an operation one time.",
+      "assetSector": "Arbor realignment. Sector heat caused by the last operation is eliminated.",
+      "assetNotes": ""
+    }
+  }
+}

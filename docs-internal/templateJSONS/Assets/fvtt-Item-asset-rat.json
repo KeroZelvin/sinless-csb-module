@@ -1,0 +1,16 @@
+{
+  "name": "Rat",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/rat.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/rat.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Special delivery. Deliver up to 5 weight of firearms via drone.",
+      "assetSector": "Secret stash. Allow purchasing rarity 1+ small arms.",
+      "assetNotes": ""
+    }
+  }
+}

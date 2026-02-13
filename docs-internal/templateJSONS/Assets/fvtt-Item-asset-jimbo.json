@@ -1,0 +1,16 @@
+{
+  "name": "Jimbo",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/jimbo.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/jimbo.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Inducement. Reduces opposing force in operation.",
+      "assetSector": "Loan shark. Borrow up to brand upkeep in MC, 40% interest per sector turn, -5% per success. susse",
+      "assetNotes": ""
+    }
+  }
+}

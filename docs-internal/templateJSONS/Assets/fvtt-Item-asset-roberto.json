@@ -1,0 +1,16 @@
+{
+  "name": "Roberto",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/roberto.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/roberto.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Dry Cleaning. Eliminate all sector heat caused by an operation.",
+      "assetSector": "Wash & fold. Eliminate any heat caused by sector actions this turn.",
+      "assetNotes": ""
+    }
+  }
+}

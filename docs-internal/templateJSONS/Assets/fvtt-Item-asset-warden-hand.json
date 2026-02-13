@@ -1,0 +1,16 @@
+{
+  "name": "Warden Hand",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/warden_hand.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/warden_hand.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "3",
+      "assetPrice": "4",
+      "assetOp": "Civil & Criminal Dossier.",
+      "assetSector": "Prison as profit. Lower heat in a sector by 1 and gain 10,000\u00bb per success.",
+      "assetNotes": ""
+    }
+  }
+}

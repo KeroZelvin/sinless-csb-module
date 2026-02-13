@@ -1,0 +1,16 @@
+{
+  "name": "Odiphus",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/odiphus.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/odiphus.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Process detritus. gain access to a small amount of universal solvent.",
+      "assetSector": "Alchemical reagents. Boosts the MC of a science resource by +30%.",
+      "assetNotes": ""
+    }
+  }
+}

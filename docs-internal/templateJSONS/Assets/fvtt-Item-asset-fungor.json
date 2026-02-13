@@ -1,0 +1,16 @@
+{
+  "name": "Fungor",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/fungor.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/fungor.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Noxious stench. All opponents within 10m (5\") have -1 die on all tests.",
+      "assetSector": "Fungal remedies. Purchase drugs, chemicals, and medicine.",
+      "assetNotes": ""
+    }
+  }
+}

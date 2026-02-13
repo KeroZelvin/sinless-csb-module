@@ -1,0 +1,16 @@
+{
+  "name": "Pantharo",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/pantharo.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/pantharo.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "6",
+      "assetPrice": "3",
+      "assetOp": "Thundertank. Pantharo joins the operation with his Thundertank.",
+      "assetSector": "Mechanic's Insight. Purchase any vehicles and vehicle weapons. Free repairs.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Jack Point",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/jack_point.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/jack_point.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Special circumstances. Gain access to a Raptaur (engineered biological predator) for the operation.",
+      "assetSector": "Circus comes to town. Purchase firearms, armor, and gear. e eye @ . .",
+      "assetNotes": ""
+    }
+  }
+}

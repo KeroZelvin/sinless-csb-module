@@ -1,0 +1,16 @@
+{
+  "name": "Lem Walnanespanct",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/lem_walnanespanct.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/lem_walnanespanct.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Target Distraction. Cause all software agents to break off and leave.",
+      "assetSector": "Grid Search. Automatically locate one person.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -76,6 +76,10 @@
                     {
                       "key": "etiStreet",
                       "value": "Street"
+                    },
+                    {
+                      "key": "etiWasteland",
+                      "value": "Wasteland"
                     }
                   ]
                 },
@@ -431,9 +435,9 @@
       "assetSector": ""
     },
     "unique": false,
-    "templateSystemUniqueVersion": 3455920761,
     "uniqueId": "YBo4xuxE8RqcKFWZ",
-    "template": "uGhQTkXb74uXkwPd"
+    "template": "uGhQTkXb74uXkwPd",
+    "templateSystemUniqueVersion": 2567962737
   },
   "effects": [],
   "flags": {
@@ -455,7 +459,7 @@
     "systemId": "custom-system-builder",
     "systemVersion": "5.1.0",
     "createdTime": 1770991503901,
-    "modifiedTime": 1770993324154,
+    "modifiedTime": 1771002974887,
     "lastModifiedBy": "KoiB8oaGNkPdgzdM"
   },
   "items": [],

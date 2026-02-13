@@ -1,0 +1,16 @@
+{
+  "name": "Lena",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/lena.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/lena.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "Drug haze. Raise heat by 1 and increase housing profits by 10% per success.",
+      "assetNotes": ""
+    }
+  }
+}

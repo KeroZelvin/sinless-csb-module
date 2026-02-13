@@ -1,0 +1,16 @@
+{
+  "name": "Robert",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/robert_science_man.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/robert_science_man.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Groddgenics. Provides a psychic gorilla as operational support.",
+      "assetSector": "Cloning. Create a clone of an asset who melts after one sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

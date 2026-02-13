@@ -1,0 +1,16 @@
+{
+  "name": "Snowball",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/snowball.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/snowball.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "6",
+      "assetPrice": "0",
+      "assetOp": "Hoof & horn. All uplfited on the operation site are friendly.",
+      "assetSector": "All animals are equal. Gain 20 followers for your brand per success.",
+      "assetNotes": ""
+    }
+  }
+}

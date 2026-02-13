@@ -1,0 +1,16 @@
+{
+  "name": "Dr. Brainrule",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/dr_brainrule.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/dr_brainrule.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "Neural uplink. Silent communication, and +1 die on all tests.",
+      "assetSector": "Used wetware. Purchase cybertechtronics.",
+      "assetNotes": ""
+    }
+  }
+}

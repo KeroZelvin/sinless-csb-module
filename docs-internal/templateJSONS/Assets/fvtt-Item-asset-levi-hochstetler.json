@@ -1,0 +1,16 @@
+{
+  "name": "Levi Hochstetler",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/levi_hochstetler.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/levi_hochstetler.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "1",
+      "assetPrice": "4",
+      "assetOp": "Any Doisser.",
+      "assetSector": "Unusual connections. Purchase any gear. e e e e .",
+      "assetNotes": ""
+    }
+  }
+}

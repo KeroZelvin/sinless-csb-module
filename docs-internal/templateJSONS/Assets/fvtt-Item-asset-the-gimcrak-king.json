@@ -1,0 +1,16 @@
+{
+  "name": "The Gimcrak King",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/the_gimcrak_king.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/the_gimcrak_king.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Civic and Criminal Dossiers.",
+      "assetSector": "Beggar network. Discover one (if any) actions or plots against the brand per success.",
+      "assetNotes": ""
+    }
+  }
+}

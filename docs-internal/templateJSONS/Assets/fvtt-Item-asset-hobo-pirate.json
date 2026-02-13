@@ -1,0 +1,16 @@
+{
+  "name": "Hobo Pirate",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/hobo_pirate.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/hobo_pirate.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "The foreign hobo legion. Gain access to a squad of homeless pirates.",
+      "assetSector": "Rough living. Eliminate all penalties from lifestyle.",
+      "assetNotes": ""
+    }
+  }
+}

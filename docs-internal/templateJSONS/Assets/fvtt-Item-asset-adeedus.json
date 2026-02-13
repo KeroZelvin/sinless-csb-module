@@ -1,0 +1,16 @@
+{
+  "name": "Adeedus",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/adeedus.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/adeedus.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "4",
+      "assetPrice": "3",
+      "assetOp": "[t's not easy bein' breezy. Shows up anytime anywhere with a getaway vehicle.",
+      "assetSector": "Eye of the tiger. Will do two damage to a resource per success. e epe,e .",
+      "assetNotes": ""
+    }
+  }
+}

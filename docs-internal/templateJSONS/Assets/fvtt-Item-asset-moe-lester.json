@@ -1,0 +1,16 @@
+{
+  "name": "Moe Lester",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/moe_lester.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/moe_lester.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Civil Dossier.",
+      "assetSector": "You should smile, sweetie. As a sector action, \"improves\" the MC of all vice resources by 20%.",
+      "assetNotes": ""
+    }
+  }
+}

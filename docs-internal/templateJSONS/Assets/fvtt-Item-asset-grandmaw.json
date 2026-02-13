@@ -1,0 +1,16 @@
+{
+  "name": "Grandmaw",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/grandmaw.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/grandmaw.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "J love all my grandkids. Add one free die to all etiquette tests this sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

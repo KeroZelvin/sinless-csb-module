@@ -1,0 +1,16 @@
+{
+  "name": "Kestrel",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/kestrel.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/kestrel.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Tactical assistance. Reroll 1's on attack rolls",
+      "assetSector": "Military clearance. Purchase vehicles, weapons, and gear.",
+      "assetNotes": ""
+    }
+  }
+}

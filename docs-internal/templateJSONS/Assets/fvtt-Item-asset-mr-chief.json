@@ -1,0 +1,16 @@
+{
+  "name": "Mr. Chief",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/mr_chief.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/mr_chief.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "HALO drop. Drop in and assist on a mission with his power armor.",
+      "assetSector": "Depot strike. Does 2 damage to a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

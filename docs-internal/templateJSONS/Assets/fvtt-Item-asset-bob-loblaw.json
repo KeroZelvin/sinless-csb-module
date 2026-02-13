@@ -1,0 +1,16 @@
+{
+  "name": "Bob Loblaw",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bob_loblaw.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bob_loblaw.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Civic or espionage dossier.",
+      "assetSector": "While employed, add one to the market cap of all business resources. Legal Influence. Make a test for a resource with a business tag. For each success, gain two influence.",
+      "assetNotes": ""
+    }
+  }
+}

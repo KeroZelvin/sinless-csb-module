@@ -1,0 +1,16 @@
+{
+  "name": "Rebecca",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/rebecca.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/rebecca.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "[legal rave. Sends a swarm of addicts and ravers to a location.",
+      "assetSector": "Chemical fascination. Lower the MC by 2 for all resources in a sector per success. Raise the heat in the sector by 1.",
+      "assetNotes": ""
+    }
+  }
+}

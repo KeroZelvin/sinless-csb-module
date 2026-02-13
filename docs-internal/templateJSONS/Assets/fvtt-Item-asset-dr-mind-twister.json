@@ -1,0 +1,16 @@
+{
+  "name": "Dr. Mind-twister",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/dr_mind_twister.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/dr_mind_twister.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Brainwave scanner. Gain access to mind control ray during the operation",
+      "assetSector": "Mind control. Gain two influence per success to a resource.",
+      "assetNotes": ""
+    }
+  }
+}

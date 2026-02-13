@@ -1,0 +1,16 @@
+{
+  "name": "Tooth Spitter",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/tooth_spitter.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/tooth_spitter.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "Throw a fight. Will act asa ringer for the brand to defeat, pick an additional brand descriptor this sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

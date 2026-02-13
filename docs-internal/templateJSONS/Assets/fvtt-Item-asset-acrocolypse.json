@@ -1,0 +1,16 @@
+{
+  "name": "Acrocolypse",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/acrocolypse.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/acrocolypse.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Explosive support. Drive on his chopper and launch grenades at targets three times during the operation.",
+      "assetSector": "Riot. gain 10,000: per success and lockdown a target sector.",
+      "assetNotes": ""
+    }
+  }
+}

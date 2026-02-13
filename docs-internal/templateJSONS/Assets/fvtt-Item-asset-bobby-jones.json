@@ -1,0 +1,16 @@
+{
+  "name": "Bobby Jones",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bobby_jones.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bobby_jones.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Espionage Dossier.",
+      "assetSector": "Wasteland resources. Provides 2,000 zuzus per success of firearms and weapons.",
+      "assetNotes": ""
+    }
+  }
+}

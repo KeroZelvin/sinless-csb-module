@@ -1,12 +1,13 @@
 # Folder Tree (Actors + Items)
 
 - World: **PacificNorthWestMarches**
-- Generated (ISO): 2026-02-13T15:49:48.560Z
+- Generated (ISO): 2026-02-13T16:19:51.656Z
 - Format: `sinlesscsb-folder-tree-v2`
 
 ## Parse Rules
 - Treat `folderId` and `parentFolderId` as canonical hierarchy keys.
 - Use `path` only as a convenience label; duplicate names can exist.
+- Actors are filtered to top-level folders: PCs, NPCs, DroneHangar, VehicleHangar, Templates.
 - Use the JSON section for deterministic machine parsing.
 
 ## Actors - Tree
@@ -122,121 +123,14 @@
   - [ACTOR] Sinless PC {id:409875cd45a544c0, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Sinless PC (Copy) {id:OXKxlTnNPzmAbRn2, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Vehicle Template {id:9YbyOSIZBhfekbLK, type:_template, folderId:eJiZ5ojJouMYFr9R}
-- [FOLDER] COVERT OPERATIVE Vehicles {id:19Do5zEVpA4sTFlr, parent:null, depth:0, path:"COVERT OPERATIVE Vehicles"}
-  - [ACTOR] Sports Sedan {id:nBLx4FEeWBEq9aan, type:character, folderId:19Do5zEVpA4sTFlr}
-- [FOLDER] Cybered Recon Vehicles {id:0ZrLsXLZe26rrhVf, parent:null, depth:0, path:"Cybered Recon Vehicles"}
-  - [ACTOR] Motorcycle {id:nXg3m5L4CklZxJKo, type:character, folderId:0ZrLsXLZe26rrhVf}
-- [FOLDER] DETECTIVE Vehicles {id:v1zbFxPlYW3ZA3JS, parent:null, depth:0, path:"DETECTIVE Vehicles"}
-  - [ACTOR] Two-Seater {id:4ZMKPbLqvlTSFWt2, type:character, folderId:v1zbFxPlYW3ZA3JS}
-- [FOLDER] DRIVER Drones {id:8Tw711JYHV5sdEji, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:XzrTDan8ruvrYzab, type:character, folderId:8Tw711JYHV5sdEji}
-- [FOLDER] DRIVER Drones {id:CLHmpvzrJbIZSo7q, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:vMDpFvgIqMcLNA7y, type:character, folderId:CLHmpvzrJbIZSo7q}
-- [FOLDER] DRIVER Drones {id:Hi4eNqMtwurAUCtI, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:m9LKB7nMeiUYpbOy, type:character, folderId:Hi4eNqMtwurAUCtI}
-- [FOLDER] DRIVER Drones {id:Kkk0tIgT2PcsF6Vq, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Roto-Drone {id:b4PsRSERygLT3UNq, type:character, folderId:Kkk0tIgT2PcsF6Vq}
-- [FOLDER] DRIVER Drones {id:MgdSloMoYGW0K1Tf, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Roto-Drone {id:Pb9o27gSx5x21sib, type:character, folderId:MgdSloMoYGW0K1Tf}
-- [FOLDER] DRIVER Drones {id:NBM7bc8RgrxKAgT0, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Dog-Patrol Drone {id:473OPNfizvcwVdA3, type:character, folderId:NBM7bc8RgrxKAgT0}
-- [FOLDER] DRIVER Drones {id:PvCqBDkmQDuBBJ9m, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:DAah7cQDYdokv3Yj, type:character, folderId:PvCqBDkmQDuBBJ9m}
-- [FOLDER] DRIVER Drones {id:UkC6VmZsRrDuG3wb, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:bPH4Tiqbkiqx9lLl, type:character, folderId:UkC6VmZsRrDuG3wb}
-- [FOLDER] DRIVER Drones {id:ZCOAF78d2AjqbfLY, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:emaRKC0jOg5gjcPR, type:character, folderId:ZCOAF78d2AjqbfLY}
-- [FOLDER] DRIVER Drones {id:dFIOGjnrCCsqkU48, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:ZJKb2oYBYZQh71RZ, type:character, folderId:dFIOGjnrCCsqkU48}
-- [FOLDER] DRIVER Drones {id:dNJYNYtl8kdjg991, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Roto-Drone {id:N7vkB71kZopTTbfZ, type:character, folderId:dNJYNYtl8kdjg991}
-- [FOLDER] DRIVER Drones {id:difkka7opavqlLc9, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Shield Drone {id:Po0rfSm4pE28nhBT, type:character, folderId:difkka7opavqlLc9}
-- [FOLDER] DRIVER Drones {id:u37mobPWUvXdsBEa, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Roto-Drone {id:THIpmPPL2zKwYG8w, type:character, folderId:u37mobPWUvXdsBEa}
-- [FOLDER] DRIVER Drones {id:xYQJq2y2UNBgw3Bv, parent:null, depth:0, path:"DRIVER Drones"}
-  - [ACTOR] Mobile Sentinel {id:BnMZNiiHMRG5nkL5, type:character, folderId:xYQJq2y2UNBgw3Bv}
-- [FOLDER] DRIVER Vehicles {id:6fhxsYufF8WbdUJp, parent:null, depth:0, path:"DRIVER Vehicles"}
-  - [ACTOR] Sports Car {id:3j8ApA5M8KuuVOL0, type:character, folderId:6fhxsYufF8WbdUJp}
-- [FOLDER] DRIVER Vehicles {id:JQQkSxHoy7hooxa1, parent:null, depth:0, path:"DRIVER Vehicles"}
-  - [ACTOR] Delivery Van {id:nlnJYoxnFxliLClb, type:character, folderId:JQQkSxHoy7hooxa1}
-- [FOLDER] DRIVER Vehicles {id:nd9AD18qiZaXMsrn, parent:null, depth:0, path:"DRIVER Vehicles"}
-  - [ACTOR] Armored Car {id:SsnqasrygHc28wqJ, type:character, folderId:nd9AD18qiZaXMsrn}
-- [FOLDER] MARTIAL ARTIST Vehicles {id:vdWk26mcqLrNg2DT, parent:null, depth:0, path:"MARTIAL ARTIST Vehicles"}
-  - [ACTOR] Racing Bike {id:prTzrmm00tA6o6YS, type:character, folderId:vdWk26mcqLrNg2DT}
-- [FOLDER] POP IDOL Vehicles {id:LlkrmZyVLZeVTNYo, parent:null, depth:0, path:"POP IDOL Vehicles"}
-  - [ACTOR] Sports Car {id:5nGunzAjL6cjbHaY, type:character, folderId:LlkrmZyVLZeVTNYo}
-- [FOLDER] POP IDOL Vehicles {id:RcAULK0lEVdzi2xY, parent:null, depth:0, path:"POP IDOL Vehicles"}
-  - [ACTOR] Limo {id:7Uzt4bO3DFZc171s, type:character, folderId:RcAULK0lEVdzi2xY}
-- [FOLDER] POP IDOL Vehicles {id:ennpkq0fzeda2QjU, parent:null, depth:0, path:"POP IDOL Vehicles"}
-  - [ACTOR] Luxury Sedan {id:7Cqrfmpn26IjrMVP, type:character, folderId:ennpkq0fzeda2QjU}
-- [FOLDER] Rigger Sleuth Drones {id:28PVC14AIeKbndvB, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] Dog-Patrol Drone {id:2hQsJaSCSYY81dsn, type:character, folderId:28PVC14AIeKbndvB}
-- [FOLDER] Rigger Sleuth Drones {id:8w4PE2P5vBG1wN2c, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] Roto-Drone {id:lbKnhC06QpUL9nNm, type:character, folderId:8w4PE2P5vBG1wN2c}
-- [FOLDER] Rigger Sleuth Drones {id:CMTfqHEJvJJpL1R2, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] VSTOL Bird {id:muhhHjSCdNL9ATJH, type:character, folderId:CMTfqHEJvJJpL1R2}
-- [FOLDER] Rigger Sleuth Drones {id:EyH3BLqXtYRQjEQg, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] Roto-Drone {id:MXOU8gMuwDoVIbkr, type:character, folderId:EyH3BLqXtYRQjEQg}
-- [FOLDER] Rigger Sleuth Drones {id:HfJtYedG2euZwNdU, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] Disc {id:P0nMAsMNKeJ64uGE, type:character, folderId:HfJtYedG2euZwNdU}
-- [FOLDER] Rigger Sleuth Drones {id:SQdkyWXYlmrRFEEN, parent:null, depth:0, path:"Rigger Sleuth Drones"}
-  - [ACTOR] Bug-Spy {id:K3wlVpLFqhReCOOn, type:character, folderId:SQdkyWXYlmrRFEEN}
-- [FOLDER] Rigger Sleuth Vehicles {id:0mhDOvZjP8cwiZrB, parent:null, depth:0, path:"Rigger Sleuth Vehicles"}
-  - [ACTOR] Battle Cycle {id:UFzJDSYtsjBqQQ12, type:character, folderId:0mhDOvZjP8cwiZrB}
-- [FOLDER] Rigger Sleuth Vehicles {id:ob84qLKtGtnMm9em, parent:null, depth:0, path:"Rigger Sleuth Vehicles"}
-  - [ACTOR] Armored Car {id:vTp4NWP9ooj9OhxJ, type:character, folderId:ob84qLKtGtnMm9em}
-- [FOLDER] Uplifted Gorilla hacker Vehicles {id:ey9kJdvPOfLwEFyF, parent:null, depth:0, path:"Uplifted Gorilla hacker Vehicles"}
-  - [ACTOR] Sports Car {id:b9MfHnTUPYiSMwIa, type:character, folderId:ey9kJdvPOfLwEFyF}
-- [FOLDER] TestSpell Drones {id:WHxI5hBKlMfcNC8X, parent:null, depth:0, path:"TestSpell Drones"}
-  - [ACTOR] Aerial Warden {id:VANzRLH2vtborQwF, type:character, folderId:WHxI5hBKlMfcNC8X}
-  - [ACTOR] Dog-Patrol Drone {id:J9PbezGO0bGDdM7G, type:character, folderId:WHxI5hBKlMfcNC8X}
-  - [ACTOR] Orb {id:e9fte6tYGkDrh4ov, type:character, folderId:WHxI5hBKlMfcNC8X}
-- [FOLDER] TestSpell Vehicles {id:gvXDlZk7nZ55axaU, parent:null, depth:0, path:"TestSpell Vehicles"}
-  - [ACTOR] Family Sedan {id:1g8Tnyo0Js4OJ2nH, type:character, folderId:gvXDlZk7nZ55axaU}
 
 ### Actors - Folder Index
 | path | folderId | parentFolderId | depth | sort | sorting |
 | --- | --- | --- | ---: | ---: | --- |
-| COVERT OPERATIVE Vehicles | 19Do5zEVpA4sTFlr |  | 0 | 0 | a |
-| Cybered Recon Vehicles | 0ZrLsXLZe26rrhVf |  | 0 | 0 | a |
-| DETECTIVE Vehicles | v1zbFxPlYW3ZA3JS |  | 0 | 0 | a |
-| DRIVER Drones | 8Tw711JYHV5sdEji |  | 0 | 0 | a |
-| DRIVER Drones | CLHmpvzrJbIZSo7q |  | 0 | 0 | a |
-| DRIVER Drones | Hi4eNqMtwurAUCtI |  | 0 | 0 | a |
-| DRIVER Drones | Kkk0tIgT2PcsF6Vq |  | 0 | 0 | a |
-| DRIVER Drones | MgdSloMoYGW0K1Tf |  | 0 | 0 | a |
-| DRIVER Drones | NBM7bc8RgrxKAgT0 |  | 0 | 0 | a |
-| DRIVER Drones | PvCqBDkmQDuBBJ9m |  | 0 | 0 | a |
-| DRIVER Drones | UkC6VmZsRrDuG3wb |  | 0 | 0 | a |
-| DRIVER Drones | ZCOAF78d2AjqbfLY |  | 0 | 0 | a |
-| DRIVER Drones | dFIOGjnrCCsqkU48 |  | 0 | 0 | a |
-| DRIVER Drones | dNJYNYtl8kdjg991 |  | 0 | 0 | a |
-| DRIVER Drones | difkka7opavqlLc9 |  | 0 | 0 | a |
-| DRIVER Drones | u37mobPWUvXdsBEa |  | 0 | 0 | a |
-| DRIVER Drones | xYQJq2y2UNBgw3Bv |  | 0 | 0 | a |
-| DRIVER Vehicles | 6fhxsYufF8WbdUJp |  | 0 | 0 | a |
-| DRIVER Vehicles | JQQkSxHoy7hooxa1 |  | 0 | 0 | a |
-| DRIVER Vehicles | nd9AD18qiZaXMsrn |  | 0 | 0 | a |
 | DroneHangar | C9SZJMPMSIoSKI67 |  | 0 | -25000 | a |
-| MARTIAL ARTIST Vehicles | vdWk26mcqLrNg2DT |  | 0 | 0 | a |
 | NPCs | p6hbQkfl32SKkvGO |  | 0 | -50000 | a |
 | PCs | bGGgYtFXJvPyXTLo |  | 0 | -100000 | a |
-| POP IDOL Vehicles | LlkrmZyVLZeVTNYo |  | 0 | 0 | a |
-| POP IDOL Vehicles | RcAULK0lEVdzi2xY |  | 0 | 0 | a |
-| POP IDOL Vehicles | ennpkq0fzeda2QjU |  | 0 | 0 | a |
-| Rigger Sleuth Drones | 28PVC14AIeKbndvB |  | 0 | 0 | a |
-| Rigger Sleuth Drones | 8w4PE2P5vBG1wN2c |  | 0 | 0 | a |
-| Rigger Sleuth Drones | CMTfqHEJvJJpL1R2 |  | 0 | 0 | a |
-| Rigger Sleuth Drones | EyH3BLqXtYRQjEQg |  | 0 | 0 | a |
-| Rigger Sleuth Drones | HfJtYedG2euZwNdU |  | 0 | 0 | a |
-| Rigger Sleuth Drones | SQdkyWXYlmrRFEEN |  | 0 | 0 | a |
-| Rigger Sleuth Vehicles | 0mhDOvZjP8cwiZrB |  | 0 | 0 | a |
-| Rigger Sleuth Vehicles | ob84qLKtGtnMm9em |  | 0 | 0 | a |
 | Templates | eJiZ5ojJouMYFr9R |  | 0 | -18750 | a |
-| TestSpell Drones | WHxI5hBKlMfcNC8X |  | 0 | 500000 | a |
-| TestSpell Vehicles | gvXDlZk7nZ55axaU |  | 0 | 600000 | a |
-| Uplifted Gorilla hacker Vehicles | ey9kJdvPOfLwEFyF |  | 0 | 0 | a |
 | VehicleHangar | I8VLhxriauMW5wH0 |  | 0 | -21875 | a |
 | NPCs/Animals | bO6yVDTjF5UQw2ZU | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Drones | w2u228ARPzSzv5YK | p6hbQkfl32SKkvGO | 1 | 0 | a |
@@ -249,26 +143,6 @@
 ### Actors - Document Index
 | path | documentId | name | subtype | folderId |
 | --- | --- | --- | --- | --- |
-| COVERT OPERATIVE Vehicles/Sports Sedan | nBLx4FEeWBEq9aan | Sports Sedan | character | 19Do5zEVpA4sTFlr |
-| Cybered Recon Vehicles/Motorcycle | nXg3m5L4CklZxJKo | Motorcycle | character | 0ZrLsXLZe26rrhVf |
-| DETECTIVE Vehicles/Two-Seater | 4ZMKPbLqvlTSFWt2 | Two-Seater | character | v1zbFxPlYW3ZA3JS |
-| DRIVER Drones/Dog-Patrol Drone | 473OPNfizvcwVdA3 | Dog-Patrol Drone | character | NBM7bc8RgrxKAgT0 |
-| DRIVER Drones/Mobile Sentinel | BnMZNiiHMRG5nkL5 | Mobile Sentinel | character | xYQJq2y2UNBgw3Bv |
-| DRIVER Drones/Roto-Drone | N7vkB71kZopTTbfZ | Roto-Drone | character | dNJYNYtl8kdjg991 |
-| DRIVER Drones/Roto-Drone | Pb9o27gSx5x21sib | Roto-Drone | character | MgdSloMoYGW0K1Tf |
-| DRIVER Drones/Roto-Drone | THIpmPPL2zKwYG8w | Roto-Drone | character | u37mobPWUvXdsBEa |
-| DRIVER Drones/Roto-Drone | b4PsRSERygLT3UNq | Roto-Drone | character | Kkk0tIgT2PcsF6Vq |
-| DRIVER Drones/Shield Drone | DAah7cQDYdokv3Yj | Shield Drone | character | PvCqBDkmQDuBBJ9m |
-| DRIVER Drones/Shield Drone | Po0rfSm4pE28nhBT | Shield Drone | character | difkka7opavqlLc9 |
-| DRIVER Drones/Shield Drone | XzrTDan8ruvrYzab | Shield Drone | character | 8Tw711JYHV5sdEji |
-| DRIVER Drones/Shield Drone | ZJKb2oYBYZQh71RZ | Shield Drone | character | dFIOGjnrCCsqkU48 |
-| DRIVER Drones/Shield Drone | bPH4Tiqbkiqx9lLl | Shield Drone | character | UkC6VmZsRrDuG3wb |
-| DRIVER Drones/Shield Drone | emaRKC0jOg5gjcPR | Shield Drone | character | ZCOAF78d2AjqbfLY |
-| DRIVER Drones/Shield Drone | m9LKB7nMeiUYpbOy | Shield Drone | character | Hi4eNqMtwurAUCtI |
-| DRIVER Drones/Shield Drone | vMDpFvgIqMcLNA7y | Shield Drone | character | CLHmpvzrJbIZSo7q |
-| DRIVER Vehicles/Armored Car | SsnqasrygHc28wqJ | Armored Car | character | nd9AD18qiZaXMsrn |
-| DRIVER Vehicles/Delivery Van | nlnJYoxnFxliLClb | Delivery Van | character | JQQkSxHoy7hooxa1 |
-| DRIVER Vehicles/Sports Car | 3j8ApA5M8KuuVOL0 | Sports Car | character | 6fhxsYufF8WbdUJp |
 | DroneHangar/Aerial Warden | 2vh1c8FVTf6cBwtE | Aerial Warden | character | C9SZJMPMSIoSKI67 |
 | DroneHangar/Anthrobrute | tluL0tIn8eARzMwa | Anthrobrute | character | C9SZJMPMSIoSKI67 |
 | DroneHangar/Anthrodroid | btyAqEbWpT9FbmGH | Anthrodroid | character | C9SZJMPMSIoSKI67 |
@@ -283,7 +157,6 @@
 | DroneHangar/Shield Drone | hZummIxj1gYPgpOg | Shield Drone | character | C9SZJMPMSIoSKI67 |
 | DroneHangar/Shield-Wall Drone | JOnBPPrrMCimY5wx | Shield-Wall Drone | character | C9SZJMPMSIoSKI67 |
 | DroneHangar/VSTOL Bird | HK9rSt7Bw28kC91e | VSTOL Bird | character | C9SZJMPMSIoSKI67 |
-| MARTIAL ARTIST Vehicles/Racing Bike | prTzrmm00tA6o6YS | Racing Bike | character | vdWk26mcqLrNg2DT |
 | NPCs/Animals/Bear | 8S6qaeWInLOl4qc4 | Bear | character | bO6yVDTjF5UQw2ZU |
 | NPCs/Animals/Cat | BWA3pls6uk73KGlq | Cat | character | bO6yVDTjF5UQw2ZU |
 | NPCs/Animals/Dog | ClylecXaREys3eYe | Dog | character | bO6yVDTjF5UQw2ZU |
@@ -342,28 +215,12 @@
 | PCs/PreGens/Vamp Face | UwUS1iZD5q7M0ggU | Vamp Face | character | tlB8baeczfAB1tEw |
 | PCs/PreGens/WASTELAND MAGE | eMIR1Wvxh4VxXWES | WASTELAND MAGE | character | tlB8baeczfAB1tEw |
 | PCs/TestSpell | eMbezua6UThIStwT | TestSpell | character | bGGgYtFXJvPyXTLo |
-| POP IDOL Vehicles/Limo | 7Uzt4bO3DFZc171s | Limo | character | RcAULK0lEVdzi2xY |
-| POP IDOL Vehicles/Luxury Sedan | 7Cqrfmpn26IjrMVP | Luxury Sedan | character | ennpkq0fzeda2QjU |
-| POP IDOL Vehicles/Sports Car | 5nGunzAjL6cjbHaY | Sports Car | character | LlkrmZyVLZeVTNYo |
-| Rigger Sleuth Drones/Bug-Spy | K3wlVpLFqhReCOOn | Bug-Spy | character | SQdkyWXYlmrRFEEN |
-| Rigger Sleuth Drones/Disc | P0nMAsMNKeJ64uGE | Disc | character | HfJtYedG2euZwNdU |
-| Rigger Sleuth Drones/Dog-Patrol Drone | 2hQsJaSCSYY81dsn | Dog-Patrol Drone | character | 28PVC14AIeKbndvB |
-| Rigger Sleuth Drones/Roto-Drone | MXOU8gMuwDoVIbkr | Roto-Drone | character | EyH3BLqXtYRQjEQg |
-| Rigger Sleuth Drones/Roto-Drone | lbKnhC06QpUL9nNm | Roto-Drone | character | 8w4PE2P5vBG1wN2c |
-| Rigger Sleuth Drones/VSTOL Bird | muhhHjSCdNL9ATJH | VSTOL Bird | character | CMTfqHEJvJJpL1R2 |
-| Rigger Sleuth Vehicles/Armored Car | vTp4NWP9ooj9OhxJ | Armored Car | character | ob84qLKtGtnMm9em |
-| Rigger Sleuth Vehicles/Battle Cycle | UFzJDSYtsjBqQQ12 | Battle Cycle | character | 0mhDOvZjP8cwiZrB |
 | Templates/Drone Template | lL9MiN64F7mRGhuj | Drone Template | _template | eJiZ5ojJouMYFr9R |
 | Templates/Session Settings Template | DubVcAsia226PlV0 | Session Settings Template | _template | eJiZ5ojJouMYFr9R |
 | Templates/Sinless NPC | 694838d341f4407b | Sinless NPC | _template | eJiZ5ojJouMYFr9R |
 | Templates/Sinless PC | 409875cd45a544c0 | Sinless PC | _template | eJiZ5ojJouMYFr9R |
 | Templates/Sinless PC (Copy) | OXKxlTnNPzmAbRn2 | Sinless PC (Copy) | _template | eJiZ5ojJouMYFr9R |
 | Templates/Vehicle Template | 9YbyOSIZBhfekbLK | Vehicle Template | _template | eJiZ5ojJouMYFr9R |
-| TestSpell Drones/Aerial Warden | VANzRLH2vtborQwF | Aerial Warden | character | WHxI5hBKlMfcNC8X |
-| TestSpell Drones/Dog-Patrol Drone | J9PbezGO0bGDdM7G | Dog-Patrol Drone | character | WHxI5hBKlMfcNC8X |
-| TestSpell Drones/Orb | e9fte6tYGkDrh4ov | Orb | character | WHxI5hBKlMfcNC8X |
-| TestSpell Vehicles/Family Sedan | 1g8Tnyo0Js4OJ2nH | Family Sedan | character | gvXDlZk7nZ55axaU |
-| Uplifted Gorilla hacker Vehicles/Sports Car | b9MfHnTUPYiSMwIa | Sports Car | character | ey9kJdvPOfLwEFyF |
 | VehicleHangar/Armored Car | YrcHYiZz2DClrx73 | Armored Car | character | I8VLhxriauMW5wH0 |
 | VehicleHangar/Battle Cycle | gMuob9Zc3oQMJL5t | Battle Cycle | character | I8VLhxriauMW5wH0 |
 | VehicleHangar/Cargo Heli | E1wseQJRW9U60tPV | Cargo Heli | character | I8VLhxriauMW5wH0 |
@@ -1054,230 +911,20 @@
     "id": "sinless",
     "title": "PacificNorthWestMarches"
   },
-  "generatedAtISO": "2026-02-13T15:49:48.560Z",
+  "generatedAtISO": "2026-02-13T16:19:51.656Z",
   "guidance": "Use folderId + parentFolderId for hierarchy; do not infer hierarchy solely from indentation.",
   "actor": {
+    "filter": {
+      "topLevelFolderNames": [
+        "PCs",
+        "NPCs",
+        "DroneHangar",
+        "VehicleHangar",
+        "Templates"
+      ],
+      "includeUnfoldered": false
+    },
     "folders": [
-      {
-        "folderId": "19Do5zEVpA4sTFlr",
-        "uuid": "Folder.19Do5zEVpA4sTFlr",
-        "docType": "Actor",
-        "name": "COVERT OPERATIVE Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "COVERT OPERATIVE Vehicles"
-      },
-      {
-        "folderId": "0ZrLsXLZe26rrhVf",
-        "uuid": "Folder.0ZrLsXLZe26rrhVf",
-        "docType": "Actor",
-        "name": "Cybered Recon Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Cybered Recon Vehicles"
-      },
-      {
-        "folderId": "v1zbFxPlYW3ZA3JS",
-        "uuid": "Folder.v1zbFxPlYW3ZA3JS",
-        "docType": "Actor",
-        "name": "DETECTIVE Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DETECTIVE Vehicles"
-      },
-      {
-        "folderId": "8Tw711JYHV5sdEji",
-        "uuid": "Folder.8Tw711JYHV5sdEji",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "CLHmpvzrJbIZSo7q",
-        "uuid": "Folder.CLHmpvzrJbIZSo7q",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "Hi4eNqMtwurAUCtI",
-        "uuid": "Folder.Hi4eNqMtwurAUCtI",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "Kkk0tIgT2PcsF6Vq",
-        "uuid": "Folder.Kkk0tIgT2PcsF6Vq",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "MgdSloMoYGW0K1Tf",
-        "uuid": "Folder.MgdSloMoYGW0K1Tf",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "NBM7bc8RgrxKAgT0",
-        "uuid": "Folder.NBM7bc8RgrxKAgT0",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "PvCqBDkmQDuBBJ9m",
-        "uuid": "Folder.PvCqBDkmQDuBBJ9m",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "UkC6VmZsRrDuG3wb",
-        "uuid": "Folder.UkC6VmZsRrDuG3wb",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "ZCOAF78d2AjqbfLY",
-        "uuid": "Folder.ZCOAF78d2AjqbfLY",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "dFIOGjnrCCsqkU48",
-        "uuid": "Folder.dFIOGjnrCCsqkU48",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "dNJYNYtl8kdjg991",
-        "uuid": "Folder.dNJYNYtl8kdjg991",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "difkka7opavqlLc9",
-        "uuid": "Folder.difkka7opavqlLc9",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "u37mobPWUvXdsBEa",
-        "uuid": "Folder.u37mobPWUvXdsBEa",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "xYQJq2y2UNBgw3Bv",
-        "uuid": "Folder.xYQJq2y2UNBgw3Bv",
-        "docType": "Actor",
-        "name": "DRIVER Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Drones"
-      },
-      {
-        "folderId": "6fhxsYufF8WbdUJp",
-        "uuid": "Folder.6fhxsYufF8WbdUJp",
-        "docType": "Actor",
-        "name": "DRIVER Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Vehicles"
-      },
-      {
-        "folderId": "JQQkSxHoy7hooxa1",
-        "uuid": "Folder.JQQkSxHoy7hooxa1",
-        "docType": "Actor",
-        "name": "DRIVER Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Vehicles"
-      },
-      {
-        "folderId": "nd9AD18qiZaXMsrn",
-        "uuid": "Folder.nd9AD18qiZaXMsrn",
-        "docType": "Actor",
-        "name": "DRIVER Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "DRIVER Vehicles"
-      },
       {
         "folderId": "C9SZJMPMSIoSKI67",
         "uuid": "Folder.C9SZJMPMSIoSKI67",
@@ -1288,17 +935,6 @@
         "sort": -25000,
         "sorting": "a",
         "path": "DroneHangar"
-      },
-      {
-        "folderId": "vdWk26mcqLrNg2DT",
-        "uuid": "Folder.vdWk26mcqLrNg2DT",
-        "docType": "Actor",
-        "name": "MARTIAL ARTIST Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "MARTIAL ARTIST Vehicles"
       },
       {
         "folderId": "p6hbQkfl32SKkvGO",
@@ -1323,127 +959,6 @@
         "path": "PCs"
       },
       {
-        "folderId": "LlkrmZyVLZeVTNYo",
-        "uuid": "Folder.LlkrmZyVLZeVTNYo",
-        "docType": "Actor",
-        "name": "POP IDOL Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "POP IDOL Vehicles"
-      },
-      {
-        "folderId": "RcAULK0lEVdzi2xY",
-        "uuid": "Folder.RcAULK0lEVdzi2xY",
-        "docType": "Actor",
-        "name": "POP IDOL Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "POP IDOL Vehicles"
-      },
-      {
-        "folderId": "ennpkq0fzeda2QjU",
-        "uuid": "Folder.ennpkq0fzeda2QjU",
-        "docType": "Actor",
-        "name": "POP IDOL Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "POP IDOL Vehicles"
-      },
-      {
-        "folderId": "28PVC14AIeKbndvB",
-        "uuid": "Folder.28PVC14AIeKbndvB",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "8w4PE2P5vBG1wN2c",
-        "uuid": "Folder.8w4PE2P5vBG1wN2c",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "CMTfqHEJvJJpL1R2",
-        "uuid": "Folder.CMTfqHEJvJJpL1R2",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "EyH3BLqXtYRQjEQg",
-        "uuid": "Folder.EyH3BLqXtYRQjEQg",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "HfJtYedG2euZwNdU",
-        "uuid": "Folder.HfJtYedG2euZwNdU",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "SQdkyWXYlmrRFEEN",
-        "uuid": "Folder.SQdkyWXYlmrRFEEN",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Drones"
-      },
-      {
-        "folderId": "0mhDOvZjP8cwiZrB",
-        "uuid": "Folder.0mhDOvZjP8cwiZrB",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Vehicles"
-      },
-      {
-        "folderId": "ob84qLKtGtnMm9em",
-        "uuid": "Folder.ob84qLKtGtnMm9em",
-        "docType": "Actor",
-        "name": "Rigger Sleuth Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Rigger Sleuth Vehicles"
-      },
-      {
         "folderId": "eJiZ5ojJouMYFr9R",
         "uuid": "Folder.eJiZ5ojJouMYFr9R",
         "docType": "Actor",
@@ -1453,39 +968,6 @@
         "sort": -18750,
         "sorting": "a",
         "path": "Templates"
-      },
-      {
-        "folderId": "WHxI5hBKlMfcNC8X",
-        "uuid": "Folder.WHxI5hBKlMfcNC8X",
-        "docType": "Actor",
-        "name": "TestSpell Drones",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 500000,
-        "sorting": "a",
-        "path": "TestSpell Drones"
-      },
-      {
-        "folderId": "gvXDlZk7nZ55axaU",
-        "uuid": "Folder.gvXDlZk7nZ55axaU",
-        "docType": "Actor",
-        "name": "TestSpell Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 600000,
-        "sorting": "a",
-        "path": "TestSpell Vehicles"
-      },
-      {
-        "folderId": "ey9kJdvPOfLwEFyF",
-        "uuid": "Folder.ey9kJdvPOfLwEFyF",
-        "docType": "Actor",
-        "name": "Uplifted Gorilla hacker Vehicles",
-        "parentFolderId": null,
-        "depth": 0,
-        "sort": 0,
-        "sorting": "a",
-        "path": "Uplifted Gorilla hacker Vehicles"
       },
       {
         "folderId": "I8VLhxriauMW5wH0",
@@ -1577,226 +1059,6 @@
       }
     ],
     "documents": [
-      {
-        "documentId": "nBLx4FEeWBEq9aan",
-        "uuid": "Actor.nBLx4FEeWBEq9aan",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Sports Sedan",
-        "folderId": "19Do5zEVpA4sTFlr",
-        "folderPath": "COVERT OPERATIVE Vehicles",
-        "path": "COVERT OPERATIVE Vehicles/Sports Sedan",
-        "sort": 0
-      },
-      {
-        "documentId": "nXg3m5L4CklZxJKo",
-        "uuid": "Actor.nXg3m5L4CklZxJKo",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Motorcycle",
-        "folderId": "0ZrLsXLZe26rrhVf",
-        "folderPath": "Cybered Recon Vehicles",
-        "path": "Cybered Recon Vehicles/Motorcycle",
-        "sort": 0
-      },
-      {
-        "documentId": "4ZMKPbLqvlTSFWt2",
-        "uuid": "Actor.4ZMKPbLqvlTSFWt2",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Two-Seater",
-        "folderId": "v1zbFxPlYW3ZA3JS",
-        "folderPath": "DETECTIVE Vehicles",
-        "path": "DETECTIVE Vehicles/Two-Seater",
-        "sort": 0
-      },
-      {
-        "documentId": "473OPNfizvcwVdA3",
-        "uuid": "Actor.473OPNfizvcwVdA3",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Dog-Patrol Drone",
-        "folderId": "NBM7bc8RgrxKAgT0",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Dog-Patrol Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "BnMZNiiHMRG5nkL5",
-        "uuid": "Actor.BnMZNiiHMRG5nkL5",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Mobile Sentinel",
-        "folderId": "xYQJq2y2UNBgw3Bv",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Mobile Sentinel",
-        "sort": 0
-      },
-      {
-        "documentId": "N7vkB71kZopTTbfZ",
-        "uuid": "Actor.N7vkB71kZopTTbfZ",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "dNJYNYtl8kdjg991",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "Pb9o27gSx5x21sib",
-        "uuid": "Actor.Pb9o27gSx5x21sib",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "MgdSloMoYGW0K1Tf",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "THIpmPPL2zKwYG8w",
-        "uuid": "Actor.THIpmPPL2zKwYG8w",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "u37mobPWUvXdsBEa",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "b4PsRSERygLT3UNq",
-        "uuid": "Actor.b4PsRSERygLT3UNq",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "Kkk0tIgT2PcsF6Vq",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "DAah7cQDYdokv3Yj",
-        "uuid": "Actor.DAah7cQDYdokv3Yj",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "PvCqBDkmQDuBBJ9m",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "Po0rfSm4pE28nhBT",
-        "uuid": "Actor.Po0rfSm4pE28nhBT",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "difkka7opavqlLc9",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "XzrTDan8ruvrYzab",
-        "uuid": "Actor.XzrTDan8ruvrYzab",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "8Tw711JYHV5sdEji",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "ZJKb2oYBYZQh71RZ",
-        "uuid": "Actor.ZJKb2oYBYZQh71RZ",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "dFIOGjnrCCsqkU48",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "bPH4Tiqbkiqx9lLl",
-        "uuid": "Actor.bPH4Tiqbkiqx9lLl",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "UkC6VmZsRrDuG3wb",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "emaRKC0jOg5gjcPR",
-        "uuid": "Actor.emaRKC0jOg5gjcPR",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "ZCOAF78d2AjqbfLY",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "m9LKB7nMeiUYpbOy",
-        "uuid": "Actor.m9LKB7nMeiUYpbOy",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "Hi4eNqMtwurAUCtI",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "vMDpFvgIqMcLNA7y",
-        "uuid": "Actor.vMDpFvgIqMcLNA7y",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Shield Drone",
-        "folderId": "CLHmpvzrJbIZSo7q",
-        "folderPath": "DRIVER Drones",
-        "path": "DRIVER Drones/Shield Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "SsnqasrygHc28wqJ",
-        "uuid": "Actor.SsnqasrygHc28wqJ",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Armored Car",
-        "folderId": "nd9AD18qiZaXMsrn",
-        "folderPath": "DRIVER Vehicles",
-        "path": "DRIVER Vehicles/Armored Car",
-        "sort": 0
-      },
-      {
-        "documentId": "nlnJYoxnFxliLClb",
-        "uuid": "Actor.nlnJYoxnFxliLClb",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Delivery Van",
-        "folderId": "JQQkSxHoy7hooxa1",
-        "folderPath": "DRIVER Vehicles",
-        "path": "DRIVER Vehicles/Delivery Van",
-        "sort": 0
-      },
-      {
-        "documentId": "3j8ApA5M8KuuVOL0",
-        "uuid": "Actor.3j8ApA5M8KuuVOL0",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Sports Car",
-        "folderId": "6fhxsYufF8WbdUJp",
-        "folderPath": "DRIVER Vehicles",
-        "path": "DRIVER Vehicles/Sports Car",
-        "sort": 0
-      },
       {
         "documentId": "2vh1c8FVTf6cBwtE",
         "uuid": "Actor.2vh1c8FVTf6cBwtE",
@@ -1949,17 +1211,6 @@
         "folderId": "C9SZJMPMSIoSKI67",
         "folderPath": "DroneHangar",
         "path": "DroneHangar/VSTOL Bird",
-        "sort": 0
-      },
-      {
-        "documentId": "prTzrmm00tA6o6YS",
-        "uuid": "Actor.prTzrmm00tA6o6YS",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Racing Bike",
-        "folderId": "vdWk26mcqLrNg2DT",
-        "folderPath": "MARTIAL ARTIST Vehicles",
-        "path": "MARTIAL ARTIST Vehicles/Racing Bike",
         "sort": 0
       },
       {
@@ -2601,127 +1852,6 @@
         "sort": 100000
       },
       {
-        "documentId": "7Uzt4bO3DFZc171s",
-        "uuid": "Actor.7Uzt4bO3DFZc171s",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Limo",
-        "folderId": "RcAULK0lEVdzi2xY",
-        "folderPath": "POP IDOL Vehicles",
-        "path": "POP IDOL Vehicles/Limo",
-        "sort": 0
-      },
-      {
-        "documentId": "7Cqrfmpn26IjrMVP",
-        "uuid": "Actor.7Cqrfmpn26IjrMVP",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Luxury Sedan",
-        "folderId": "ennpkq0fzeda2QjU",
-        "folderPath": "POP IDOL Vehicles",
-        "path": "POP IDOL Vehicles/Luxury Sedan",
-        "sort": 0
-      },
-      {
-        "documentId": "5nGunzAjL6cjbHaY",
-        "uuid": "Actor.5nGunzAjL6cjbHaY",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Sports Car",
-        "folderId": "LlkrmZyVLZeVTNYo",
-        "folderPath": "POP IDOL Vehicles",
-        "path": "POP IDOL Vehicles/Sports Car",
-        "sort": 0
-      },
-      {
-        "documentId": "K3wlVpLFqhReCOOn",
-        "uuid": "Actor.K3wlVpLFqhReCOOn",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Bug-Spy",
-        "folderId": "SQdkyWXYlmrRFEEN",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/Bug-Spy",
-        "sort": 0
-      },
-      {
-        "documentId": "P0nMAsMNKeJ64uGE",
-        "uuid": "Actor.P0nMAsMNKeJ64uGE",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Disc",
-        "folderId": "HfJtYedG2euZwNdU",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/Disc",
-        "sort": 0
-      },
-      {
-        "documentId": "2hQsJaSCSYY81dsn",
-        "uuid": "Actor.2hQsJaSCSYY81dsn",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Dog-Patrol Drone",
-        "folderId": "28PVC14AIeKbndvB",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/Dog-Patrol Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "MXOU8gMuwDoVIbkr",
-        "uuid": "Actor.MXOU8gMuwDoVIbkr",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "EyH3BLqXtYRQjEQg",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "lbKnhC06QpUL9nNm",
-        "uuid": "Actor.lbKnhC06QpUL9nNm",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Roto-Drone",
-        "folderId": "8w4PE2P5vBG1wN2c",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/Roto-Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "muhhHjSCdNL9ATJH",
-        "uuid": "Actor.muhhHjSCdNL9ATJH",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "VSTOL Bird",
-        "folderId": "CMTfqHEJvJJpL1R2",
-        "folderPath": "Rigger Sleuth Drones",
-        "path": "Rigger Sleuth Drones/VSTOL Bird",
-        "sort": 0
-      },
-      {
-        "documentId": "vTp4NWP9ooj9OhxJ",
-        "uuid": "Actor.vTp4NWP9ooj9OhxJ",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Armored Car",
-        "folderId": "ob84qLKtGtnMm9em",
-        "folderPath": "Rigger Sleuth Vehicles",
-        "path": "Rigger Sleuth Vehicles/Armored Car",
-        "sort": 0
-      },
-      {
-        "documentId": "UFzJDSYtsjBqQQ12",
-        "uuid": "Actor.UFzJDSYtsjBqQQ12",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Battle Cycle",
-        "folderId": "0mhDOvZjP8cwiZrB",
-        "folderPath": "Rigger Sleuth Vehicles",
-        "path": "Rigger Sleuth Vehicles/Battle Cycle",
-        "sort": 0
-      },
-      {
         "documentId": "lL9MiN64F7mRGhuj",
         "uuid": "Actor.lL9MiN64F7mRGhuj",
         "docType": "Actor",
@@ -2786,61 +1916,6 @@
         "folderPath": "Templates",
         "path": "Templates/Vehicle Template",
         "sort": 125000
-      },
-      {
-        "documentId": "VANzRLH2vtborQwF",
-        "uuid": "Actor.VANzRLH2vtborQwF",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Aerial Warden",
-        "folderId": "WHxI5hBKlMfcNC8X",
-        "folderPath": "TestSpell Drones",
-        "path": "TestSpell Drones/Aerial Warden",
-        "sort": 0
-      },
-      {
-        "documentId": "J9PbezGO0bGDdM7G",
-        "uuid": "Actor.J9PbezGO0bGDdM7G",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Dog-Patrol Drone",
-        "folderId": "WHxI5hBKlMfcNC8X",
-        "folderPath": "TestSpell Drones",
-        "path": "TestSpell Drones/Dog-Patrol Drone",
-        "sort": 0
-      },
-      {
-        "documentId": "e9fte6tYGkDrh4ov",
-        "uuid": "Actor.e9fte6tYGkDrh4ov",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Orb",
-        "folderId": "WHxI5hBKlMfcNC8X",
-        "folderPath": "TestSpell Drones",
-        "path": "TestSpell Drones/Orb",
-        "sort": 0
-      },
-      {
-        "documentId": "1g8Tnyo0Js4OJ2nH",
-        "uuid": "Actor.1g8Tnyo0Js4OJ2nH",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Family Sedan",
-        "folderId": "gvXDlZk7nZ55axaU",
-        "folderPath": "TestSpell Vehicles",
-        "path": "TestSpell Vehicles/Family Sedan",
-        "sort": 0
-      },
-      {
-        "documentId": "b9MfHnTUPYiSMwIa",
-        "uuid": "Actor.b9MfHnTUPYiSMwIa",
-        "docType": "Actor",
-        "subtype": "character",
-        "name": "Sports Car",
-        "folderId": "ey9kJdvPOfLwEFyF",
-        "folderPath": "Uplifted Gorilla hacker Vehicles",
-        "path": "Uplifted Gorilla hacker Vehicles/Sports Car",
-        "sort": 0
       },
       {
         "documentId": "YrcHYiZz2DClrx73",

@@ -1,0 +1,16 @@
+{
+  "name": "Morgana Powers",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/morgana_powers.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/morgana_powers.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "6",
+      "assetPrice": "3",
+      "assetOp": "Shapeshift. Morgana can alter her form to appear as any other person.",
+      "assetSector": "Enchantment. gain 1 influence on a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

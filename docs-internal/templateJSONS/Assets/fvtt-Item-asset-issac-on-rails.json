@@ -1,0 +1,16 @@
+{
+  "name": "Issac on Rails",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/issac.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/issac.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Grid Dossier.",
+      "assetSector": "Military requisition. Purchase cybertechtronics at -1 rarity.",
+      "assetNotes": ""
+    }
+  }
+}

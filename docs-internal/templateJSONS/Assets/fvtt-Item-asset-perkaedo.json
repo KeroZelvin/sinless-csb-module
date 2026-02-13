@@ -1,0 +1,16 @@
+{
+  "name": "Perkaedo",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/perkaedo.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/perkaedo.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "6",
+      "assetPrice": "4",
+      "assetOp": "Any Dossier.",
+      "assetSector": "Actor's training. Duplicate any other sector action used this turn.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Snap-Jaw",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/spike.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/spike.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Improve the damage of one firearm by 4 for the operation",
+      "assetSector": "Purchase small arms, gear, vehicles, armor, and decks/VCR's.",
+      "assetNotes": ""
+    }
+  }
+}

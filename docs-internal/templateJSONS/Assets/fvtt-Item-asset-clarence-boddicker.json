@@ -1,0 +1,16 @@
+{
+  "name": "Clarence Boddicker",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/clarence_boddicker.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/clarence_boddicker.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "I don't like cops. Gain access to boddicker's gang and their high-powered weaponry during a mission.",
+      "assetSector": "High powered connections. No rise in heat this sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

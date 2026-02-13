@@ -1,0 +1,16 @@
+{
+  "name": "Ann Thorpe",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/ann_thorpe.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/ann_thorpe.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "3",
+      "assetOp": "Civil and Criminal Dossiers.",
+      "assetSector": "Mercenary judgement. Gain 1d6 x10,0004 per success, or 2 damage to a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

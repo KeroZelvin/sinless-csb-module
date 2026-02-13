@@ -1,0 +1,16 @@
+{
+  "name": "Robert Savage",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/sergeant_robert_savage.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/sergeant_robert_savage.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Raptor aid. One of Sgt. Savage's Shrieking Raptors aid on an operation.",
+      "assetSector": "Boot Camp. Ignore one die of wound penalties on the next operation.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "May O'Neil",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/may_o_neil.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/may_o_neil.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Espionage and Grid Dossiers.",
+      "assetSector": "Turtle power. Add two dice to any brand media action.",
+      "assetNotes": ""
+    }
+  }
+}

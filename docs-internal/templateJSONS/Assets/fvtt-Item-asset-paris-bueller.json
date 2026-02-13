@@ -1,0 +1,16 @@
+{
+  "name": "Paris Bueller",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/paris_bueller.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/paris_bueller.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Day off. Cancel a mission during a mission.",
+      "assetSector": "Borrowed car. Asa sector action, \u2018borrow\u2019 a vehicle for the next operation.",
+      "assetNotes": ""
+    }
+  }
+}

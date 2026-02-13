@@ -1,0 +1,16 @@
+{
+  "name": "Weird",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/weird.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/weird.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "10",
+      "assetPrice": "8",
+      "assetOp": "Chimera. A target is sucked into a portal and re-emerges as a half-animal half-target creature.",
+      "assetSector": "Open the gate! Summon a kaiju to a target sector.",
+      "assetNotes": ""
+    }
+  }
+}

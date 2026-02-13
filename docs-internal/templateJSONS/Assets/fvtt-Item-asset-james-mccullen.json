@@ -1,0 +1,16 @@
+{
+  "name": "James McCullen",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/james_mccullen.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/james_mccullen.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "You dare to lay your filthy hands on me? Gain access to a squad of Steel Grenadiers.",
+      "assetSector": "Arms dealer. Purchase any weapon or armament.",
+      "assetNotes": ""
+    }
+  }
+}

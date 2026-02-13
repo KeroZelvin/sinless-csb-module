@@ -1,0 +1,16 @@
+{
+  "name": "Albert Knox",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/albert_knox.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/albert_knox.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Criminal Dossier.",
+      "assetSector": "Restructuring. Apply one damage to a site for each success with no increase in heat",
+      "assetNotes": ""
+    }
+  }
+}

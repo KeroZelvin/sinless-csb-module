@@ -1,0 +1,16 @@
+{
+  "name": "Lynn Murray Griffon",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/lynn_murray_griffon.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/lynn_murray_griffon.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "1",
+      "assetPrice": "1",
+      "assetOp": "Civic Dossier.",
+      "assetSector": "Cultural outreach. Lower sector heat by 1.",
+      "assetNotes": ""
+    }
+  }
+}

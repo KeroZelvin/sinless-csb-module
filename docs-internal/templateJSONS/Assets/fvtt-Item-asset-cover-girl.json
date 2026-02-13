@@ -1,0 +1,16 @@
+{
+  "name": "Cover Girl",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/cover_girl.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/cover_girl.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "3",
+      "assetOp": "Ugh, these shoots are even more dull than modeling. Covergirl will assist you on an operation with her tank.",
+      "assetSector": "If you're good at something, never do it for free. Increase sector heat by two. Damage three condition boxes per success.",
+      "assetNotes": ""
+    }
+  }
+}

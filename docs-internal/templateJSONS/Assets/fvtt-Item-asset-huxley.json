@@ -1,0 +1,16 @@
+{
+  "name": "Huxley",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/huxley.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/huxley.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "10",
+      "assetPrice": "8",
+      "assetOp": "Islands. The brand gains a digital onion strength of 2 points per success. (Ghost Protocol, CRB pg. 136)",
+      "assetSector": "Doors. Sector actions that recruit followers, quadruple their effects.",
+      "assetNotes": ""
+    }
+  }
+}

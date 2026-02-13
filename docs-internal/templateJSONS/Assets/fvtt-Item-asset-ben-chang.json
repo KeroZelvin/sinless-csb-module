@@ -1,0 +1,16 @@
+{
+  "name": "Ben Chang",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/ben_chang.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/ben_chang.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Triad Support. Gain two triad soldiers. Increase contract payout 20%.",
+      "assetSector": "Triad Influence. Extort two Market Cap or do two damage per success.",
+      "assetNotes": ""
+    }
+  }
+}

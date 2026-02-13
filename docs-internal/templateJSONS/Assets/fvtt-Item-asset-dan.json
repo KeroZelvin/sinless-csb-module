@@ -1,0 +1,16 @@
+{
+  "name": "Dan",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/dan.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/dan.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Appeal. Treat any one ignored or failed objective as a success. Raise heat to four in the sector.",
+      "assetSector": "Objection! Uses a falsified injunction to temporarily shut down a resource for one sector turn. e e @ e",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Easy E",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/easy_e.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/easy_e.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "4",
+      "assetOp": "Video edits. Films exploits during mission, add 1 to Kismet Pool.",
+      "assetSector": "Viral Clip. Increase the Market Cap of all resources in the sector 10% per success.",
+      "assetNotes": ""
+    }
+  }
+}

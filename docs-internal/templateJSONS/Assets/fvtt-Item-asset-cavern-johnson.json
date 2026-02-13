@@ -1,0 +1,16 @@
+{
+  "name": "Cavern Johnson",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/cavern_johnson.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/cavern_johnson.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Civic dossier.",
+      "assetSector": "Throwing science against the wall to see what sticks. Gain 1d6 x 100 techtronics, increase sector heat by one.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Harold Francis Callahan",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/harold_francis_callahan.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/harold_francis_callahan.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Did you shoot five times, or six? Once during the operation, an opponent is out of bullets.",
+      "assetSector": "The dead pool. Do one damage to every resource in the sector, and lower heat by one.",
+      "assetNotes": ""
+    }
+  }
+}

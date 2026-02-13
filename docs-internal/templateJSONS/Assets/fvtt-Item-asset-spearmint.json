@@ -1,0 +1,16 @@
+{
+  "name": "Spearmint",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/spearmint.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/spearmint.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Archaic code. Gain 10\" of influence from a target network access node.",
+      "assetSector": "Dissonant resonance. Subliminal pertubations cause ramapant paranoia. Target sector is in lockdown.",
+      "assetNotes": ""
+    }
+  }
+}

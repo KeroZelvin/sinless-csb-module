@@ -1,0 +1,16 @@
+{
+  "name": "Max Born",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/max_born.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/max_born.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Civic Dossier.",
+      "assetSector": "Vat farms. Purchase any biogentic ehancement.",
+      "assetNotes": ""
+    }
+  }
+}

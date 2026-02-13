@@ -1,0 +1,16 @@
+{
+  "name": "Alistair",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/alistair.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/alistair.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Unshattered mirror.",
+      "assetSector": "Lucky charms. Add 4 bonus dice to all buying and fencing gear rolls.",
+      "assetNotes": ""
+    }
+  }
+}

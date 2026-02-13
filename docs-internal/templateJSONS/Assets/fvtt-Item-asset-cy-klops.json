@@ -1,0 +1,16 @@
+{
+  "name": "Cy-klops",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/cy_klops.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/cy_klops.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "3",
+      "assetPrice": "3",
+      "assetOp": "Visions of doom. Gain access to half a dozen Doomkeeper drones.",
+      "assetSector": "Sector scan. Gain complete site and resource information in a target sector.",
+      "assetNotes": ""
+    }
+  }
+}

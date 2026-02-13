@@ -1,0 +1,16 @@
+{
+  "name": "Bubbles",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/bubbles.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/bubbles.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "0",
+      "assetPrice": "0",
+      "assetOp": "Homeless. Stays at your place, steals 100x-600:. Bubbles has a | in 6 chance of replacing a sector or operation action.",
+      "assetSector": "Needs a Joan. Hits you up for cash. \"Borrows' 1002-600:.",
+      "assetNotes": ""
+    }
+  }
+}

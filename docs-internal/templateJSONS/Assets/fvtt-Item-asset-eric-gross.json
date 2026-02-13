@@ -1,0 +1,16 @@
+{
+  "name": "Eric Gross",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/eric_gross.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/eric_gross.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Grid Dossier.",
+      "assetSector": "Copywriting. +1 MC to brand resources with service and business tags.",
+      "assetNotes": ""
+    }
+  }
+}

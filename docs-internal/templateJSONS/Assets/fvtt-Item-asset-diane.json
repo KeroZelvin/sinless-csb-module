@@ -1,0 +1,16 @@
+{
+  "name": "Diane",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/diane.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/diane.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Regular checkups. +3 to the body tracks of the brand.",
+      "assetSector": "First aid stations. +1 MC to all service resources in a sector.",
+      "assetNotes": ""
+    }
+  }
+}

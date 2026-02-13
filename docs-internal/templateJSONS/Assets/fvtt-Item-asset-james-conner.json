@@ -1,0 +1,16 @@
+{
+  "name": "James Connor",
+  "type": "equippableItem",
+  "img": "",
+  "system": {
+    "props": {
+      "assetPic": "",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "No fate but what we make: Reroll 1's and 2's on all attacks versus software agents, drones, and synthetic targets",
+      "assetSector": "You just can't go around killing people: Add one to the brand's grid rating this sector phase for every success.",
+      "assetNotes": ""
+    }
+  }
+}

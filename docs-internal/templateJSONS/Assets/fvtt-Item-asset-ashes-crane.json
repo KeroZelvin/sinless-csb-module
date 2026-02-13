@@ -1,0 +1,16 @@
+{
+  "name": "Ashes Crane",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/ashes_crane.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/ashes_crane.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "4",
+      "assetPrice": "0",
+      "assetOp": "Thraxian compulsion. Can possess a low-level employee, putting them in the brand's thrall.",
+      "assetSector": "Legions of Thrax. Repair three damage on a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

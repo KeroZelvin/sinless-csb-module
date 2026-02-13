@@ -16,6 +16,13 @@
       .slice(0, 80) || "world";
 
   const fileName = `folder-tree_${safeName(worldTitle)}_${dateStamp}.md`;
+  const ACTOR_ROOT_ALLOWLIST = new Set([
+    "PCs",
+    "NPCs",
+    "DroneHangar",
+    "VehicleHangar",
+    "Templates"
+  ]);
 
   const toArray = (collectionLike) => {
     if (!collectionLike) return [];
@@ -54,7 +61,9 @@
     return [];
   };
 
-  const buildTreeData = (docType) => {
+  const buildTreeData = (docType, options = {}) => {
+    const rootNameAllowlist = options.rootNameAllowlist ?? null;
+    const includeUnfoldered = options.includeUnfoldered ?? true;
     const folders = getFolders(docType);
     const docs = getDocs(docType);
     const folderById = new Map(folders.map((f) => [f.id, f]));
@@ -78,6 +87,25 @@
       childrenByParentId.get(parentId).push(f);
     }
     for (const [, list] of childrenByParentId) list.sort(sortBySortThenName);
+
+    const allRoots = childrenByParentId.get(null) ?? [];
+    const roots = rootNameAllowlist
+      ? allRoots.filter((f) => rootNameAllowlist.has(String(f.name ?? "").trim()))
+      : allRoots;
+
+    const includedFolderIds = new Set();
+    const collectIncluded = (folder) => {
+      if (!folder || includedFolderIds.has(folder.id)) return;
+      includedFolderIds.add(folder.id);
+      const kids = childrenByParentId.get(folder.id) ?? [];
+      for (const k of kids) collectIncluded(k);
+    };
+
+    if (rootNameAllowlist) {
+      for (const r of roots) collectIncluded(r);
+    } else {
+      for (const f of folders) includedFolderIds.add(f.id);
+    }
 
     const docsByFolderId = new Map();
     for (const d of docs) {
@@ -122,6 +150,7 @@
     for (const f of folders) resolveFolderPath(f.id);
 
     const folderRecords = folders
+      .filter((f) => includedFolderIds.has(f.id))
       .map((f) => {
         const parentFolderId = parentFolderIdOf(f);
         return {
@@ -144,6 +173,9 @@
     const documentRecords = docs
       .map((d) => {
         const folderId = folderIdOfDoc(d);
+        if (!includeUnfoldered && !folderId) return null;
+        if (folderId && !includedFolderIds.has(folderId)) return null;
+        if (!folderId && rootNameAllowlist) return null;
         const folderPath = folderId ? folderPathById.get(folderId) ?? null : null;
         return {
           documentId: d.id,
@@ -157,6 +189,7 @@
           sort: Number.isFinite(d.sort) ? d.sort : 0
         };
       })
+      .filter(Boolean)
       .sort((a, b) => a.path.localeCompare(b.path));
 
     const treeLines = [];
@@ -183,11 +216,10 @@
       for (const k of kids) walk(k, depth + 1);
     };
 
-    const roots = childrenByParentId.get(null) ?? [];
     for (const f of roots) walk(f, 0);
 
-    const unfoldered = docsByFolderId.get(null) ?? [];
-    if (unfoldered.length) {
+    const unfoldered = includeUnfoldered ? docsByFolderId.get(null) ?? [] : [];
+    if (includeUnfoldered && unfoldered.length) {
       treeLines.push(`- [FOLDER] (Unfoldered) {id:null, parent:null, depth:0, path:"(Unfoldered)"}`);
       pushDocs(null, 1);
     }
@@ -224,7 +256,10 @@
     };
   };
 
-  const actorData = buildTreeData("Actor");
+  const actorData = buildTreeData("Actor", {
+    rootNameAllowlist: ACTOR_ROOT_ALLOWLIST,
+    includeUnfoldered: false
+  });
   const itemData = buildTreeData("Item");
 
   const machineData = {
@@ -237,6 +272,10 @@
     guidance:
       "Use folderId + parentFolderId for hierarchy; do not infer hierarchy solely from indentation.",
     actor: {
+      filter: {
+        topLevelFolderNames: Array.from(ACTOR_ROOT_ALLOWLIST),
+        includeUnfoldered: false
+      },
       folders: actorData.folderRecords,
       documents: actorData.documentRecords
     },
@@ -256,6 +295,7 @@
     "## Parse Rules",
     "- Treat `folderId` and `parentFolderId` as canonical hierarchy keys.",
     "- Use `path` only as a convenience label; duplicate names can exist.",
+    `- Actors are filtered to top-level folders: ${Array.from(ACTOR_ROOT_ALLOWLIST).join(", ")}.`,
     "- Use the JSON section for deterministic machine parsing.",
     "",
     "## Actors - Tree",

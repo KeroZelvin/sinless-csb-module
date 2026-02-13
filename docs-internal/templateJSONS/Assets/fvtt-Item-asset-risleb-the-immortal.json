@@ -1,0 +1,16 @@
+{
+  "name": "Risleb the Immortal",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/risleb_the_immortal.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/risleb_the_immortal.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "6",
+      "assetPrice": "6",
+      "assetOp": "Rod of Pain. Activate once to make all opponents within 20m (10\") soak 12 stun damage.",
+      "assetSector": "Ritual of Immortality. Once successes are accumulated equal to a target's body, the target stops aging and can reroll 1's on tests vs. poisons and toxins. e e e @ . .",
+      "assetNotes": ""
+    }
+  }
+}

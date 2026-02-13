@@ -1,0 +1,16 @@
+{
+  "name": "Sarah Konnor",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/sarah_konnor.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/sarah_konnor.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "No fate but what we make. Reroll 1's and 2's on all attacks vs. software agents, drones, and synthetic targets.",
+      "assetSector": "Techdyne sercurity. Raise brand's grid stat by 1 per success this turn.",
+      "assetNotes": ""
+    }
+  }
+}

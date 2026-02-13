@@ -1,0 +1,16 @@
+{
+  "name": "Joe",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/joe.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/joe.webp",
+      "assetEtiquette": "etiStreet",
+      "assetUpkeep": "4",
+      "assetPrice": "1",
+      "assetOp": "Any Dossier.",
+      "assetSector": "I found it somewhere. Purchase any item.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Corentin Latreille Mador",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/corentin_latreille_mador.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/corentin_latreille_mador.webp",
+      "assetEtiquette": "etiCorporate",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Civic and Espionage Dossier",
+      "assetSector": "Old Customs. Gain two influence per success to a single resource.",
+      "assetNotes": ""
+    }
+  }
+}

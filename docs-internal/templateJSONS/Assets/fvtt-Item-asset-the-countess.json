@@ -1,0 +1,16 @@
+{
+  "name": "The Countess",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/the_countess.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/the_countess.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "4",
+      "assetPrice": "4",
+      "assetOp": "Business First. Replace a person on an operation.",
+      "assetSector": "Seduction. Gain one influence on a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}

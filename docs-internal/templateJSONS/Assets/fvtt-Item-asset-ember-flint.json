@@ -1,0 +1,16 @@
+{
+  "name": "Ember Flint",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/ember_flint.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/ember_flint.webp",
+      "assetEtiquette": "etiWasteland",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Set us up the bomb. Set one triggerable fire bomb (D:20) per success at the next operation site.",
+      "assetSector": "Burn! Set a fire that does two damage per success to a resource.",
+      "assetNotes": ""
+    }
+  }
+}

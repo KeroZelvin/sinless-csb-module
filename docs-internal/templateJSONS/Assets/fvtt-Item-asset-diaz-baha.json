@@ -1,0 +1,16 @@
+{
+  "name": "Diaz Baha",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/diaz.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/diaz.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "3",
+      "assetPrice": "2",
+      "assetOp": "Who let the dogs out? Provides up to three Mind Melter Hounds or five Goons for use during a Mission",
+      "assetSector": "I gotta get my groove. +40% Market Cap on any vice resource",
+      "assetNotes": ""
+    }
+  }
+}

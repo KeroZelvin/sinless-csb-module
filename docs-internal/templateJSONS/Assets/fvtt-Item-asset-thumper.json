@@ -1,0 +1,16 @@
+{
+  "name": "Thumper",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/thumper.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/thumper.webp",
+      "assetEtiquette": "etiMilitary",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Foe you cannot see. Gain sniper support for one shot. 18 dice, 12 damage, penetration 7.",
+      "assetSector": "Snipers stock. Allows purchase of any 1+ rarity firearms, energy weapons, or vehicle weapons. Sniper rifles have -3 rarity.",
+      "assetNotes": ""
+    }
+  }
+}

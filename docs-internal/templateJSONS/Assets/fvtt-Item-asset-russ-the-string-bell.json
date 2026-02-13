@@ -1,0 +1,16 @@
+{
+  "name": "Russ \"The String\" Bell",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/russel_bell.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/russel_bell.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "2",
+      "assetPrice": "2",
+      "assetOp": "Money Transfer. Launder money through fronts, Bank Zuzus earned from the operation as MC with no exchange.",
+      "assetSector": "We ain\u2018 gotta dream no more. Drop heat by one or apply three influence to a resource.",
+      "assetNotes": ""
+    }
+  }
+}

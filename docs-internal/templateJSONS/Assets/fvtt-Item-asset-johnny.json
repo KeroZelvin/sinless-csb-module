@@ -1,0 +1,16 @@
+{
+  "name": "Johnny",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/johnny.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/johnny.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "2",
+      "assetPrice": "1",
+      "assetOp": "Data runner. Will assist the brand on an operation as a decker.",
+      "assetSector": "Data security. Raise the grid of the brand by 1 and get 5,000\u00ab per success.",
+      "assetNotes": ""
+    }
+  }
+}

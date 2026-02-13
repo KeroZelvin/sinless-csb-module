@@ -1,0 +1,16 @@
+{
+  "name": "Jet Black",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/jet_black.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/jet_black.webp",
+      "assetEtiquette": "etiCivil",
+      "assetUpkeep": "4",
+      "assetPrice": "3",
+      "assetOp": "Space cowboy. Free sub-orbital, orbital, and intersolar travel and certification.",
+      "assetSector": "Mechanic's contacts. Free repairs, purchase vehicles, & vehicle weapons.",
+      "assetNotes": ""
+    }
+  }
+}

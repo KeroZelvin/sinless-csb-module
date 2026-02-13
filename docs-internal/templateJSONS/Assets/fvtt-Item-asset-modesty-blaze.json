@@ -1,0 +1,16 @@
+{
+  "name": "Modesty Blaze",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/modesty_blaze.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/modesty_blaze.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "4",
+      "assetPrice": "6",
+      "assetOp": "Any dossier. Will accompany brand on operation with Willy Garvin.",
+      "assetSector": "Special tatics. Shut down one vice resource per success this sector turn.",
+      "assetNotes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Techno-viking",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/techno_viking.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/techno_viking.webp",
+      "assetEtiquette": "etiAristocracy",
+      "assetUpkeep": "4",
+      "assetPrice": "2",
+      "assetOp": "Digital raid. Gaina nidhogg-class software agent for the operation.",
+      "assetSector": "Aggressive hack. For each success add 1 damage & influence to resource.",
+      "assetNotes": ""
+    }
+  }
+}

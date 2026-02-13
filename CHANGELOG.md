@@ -3,6 +3,9 @@ v0.1.0
     Fixed Speaker rolls, new Invoke api
     Added Spirit art
     work on pregens
+    added assets
+    tweaked initiative to allow dice mod from features
+    work on brands
     
 
 v0.0.9

@@ -1,0 +1,16 @@
+{
+  "name": "Don Bruno Carino",
+  "type": "equippableItem",
+  "img": "modules/sinlesscsb/assets/images/assets/don_bruno_carino.webp",
+  "system": {
+    "props": {
+      "assetPic": "modules/sinlesscsb/assets/images/assets/don_bruno_carino.webp",
+      "assetEtiquette": "etiCriminal",
+      "assetUpkeep": "6",
+      "assetPrice": "4",
+      "assetOp": "Ice pick. Replace one guard with a loyal goon.",
+      "assetSector": "An offer you can\u2018 refuse. Gain 2 influence on a resource per success.",
+      "assetNotes": ""
+    }
+  }
+}
