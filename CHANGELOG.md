@@ -2,6 +2,8 @@ v0.1.0
     Soak / Dodge / Resist Buttons
     Fixed Speaker rolls, new Invoke api
     Added Spirit art
+    work on pregens
+    
 
 v0.0.9
     Fixed Speaker skills

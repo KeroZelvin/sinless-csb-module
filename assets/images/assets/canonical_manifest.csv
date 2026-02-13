@@ -1,0 +1,123 @@
+canonical_key,display_name,filename,relative_path,source_pack,source_page,name_source,name_confidence,core_match_score,top_ocr_name,core_guess_name,in_core_asset_list
+the_coughing_man,The Coughing Man,the_coughing_man.webp,images/Assets/the_coughing_man.webp,pack1,2,core,0.901,0.88,Man,The Coughing Man,True
+the_countess,The Countess,the_countess.webp,images/Assets/the_countess.webp,pack1,4,core,0.826,1.0,The Countess,The Countess,True
+king_of_lost_socks,King of Lost Socks,king_of_lost_socks.webp,images/Assets/king_of_lost_socks.webp,pack1,6,core,0.893,1.0,f Lost socks,King of Lost Socks,True
+melfidius,Melfidius,melfidius.webp,images/Assets/melfidius.webp,pack1,8,core,0.856,0.947,Melfidious,Melfidius,True
+morgana_powers,Morgana Powers,morgana_powers.webp,images/Assets/morgana_powers.webp,pack1,10,core,0.856,1.0,Morgana Powers,Morgana Powers,True
+pantharo,Pantharo,pantharo.webp,images/Assets/pantharo.webp,pack1,12,core,0.851,1.0,Pantharo,Pantharo,True
+paris_bueller,Paris Bueller,paris_bueller.webp,images/Assets/paris_bueller.webp,pack1,14,core,0.878,1.0,Paris,Paris Bueller,True
+pearl_pearlman,Pearl Pearlman,pearl_pearlman.webp,images/Assets/pearl_pearlman.webp,pack1,16,core,0.817,1.0,Pear I Pearlman,Pearl Pearlman,True
+risleb_the_immortal,Risleb the Immortal,risleb_the_immortal.webp,images/Assets/risleb_the_immortal.webp,pack1,18,core,0.793,1.0,Risleb the Immortal,Risleb the Immortal,True
+ben_chang,Ben Chang,ben_chang.webp,images/Assets/ben_chang.webp,pack1,20,core,0.869,1.0,Ben Chang,Ben Chang,True
+bill_blanca,Bill Blanca,bill_blanca.webp,images/Assets/bill_blanca.webp,pack1,22,core,0.88,1.0,Bill Blanca,Bill Blanca,True
+bluebeard,Bluebeard,bluebeard.webp,images/Assets/bluebeard.webp,pack1,24,core,0.881,1.0,Bluebeard,Bluebeard,True
+jack_point,Jack Point,jack_point.webp,images/Assets/jack_point.webp,pack1,26,core,0.797,1.0,Jack Point,Jack Point,True
+jet_black,Jet Black,jet_black.webp,images/Assets/jet_black.webp,pack1,28,core,0.79,1.0,Jet Black,Jet Black,True
+moe_lester,Moe Lester,moe_lester.webp,images/Assets/moe_lester.webp,pack1,30,core,0.839,1.0,Moe Lester,Moe Lester,True
+murdok_mark,Murdok Mark,murdok_mark.webp,images/Assets/murdok_mark.webp,pack1,32,core,0.769,1.0,Murdok Mark,Murdok Mark,True
+turret,Turret,turret.webp,images/Assets/turret.webp,pack1,34,core,0.751,1.0,Turret,Turret,True
+warden_hand,Warden Hand,warden_hand.webp,images/Assets/warden_hand.webp,pack1,36,core,0.854,1.0,Warden Hand,Warden Hand,True
+albert_knox,Albert Knox,albert_knox.webp,images/Assets/albert_knox.webp,pack1,38,core,0.828,1.0,Albert Knox,Albert Knox,True
+bob_loblaw,Bob Loblaw,bob_loblaw.webp,images/Assets/bob_loblaw.webp,pack1,40,core,0.787,1.0,Bob-Loblaw,Bob Loblaw,True
+cavern_johnson,Cavern Johnson,cavern_johnson.webp,images/Assets/cavern_johnson.webp,pack1,42,core,0.885,1.0,Cavern,Cavern Johnson,True
+corentin_latreille_mador,Corentin Latreille Mador,corentin_latreille_mador.webp,images/Assets/corentin_latreille_mador.webp,pack1,44,core,0.889,1.0,Corentin Latreille Mador,Corentin Latreille Mador,True
+dan,Dan,dan.webp,images/Assets/dan.webp,pack1,46,core,0.742,1.0,Dan,Dan,True
+katia_frangos,Katia Frangos,katia_frangos.webp,images/Assets/katia_frangos.webp,pack1,48,core,0.823,1.0,Katia Frangos,Katia Frangos,True
+madelyn_bishop_bates,Madelyn Bishop Bates,madelyn_bishop_bates.webp,images/Assets/madelyn_bishop_bates.webp,pack1,50,core,0.823,1.0,Madelyn,Madelyn Bishop Bates,True
+melody_myers,Melody Myers,melody_myers.webp,images/Assets/melody_myers.webp,pack1,52,raw,0.858,0.5,Melody Myers,Melfidius,False
+nathaniel_essex,Nathaniel Essex,nathaniel_essex.webp,images/Assets/nathaniel_essex.webp,pack1,54,core,0.879,1.0,Nathaniel Essex,Nathaniel Essex,True
+adeedus,Adeedus,adeedus.webp,images/Assets/adeedus.webp,pack1,56,core,0.811,1.0,Adeedus,Adeedus,True
+anthony_chow,Anthony Chow,anthony_chow.webp,images/Assets/anthony_chow.webp,pack1,58,core,0.86,1.0,Anthony Cho'w,Anthony Chow,True
+bo_darville,Bo Darville,bo_darville.webp,images/Assets/bo_darville.webp,pack1,60,core,0.858,1.0,Bo-Darville,Bo Darville,True
+bubbles,Bubbles,bubbles.webp,images/Assets/bubbles.webp,pack1,62,core,0.858,1.0,Bubbles,Bubbles,True
+catapult,Catapult,catapult.webp,images/Assets/catapult.webp,pack1,64,core,0.8,1.0,Catapult,Catapult,True
+clarence_boddicker,Clarence Boddicker,clarence_boddicker.webp,images/Assets/clarence_boddicker.webp,pack1,66,core,0.927,1.0,Clarence Boddicker,Clarence Boddicker,True
+dom_rotetto,Dom Rotetto,dom_rotetto.webp,images/Assets/dom_rotetto.webp,pack1,68,core,0.871,1.0,Dom.Rotetto,Dom Rotetto,True
+russel_bell,Russel Bell,russel_bell.webp,images/Assets/russel_bell.webp,pack1,70,raw,0.819,0.667,Russel Bell,Russ The String Bell,False
+serpent_pliskin,Serpent Pliskin,serpent_pliskin.webp,images/Assets/serpent_pliskin.webp,pack1,72,core,0.843,1.0,Serpent Pliskin,Serpent Pliskin,True
+bill_killgore,Bill Killgore,bill_killgore.webp,images/Assets/bill_killgore.webp,pack1,74,manual,1.0,0.72,Bil'Killgore,William Kilgore,False
+cover_girl,Cover Girl,cover_girl.webp,images/Assets/cover_girl.webp,pack1,76,core,0.848,1.0,Cover Gir,Cover Girl,True
+double_helix,Double Helix,double_helix.webp,images/Assets/double_helix.webp,pack1,78,core,0.875,1.0,Double Helix,Double Helix,True
+dr_mind_twister,Dr. Mind-twister,dr_mind_twister.webp,images/Assets/dr_mind_twister.webp,pack1,80,core,0.859,1.0,Dr. Mindtwister,Dr. Mind-twister,True
+harold_francis_callahan,Harold Francis Callahan,harold_francis_callahan.webp,images/Assets/harold_francis_callahan.webp,pack1,82,core,0.833,1.0,Harold F,Harold Francis Callahan,True
+james_mccullen,James McCullen,james_mccullen.webp,images/Assets/james_mccullen.webp,pack1,84,manual,1.0,1.0,James McCullen,James Mc Cullen,True
+juinan,Juinan,juinan.webp,images/Assets/juinan.webp,pack1,86,core,0.783,1.0,Juinan,Juinan,True
+kestrel,Kestrel,kestrel.webp,images/Assets/kestrel.webp,pack1,88,core,0.812,1.0,Kestrel,Kestrel,True
+thumper,Thumper,thumper.webp,images/Assets/thumper.webp,pack1,90,core,0.853,1.0,Thumper,Thumper,True
+alistair,Alistair,alistair.webp,images/Assets/alistair.webp,pack1,92,core,0.882,1.0,Alistair,Alistair,True
+bunny_delish,Bunny Delish,bunny_delish.webp,images/Assets/bunny_delish.webp,pack1,94,core,0.869,1.0,Bunny,Bunny Delish,True
+dr_ween,Dr. Ween,dr_ween.webp,images/Assets/dr_ween.webp,pack1,96,core,0.809,1.0,Dr.Ween,Dr. Ween,True
+the_gimcrak_king,The Gimcrak King,the_gimcrak_king.webp,images/Assets/the_gimcrak_king.webp,pack1,98,core,0.873,1.0,The Gimcrak King,The Gimcrak King,True
+grandmaw,Grandmaw,grandmaw.webp,images/Assets/grandmaw.webp,pack1,100,core,0.873,0.842,LLM,Grandmaw,True
+levi_hochstetler,Levi Hochstetler,levi_hochstetler.webp,images/Assets/levi_hochstetler.webp,pack1,102,core,0.892,1.0,Levi Hochstetler,Levi Hochstetler,True
+may_o_neil,May O'Neil,may_o_neil.webp,images/Assets/may_o_neil.webp,pack1,104,manual,1.0,1.0,May,May,True
+rat,Rat,rat.webp,images/Assets/rat.webp,pack1,106,core,0.75,1.0,Rat,Rat,True
+yahya_boulos,Yahya Boulos,yahya_boulos.webp,images/Assets/yahya_boulos.webp,pack1,108,core,0.842,1.0,Yahya,Yahya Boulos,True
+ashes_crane,Ashes Crane,ashes_crane.webp,images/Assets/ashes_crane.webp,pack1,110,core,0.872,1.0,Ashes Crane,Ashes Crane,True
+the_blue_meanies,The Blue Meanies,the_blue_meanies.webp,images/Assets/the_blue_meanies.webp,pack1,112,core,0.892,1.0,The Blue Meanies,The Blue Meanies,True
+bobby_jones,Bobby Jones,bobby_jones.webp,images/Assets/bobby_jones.webp,pack1,114,core,0.855,1.0,Bobbyl,Bobby Jones,True
+clefton,Clefton,clefton.webp,images/Assets/clefton.webp,pack1,116,core,0.763,1.0,Clefton,Clefton,True
+ember_flint,Ember Flint,ember_flint.webp,images/Assets/ember_flint.webp,pack1,118,core,0.867,1.0,Ember,Ember Flint,True
+hobo_pirate,Hobo Pirate,hobo_pirate.webp,images/Assets/hobo_pirate.webp,pack1,120,core,0.879,1.0,Hobo Pirate,Hobo Pirate,True
+present_head,Present Head,present_head.webp,images/Assets/present_head.webp,pack1,122,core,0.794,1.0,Present Headl,Present Head,True
+quill_quaz,Quill Quaz,quill_quaz.webp,images/Assets/quill_quaz.webp,pack1,124,core,0.804,1.0,Quill,Quill Quaz,True
+reverand_dr_syn,Reverand Dr. Syn,reverand_dr_syn.webp,images/Assets/reverand_dr_syn.webp,pack1,126,core,0.895,0.923,Reverend'Dr. Syn,Reverand Dr. Syn,True
+robert_science_man,Robert Science-man,robert_science_man.webp,images/Assets/robert_science_man.webp,pack2,2,manual,1.0,1.0,Robert Science-man,Robert,False
+tibor,Tibor,tibor.webp,images/Assets/tibor.webp,pack2,4,raw,0.819,0.6,Tibor,Jimbo,False
+michelle_king,Michelle King,michelle_king.webp,images/Assets/michelle_king.webp,pack2,6,raw,0.859,0.5,Michelle King,Techno-viking,False
+weird,Weird,weird.webp,images/Assets/weird.webp,pack2,8,core,0.832,1.0,Weird,Weird,True
+w_h_loh,W. H. Loh,w_h_loh.webp,images/Assets/w_h_loh.webp,pack2,10,core,0.787,1.0,W.H. Loh,W. H. Loh,True
+techno_viking,Techno-viking,techno_viking.webp,images/Assets/techno_viking.webp,pack2,12,core,0.803,1.0,Techno Viking,Techno-viking,True
+spearmint,Spearmint,spearmint.webp,images/Assets/spearmint.webp,pack2,14,core,0.844,1.0,Spearmint,Spearmint,True
+royal_continental,Royal Continental,royal_continental.webp,images/Assets/royal_continental.webp,pack2,16,core,0.863,0.97,Royal Continentals,Royal Continental,True
+roberto,Roberto,roberto.webp,images/Assets/roberto.webp,pack2,18,core,0.825,1.0,Roberto,Roberto,True
+ann_thorpe,Ann Thorpe,ann_thorpe.webp,images/Assets/ann_thorpe.webp,pack2,20,core,0.795,0.947,Anne-Thorpe,Ann Thorpe,True
+diane,Diane,diane.webp,images/Assets/diane.webp,pack2,22,core,0.779,1.0,Diane,Diane,True
+dr_brainrule,Dr. Brainrule,dr_brainrule.webp,images/Assets/dr_brainrule.webp,pack2,24,core,0.857,1.0,Dr. Brainrule,Dr. Brainrule,True
+kasper_dixon,Kasper Dixon,kasper_dixon.webp,images/Assets/kasper_dixon.webp,pack2,26,core,0.877,1.0,Kasper,Kasper Dixon,True
+mac_and_bo,Mac & Bo,mac_and_bo.webp,images/Assets/mac_and_bo.webp,pack2,28,core,0.747,1.0,Mac&Bo,Mac & Bo,True
+snowball,Snowball,snowball.webp,images/Assets/snowball.webp,pack2,30,raw,0.853,0.444,Snowball,Bo Darville,False
+the_certified_accountant,The Certified Accountant,the_certified_accountant.webp,images/Assets/the_certified_accountant.webp,pack2,32,raw,0.867,0.5,The Certified Accountant,The Coughing Man,False
+flash_moresloth,Flash Moresloth,flash_moresloth.webp,images/Assets/flash_moresloth.webp,pack2,34,raw,0.844,0.435,Flash Moresloth,Ann Thorpe,False
+alexis_marin,Alexis Marin,alexis_marin.webp,images/Assets/alexis_marin.webp,pack2,36,core,0.881,1.0,Alexis Marin,Alexis Marin,True
+eric_gross,Eric Gross,eric_gross.webp,images/Assets/eric_gross.webp,pack2,38,core,0.795,1.0,Eric.Gross,Eric Gross,True
+jimbo,Jimbo,jimbo.webp,images/Assets/jimbo.webp,pack2,40,core,0.748,1.0,Jimbo,Jimbo,True
+lynn_murray_griffon,Lynn Murray Griffon,lynn_murray_griffon.webp,images/Assets/lynn_murray_griffon.webp,pack2,42,core,0.926,1.0,Lynn Murray Griffon,Lynn Murray Griffon,True
+max_born,Max Born,max_born.webp,images/Assets/max_born.webp,pack2,44,core,0.805,1.0,Born,Max Born,True
+sammon_shamon_al_baz,Sammon Shamon Al-Baz,sammon_shamon_al_baz.webp,images/Assets/sammon_shamon_al_baz.webp,pack2,46,core,0.906,1.0,Sammon Shamon Al-Baz,Sammon Shamon Al-Baz,True
+tyrel_melchor,Tyrel Melchor,tyrel_melchor.webp,images/Assets/tyrel_melchor.webp,pack2,48,core,0.805,1.0,yrel Meichor,Tyrel Melchor,True
+zane,Zane,zane.webp,images/Assets/zane.webp,pack2,50,core,0.758,1.0,Zane,Zane,True
+huxley,Huxley,huxley.webp,images/Assets/huxley.webp,pack2,52,raw,0.811,0.462,Huxley,Bubbles,False
+don_bruno_carino,Don Bruno Carino,don_bruno_carino.webp,images/Assets/don_bruno_carino.webp,pack2,54,core,0.895,1.0,Doni,Don Bruno Carino,True
+harlequin,Harlequin,harlequin.webp,images/Assets/harlequin.webp,pack2,56,core,0.828,1.0,Harlequin,Harlequin,True
+johnny,Johnny,johnny.webp,images/Assets/johnny.webp,pack2,58,core,0.841,1.0,Johnny,Johnny,True
+kate_barker,Kate Barker,kate_barker.webp,images/Assets/kate_barker.webp,pack2,60,core,0.869,1.0,Barker,Kate Barker,True
+modesty_blaze,Modesty Blaze,modesty_blaze.webp,images/Assets/modesty_blaze.webp,pack2,62,core,0.887,1.0,Modesty Blaze,Modesty Blaze,True
+spike,Spike,spike.webp,images/Assets/spike.webp,pack2,64,raw,0.769,0.471,Spike,Tooth Spitter,False
+sydney_greenstreet_the_duckpin,Sydney Greenstreet The Duckpin,sydney_greenstreet_the_duckpin.webp,images/Assets/sydney_greenstreet_the_duckpin.webp,pack2,66,manual,1.0,0.773,Sydney,Sydney Greenstreet the Duckpin,True
+diaz,Diaz,diaz.webp,images/Assets/diaz.webp,pack2,68,manual,1.0,0.667,Diazi,Diane,False
+tooth_spitter,Tooth Spitter,tooth_spitter.webp,images/Assets/tooth_spitter.webp,pack2,70,core,0.877,1.0,Toothspitter,Tooth Spitter,True
+issac,Issac,issac.webp,images/Assets/issac.webp,pack2,72,raw,0.773,0.588,Issac,Issac on Rails,False
+colonel_john_smith,Colonel John Smith,colonel_john_smith.webp,images/Assets/colonel_john_smith.webp,pack2,74,raw,0.808,0.72,Colonel John Smith,John Smith,False
+sarah_konnor,Sarah Konnor,sarah_konnor.webp,images/Assets/sarah_konnor.webp,pack2,76,raw,0.851,0.5,Sarah Konnor,Ann Thorpe,False
+q,Q,q.webp,images/Assets/q.webp,pack2,78,manual,1.0,0.0,,,False
+lem_walnanespanct,Lem Walnanespanct,lem_walnanespanct.webp,images/Assets/lem_walnanespanct.webp,pack2,80,core,0.872,1.0,Walnanespanct,Lem Walnanespanct,True
+mr_chief,Mr. Chief,mr_chief.webp,images/Assets/mr_chief.webp,pack2,82,core,0.832,1.0,Mr. Chief,Mr. Chief,True
+sergeant_robert_savage,Sergeant Robert Savage,sergeant_robert_savage.webp,images/Assets/sergeant_robert_savage.webp,pack2,84,raw,0.916,0.75,Sergeant Robert Savage,Robert Savage,False
+scarab,Scarab,scarab.webp,images/Assets/scarab.webp,pack2,86,core,0.804,1.0,Scarab,Scarab,True
+duke,Duke,duke.webp,images/Assets/duke.webp,pack2,88,raw,0.726,0.571,Duke,Kestrel,False
+uncle_al,Uncle Al,uncle_al.webp,images/Assets/uncle_al.webp,pack2,90,manual,1.0,0.6,Uncle A,Lena,False
+donna,Donna,donna.webp,images/Assets/donna.webp,pack2,92,core,0.732,1.0,Donna,Donna,True
+easy_e,Easy E,easy_e.webp,images/Assets/easy_e.webp,pack2,94,core,0.801,0.8,Eazy-E,Easy E,True
+el_mostafa_urbano,El Mostafa Urbano,el_mostafa_urbano.webp,images/Assets/el_mostafa_urbano.webp,pack2,96,core,0.831,1.0,Ei Mostafaurbano,El Mostafa Urbano,True
+joe,Joe,joe.webp,images/Assets/joe.webp,pack2,98,core,0.742,1.0,Joe,Joe,True
+lena,Lena,lena.webp,images/Assets/lena.webp,pack2,100,core,0.74,1.0,Lena,Lena,True
+odiphus,Odiphus,odiphus.webp,images/Assets/odiphus.webp,pack2,102,core,0.822,1.0,Odiphus,Odiphus,True
+rebecca,Rebecca,rebecca.webp,images/Assets/rebecca.webp,pack2,104,core,0.816,1.0,Rebecca,Rebecca,True
+acrocolypse,Acrocolypse,acrocolypse.webp,images/Assets/acrocolypse.webp,pack2,106,raw,0.878,0.444,Acrocolypse,Cy-klops,False
+albretcht,Albretcht,albretcht.webp,images/Assets/albretcht.webp,pack2,108,core,0.821,1.0,Albretcht,Albretcht,True
+cy_klops,Cy-klops,cy_klops.webp,images/Assets/cy_klops.webp,pack2,110,core,0.846,1.0,Cy-Klops,Cy-klops,True
+phizzvan,Phizzvan,phizzvan.webp,images/Assets/phizzvan.webp,pack2,112,core,0.787,1.0,Phizzvan,Phizzvan,True
+fungor,Fungor,fungor.webp,images/Assets/fungor.webp,pack2,114,core,0.744,1.0,Fungor,Fungor,True
+perkaedo,Perkaedo,perkaedo.webp,images/Assets/perkaedo.webp,pack2,116,core,0.875,1.0,Perkaedo,Perkaedo,True
+razor,Razor,razor.webp,images/Assets/razor.webp,pack2,118,manual,1.0,1.0,Razor,Razor,True

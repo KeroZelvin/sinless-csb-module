@@ -15,7 +15,11 @@ Bootstrap new tasks by synthesizing repo context, known-good patterns, and revie
    - `docs-internal/review-notes.md`
    - `docs-internal/known_good_patterns.md`
 3) If the task involves routing Create/Import JSON macros or locating content by folder,
-   also read: `docs-internal/folder-tree.md`.
+   resolve and read the latest folder tree snapshot:
+   - Run:
+     `powershell -ExecutionPolicy Bypass -File docs-internal/skills/sinlesscsb-context/scripts/select-latest-folder-tree.ps1 -PruneTracked`
+   - Read the `latestFile` returned in the JSON output.
+   - If `prunedTracked` contains paths, include them in your task summary.
 4) Note the template JSON location for Foundry exports: `docs-internal/templateJSONS/`.
 5) If the task is CSB-specific, consult the CSB wiki:
    - Preferred (online): `https://gitlab.com/custom-system-builder/custom-system-builder/-/wikis/stable/en/Home`
@@ -48,7 +52,8 @@ Keep it short unless the user asks for a full synthesis.
 - `docs-internal/current_state.md`
 - `docs-internal/review-notes.md`
 - `docs-internal/known_good_patterns.md`
-- `docs-internal/folder-tree.md`
+- `docs-internal/folder-tree_*.md`
+- `docs-internal/skills/sinlesscsb-context/scripts/select-latest-folder-tree.ps1`
 - `docs-internal/templateJSONS/`
 - `styles/sinlesscsb-ui-global.css`
 - `macros/`
