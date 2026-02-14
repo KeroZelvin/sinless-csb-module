@@ -23,7 +23,7 @@ import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirect
 import { castSpell } from "./api/cast-spell.js";
 import { invokeSpirit } from "./api/invoke-spirit.js";
 import { rollItem } from "./api/item-roll.js";
-import { rollPools, refreshPools, rollPoolInline } from "./api/pools-roll.js";
+import { rollPools, refreshPools, rollPoolInline, rollSprintInline, rollAthleticsMoveInline } from "./api/pools-roll.js";
 import { rollInitiative, rollNpcInitiative } from "./api/initiative-roll.js";
 import { resetTrackAlert, registerAlertSocketHandler } from "./api/alert-tracking.js";
 import { registerChatThemeHooks } from "./hooks/chat-theme.js";
@@ -169,6 +169,8 @@ function exposeModuleAPI() {
     rollPools,
     refreshPools,
     rollPoolInline,
+    rollSprintInline,
+    rollAthleticsMoveInline,
     rollInitiative,
     rollNpcInitiative,
     resetTrackAlert,

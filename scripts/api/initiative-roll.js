@@ -1,6 +1,6 @@
 // scripts/api/initiative-roll.js
 // SinlessCSB Initiative API (Foundry v13 + CSB v5)
-// - PC initiative: (successes from Focus_Max d6 vs TN_Global) + REA
+// - PC initiative: (successes from (Focus_Max + initBonus) d6 vs TN_Global) + REA
 // - NPC initiative: fixed value from system.props.NPCinit
 //
 // Design goals:
@@ -176,13 +176,17 @@ export async function rollInitiative({ actorUuid } = {}) {
     // Dice pool from actor props
     const focusMax = Math.floor(num(actor?.system?.props?.Focus_Max, 0));
     const rea = Math.floor(num(actor?.system?.props?.REA, 0));
+    const initBonus = Math.trunc(num(actor?.system?.props?.initBonus, 0));
+    const rolledDice = Math.max(0, focusMax + initBonus);
 
-    if (focusMax <= 0) {
-      ui.notifications?.warn?.(`Roll Initiative: ${actor.name} has Focus_Max <= 0; initiative will be REA only.`);
+    if (rolledDice <= 0) {
+      ui.notifications?.warn?.(
+        `Roll Initiative: ${actor.name} has Focus_Max + initBonus <= 0; initiative will be REA only.`
+      );
     }
 
-    // Roll Focus_Max d6 vs TN, count successes
-    const rolled = await rollXd6Successes({ dice: Math.max(0, focusMax), tn: TN });
+    // Roll (Focus_Max + initBonus) d6 vs TN, count successes
+    const rolled = await rollXd6Successes({ dice: rolledDice, tn: TN });
     const successes = rolled.successes;
 
     const initiative = Math.floor(successes + rea);
@@ -197,16 +201,21 @@ export async function rollInitiative({ actorUuid } = {}) {
 
     const content = `
       <div class="sinlesscsb initiative-roll-card">
-        <h2 style="margin:0 0 6px 0;">Initiative</h2>
-        <p style="margin:0 0 6px 0;"><strong>Actor:</strong> ${actor.name}</p>
-        <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${TN}+</p>
-        <p style="margin:0 0 6px 0;"><strong>Focus:</strong> ${focusMax}d6 → <strong>${successes}</strong> successes</p>
-        <p style="margin:0 0 6px 0;"><strong>REA:</strong> ${rea}</p>
-        <hr/>
-        <p style="margin:0 0 6px 0;"><strong>Initiative:</strong> <span style="font-size:20px; font-weight:bold;">${initiative}</span></p>
+        <h2 style="margin:0 0 8px 0;">Initiative</h2>
+        <div style="text-align:center; margin:8px 0 10px 0;">
+          <div style="font-size:38px; line-height:1; font-weight:700;">${initiative}</div>
+        </div>
+        <hr class="sl-card-rule" />
         <details>
-          <summary>Dice Results</summary>
-          <div style="margin-top:6px;">${diceList}</div>
+          <summary>roll info</summary>
+          <p style="margin:6px 0 6px 0;"><strong>Actor:</strong> ${actor.name}</p>
+          <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${TN}+</p>
+          <p style="margin:0 0 6px 0;"><strong>Focus:</strong> ${focusMax}</p>
+          <p style="margin:0 0 6px 0;"><strong>Init Bonus (Dice):</strong> ${initBonus > 0 ? `+${initBonus}` : initBonus}</p>
+          <p style="margin:0 0 6px 0;"><strong>Total Dice Rolled:</strong> ${rolledDice}d6</p>
+          <p style="margin:0 0 6px 0;"><strong>Successes:</strong> ${successes}</p>
+          <p style="margin:0 0 6px 0;"><strong>REA:</strong> ${rea}</p>
+          <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${diceList}</p>
         </details>
       </div>
     `;
@@ -221,7 +230,9 @@ export async function rollInitiative({ actorUuid } = {}) {
       actorUuid: actor.uuid,
       TN,
       focusMax,
+      rolledDice,
       rea,
+      initBonus,
       successes,
       initiative
     };

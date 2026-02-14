@@ -4,8 +4,9 @@ v0.1.0
     Added Spirit art
     work on pregens
     added assets
-    tweaked initiative to allow dice mod from features
+    tweaked initiative to allow dice mod from features like bug spy
     work on brands
+    Added Sprint / Charge / Jump / Climb / Swim buttons and corresponding api code
     
 
 v0.0.9

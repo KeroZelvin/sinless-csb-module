@@ -484,6 +484,283 @@ export async function rollPoolInline(scope = {}) {
   };
 }
 
+/* --------------------------------- */
+/* API: rollSprintInline (no dialog) */
+/* --------------------------------- */
+
+export async function rollSprintInline(scope = {}) {
+  const sheetActor = await resolveActorCandidate(scope);
+  if (!sheetActor) {
+    ui.notifications?.warn?.("Select a token or set a User Character (or pass actorUuid).");
+    return null;
+  }
+
+  const actor = await resolveCanonicalActor(sheetActor);
+  if (!actor) return null;
+
+  const poolKey = String(scope?.poolKey ?? "Brawn_Cur").trim() || "Brawn_Cur";
+  const spendKey = String(scope?.spendKey ?? "sprintSpend").trim() || "sprintSpend";
+  const movementKey = String(scope?.movementKey ?? "actorMovement").trim() || "actorMovement";
+  const sprintXtraKey = String(scope?.sprintXtraKey ?? "sprintXtra").trim() || "sprintXtra";
+  const writeSprintXtra = Boolean(scope?.writeSprintXtra);
+  const isCharge = Boolean(scope?.isCharge);
+
+  const labelDefault = isCharge ? "CHARGE" : "SPRINT";
+  const label = String(scope?.label ?? labelDefault).trim() || labelDefault;
+
+  const props = readProps(actor);
+  const curVal = Math.max(0, Math.floor(num(props?.[poolKey], 0)));
+  if (curVal <= 0) {
+    ui.notifications?.warn?.(`${label}: ${poolKey} is empty.`);
+    return null;
+  }
+
+  const hasSpendOverride = Object.prototype.hasOwnProperty.call(scope, "spend");
+  const spendRaw = hasSpendOverride ? scope?.spend : props?.[spendKey];
+  const spendRequested = Math.floor(num(spendRaw, 0));
+  if (spendRequested < 1) {
+    ui.notifications?.warn?.(`${label}: set ${spendKey} to at least 1.`);
+    return null;
+  }
+
+  const spendClamped = Math.max(1, Math.min(curVal, spendRequested));
+  const sessionActor = getSessionSettingsActor();
+  const tn = readTN(sessionActor);
+
+  const roll = new Roll(`${spendClamped}d6`);
+  await roll.evaluate();
+
+  const results = roll.dice?.[0]?.results ?? [];
+  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+
+  const sprintXtra = Math.max(0, Math.floor(successes * 2));
+  const actorMovement = Math.max(0, Math.floor(num(props?.[movementKey], 0)));
+  const baseDoubleMovement = actorMovement * 2;
+  const totalMovement = baseDoubleMovement + sprintXtra;
+
+  const newCur = Math.max(0, curVal - spendClamped);
+  const updateData = { [propPath(poolKey)]: newCur };
+  if (writeSprintXtra) {
+    updateData[propPath(sprintXtraKey)] = sprintXtra;
+  }
+  await updateActorWithMirrors(sheetActor, updateData);
+
+  const successLabel = `${successes} SUCCESS${successes === 1 ? "" : "ES"}`;
+  const diceList = results.map(r => r.result).join(", ") || "-";
+  const spendDisplay = (spendRequested === spendClamped)
+    ? `${spendClamped}`
+    : `${spendClamped} (from ${spendRequested})`;
+
+  const chargeLine = isCharge
+    ? `<p style="margin:0 0 8px 0; text-align:center;"><strong>Roll CHARGE Melee attack</strong></p>`
+    : "";
+
+  const content = `
+    <div class="sinlesscsb pool-roll-card">
+      <h2 style="margin:0 0 6px 0;">${escapeHTML(label)}</h2>
+      <hr class="sl-card-rule"/>
+
+      <div style="text-align:center; margin:10px 0 12px 0;">
+        <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLabel)}</div>
+      </div>
+
+      <p style="margin:0 0 8px 0; text-align:center; font-size:18px; font-weight:700;">
+        Total Movement: ${escapeHTML(totalMovement)} m
+      </p>
+      ${chargeLine}
+
+      <hr class="sl-card-rule"/>
+
+      <details>
+        <summary>roll info</summary>
+        <p style="margin:6px 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+        <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(tn)}+</p>
+        <p style="margin:0 0 6px 0;">
+          <strong>Spend:</strong> ${escapeHTML(spendDisplay)} (depletes) &nbsp;|&nbsp;
+          <strong>Roll:</strong> ${escapeHTML(spendClamped)}d6
+        </p>
+        <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolKey)}:</strong> ${escapeHTML(curVal)} -> ${escapeHTML(newCur)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Movement:</strong> (2 x ${escapeHTML(actorMovement)}) + ${escapeHTML(sprintXtra)} = ${escapeHTML(totalMovement)} m</p>
+        <p style="margin:0 0 6px 0;"><strong>sprintXtra:</strong> ${escapeHTML(sprintXtra)} m (${escapeHTML(successes)} x 2)</p>
+        <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
+      </details>
+    </div>
+  `;
+
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    content,
+    rolls: [roll]
+  });
+
+  return {
+    actorUuid: actor.uuid,
+    isCharge,
+    label,
+    poolKey,
+    spendKey,
+    movementKey,
+    spendRequested,
+    spendUsed: spendClamped,
+    successes,
+    sprintXtra,
+    actorMovement,
+    totalMovement,
+    tn,
+    oldCur: curVal,
+    newCur
+  };
+}
+
+/* ----------------------------------------- */
+/* API: rollAthleticsMoveInline (no dialog)  */
+/* ----------------------------------------- */
+
+export async function rollAthleticsMoveInline(scope = {}) {
+  const sheetActor = await resolveActorCandidate(scope);
+  if (!sheetActor) {
+    ui.notifications?.warn?.("Select a token or set a User Character (or pass actorUuid).");
+    return null;
+  }
+
+  const actor = await resolveCanonicalActor(sheetActor);
+  if (!actor) return null;
+
+  const modeRaw = String(scope?.mode ?? "jump").trim().toLowerCase();
+  const mode = ["jump", "climb", "swim"].includes(modeRaw) ? modeRaw : "jump";
+
+  const poolKey = String(scope?.poolKey ?? "Brawn_Cur").trim() || "Brawn_Cur";
+  const spendKey = String(scope?.spendKey ?? "athSpend").trim() || "athSpend";
+  const skillCapKey = String(scope?.skillCapKey ?? "Skill_Athletics").trim() || "Skill_Athletics";
+
+  const modeLabelMap = {
+    jump: "JUMP",
+    climb: "CLIMB",
+    swim: "SWIM"
+  };
+  const label = String(scope?.label ?? modeLabelMap[mode]).trim() || modeLabelMap[mode];
+
+  const props = readProps(actor);
+  const poolCur = Math.max(0, Math.floor(num(props?.[poolKey], 0)));
+  const athleticsCap = Math.max(0, Math.floor(num(props?.[skillCapKey], 0)));
+  const maxSpend = Math.max(0, Math.min(poolCur, athleticsCap));
+
+  if (poolCur <= 0) {
+    ui.notifications?.warn?.(`${label}: ${poolKey} is empty.`);
+    return null;
+  }
+  if (athleticsCap <= 0) {
+    ui.notifications?.warn?.(`${label}: ${skillCapKey} is 0; no dice can be spent.`);
+    return null;
+  }
+  if (maxSpend <= 0) {
+    ui.notifications?.warn?.(`${label}: no spend available (min(${poolKey}, ${skillCapKey}) = 0).`);
+    return null;
+  }
+
+  const hasSpendOverride = Object.prototype.hasOwnProperty.call(scope, "spend");
+  const spendRaw = hasSpendOverride ? scope?.spend : props?.[spendKey];
+  const spendRequested = Math.floor(num(spendRaw, 0));
+  if (spendRequested < 1) {
+    ui.notifications?.warn?.(`${label}: set ${spendKey} to at least 1.`);
+    return null;
+  }
+
+  const spendUsed = Math.max(1, Math.min(maxSpend, spendRequested));
+  const sessionActor = getSessionSettingsActor();
+  const tn = readTN(sessionActor);
+
+  const roll = new Roll(`${spendUsed}d6`);
+  await roll.evaluate();
+
+  const results = roll.dice?.[0]?.results ?? [];
+  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+
+  const jumpStandingVertical = successes;
+  const jumpRunning = successes * 2;
+  const climbDistance = successes * 2;
+  const swimDistance = 2 + (successes * 2);
+
+  const oldCur = poolCur;
+  const newCur = Math.max(0, oldCur - spendUsed);
+  await updateActorWithMirrors(sheetActor, { [propPath(poolKey)]: newCur });
+
+  const successLabel = `${successes} SUCCESS${successes === 1 ? "" : "ES"}`;
+  const diceList = results.map(r => r.result).join(", ") || "-";
+  const spendDisplay = (spendRequested === spendUsed)
+    ? `${spendUsed}`
+    : `${spendUsed} (from ${spendRequested})`;
+
+  let outcomeBlock = "";
+  if (mode === "jump") {
+    outcomeBlock = `
+      <p style="margin:0 0 2px 0; text-align:center;"><strong>Jump distance:</strong></p>
+      <p style="margin:0 0 6px 0; text-align:center;">Standing or Vertical: <strong>${escapeHTML(jumpStandingVertical)}</strong> meters</p>
+      <p style="margin:0 0 10px 0; text-align:center;">Running: <strong>${escapeHTML(jumpRunning)}</strong> meters</p>
+    `;
+  } else if (mode === "climb") {
+    outcomeBlock = `
+      <p style="margin:0 0 10px 0; text-align:center;"><strong>Climb distance:</strong> ${escapeHTML(climbDistance)} meters</p>
+    `;
+  } else {
+    outcomeBlock = `
+      <p style="margin:0 0 10px 0; text-align:center;"><strong>Swim distance:</strong> ${escapeHTML(swimDistance)} meters</p>
+    `;
+  }
+
+  const content = `
+    <div class="sinlesscsb pool-roll-card">
+      <h2 style="margin:0 0 6px 0;">${escapeHTML(label)}</h2>
+      <hr class="sl-card-rule"/>
+
+      <div style="text-align:center; margin:10px 0 8px 0;">
+        <div style="font-size:28px; font-weight:bold;">${escapeHTML(successLabel)}</div>
+      </div>
+
+      ${outcomeBlock}
+
+      <hr class="sl-card-rule"/>
+
+      <details>
+        <summary>roll info</summary>
+        <p style="margin:6px 0 6px 0;"><strong>Actor:</strong> ${escapeHTML(actor.name)}</p>
+        <p style="margin:0 0 6px 0;"><strong>TN (Session Settings):</strong> ${escapeHTML(tn)}+</p>
+        <p style="margin:0 0 6px 0;">
+          <strong>Spend:</strong> ${escapeHTML(spendDisplay)} of max ${escapeHTML(maxSpend)} (min of ${escapeHTML(poolCur)} ${escapeHTML(poolKey)}, ${escapeHTML(athleticsCap)} ${escapeHTML(skillCapKey)})
+        </p>
+        <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolKey)}:</strong> ${escapeHTML(oldCur)} -> ${escapeHTML(newCur)}</p>
+        <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
+      </details>
+    </div>
+  `;
+
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    content,
+    rolls: [roll]
+  });
+
+  return {
+    actorUuid: actor.uuid,
+    mode,
+    label,
+    poolKey,
+    spendKey,
+    skillCapKey,
+    maxSpend,
+    spendRequested,
+    spendUsed,
+    successes,
+    jumpStandingVertical,
+    jumpRunning,
+    climbDistance,
+    swimDistance,
+    tn,
+    oldCur,
+    newCur
+  };
+}
+
 /* ----------------------------- */
 /* API: rollPools (dialog)       */
 /* ----------------------------- */
