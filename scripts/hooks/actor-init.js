@@ -3,6 +3,9 @@
 // - Ensure stunMax/physicalMax are persisted as real numeric props (CSB maxVal formulas need this)
 // - Initialize stunCur/physicalCur ONLY when truly unset (NOT when 0), and only during "pending"
 // - Clamp cur values downward if max decreases (never heals)
+// - Keep deathSpiral synchronized from stun/physical tracks
+
+import { computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 
 const MOD_ID = "sinlesscsb";
 
@@ -72,6 +75,30 @@ function computePhysicalMax(actor) {
   return 6 + Math.floor(BOD / 2);
 }
 
+function computeDeathSpiralForActor(actor, props = null) {
+  const p = props ?? actor?.system?.props ?? {};
+  const stunMax = int(p.stunMax, computeStunMax(actor));
+  const physicalMax = int(p.physicalMax, computePhysicalMax(actor));
+  return computeDeathSpiralFromProps(p, { stunMax, physicalMax });
+}
+
+async function syncDeathSpiral(actor) {
+  if (!actor || actor.documentName !== "Actor") return;
+
+  // Avoid permission errors/noise on non-owner clients.
+  if (!game.user?.isGM && !actor.isOwner) return;
+
+  const props = actor.system?.props ?? {};
+  const expected = Math.max(0, computeDeathSpiralForActor(actor, props));
+
+  const currentRaw = Number(props.deathSpiral);
+  const current = Number.isFinite(currentRaw) ? Math.max(0, Math.floor(currentRaw)) : null;
+
+  if (current === expected) return;
+
+  await actor.update({ "system.props.deathSpiral": expected });
+}
+
 /* =========================
  * Init once, after CSB templating
  * ========================= */
@@ -106,6 +133,8 @@ async function initTracksIfPending(actor) {
     await actor.update(update);
   }
 
+  await syncDeathSpiral(actor);
+
   await actor.setFlag(MOD_ID, "tracksInitialized", true);
   await actor.unsetFlag(MOD_ID, "tracksInitPending");
 }
@@ -138,6 +167,8 @@ async function clampTracksToMax(actor) {
     console.log("SinlessCSB | clamp tracks to max", { actor: actor.name, stunMax, physicalMax, update });
     await actor.update(update);
   }
+
+  await syncDeathSpiral(actor);
 }
 
 /* =========================
@@ -148,6 +179,9 @@ export function registerActorInitHooks() {
   Hooks.on("createActor", (actor) => {
     ensureActorUuidDualKeys(actor).catch((e) =>
       console.warn("SinlessCSB | ensureActorUuidDualKeys(create) failed", e)
+    );
+    syncDeathSpiral(actor).catch((e) =>
+      console.warn("SinlessCSB | syncDeathSpiral(create) failed", e)
     );
   });
 
@@ -164,6 +198,9 @@ export function registerActorInitHooks() {
     for (const a of game.actors?.contents ?? []) {
       ensureActorUuidDualKeys(a).catch((e) =>
         console.warn("SinlessCSB | ensureActorUuidDualKeys(ready sweep) failed", e)
+      );
+      syncDeathSpiral(a).catch((e) =>
+        console.warn("SinlessCSB | syncDeathSpiral(ready sweep) failed", e)
       );
     }
   });
@@ -184,6 +221,7 @@ export function registerActorInitHooks() {
   Hooks.on("renderActorSheet", (app) => {
     const actor = app?.actor ?? app?.document ?? null;
     initTracksIfPending(actor).catch((e) => console.warn("SinlessCSB | initTracksIfPending(render) failed", e));
+    syncDeathSpiral(actor).catch((e) => console.warn("SinlessCSB | syncDeathSpiral(render) failed", e));
   });
 
   // Clamp when max changes later (never heals)
@@ -197,5 +235,20 @@ export function registerActorInitHooks() {
 
     if (!relevant) return;
     clampTracksToMax(actor).catch((e) => console.warn("SinlessCSB | clampTracksToMax failed", e));
+  });
+
+  // Keep deathSpiral synced whenever tracks or track maxes change.
+  Hooks.on("updateActor", (actor, changed) => {
+    const p = changed?.system?.props ?? {};
+    const relevant =
+      p.stunCur !== undefined ||
+      p.physicalCur !== undefined ||
+      p.stunMax !== undefined ||
+      p.physicalMax !== undefined ||
+      p.WIL !== undefined ||
+      p.BOD !== undefined;
+
+    if (!relevant) return;
+    syncDeathSpiral(actor).catch((e) => console.warn("SinlessCSB | syncDeathSpiral(update) failed", e));
   });
 }

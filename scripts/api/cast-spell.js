@@ -1,5 +1,6 @@
 // scripts/api/cast-spell.js
 import { evaluateDrainFormula } from "../rules/drain-formula.js";
+import { applyDeathSpiralPenalty, computeDeathSpiral, computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 
 import {
   num, clamp, clampInt,
@@ -57,11 +58,17 @@ function computePhysicalMax(actor) {
   return 6 + Math.floor(BOD / 2);
 }
 
+function computeDeathSpiralForProps(actor, props) {
+  const stunMax = Math.max(0, Math.floor(num(props?.stunMax, computeStunMax(actor))));
+  const physicalMax = Math.max(0, Math.floor(num(props?.physicalMax, computePhysicalMax(actor))));
+  return computeDeathSpiralFromProps(props, { stunMax, physicalMax });
+}
+
 /* =========================
  * Chat output
  * ========================= */
 
-async function postSpellChat({ actor, item, forceChosen, cast, drain, rolls } = {}) {
+async function postSpellChat({ actor, item, forceChosen, cast, drain, deathSpiral = 0, rolls } = {}) {
   const title = `${item.name} — Cast`;
 
   const rollInfoRows = [];
@@ -77,6 +84,13 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain, rolls } = 
     "Casting",
     `${cast.dice}d6 vs TN ${cast.tn}`
   );
+  addRow(
+    "Casting successes",
+    `<span class="sl-strong">${deathSpiral > 0
+      ? `${cast.successes} (raw ${cast.rawSuccesses} − ${deathSpiral})`
+      : `${cast.successes}`}</span>`
+  );
+  addRow("DeathSpiral", `<span class="sl-strong">${deathSpiral}</span>`);
 
   addRow(
     "Drain (raw)",
@@ -86,7 +100,9 @@ async function postSpellChat({ actor, item, forceChosen, cast, drain, rolls } = 
   if (!drain.isLethal) {
     addRow(
       "Drain resist",
-      `${drain.resistDice}d6 vs TN ${drain.tn} → <span class="sl-strong">${drain.resistSuccesses}</span> successes`
+      `${drain.resistDice}d6 vs TN ${drain.tn} → <span class="sl-strong">${deathSpiral > 0
+        ? `${drain.resistSuccesses} (raw ${drain.resistRawSuccesses} − ${deathSpiral})`
+        : `${drain.resistSuccesses}`}</span> successes`
     );
     addRow(
       "Drain applied",
@@ -532,6 +548,7 @@ export async function castSpell(scope = {}) {
 
   const stunMax = Math.max(0, Math.floor(num(aprops.stunMax, computeStunMax(sheetActor))));
   const physicalMax = Math.max(0, Math.floor(num(aprops.physicalMax, computePhysicalMax(sheetActor))));
+  const deathSpiral = Math.max(0, computeDeathSpiralForProps(sheetActor, aprops));
 
   // Limits
   const castLimit = Math.max(0, skillRank + fociRank);
@@ -569,12 +586,15 @@ export async function castSpell(scope = {}) {
   // Casting roll
   const castDice = Math.max(0, spendCast + bonusDice + diceMod);
   const cast = await rollXd6Successes({ dice: castDice, tn });
+  cast.rawSuccesses = cast.successes;
+  cast.successes = applyDeathSpiralPenalty(cast.rawSuccesses, deathSpiral);
 
   let poolAfterCast = poolCur - spendCast;
 
   // Drain resolution
   let resistDice = 0;
   let resistSuccesses = 0;
+  let resistRawSuccesses = 0;
   let resistRoll = null;
   let appliedDrain = 0;
 
@@ -592,7 +612,8 @@ export async function castSpell(scope = {}) {
 
     resistDice = Math.max(0, spendDrainAllowed);
     const resist = await rollXd6Successes({ dice: resistDice, tn });
-    resistSuccesses = resist.successes;
+    resistRawSuccesses = resist.successes;
+    resistSuccesses = applyDeathSpiralPenalty(resistRawSuccesses, deathSpiral);
     resistRoll = resist.roll;
 
     let remaining = Math.max(0, drain - resistSuccesses);
@@ -609,11 +630,19 @@ export async function castSpell(scope = {}) {
     }
   }
 
+  const deathSpiralAfter = computeDeathSpiral({
+    physicalCur,
+    physicalMax,
+    stunCur,
+    stunMax
+  });
+
   // Write back updates
   const updateData = {
     [propPath(poolCurK)]: poolAfterCast,
     [propPath("stunCur")]: stunCur,
-    [propPath("physicalCur")]: physicalCur
+    [propPath("physicalCur")]: physicalCur,
+    [propPath("deathSpiral")]: deathSpiralAfter
   };
 
   await sheetActor.update(updateData);
@@ -662,10 +691,12 @@ export async function castSpell(scope = {}) {
       drain,
       isLethal,
       resistDice,
+      resistRawSuccesses,
       resistSuccesses,
       applied: appliedDrain,
       tn
     },
+    deathSpiral,
     rolls: [cast.roll, resistRoll]
   });
 

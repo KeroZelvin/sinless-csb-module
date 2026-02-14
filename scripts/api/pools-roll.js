@@ -10,6 +10,7 @@
 // - Uses canonical Actor via system.props.ActorUuid (or actorUuid) to avoid token-synthetic drift
 // - Writes to system.props.* keys (CSB live values)
 
+import { applyDeathSpiralPenalty, computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 import {
   num,
   escapeHTML,
@@ -38,6 +39,23 @@ function getSessionSettingsActor() {
 function readTN(sessionActor) {
   const raw = num(sessionActor?.system?.props?.TN_Global, NaN);
   return clampTN(Number.isFinite(raw) ? raw : 4, 4);
+}
+
+function computeStunMaxFromProps(props) {
+  const WIL = num(props?.WIL, 0);
+  return 6 + Math.floor(WIL / 2);
+}
+
+function computePhysicalMaxFromProps(props) {
+  const BOD = num(props?.BOD, 0);
+  return 6 + Math.floor(BOD / 2);
+}
+
+function readDeathSpiral(props) {
+  return Math.max(0, computeDeathSpiralFromProps(props, {
+    stunMax: Math.max(0, Math.floor(num(props?.stunMax, computeStunMaxFromProps(props)))),
+    physicalMax: Math.max(0, Math.floor(num(props?.physicalMax, computePhysicalMaxFromProps(props))))
+  }));
 }
 
 /* ----------------------------- */
@@ -354,6 +372,49 @@ export async function refreshPools(scope = {}) {
   return { actorUuid: canon.uuid, mode: "fallback", update };
 }
 
+/* ------------------------------ */
+/* API: refreshKismet (no dialog) */
+/* ------------------------------ */
+
+export async function refreshKismet(scope = {}) {
+  const sheetActor = await resolveActorCandidate(scope);
+  if (!sheetActor) {
+    ui.notifications?.warn?.("Select a token or set a User Character (or pass actorUuid).");
+    return null;
+  }
+
+  const canon = await resolveCanonicalActor(sheetActor);
+  if (!canon) return null;
+
+  const p = readProps(canon) ?? {};
+  const hasKismetMax = Object.prototype.hasOwnProperty.call(p, "kismetPoolmax");
+  const hasKismetCur = Object.prototype.hasOwnProperty.call(p, "availableKismet");
+
+  if (!hasKismetMax && !hasKismetCur) {
+    ui.notifications?.warn?.(`${canon.name} has no kismet pool fields.`);
+    return null;
+  }
+
+  const before = Math.max(0, Math.floor(num(p.availableKismet, 0)));
+  const kismetMax = Math.max(0, Math.floor(num(p.kismetPoolmax, 0)));
+  const updated = before !== kismetMax;
+
+  if (updated) {
+    await updateActorWithMirrors(sheetActor, { [propPath("availableKismet")]: kismetMax });
+  }
+
+  if (!scope?.silent) {
+    ui.notifications?.info?.(updated ? "Kismet pool refreshed." : "Kismet pool already full.");
+  }
+
+  return {
+    actorUuid: canon.uuid,
+    before,
+    after: kismetMax,
+    updated
+  };
+}
+
 /* ----------------------------- */
 /* API: rollPoolInline (no dialog) */
 /* ----------------------------- */
@@ -424,7 +485,9 @@ export async function rollPoolInline(scope = {}) {
   await roll.evaluate();
 
   const results = roll.dice?.[0]?.results ?? [];
-  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const rawSuccesses = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const deathSpiral = readDeathSpiral(props);
+  const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
   const newCur = Math.max(0, curVal - spendClamped);
   await updateActorWithMirrors(sheetActor, { [propPath(pool.curKey)]: newCur });
@@ -457,6 +520,7 @@ export async function rollPoolInline(scope = {}) {
           <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
           <strong>Total:</strong> ${escapeHTML(totalDice)}d6
         </p>
+        <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(rawSuccesses)} → ${escapeHTML(successes)})` : ""}</p>
         <p style="margin:0 0 6px 0;"><strong>${escapeHTML(pool.name)} Pool:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
         <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
       </details>
@@ -477,7 +541,9 @@ export async function rollPoolInline(scope = {}) {
     spendUsed: spendClamped,
     mod,
     totalDice,
+    rawSuccesses,
     successes,
+    deathSpiral,
     tn,
     oldCur: curVal,
     newCur
@@ -531,7 +597,9 @@ export async function rollSprintInline(scope = {}) {
   await roll.evaluate();
 
   const results = roll.dice?.[0]?.results ?? [];
-  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const rawSuccesses = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const deathSpiral = readDeathSpiral(props);
+  const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
   const sprintXtra = Math.max(0, Math.floor(successes * 2));
   const actorMovement = Math.max(0, Math.floor(num(props?.[movementKey], 0)));
@@ -579,6 +647,7 @@ export async function rollSprintInline(scope = {}) {
           <strong>Spend:</strong> ${escapeHTML(spendDisplay)} (depletes) &nbsp;|&nbsp;
           <strong>Roll:</strong> ${escapeHTML(spendClamped)}d6
         </p>
+        <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(rawSuccesses)} → ${escapeHTML(successes)})` : ""}</p>
         <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolKey)}:</strong> ${escapeHTML(curVal)} -> ${escapeHTML(newCur)}</p>
         <p style="margin:0 0 6px 0;"><strong>Movement:</strong> (2 x ${escapeHTML(actorMovement)}) + ${escapeHTML(sprintXtra)} = ${escapeHTML(totalMovement)} m</p>
         <p style="margin:0 0 6px 0;"><strong>sprintXtra:</strong> ${escapeHTML(sprintXtra)} m (${escapeHTML(successes)} x 2)</p>
@@ -602,7 +671,9 @@ export async function rollSprintInline(scope = {}) {
     movementKey,
     spendRequested,
     spendUsed: spendClamped,
+    rawSuccesses,
     successes,
+    deathSpiral,
     sprintXtra,
     actorMovement,
     totalMovement,
@@ -674,7 +745,9 @@ export async function rollAthleticsMoveInline(scope = {}) {
   await roll.evaluate();
 
   const results = roll.dice?.[0]?.results ?? [];
-  const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const rawSuccesses = results.reduce((acc, r) => acc + (num(r.result, 0) >= tn ? 1 : 0), 0);
+  const deathSpiral = readDeathSpiral(props);
+  const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
   const jumpStandingVertical = successes;
   const jumpRunning = successes * 2;
@@ -728,6 +801,7 @@ export async function rollAthleticsMoveInline(scope = {}) {
         <p style="margin:0 0 6px 0;">
           <strong>Spend:</strong> ${escapeHTML(spendDisplay)} of max ${escapeHTML(maxSpend)} (min of ${escapeHTML(poolCur)} ${escapeHTML(poolKey)}, ${escapeHTML(athleticsCap)} ${escapeHTML(skillCapKey)})
         </p>
+        <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(rawSuccesses)} → ${escapeHTML(successes)})` : ""}</p>
         <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolKey)}:</strong> ${escapeHTML(oldCur)} -> ${escapeHTML(newCur)}</p>
         <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
       </details>
@@ -750,7 +824,9 @@ export async function rollAthleticsMoveInline(scope = {}) {
     maxSpend,
     spendRequested,
     spendUsed,
+    rawSuccesses,
     successes,
+    deathSpiral,
     jumpStandingVertical,
     jumpRunning,
     climbDistance,
@@ -1031,7 +1107,10 @@ const content = `
         await roll.evaluate();
 
         const results = roll.dice?.[0]?.results ?? [];
-        const successes = results.reduce((acc, r) => acc + (num(r.result, 0) >= TN ? 1 : 0), 0);
+        const actorPropsNow = readProps(actor);
+        const deathSpiral = readDeathSpiral(actorPropsNow);
+        const rawSuccesses = results.reduce((acc, r) => acc + (num(r.result, 0) >= TN ? 1 : 0), 0);
+        const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
         const newCur = Math.max(0, curVal - spendClamped);
 
@@ -1065,6 +1144,7 @@ const content = `
                 <strong>Mod:</strong> ${escapeHTML(mod)} (free) &nbsp;|&nbsp;
                 <strong>Total:</strong> ${escapeHTML(totalDice)}d6
               </p>
+              <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(rawSuccesses)} → ${escapeHTML(successes)})` : ""}</p>
               <p style="margin:0 0 6px 0;"><strong>${escapeHTML(p.name)} Pool:</strong> ${escapeHTML(curVal)} → ${escapeHTML(newCur)}</p>
               <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${escapeHTML(diceList)}</p>
             </details>

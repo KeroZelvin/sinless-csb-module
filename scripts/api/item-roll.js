@@ -25,6 +25,7 @@ import {
 
 import { evaluateDamageFormula } from "../rules/damage-formula.js";
 import { evaluateAlertFormula } from "../rules/alert-formula.js";
+import { applyDeathSpiralPenalty, computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 import { addTrackAlert, addTrackAlertAsync } from "./alert-tracking.js";
 
 /* ----------------------------- */
@@ -45,6 +46,16 @@ function getSessionSettingsActor() {
 function readTN(sessionActor) {
   const raw = num(sessionActor?.system?.props?.TN_Global, NaN);
   return clampTN(Number.isFinite(raw) ? raw : 4, 4);
+}
+
+function computeStunMaxFromProps(props) {
+  const WIL = num(props?.WIL, 0);
+  return 6 + Math.floor(WIL / 2);
+}
+
+function computePhysicalMaxFromProps(props) {
+  const BOD = num(props?.BOD, 0);
+  return 6 + Math.floor(BOD / 2);
 }
 
 function safeParseJSON(maybeJSON, fallback = null) {
@@ -459,6 +470,10 @@ const rollingActor = pilotActor || game.user?.character || contextActor;
 // Props split: drone state vs pilot pools/skills
 const contextProps = readProps(contextActor);
 const aprops = readProps(rollingActor);
+const deathSpiral = computeDeathSpiralFromProps(aprops, {
+  stunMax: Math.max(0, Math.floor(num(aprops?.stunMax, computeStunMaxFromProps(aprops)))),
+  physicalMax: Math.max(0, Math.floor(num(aprops?.physicalMax, computePhysicalMaxFromProps(aprops))))
+});
 
 
     const sessionActor = getSessionSettingsActor();
@@ -753,7 +768,8 @@ const spendHelp = (mode === "untrainedPool")
     }
 
     const { roll, results, successes: rawSuccesses } = await rollXd6Successes({ dice: totalDice, tn: TN });
-    const finalSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
+    const modeSuccesses = (mode === "untrainedPool") ? Math.floor(rawSuccesses / 4) : rawSuccesses;
+    const finalSuccesses = applyDeathSpiralPenalty(modeSuccesses, deathSpiral);
 
     let spiritBindOutcomeText = "";
     if (isSpiritBindRoll) {
@@ -970,8 +986,12 @@ const spendHelp = (mode === "untrainedPool")
     const successLine = `${finalSuccesses} SUCCESS${finalSuccesses === 1 ? "" : "ES"}`;
 
     const untrainedCalcHTML = (mode === "untrainedPool")
-      ? `<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Untrained calc:</strong> raw ${escapeHTML(rawSuccesses)} ÷ 4 = ${escapeHTML(finalSuccesses)}</p>`
+      ? `<p style="margin:0 0 6px 0; font-size:12px; opacity:0.85;"><strong>Untrained calc:</strong> raw ${escapeHTML(rawSuccesses)} ÷ 4 = ${escapeHTML(modeSuccesses)}</p>`
       : "";
+
+    const deathSpiralLineHTML = `
+      <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(modeSuccesses)} → ${escapeHTML(finalSuccesses)})` : ""}</p>
+    `;
 
     const damageLineHTML = (!isSpiritBindRoll && damageValue && damageValue > 0) ? `
       <p style="margin:0 0 6px 0;">
@@ -1176,6 +1196,7 @@ const spendHelp = (mode === "untrainedPool")
           ${poolSpendLineHTML}
           <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> ${bonusBreakdown} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
           <p style="margin:0 0 6px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
+          ${deathSpiralLineHTML}
           ${untrainedCalcHTML}
 
           ${poolStatusLineHTML}
@@ -1213,7 +1234,9 @@ const spendHelp = (mode === "untrainedPool")
       newPool,
       totalDice,
       rawSuccesses,
+      modeSuccesses,
       finalSuccesses,
+      deathSpiral,
       itemDamageText,
       weaponDamage,
       damage

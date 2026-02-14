@@ -11,6 +11,7 @@
 // - If spiritForce > zoeticPotential: drain is lethal (physical).
 // - Else drain applies to stun with overflow to physical.
 
+import { applyDeathSpiralPenalty, computeDeathSpiral, computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 import {
   num,
   clamp,
@@ -52,6 +53,12 @@ function computeStunMax(actor) {
 function computePhysicalMax(actor) {
   const BOD = num(actor?.system?.props?.BOD, 0);
   return 6 + Math.floor(BOD / 2);
+}
+
+function computeDeathSpiralForProps(actor, props) {
+  const stunMax = Math.max(0, Math.floor(num(props?.stunMax, computeStunMax(actor))));
+  const physicalMax = Math.max(0, Math.floor(num(props?.physicalMax, computePhysicalMax(actor))));
+  return computeDeathSpiralFromProps(props, { stunMax, physicalMax });
 }
 
 async function updateActorWithMirrors(sheetActor, updateData) {
@@ -303,7 +310,9 @@ export async function invokeSpirit(scope = {}) {
       return null;
     }
 
-    const { roll, results, successes } = await rollXd6Successes({ dice: totalDice, tn: TN });
+    const deathSpiral = Math.max(0, computeDeathSpiralForProps(sheetActor, actorProps));
+    const { roll, results, successes: rawSuccesses } = await rollXd6Successes({ dice: totalDice, tn: TN });
+    const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
     const poolAfter = Math.max(0, poolCur - spend);
 
@@ -332,10 +341,18 @@ export async function invokeSpirit(scope = {}) {
       }
     }
 
+    const deathSpiralAfter = computeDeathSpiral({
+      physicalCur,
+      physicalMax,
+      stunCur,
+      stunMax
+    });
+
     const updateData = {
       [propPath(poolCurK)]: poolAfter,
       [propPath("stunCur")]: stunCur,
-      [propPath("physicalCur")]: physicalCur
+      [propPath("physicalCur")]: physicalCur,
+      [propPath("deathSpiral")]: deathSpiralAfter
     };
     await updateActorWithMirrors(sheetActor, updateData);
 
@@ -380,6 +397,7 @@ export async function invokeSpirit(scope = {}) {
           <p style="margin:0 0 6px 0;"><strong>Pool Spend:</strong> ${escapeHTML(spend)} (cap ${escapeHTML(spendCap)})</p>
           <p style="margin:0 0 6px 0;"><strong>Non-pool dice:</strong> Bonus ${escapeHTML(bonusDice)} | ItemMod ${escapeHTML(diceMod)} | Situational ${escapeHTML(sitMod)}</p>
           <p style="margin:0 0 6px 0;"><strong>Total Rolled:</strong> <strong>${escapeHTML(totalDice)}d6</strong></p>
+          <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${escapeHTML(deathSpiral)}${deathSpiral > 0 ? ` (successes ${escapeHTML(rawSuccesses)} → ${escapeHTML(successes)})` : ""}</p>
           <p style="margin:0 0 6px 0;"><strong>${escapeHTML(poolCurK)} Pool:</strong> ${escapeHTML(poolCur)} → ${escapeHTML(poolAfter)}</p>
           <p style="margin:0 0 6px 0;"><strong>Stun:</strong> ${escapeHTML(stunCur0)} → ${escapeHTML(stunCur)}</p>
           <p style="margin:0 0 6px 0;"><strong>Physical:</strong> ${escapeHTML(physicalCur0)} → ${escapeHTML(physicalCur)}</p>
@@ -406,7 +424,9 @@ export async function invokeSpirit(scope = {}) {
       spend,
       spendCap,
       totalDice,
+      rawSuccesses,
       successes,
+      deathSpiral,
       drainApplied,
       isLethal,
       poolCurK,
@@ -423,4 +443,3 @@ export async function invokeSpirit(scope = {}) {
     return null;
   }
 }
-

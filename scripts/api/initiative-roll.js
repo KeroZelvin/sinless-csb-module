@@ -10,6 +10,7 @@
 // - v13-safe rolling: await roll.evaluate()
 // - Correct chat speaker cosmetics without breaking actor binding
 
+import { applyDeathSpiralPenalty, computeDeathSpiralFromProps } from "../rules/death-spiral.js";
 import {
   num,
   normalizeUuid,
@@ -35,6 +36,16 @@ function getSessionSettingsActor() {
 function readTN(sessionActor) {
   const raw = num(sessionActor?.system?.props?.TN_Global, NaN);
   return clampTN(Number.isFinite(raw) ? raw : 4, 4);
+}
+
+function computeStunMaxFromProps(props) {
+  const WIL = num(props?.WIL, 0);
+  return 6 + Math.floor(WIL / 2);
+}
+
+function computePhysicalMaxFromProps(props) {
+  const BOD = num(props?.BOD, 0);
+  return 6 + Math.floor(BOD / 2);
 }
 
 /* =========================
@@ -177,6 +188,11 @@ export async function rollInitiative({ actorUuid } = {}) {
     const focusMax = Math.floor(num(actor?.system?.props?.Focus_Max, 0));
     const rea = Math.floor(num(actor?.system?.props?.REA, 0));
     const initBonus = Math.trunc(num(actor?.system?.props?.initBonus, 0));
+    const actorProps = actor?.system?.props ?? {};
+    const deathSpiral = Math.max(0, computeDeathSpiralFromProps(actorProps, {
+      stunMax: Math.max(0, Math.floor(num(actorProps?.stunMax, computeStunMaxFromProps(actorProps)))),
+      physicalMax: Math.max(0, Math.floor(num(actorProps?.physicalMax, computePhysicalMaxFromProps(actorProps))))
+    }));
     const rolledDice = Math.max(0, focusMax + initBonus);
 
     if (rolledDice <= 0) {
@@ -187,7 +203,8 @@ export async function rollInitiative({ actorUuid } = {}) {
 
     // Roll (Focus_Max + initBonus) d6 vs TN, count successes
     const rolled = await rollXd6Successes({ dice: rolledDice, tn: TN });
-    const successes = rolled.successes;
+    const rawSuccesses = rolled.successes;
+    const successes = applyDeathSpiralPenalty(rawSuccesses, deathSpiral);
 
     const initiative = Math.floor(successes + rea);
 
@@ -213,6 +230,7 @@ export async function rollInitiative({ actorUuid } = {}) {
           <p style="margin:0 0 6px 0;"><strong>Focus:</strong> ${focusMax}</p>
           <p style="margin:0 0 6px 0;"><strong>Init Bonus (Dice):</strong> ${initBonus > 0 ? `+${initBonus}` : initBonus}</p>
           <p style="margin:0 0 6px 0;"><strong>Total Dice Rolled:</strong> ${rolledDice}d6</p>
+          <p style="margin:0 0 6px 0;"><strong>DeathSpiral:</strong> ${deathSpiral}${deathSpiral > 0 ? ` (successes ${rawSuccesses} → ${successes})` : ""}</p>
           <p style="margin:0 0 6px 0;"><strong>Successes:</strong> ${successes}</p>
           <p style="margin:0 0 6px 0;"><strong>REA:</strong> ${rea}</p>
           <p style="margin:0 0 6px 0;"><strong>Dice Results:</strong> ${diceList}</p>
@@ -233,7 +251,9 @@ export async function rollInitiative({ actorUuid } = {}) {
       rolledDice,
       rea,
       initBonus,
+      rawSuccesses,
       successes,
+      deathSpiral,
       initiative
     };
   } catch (e) {

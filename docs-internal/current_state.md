@@ -18,6 +18,8 @@ World macros and CSB template scripts should become **thin callers** into the AP
 - Prefer **manual edits in Foundry** for template changes when possible.
 - Importing JSON exports has repeatedly caused template loss/corruption in the world (e.g., PC sheet templates disappearing or being replaced).
 - Only use JSON imports when absolutely necessary and verify templates exist afterward.
+- Agent default: for CSB template tweaks, provide **copy/paste snippets** (rollMessage, formulas, component settings) for manual paste in Foundry.
+- Do **not** edit files in `docs-internal/templateJSONS/` unless the user explicitly asks for repo-side JSON edits.
 
 ## Repo hygiene (critical)
 - **Do not touch `packs/`** in this repo. That folder is Foundry’s compendium storage (database-backed) and is not safely editable from VS Code.

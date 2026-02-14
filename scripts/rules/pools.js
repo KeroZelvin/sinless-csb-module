@@ -247,6 +247,38 @@ export async function refreshPoolsForActor(actor) {
   }
 }
 
+export async function refreshKismetForActor(actor) {
+  if (!shouldIncludeActor(actor)) return null;
+
+  const p = props(actor) ?? {};
+  const hasKismetMax = Object.prototype.hasOwnProperty.call(p, "kismetPoolmax");
+  const hasKismetCur = Object.prototype.hasOwnProperty.call(p, "availableKismet");
+  if (!hasKismetMax && !hasKismetCur) return null;
+
+  const kismetMax = Math.max(0, Math.floor(num(p.kismetPoolmax, 0)));
+  const before = Math.max(0, Math.floor(num(p.availableKismet, 0)));
+
+  if (before === kismetMax) {
+    return {
+      actorUuid: actor.uuid,
+      actorName: actor.name,
+      before,
+      after: kismetMax,
+      updated: false
+    };
+  }
+
+  await actor.update({ [writePropUpdate("availableKismet")]: kismetMax });
+
+  return {
+    actorUuid: actor.uuid,
+    actorName: actor.name,
+    before,
+    after: kismetMax,
+    updated: true
+  };
+}
+
 export async function refreshPoolsForCombat(combat) {
   if (!combat) return;
 
@@ -268,4 +300,31 @@ export async function refreshPoolsForCombat(combat) {
       console.error(`SinlessCSB | refreshPoolsForActor failed for ${actor?.name}`, e);
     }
   }
+}
+
+export async function refreshKismetForCombat(combat) {
+  if (!combat) return [];
+
+  // Deduplicate canonical actors in case multiple combatants point to the same actor
+  const actors = new Set();
+
+  for (const c of combat.combatants) {
+    const a = c?.actor;
+    if (!a) continue;
+
+    const canonical = await resolveCanonicalActor(a);
+    if (canonical) actors.add(canonical);
+  }
+
+  const out = [];
+  for (const actor of actors) {
+    try {
+      const refreshed = await refreshKismetForActor(actor);
+      if (refreshed) out.push(refreshed);
+    } catch (e) {
+      console.error(`SinlessCSB | refreshKismetForActor failed for ${actor?.name}`, e);
+    }
+  }
+
+  return out;
 }

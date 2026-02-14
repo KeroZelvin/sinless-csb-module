@@ -10,6 +10,10 @@
 - CSB item templates should call `game.modules.get("sinlesscsb")?.api?...` directly from rollMessage formulas.
 - World macros are still acceptable as **thin wrappers**, but the **logic belongs in `/scripts/api/*`**.
 
+### 1.5) CSB template workflow is snippet-first
+- Default output for template/UI tweaks is **copy/paste snippets** for Foundry CSB fields (rollMessage, formulas, component config).
+- Do **not** patch `docs-internal/templateJSONS/` by default; only do repo-side JSON edits when explicitly requested by the user.
+
 ### 2) Canonical Actor resolution is mandatory
 Foundry token-synthetic actors and sheet actors can drift. The module standard is:
 1. Prefer **explicit** `actorUuid` from the caller (CSB rollMessage, macro wrapper, etc.).

@@ -1,15 +1,19 @@
 // scripts/hooks/combat.js
-import { refreshPoolsForCombat } from "../rules/pools.js";
+import { refreshPoolsForCombat, refreshKismetForCombat } from "../rules/pools.js";
 import { resetTrackAlert } from "../api/alert-tracking.js";
 
 const MOD_ID = "sinlesscsb";
 
-// Per-combat state: refresh once per round
-const POOL_REFRESH_STATE = new Map(); // combatId -> { lastRoundRefreshed: number }
+// Per-combat state
+// combatId -> { lastRoundRefreshed: number, kismetRefreshedForStart: boolean }
+const POOL_REFRESH_STATE = new Map();
 
 function getState(combatId) {
   if (!POOL_REFRESH_STATE.has(combatId)) {
-    POOL_REFRESH_STATE.set(combatId, { lastRoundRefreshed: 0 });
+    POOL_REFRESH_STATE.set(combatId, {
+      lastRoundRefreshed: 0,
+      kismetRefreshedForStart: false
+    });
   }
   return POOL_REFRESH_STATE.get(combatId);
 }
@@ -52,9 +56,46 @@ async function maybeRefreshPools(combat, changed = {}) {
   console.log("SinlessCSB | Pools refreshed", { combatId: combat.id, roundNow });
 }
 
+async function maybeRefreshKismetOnCombatStart(combat) {
+  if (!combat) return;
+  if (!automationEnabled()) return;
+
+  const state = getState(combat.id);
+  const started = !!combat.started;
+
+  // Allow refresh again next time this combat is started.
+  if (!started) {
+    state.kismetRefreshedForStart = false;
+    return;
+  }
+
+  // Exactly once per "started" lifecycle for this combat.
+  if (state.kismetRefreshedForStart) return;
+
+  // Set the guard before awaiting to avoid duplicate refreshes on rapid updateCombat bursts.
+  state.kismetRefreshedForStart = true;
+
+  let refreshed = [];
+  try {
+    refreshed = await refreshKismetForCombat(combat);
+  } catch (e) {
+    state.kismetRefreshedForStart = false;
+    throw e;
+  }
+
+  const total = refreshed.length;
+  const updated = refreshed.filter(r => r?.updated).length;
+  console.log("SinlessCSB | Kismet refreshed on combat start", {
+    combatId: combat.id,
+    actors: total,
+    updated
+  });
+}
+
 export function registerCombatHooks() {
   Hooks.on("updateCombat", async (combat, changed, options, userId) => {
     try {
+      await maybeRefreshKismetOnCombatStart(combat);
       await maybeRefreshPools(combat, changed);
 
       if (!automationEnabled()) return;
@@ -65,7 +106,7 @@ export function registerCombatHooks() {
         await resetTrackAlert({ allowSocket: false, reason: "combatEnd" });
       }
     } catch (e) {
-      console.error("SinlessCSB | Pools refresh failed", e);
+      console.error("SinlessCSB | Combat automation failed", e);
     }
   });
 

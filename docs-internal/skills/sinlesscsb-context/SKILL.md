@@ -39,6 +39,8 @@ Bootstrap new tasks by synthesizing repo context, known-good patterns, and revie
 
 ## Use the context
 - Prefer API-first implementations: keep logic in `scripts/api/*`; macros/rollMessage should be thin callers.
+- For CSB template work, use a **snippet-first** workflow: provide copy/paste snippets (rollMessage, formulas, component settings) for manual paste in Foundry.
+- Do **not** edit files under `docs-internal/templateJSONS/` unless the user explicitly asks for repo-side JSON edits.
 - Treat docs as potentially stale; verify against current code (`scripts/api`, `hooks`, `styles`, `module.json`) and call out mismatches.
 - For dialogs, use the `openDialogV2` helper in `scripts/api/_util.js` and avoid `DialogV2.wait()` unless the docs explicitly permit it.
 - For actor updates, follow canonical actor resolution and mirroring patterns from the docs.

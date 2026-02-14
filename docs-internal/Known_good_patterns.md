@@ -64,6 +64,18 @@ Use the same pattern for `castSpell` and future `rollInitiative`, swapping the A
 
 ---
 
+## 2.2) CSB template edits: snippet-first policy
+
+- Default to **copy/paste snippets** for Foundry CSB fields (rollMessage, formulas, component settings).
+- Do **not** directly edit `docs-internal/templateJSONS/` unless the user explicitly requests repo-side JSON edits.
+- If user intent is unclear, ask one short confirm question before touching any template export JSON.
+- When snippet-first is in effect, include:
+  - exact target field (for example, Label -> `rollMessage`)
+  - the full replacement snippet
+  - any required API function name and expected context variables
+
+---
+
 ## 2.5) Field button `rollMessage` helper pattern (actor-safe updates)
 
 Use this when a **button component** needs to directly update actor props (for example, Full Heal) and you are not routing through module API yet.
@@ -289,7 +301,7 @@ Both generate deprecation warnings in v13 and will break in v14.
 - **Relying on `this.form` in DialogV2**  
   Use `getDialogFormFromCallbackArgs(...)` and query the dialog root.
 - **Template JSON imports in Foundry**  
-  Prefer manual edits inside Foundry for templates; JSON imports have repeatedly caused template loss/corruption. Only import JSONs when absolutely necessary and verify the templates still exist afterward.
+  Prefer manual edits inside Foundry for templates; JSON imports have repeatedly caused template loss/corruption. Only import JSONs when absolutely necessary and verify the templates still exist afterward. Also default to snippet-first responses instead of repo JSON edits unless explicitly requested.
 
 ---
 
