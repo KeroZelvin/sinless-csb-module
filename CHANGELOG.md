@@ -10,6 +10,8 @@ v0.1.0
     Death Spiral now automated and impacts roll successes.
     kismet pool refresh on combat start
     fixed amp skills
+    lightened module png--> webp files
+    add GM/dev compendium / folder tree output on module load under settings
     
 
 v0.0.9

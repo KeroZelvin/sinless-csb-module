@@ -160,28 +160,57 @@ if ($RecurseDownloads.IsPresent) {
 }
 
 $allJson = @(Get-ChildItem @scanArgs)
-$recent = @()
+$recentJson = @()
 foreach ($f in $allJson) {
   $observed = Get-MaxTime -A $f.CreationTime -B $f.LastWriteTime
   if ($observed -lt $cutoff) { continue }
-  $recent += [pscustomobject]@{
+  $recentJson += [pscustomobject]@{
     file = $f
     observedTime = $observed
+    sourceKind = "json"
   }
 }
+
+$scanMarkdownArgs = @{
+  LiteralPath = $downloadsRoot
+  File = $true
+  Filter = "compendium-index.md"
+}
+if ($RecurseDownloads.IsPresent) {
+  $scanMarkdownArgs["Recurse"] = $true
+}
+
+$allMarkdown = @(Get-ChildItem @scanMarkdownArgs)
+$recentMarkdown = @()
+foreach ($f in $allMarkdown) {
+  $observed = Get-MaxTime -A $f.CreationTime -B $f.LastWriteTime
+  if ($observed -lt $cutoff) { continue }
+  $recentMarkdown += [pscustomobject]@{
+    file = $f
+    observedTime = $observed
+    sourceKind = "compendium_index_markdown"
+  }
+}
+
+$recentCandidates = @($recentJson + $recentMarkdown)
 
 $entries = New-Object System.Collections.Generic.List[object]
 $copied = New-Object System.Collections.Generic.List[string]
 $pending = New-Object System.Collections.Generic.List[string]
 
-foreach ($r in $recent) {
+foreach ($r in $recentCandidates) {
   $f = $r.file
-  if (-not (Test-IsLikelyFoundryExport -File $f)) { continue }
+  $isJsonCandidate = $r.sourceKind -eq "json"
+  if ($isJsonCandidate -and -not (Test-IsLikelyFoundryExport -File $f)) { continue }
 
   $sourceHash = (Get-FileHash -LiteralPath $f.FullName -Algorithm SHA256).Hash
   $zone = Get-ZoneIdentifierInfo -Path $f.FullName
 
-  $targetPath = Join-Path $templateRoot $f.Name
+  $targetPath = if ($isJsonCandidate) {
+    Join-Path $templateRoot $f.Name
+  } else {
+    Join-Path $repoRootPath "docs-internal/compendium-index.md"
+  }
   $targetExists = Test-Path -LiteralPath $targetPath -PathType Leaf
   $targetItem = $null
   $targetHash = $null
@@ -229,6 +258,7 @@ foreach ($r in $recent) {
   $targetRelative = Get-RelativeRepoPath -Root $repoRootPath -FullPath $targetPath
 
   $entries.Add([pscustomobject]@{
+    sourceKind = $r.sourceKind
     fileName = $f.Name
     downloadPath = $f.FullName
     observedTime = $r.observedTime.ToString("o")
@@ -251,16 +281,23 @@ foreach ($r in $recent) {
 $copiedArray = @($copied | ForEach-Object { [string]$_ })
 $pendingArray = @($pending | ForEach-Object { [string]$_ })
 $pendingUnique = @($pendingArray | Sort-Object -Unique)
+$matchedJsonExports = @($entries | Where-Object { $_.sourceKind -eq "json" }).Count
+$matchedMarkdownExports = @($entries | Where-Object { $_.sourceKind -eq "compendium_index_markdown" }).Count
 
 $result = [ordered]@{}
 $result.repoRoot = $repoRootPath
 $result.downloadsPath = $downloadsRoot
 $result.templateJsonPath = $templateRoot
+$result.compendiumIndexPath = (Join-Path $repoRootPath "docs-internal/compendium-index.md")
 $result.lookbackDays = $lookback
 $result.cutoffIso = $cutoff.ToString("o")
 $result.apply = [bool]$Apply.IsPresent
 $result.scannedJsonFiles = $allJson.Count
-$result.recentJsonFiles = $recent.Count
+$result.recentJsonFiles = $recentJson.Count
+$result.scannedMarkdownFiles = $allMarkdown.Count
+$result.recentMarkdownFiles = $recentMarkdown.Count
+$result.matchedJsonExports = $matchedJsonExports
+$result.matchedMarkdownExports = $matchedMarkdownExports
 $result.foundryExportMatches = $entries.Count
 $result.copiedCount = $copied.Count
 $result.pendingCount = $pending.Count
@@ -275,7 +312,7 @@ if ($summaryDir -and -not (Test-Path -LiteralPath $summaryDir -PathType Containe
 }
 
 $runIso = (Get-Date).ToString("o")
-$summaryLine = "$runIso | apply=$([bool]$Apply.IsPresent) lookbackDays=$lookback scanned=$($allJson.Count) recent=$($recent.Count) matches=$($entries.Count) copied=$($copied.Count) pending=$($pendingUnique.Count)"
+$summaryLine = "$runIso | apply=$([bool]$Apply.IsPresent) lookbackDays=$lookback scannedJson=$($allJson.Count) recentJson=$($recentJson.Count) scannedMd=$($allMarkdown.Count) recentMd=$($recentMarkdown.Count) matches=$($entries.Count) copied=$($copied.Count) pending=$($pendingUnique.Count)"
 Set-Content -LiteralPath $summaryFile -Value $summaryLine -Encoding utf8
 $result.summaryLine = $summaryLine
 

@@ -1,0 +1,381 @@
+import { MOD_ID } from "./_util.js";
+
+function toArray(collectionLike) {
+  if (!collectionLike) return [];
+  if (Array.isArray(collectionLike)) return collectionLike;
+  if (Array.isArray(collectionLike.contents)) return collectionLike.contents;
+  if (typeof collectionLike.values === "function") return Array.from(collectionLike.values());
+  return Array.from(collectionLike);
+}
+
+function moduleAssetPngRegex(moduleId) {
+  const pattern =
+    "modules\\/" +
+    moduleId +
+    "\\/assets\\/([^\"'\\s<>`]+?)\\.png(\\?[^\"'\\s<>`]*)?(#[^\"'\\s<>`]*)?";
+  return new RegExp(pattern, "gi");
+}
+
+function rewriteModuleAssetPngInString(value, moduleId) {
+  const source = String(value ?? "");
+  const regex = moduleAssetPngRegex(moduleId);
+  let replacements = 0;
+
+  const updated = source.replace(regex, (_m, relPath, query = "", hash = "") => {
+    replacements += 1;
+    return `modules/${moduleId}/assets/${relPath}.webp${query ?? ""}${hash ?? ""}`;
+  });
+
+  return { updated, replacements };
+}
+
+function rewriteObjectPathsInPlace(node, moduleId, counters) {
+  if (typeof node === "string") {
+    const { updated, replacements } = rewriteModuleAssetPngInString(node, moduleId);
+    if (replacements > 0) {
+      counters.fieldsChanged += 1;
+      counters.pathReplacements += replacements;
+      return updated;
+    }
+    return node;
+  }
+
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i += 1) {
+      node[i] = rewriteObjectPathsInPlace(node[i], moduleId, counters);
+    }
+    return node;
+  }
+
+  if (node && typeof node === "object") {
+    for (const key of Object.keys(node)) {
+      node[key] = rewriteObjectPathsInPlace(node[key], moduleId, counters);
+    }
+    return node;
+  }
+
+  return node;
+}
+
+function hasOwnKeys(value) {
+  return Boolean(value && typeof value === "object" && Object.keys(value).length > 0);
+}
+
+async function migrateSingleDocument(doc, { moduleId, dryRun }) {
+  const original = doc.toObject();
+  const mutated = foundry.utils.deepClone(original);
+  const counters = {
+    fieldsChanged: 0,
+    pathReplacements: 0
+  };
+
+  rewriteObjectPathsInPlace(mutated, moduleId, counters);
+  if (counters.pathReplacements === 0) {
+    return {
+      changed: false,
+      fieldsChanged: 0,
+      pathReplacements: 0
+    };
+  }
+
+  const diff = foundry.utils.diffObject(original, mutated);
+  if (!hasOwnKeys(diff)) {
+    return {
+      changed: false,
+      fieldsChanged: 0,
+      pathReplacements: 0
+    };
+  }
+
+  if (!dryRun) {
+    await doc.update(diff);
+  }
+
+  return {
+    changed: true,
+    fieldsChanged: counters.fieldsChanged,
+    pathReplacements: counters.pathReplacements
+  };
+}
+
+function getEmbeddedDocCollections(doc) {
+  const names = new Set();
+
+  const metaEmbedded = doc?.constructor?.metadata?.embedded;
+  if (metaEmbedded && typeof metaEmbedded === "object") {
+    for (const collectionName of Object.values(metaEmbedded)) {
+      if (typeof collectionName === "string" && collectionName.length) {
+        names.add(collectionName);
+      }
+    }
+  }
+
+  // Safety fallback for runtimes where metadata may omit some embedded sets.
+  const fallback = [
+    "items",
+    "effects",
+    "pages",
+    "results",
+    "cards",
+    "sounds",
+    "tokens",
+    "notes",
+    "tiles",
+    "drawings",
+    "walls",
+    "lights",
+    "templates"
+  ];
+  for (const key of fallback) names.add(key);
+
+  const out = [];
+  for (const key of names) {
+    const value = doc?.[key];
+    if (!value) continue;
+    const docs = toArray(value);
+    if (!docs.length) continue;
+    out.push({ collectionName: key, documents: docs });
+  }
+
+  return out;
+}
+
+async function migrateDocumentTree(doc, options, seen = new Set()) {
+  const docKey = String(doc?.uuid ?? `${doc?.documentName ?? "Document"}:${doc?.id ?? "(unknown)"}`);
+  if (seen.has(docKey)) {
+    return {
+      documentsScanned: 0,
+      documentsChanged: 0,
+      fieldsChanged: 0,
+      pathReplacements: 0
+    };
+  }
+  seen.add(docKey);
+
+  const totals = {
+    documentsScanned: 1,
+    documentsChanged: 0,
+    fieldsChanged: 0,
+    pathReplacements: 0
+  };
+
+  const current = await migrateSingleDocument(doc, options);
+  if (current.changed) {
+    totals.documentsChanged += 1;
+    totals.fieldsChanged += current.fieldsChanged;
+    totals.pathReplacements += current.pathReplacements;
+  }
+
+  if (options.includeEmbedded !== false) {
+    for (const embedded of getEmbeddedDocCollections(doc)) {
+      for (const child of embedded.documents) {
+        const childTotals = await migrateDocumentTree(child, options, seen);
+        totals.documentsScanned += childTotals.documentsScanned;
+        totals.documentsChanged += childTotals.documentsChanged;
+        totals.fieldsChanged += childTotals.fieldsChanged;
+        totals.pathReplacements += childTotals.pathReplacements;
+      }
+    }
+  }
+
+  return totals;
+}
+
+function getWorldCollections() {
+  return [
+    { label: "Actor", collection: game.actors },
+    { label: "Item", collection: game.items },
+    { label: "ChatMessage", collection: game.messages },
+    { label: "JournalEntry", collection: game.journal },
+    { label: "Scene", collection: game.scenes },
+    { label: "RollTable", collection: game.tables },
+    { label: "Macro", collection: game.macros },
+    { label: "Playlist", collection: game.playlists },
+    { label: "Cards", collection: game.cards },
+    { label: "Folder", collection: game.folders }
+  ];
+}
+
+async function maybeUnlockPack(pack, { unlockPacks, dryRun }) {
+  if (dryRun) return { wasLocked: Boolean(pack?.locked), unlocked: false };
+  if (!unlockPacks) return { wasLocked: Boolean(pack?.locked), unlocked: false };
+  if (!pack?.locked) return { wasLocked: false, unlocked: false };
+  if (typeof pack.configure !== "function") return { wasLocked: true, unlocked: false };
+
+  await pack.configure({ locked: false });
+  return { wasLocked: true, unlocked: true };
+}
+
+async function maybeRelockPack(pack, state, { relockPacks, dryRun }) {
+  if (dryRun) return;
+  if (!relockPacks) return;
+  if (!state?.wasLocked) return;
+  if (!state?.unlocked) return;
+  if (typeof pack.configure !== "function") return;
+  await pack.configure({ locked: true });
+}
+
+export async function migrateModuleAssetPngToWebpPaths({
+  moduleId = MOD_ID,
+  includeWorld = true,
+  includeCompendiums = true,
+  moduleOnlyCompendiums = false,
+  includeEmbedded = true,
+  dryRun = false,
+  notify = true,
+  unlockPacks = true,
+  relockPacks = true
+} = {}) {
+  if (!game.user?.isGM) {
+    ui.notifications?.warn?.("SinlessCSB | PNG->WEBP migration requires GM permissions.");
+    return null;
+  }
+
+  const result = {
+    moduleId,
+    dryRun: Boolean(dryRun),
+    includeWorld: Boolean(includeWorld),
+    includeCompendiums: Boolean(includeCompendiums),
+    moduleOnlyCompendiums: Boolean(moduleOnlyCompendiums),
+    includeEmbedded: Boolean(includeEmbedded),
+    world: {
+      collectionsScanned: 0,
+      documentsScanned: 0,
+      documentsChanged: 0,
+      fieldsChanged: 0,
+      pathReplacements: 0
+    },
+    compendiums: {
+      packsScanned: 0,
+      packsChanged: 0,
+      documentsScanned: 0,
+      documentsChanged: 0,
+      fieldsChanged: 0,
+      pathReplacements: 0
+    },
+    errors: []
+  };
+
+  if (includeWorld) {
+    const worldCollections = getWorldCollections();
+    for (const entry of worldCollections) {
+      const docs = toArray(entry.collection);
+      result.world.collectionsScanned += 1;
+
+      for (const doc of docs) {
+        try {
+          const totals = await migrateDocumentTree(doc, {
+            moduleId,
+            dryRun,
+            includeEmbedded
+          });
+          result.world.documentsScanned += totals.documentsScanned;
+          result.world.documentsChanged += totals.documentsChanged;
+          result.world.fieldsChanged += totals.fieldsChanged;
+          result.world.pathReplacements += totals.pathReplacements;
+        } catch (err) {
+          result.errors.push({
+            scope: "world",
+            collection: entry.label,
+            documentId: doc?.id ?? null,
+            documentName: doc?.name ?? null,
+            message: String(err?.message ?? err)
+          });
+        }
+      }
+    }
+  }
+
+  if (includeCompendiums) {
+    const packs = toArray(game.packs).filter((pack) => {
+      if (!moduleOnlyCompendiums) return true;
+      return pack?.metadata?.packageName === moduleId;
+    });
+
+    result.compendiums.packsScanned = packs.length;
+
+    for (const pack of packs) {
+      let packState = { wasLocked: Boolean(pack?.locked), unlocked: false };
+      let packChangedDocs = 0;
+      try {
+        packState = await maybeUnlockPack(pack, { unlockPacks, dryRun });
+      } catch (err) {
+        result.errors.push({
+          scope: "compendium",
+          pack: pack?.collection ?? "(unknown)",
+          message: `Unlock failed: ${String(err?.message ?? err)}`
+        });
+      }
+
+      try {
+        const docs = await pack.getDocuments();
+
+        for (const doc of docs) {
+          try {
+            const totals = await migrateDocumentTree(doc, {
+              moduleId,
+              dryRun,
+              includeEmbedded
+            });
+            result.compendiums.documentsScanned += totals.documentsScanned;
+            result.compendiums.documentsChanged += totals.documentsChanged;
+            result.compendiums.fieldsChanged += totals.fieldsChanged;
+            result.compendiums.pathReplacements += totals.pathReplacements;
+            if (totals.documentsChanged > 0) {
+              packChangedDocs += 1;
+            }
+          } catch (err) {
+            result.errors.push({
+              scope: "compendium",
+              pack: pack?.collection ?? "(unknown)",
+              documentId: doc?.id ?? null,
+              documentName: doc?.name ?? null,
+              message: String(err?.message ?? err)
+            });
+          }
+        }
+      } catch (err) {
+        result.errors.push({
+          scope: "compendium",
+          pack: pack?.collection ?? "(unknown)",
+          message: `Read failed: ${String(err?.message ?? err)}`
+        });
+      } finally {
+        if (packChangedDocs > 0) {
+          result.compendiums.packsChanged += 1;
+        }
+        try {
+          await maybeRelockPack(pack, packState, { relockPacks, dryRun });
+        } catch (err) {
+          result.errors.push({
+            scope: "compendium",
+            pack: pack?.collection ?? "(unknown)",
+            message: `Relock failed: ${String(err?.message ?? err)}`
+          });
+        }
+      }
+    }
+  }
+
+  const totalDocsChanged = result.world.documentsChanged + result.compendiums.documentsChanged;
+  const totalRefs = result.world.pathReplacements + result.compendiums.pathReplacements;
+
+  if (notify) {
+    const mode = dryRun ? "Dry run" : "Migration";
+    ui.notifications?.info?.(
+      `SinlessCSB | ${mode} complete. Changed ${totalDocsChanged} documents (${totalRefs} path updates).`
+    );
+    if (result.errors.length) {
+      ui.notifications?.warn?.(
+        `SinlessCSB | PNG->WEBP migration had ${result.errors.length} error(s). See console.`
+      );
+    }
+  }
+
+  if (result.errors.length) {
+    console.warn("SinlessCSB | PNG->WEBP migration errors", result.errors);
+  }
+
+  console.log("SinlessCSB | PNG->WEBP migration result", result);
+  return result;
+}

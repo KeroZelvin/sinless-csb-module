@@ -50,9 +50,15 @@ import { registerDroneInlineActions } from "./hooks/drone-inline-actions.js";
 import { registerHackingInlineActions } from "./hooks/hacking-inline-actions.js";
 import { registerSoftwareSlotRefreshHooks } from "./hooks/software-slot-refresh.js";
 import { registerCyberdeckSingleHooks } from "./hooks/cyberdeck-single.js";
+import {
+  exportCompendiumIndexMarkdown,
+  exportFolderTreeMarkdown,
+  exportDevReferenceMarkdowns
+} from "./api/dev-exports.js";
 
 const MOD_ID = "sinlesscsb";
 const CHASE_TABLE_SETTING = "chaseTableUuid";
+const DEV_EXPORTS_ON_LOAD_SETTING = "devRunReferenceExportsOnLoad";
 
 function isChaseTableName(name) {
   const n = String(name ?? "").trim().toLowerCase();
@@ -191,10 +197,44 @@ function exposeModuleAPI() {
     deployOwnedDrone,
     deployOwnedVehicle,
     openOwnedDroneSheet,
-    openOwnedVehicleSheet
+    openOwnedVehicleSheet,
+    exportCompendiumIndexMarkdown,
+    exportFolderTreeMarkdown,
+    exportDevReferenceMarkdowns
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
+}
+
+async function maybeRunDevReferenceExportsIfEnabled() {
+  if (!game.user?.isGM) return;
+
+  const shouldRun = Boolean(game.settings?.get?.(MOD_ID, DEV_EXPORTS_ON_LOAD_SETTING));
+  if (!shouldRun) return;
+
+  ui.notifications?.info?.("SinlessCSB | Running dev exports (setting enabled)...");
+
+  try {
+    const output = await exportDevReferenceMarkdowns({
+      moduleId: MOD_ID,
+      notify: false
+    });
+
+    const errors = output?.errors ?? [];
+    if (errors.length) {
+      ui.notifications?.warn?.(
+        `SinlessCSB | Dev exports completed with ${errors.length} error(s). See console.`
+      );
+    } else {
+      const folderFile = output?.folderTree?.fileName ?? "(folder tree)";
+      ui.notifications?.info?.(
+        `SinlessCSB | Dev exports complete: compendium-index.md + ${folderFile}`
+      );
+    }
+  } catch (err) {
+    console.error("SinlessCSB | dev exports failed", err);
+    ui.notifications?.error?.("SinlessCSB | Dev exports failed. See console.");
+  }
 }
 
 /* ===============================
@@ -317,6 +357,15 @@ Hooks.once("init", () => {
     default: false
   });
 
+  game.settings.register(MOD_ID, DEV_EXPORTS_ON_LOAD_SETTING, {
+    name: "Run Dev Exports On Load",
+    hint: "GM-only helper. While enabled, each world load exports compendium-index.md and folder-tree_*.md. Turn this off to stop automatic exports.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   Hooks.on("renderActorSheet", (app) => {
     if (!game.settings.get(MOD_ID, "debugLogs")) return;
     console.log("SinlessCSB | renderActorSheet FIRED", {
@@ -353,6 +402,10 @@ Hooks.once("ready", () => {
 
   // Cache the active CarChase RollTable UUID (world table preferred).
   ensureChaseTableUuid().catch?.(() => {});
+
+  maybeRunDevReferenceExportsIfEnabled().catch?.((err) => {
+    console.error("SinlessCSB | maybeRunDevReferenceExportsIfEnabled failed", err);
+  });
 
   registerSheetThemeHooks();
   registerCombatHooks();
