@@ -5,13 +5,13 @@ v0.1.0
     work on pregens
     added assets
     tweaked initiative to allow dice mod from features like bug spy
-    work on brands
     Added Sprint / Charge / Jump / Climb / Swim buttons and corresponding api code
     Death Spiral now automated and impacts roll successes.
     kismet pool refresh on combat start
     fixed amp skills
     lightened module png--> webp files
     add GM/dev compendium / folder tree output on module load under settings
+    work on resources / brands
     
 
 v0.0.9

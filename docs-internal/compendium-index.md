@@ -1,6 +1,6 @@
 # SinlessCSB - Compendium Index
 
-Generated: 2026-02-15T17:06:49.133Z
+Generated: 2026-02-21T19:54:13.432Z
 Module: sinlesscsb
 Foundry: 13.351
 - Format: `sinlesscsb-compendium-index-v2`
@@ -21,18 +21,18 @@ Foundry: 13.351
 - System: `custom-system-builder`
 - Package: `sinlesscsb`
 
-**Count:** 103
+**Count:** 101
 - Folders detected: 13
-- Entries in folders: 103
+- Entries in folders: 101
 - Entries unfoldered: 0
-- Entries with `img`: 103
-- Actors with token image: 103
-- Duplicate names in this pack: 0
+- Entries with `img`: 101
+- Actors with token image: 101
+- Duplicate names in this pack: 1
 
 #### Folder Tree
 - [FOLDER] PCs {folderId:bGGgYtFXJvPyXTLo, parentFolderId:null, depth:0, path:"PCs"}
-  - [FOLDER] pcControlled {folderId:T2tb1RlCWPfkdVR5, parentFolderId:bGGgYtFXJvPyXTLo, depth:1, path:"PCs/pcControlled"}
   - [FOLDER] PreGens {folderId:tlB8baeczfAB1tEw, parentFolderId:bGGgYtFXJvPyXTLo, depth:1, path:"PCs/PreGens"}
+  - [FOLDER] pcControlled {folderId:T2tb1RlCWPfkdVR5, parentFolderId:bGGgYtFXJvPyXTLo, depth:1, path:"PCs/pcControlled"}
 - [FOLDER] NPCs {folderId:p6hbQkfl32SKkvGO, parentFolderId:null, depth:0, path:"NPCs"}
   - [FOLDER] Animals {folderId:bO6yVDTjF5UQw2ZU, parentFolderId:p6hbQkfl32SKkvGO, depth:1, path:"NPCs/Animals"}
   - [FOLDER] Drones {folderId:w2u228ARPzSzv5YK, parentFolderId:p6hbQkfl32SKkvGO, depth:1, path:"NPCs/Drones"}
@@ -47,19 +47,19 @@ Foundry: 13.351
 #### Folder Index
 | path | folderId | parentFolderId | depth | sort |
 | --- | --- | --- | ---: | ---: |
-| DroneHangar | C9SZJMPMSIoSKI67 |  | 0 | 100000 |
-| NPCs | p6hbQkfl32SKkvGO |  | 0 | 50000 |
+| DroneHangar | C9SZJMPMSIoSKI67 |  | 0 | 300000 |
+| NPCs | p6hbQkfl32SKkvGO |  | 0 | 200000 |
 | NPCs/Animals | bO6yVDTjF5UQw2ZU | p6hbQkfl32SKkvGO | 1 | 0 |
 | NPCs/Drones | w2u228ARPzSzv5YK | p6hbQkfl32SKkvGO | 1 | 0 |
 | NPCs/Goons | p8IVu82dgB2UKnoT | p6hbQkfl32SKkvGO | 1 | 0 |
 | NPCs/Iniquitates | N3RsHmS7ZofXCTDB | p6hbQkfl32SKkvGO | 1 | 0 |
 | NPCs/Programs | OHGJHoWG4unr64QM | p6hbQkfl32SKkvGO | 1 | 0 |
 | NPCs/Spirits | ZMsiW2FSdQ2KSvnq | p6hbQkfl32SKkvGO | 1 | 0 |
-| PCs | bGGgYtFXJvPyXTLo |  | 0 | 0 |
-| PCs/pcControlled | T2tb1RlCWPfkdVR5 | bGGgYtFXJvPyXTLo | 1 | 0 |
-| PCs/PreGens | tlB8baeczfAB1tEw | bGGgYtFXJvPyXTLo | 1 | 0 |
-| Templates | eJiZ5ojJouMYFr9R |  | 0 | 600000 |
-| VehicleHangar | I8VLhxriauMW5wH0 |  | 0 | 500000 |
+| PCs | bGGgYtFXJvPyXTLo |  | 0 | 100000 |
+| PCs/pcControlled | T2tb1RlCWPfkdVR5 | bGGgYtFXJvPyXTLo | 1 | 300000 |
+| PCs/PreGens | tlB8baeczfAB1tEw | bGGgYtFXJvPyXTLo | 1 | 100000 |
+| Templates | eJiZ5ojJouMYFr9R |  | 0 | 500000 |
+| VehicleHangar | I8VLhxriauMW5wH0 |  | 0 | 400000 |
 
 #### Document Index
 | Name | UUID | folderPath | folderId | subtype | img | tokenImg |
@@ -71,20 +71,20 @@ Foundry: 13.351
 | Disc | `Compendium.sinlesscsb.sinlesscsb-actor-templates.KMXnuSsA1IEnSivh` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p145_img2_xref745.webp | modules/sinlesscsb/assets/icons/SR5/Carvalho/digital-trace.svg |
 | Dog-Patrol Drone | `Compendium.sinlesscsb.sinlesscsb-actor-templates.32ejekBhTDE5cOSF` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img4_xref768.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img4_xref768.webp |
 | Gladiator | `Compendium.sinlesscsb.sinlesscsb-actor-templates.Kvr6pUqEwt73QXcs` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p148_img2_xref798.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p148_img2_xref798.webp |
+| Hawk | `Compendium.sinlesscsb.sinlesscsb-actor-templates.q3Udsyg7zovQ5FoD` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img3_xref783.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img3_xref783.webp |
 | Mobile Sentinel | `Compendium.sinlesscsb.sinlesscsb-actor-templates.1fJQnIQ76TnvqdAz` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img2_xref779.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img2_xref779.webp |
 | Orb | `Compendium.sinlesscsb.sinlesscsb-actor-templates.Fn9V6LmM5QzdLAkY` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p145_img3_xref749.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p145_img3_xref749.webp |
 | Roto-Drone | `Compendium.sinlesscsb.sinlesscsb-actor-templates.QMHLg5Nh2Qub92O5` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img2_xref760.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img2_xref760.webp |
 | Shield Drone | `Compendium.sinlesscsb.sinlesscsb-actor-templates.hZummIxj1gYPgpOg` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img3_xref764.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img3_xref764.webp |
 | Shield-Wall Drone | `Compendium.sinlesscsb.sinlesscsb-actor-templates.JOnBPPrrMCimY5wx` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img4_xref787.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p147_img4_xref787.webp |
 | VSTOL Bird | `Compendium.sinlesscsb.sinlesscsb-actor-templates.HK9rSt7Bw28kC91e` | DroneHangar | C9SZJMPMSIoSKI67 | character | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img1_xref756.webp | modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img1_xref756.webp |
-| NPCtest | `Compendium.sinlesscsb.sinlesscsb-actor-templates.AP1IGJDa3vNgHD75` | NPCs | p6hbQkfl32SKkvGO | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Session Settings | `Compendium.sinlesscsb.sinlesscsb-actor-templates.U8ITLI4BCWctTKnY` | NPCs | p6hbQkfl32SKkvGO | character | modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B3.webp | modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B3.webp |
 | Bear | `Compendium.sinlesscsb.sinlesscsb-actor-templates.8S6qaeWInLOl4qc4` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Cat | `Compendium.sinlesscsb.sinlesscsb-actor-templates.BWA3pls6uk73KGlq` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Dog | `Compendium.sinlesscsb.sinlesscsb-actor-templates.ClylecXaREys3eYe` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Elephant | `Compendium.sinlesscsb.sinlesscsb-actor-templates.0uZ2brFL5XVRcPPC` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Gorilla | `Compendium.sinlesscsb.sinlesscsb-actor-templates.ZItdsgolntxNF8p0` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
-| Hawk | `Compendium.sinlesscsb.sinlesscsb-actor-templates.q3Udsyg7zovQ5FoD` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
+| Hawk | `Compendium.sinlesscsb.sinlesscsb-actor-templates.AOBith7wwuUmP7VP` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Horse | `Compendium.sinlesscsb.sinlesscsb-actor-templates.PF0aRBByTy67TOdS` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Wildcat/Panther | `Compendium.sinlesscsb.sinlesscsb-actor-templates.M1QAEppPYWtjhe1Q` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Wolf | `Compendium.sinlesscsb.sinlesscsb-actor-templates.HHSCId1xRVp5z8gw` | NPCs/Animals | bO6yVDTjF5UQw2ZU | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
@@ -121,9 +121,9 @@ Foundry: 13.351
 | Stormwing | `Compendium.sinlesscsb.sinlesscsb-actor-templates.eNG6ra9AAfbkuxuj` | NPCs/Spirits | ZMsiW2FSdQ2KSvnq | character | modules/sinlesscsb/assets/images/critters/white/Stormwing_white.webp | modules/sinlesscsb/assets/images/critters/white/Stormwing_white.webp |
 | Terra Factorem | `Compendium.sinlesscsb.sinlesscsb-actor-templates.KiwePQ0zQvozm6xC` | NPCs/Spirits | ZMsiW2FSdQ2KSvnq | character | modules/sinlesscsb/assets/images/critters/white/TerraFactorem_white.webp | modules/sinlesscsb/assets/images/critters/white/TerraFactorem_white.webp |
 | Zeek Electricity Spirit | `Compendium.sinlesscsb.sinlesscsb-actor-templates.msTIIV2QHErNVW1z` | NPCs/Spirits | ZMsiW2FSdQ2KSvnq | character | modules/sinlesscsb/assets/images/critters/white/Zeke_white.webp | modules/sinlesscsb/assets/images/critters/white/Zeke_white.webp |
+| 273-B_L0 | `Compendium.sinlesscsb.sinlesscsb-actor-templates.eMbezua6UThIStwT` | PCs | bGGgYtFXJvPyXTLo | character | modules/sinlesscsb/assets/icons/SR6/default/card-joker.svg | modules/sinlesscsb/assets/icons/SR6/default/card-joker.svg |
 | Crime by Day, Rave by Night | `Compendium.sinlesscsb.sinlesscsb-actor-templates.3UvKepdZNQcxmmIe` | PCs | bGGgYtFXJvPyXTLo | character | modules/sinlesscsb/assets/icons/SR6/black-chrome/killstrom-typhoid-speaker.svg | modules/sinlesscsb/assets/icons/SR6/black-chrome/killstrom-typhoid-speaker.svg |
 | PC Sheet (duplicate & rename) | `Compendium.sinlesscsb.sinlesscsb-actor-templates.qXmqhVfZkE8eEbd6` | PCs | bGGgYtFXJvPyXTLo | character | modules/sinlesscsb/assets/icons/SR6/default/cowled.svg | modules/sinlesscsb/assets/icons/SR6/default/cowled.svg |
-| TestSpell | `Compendium.sinlesscsb.sinlesscsb-actor-templates.eMbezua6UThIStwT` | PCs | bGGgYtFXJvPyXTLo | character | modules/sinlesscsb/assets/icons/SR6/default/card-joker.svg | modules/sinlesscsb/assets/icons/SR6/default/card-joker.svg |
 | ARCHMAG | `Compendium.sinlesscsb.sinlesscsb-actor-templates.iDwCzeasOdOeW3lz` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/Archmag.webp | modules/sinlesscsb/assets/images/pregens/Archmag.webp |
 | ASSASSIN | `Compendium.sinlesscsb.sinlesscsb-actor-templates.i6WYCzWY0pveTact` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/Assasin.webp | modules/sinlesscsb/assets/images/pregens/Assasin.webp |
 | COVERT OPERATIVE | `Compendium.sinlesscsb.sinlesscsb-actor-templates.D5WzoYijRz7njQMS` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/CovertOperative.webp | modules/sinlesscsb/assets/images/pregens/CovertOperative.webp |
@@ -135,15 +135,13 @@ Foundry: 13.351
 | MARTIAL ARTIST | `Compendium.sinlesscsb.sinlesscsb-actor-templates.9HqlPECYxaacY01V` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/MartialArtist.webp | modules/sinlesscsb/assets/images/pregens/MartialArtist.webp |
 | POP IDOL | `Compendium.sinlesscsb.sinlesscsb-actor-templates.JF5REvziVWvRoj60` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/PopIdol.webp | modules/sinlesscsb/assets/images/pregens/PopIdol.webp |
 | Rigger Sleuth | `Compendium.sinlesscsb.sinlesscsb-actor-templates.pt3aAa7sgQZv3xsy` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/RiggerSleuth.webp | modules/sinlesscsb/assets/images/pregens/RiggerSleuth.webp |
-| Synthetic wasteland archmage | `Compendium.sinlesscsb.sinlesscsb-actor-templates.eMIR1Wvxh4VxXWES` | PCs/PreGens | tlB8baeczfAB1tEw | character | icons/svg/mystery-man.svg | icons/svg/mystery-man.svg |
 | Vamp Face | `Compendium.sinlesscsb.sinlesscsb-actor-templates.UwUS1iZD5q7M0ggU` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/VampFace.webp | modules/sinlesscsb/assets/images/pregens/VampFace.webp |
-| WASTELAND MAGE | `Compendium.sinlesscsb.sinlesscsb-actor-templates.r1gnY5zklCE7yih0` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/WastelanMage.webp | modules/sinlesscsb/assets/images/pregens/WastelanMage.webp |
+| WASTELAND MAGE | `Compendium.sinlesscsb.sinlesscsb-actor-templates.eMIR1Wvxh4VxXWES` | PCs/PreGens | tlB8baeczfAB1tEw | character | modules/sinlesscsb/assets/images/pregens/WastelanMage.webp | modules/sinlesscsb/assets/images/pregens/WastelanMage.webp |
 | Brand Template | `Compendium.sinlesscsb.sinlesscsb-actor-templates.uI4SrMJ9fuLk7UN0` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
 | Drone Template | `Compendium.sinlesscsb.sinlesscsb-actor-templates.lL9MiN64F7mRGhuj` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
 | Session Settings Template | `Compendium.sinlesscsb.sinlesscsb-actor-templates.DubVcAsia226PlV0` | Templates | eJiZ5ojJouMYFr9R | _template | modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B3.webp | systems/custom-system-builder/img/template-logo.svg |
-| Sinless NPC | `Compendium.sinlesscsb.sinlesscsb-actor-templates.694838d341f4407b` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | icons/svg/mystery-man.svg |
+| Sinless NPC | `Compendium.sinlesscsb.sinlesscsb-actor-templates.694838d341f4407b` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
 | Sinless PC | `Compendium.sinlesscsb.sinlesscsb-actor-templates.409875cd45a544c0` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
-| Sinless PC (Copy) | `Compendium.sinlesscsb.sinlesscsb-actor-templates.OXKxlTnNPzmAbRn2` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
 | Vehicle Template | `Compendium.sinlesscsb.sinlesscsb-actor-templates.9YbyOSIZBhfekbLK` | Templates | eJiZ5ojJouMYFr9R | _template | systems/custom-system-builder/img/template-logo.svg | systems/custom-system-builder/img/template-logo.svg |
 | Armored Car | `Compendium.sinlesscsb.sinlesscsb-actor-templates.YrcHYiZz2DClrx73` | VehicleHangar | I8VLhxriauMW5wH0 | character | modules/sinlesscsb/assets/images/SinlessVehicles/white/ArmoredCar_white.webp | modules/sinlesscsb/assets/images/SinlessVehicles/white/ArmoredCar_white.webp |
 | Battle Cycle | `Compendium.sinlesscsb.sinlesscsb-actor-templates.gMuob9Zc3oQMJL5t` | VehicleHangar | I8VLhxriauMW5wH0 | character | modules/sinlesscsb/assets/images/SinlessVehicles/white/BattleCycle_white.webp | modules/sinlesscsb/assets/icons/SR6/black-chrome/zonda-parallax.svg |
@@ -168,6 +166,11 @@ Foundry: 13.351
 | Transport Heli | `Compendium.sinlesscsb.sinlesscsb-actor-templates.6ZaXDQU7FcPyh3Kg` | VehicleHangar | I8VLhxriauMW5wH0 | character | modules/sinlesscsb/assets/images/SinlessVehicles/white/TransportHelicopter_white.webp | modules/sinlesscsb/assets/images/SinlessVehicles/white/TransportHelicopter_white.webp |
 | Two-Seater | `Compendium.sinlesscsb.sinlesscsb-actor-templates.Cr8G5z5z7R6gikRB` | VehicleHangar | I8VLhxriauMW5wH0 | character | modules/sinlesscsb/assets/images/SinlessVehicles/white/TwoSeater_white.webp | modules/sinlesscsb/assets/images/SinlessVehicles/white/TwoSeater_white.webp |
 
+#### Duplicate Name Warnings
+| name | count | folderPaths |
+| --- | ---: | --- |
+| Hawk | 2 | DroneHangar ; NPCs/Animals |
+
 **Notes:**
 - _Add notes here in VS Code (e.g., curation status, dependencies, do-not-edit guidance, image swap notes)._
 
@@ -179,11 +182,11 @@ Foundry: 13.351
 - System: `custom-system-builder`
 - Package: `sinlesscsb`
 
-**Count:** 416
+**Count:** 436
 - Folders detected: 33
-- Entries in folders: 416
+- Entries in folders: 436
 - Entries unfoldered: 0
-- Entries with `img`: 416
+- Entries with `img`: 436
 - Duplicate names in this pack: 5
 
 #### Folder Tree
@@ -224,15 +227,15 @@ Foundry: 13.351
 #### Folder Index
 | path | folderId | parentFolderId | depth | sort |
 | --- | --- | --- | ---: | ---: |
-| _Templates | lm14M8GJkCltaS3J |  | 0 | 300000 |
-| Brand | U0xPHn13he6mwKNg |  | 0 | 150000 |
+| _Templates | lm14M8GJkCltaS3J |  | 0 | 600000 |
+| Brand | U0xPHn13he6mwKNg |  | 0 | 500000 |
 | Brand/Assets | 76RtzViuhpI874RJ | U0xPHn13he6mwKNg | 1 | 100000 |
 | Brand/Resources | tH4sjhPKYwIEC0KT | U0xPHn13he6mwKNg | 1 | 0 |
-| Decking | 2idKfyaV1KZVqL6V |  | 0 | 0 |
+| Decking | 2idKfyaV1KZVqL6V |  | 0 | 200000 |
 | Decking/Cyberdecks | TpyOdo9rRmcJZwT2 | 2idKfyaV1KZVqL6V | 1 | 0 |
 | Decking/E War Threads | FBqDldU0lm0kCoRQ | 2idKfyaV1KZVqL6V | 1 | 200000 |
 | Decking/Hacking Threads | 92dSVkunMksoE7g2 | 2idKfyaV1KZVqL6V | 1 | 100000 |
-| Manon | oWRM8pNMOUkbZHoV |  | 0 | 125000 |
+| Manon | oWRM8pNMOUkbZHoV |  | 0 | 400000 |
 | Manon/Amplification | TOqDCNaMbz4McNIl | oWRM8pNMOUkbZHoV | 1 | 25000 |
 | Manon/Conjuring | 6whq1Osyvu4GSURS | oWRM8pNMOUkbZHoV | 1 | 0 |
 | Manon/Conjuring/Spirit Maps | aHvlIdpJNdmTmDRg | 6whq1Osyvu4GSURS | 2 | 0 |
@@ -244,14 +247,14 @@ Foundry: 13.351
 | Manon/Sorcery/Incantor | m0jRApcb3Al3Dh3t | fzpbw6RIBAzBp9kN | 2 | 300000 |
 | Manon/Sorcery/Mentalism | xuhgaKb2rgkuMPKA | fzpbw6RIBAzBp9kN | 2 | 400000 |
 | Manon/Sorcery/The Bound | Fi8plai5LkNJGnNE | fzpbw6RIBAzBp9kN | 2 | 450000 |
-| Rigging | bRI78s2WG6gVDJ4C |  | 0 | 100000 |
+| Rigging | bRI78s2WG6gVDJ4C |  | 0 | 300000 |
 | Rigging/Drive / Fly Skills | wpNVoTaalbsoL0Lv | bRI78s2WG6gVDJ4C | 1 | 100000 |
 | Rigging/Drone Weapons | Ts6jM2x9mZugV8R4 | bRI78s2WG6gVDJ4C | 1 | 125000 |
 | Rigging/Drones | DswGzl1e1TynhREL | bRI78s2WG6gVDJ4C | 1 | -100000 |
 | Rigging/VCR | d3QnO994LfRud9yy | bRI78s2WG6gVDJ4C | 1 | -200000 |
 | Rigging/Vehicle Weapons | 17SxKReYD26TEIrd | bRI78s2WG6gVDJ4C | 1 | 150000 |
 | Rigging/Vehicles | ic8w75E9GFrktS4x | bRI78s2WG6gVDJ4C | 1 | 0 |
-| Weapons | l7jcqzFSJr3Qemeu |  | 0 | -100000 |
+| Weapons | l7jcqzFSJr3Qemeu |  | 0 | 100000 |
 | Weapons/Energy | fFGfPC4Uqyeabnvo | l7jcqzFSJr3Qemeu | 1 | 175000 |
 | Weapons/Firearms | 5KWDwkU23whetOIV | l7jcqzFSJr3Qemeu | 1 | 162500 |
 | Weapons/Melee | aHRmcytEr2emGb1Y | l7jcqzFSJr3Qemeu | 1 | 100000 |
@@ -412,7 +415,27 @@ Foundry: 13.351
 | William Kilgore | `Compendium.sinlesscsb.sinlesscsb-item-templates.nhTkSzOfSyu0y4Pk` | Brand/Assets | 76RtzViuhpI874RJ | equippableItem | modules/sinlesscsb/assets/images/assets/bill_killgore.webp |  |
 | Yahya Boulos | `Compendium.sinlesscsb.sinlesscsb-item-templates.eE8lmGwmE4kgOrjc` | Brand/Assets | 76RtzViuhpI874RJ | equippableItem | modules/sinlesscsb/assets/images/assets/yahya_boulos.webp |  |
 | Zane | `Compendium.sinlesscsb.sinlesscsb-item-templates.x7uOelnHCPtdL5yy` | Brand/Assets | 76RtzViuhpI874RJ | equippableItem | modules/sinlesscsb/assets/images/assets/zane.webp |  |
+| Arboretum | `Compendium.sinlesscsb.sinlesscsb-item-templates.jdk3ydvlbMaJyHQ6` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/arboretum.webp |  |
+| Arena | `Compendium.sinlesscsb.sinlesscsb-item-templates.ao1LeiGdArgTayOq` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/arena.webp |  |
+| Back alley network | `Compendium.sinlesscsb.sinlesscsb-item-templates.hwejJyr857pZ6s4c` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/back_alley_network.webp |  |
+| Bar/dance club | `Compendium.sinlesscsb.sinlesscsb-item-templates.3Ev286ereeoCaIRi` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/bar_dance_club.webp |  |
+| Casino | `Compendium.sinlesscsb.sinlesscsb-item-templates.s0ws1QKmf14G3k9P` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/casino.webp |  |
+| Clinic | `Compendium.sinlesscsb.sinlesscsb-item-templates.QmrPDuZOGlLxSIUC` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/clinic.webp |  |
+| Condos | `Compendium.sinlesscsb.sinlesscsb-item-templates.sNilkZ293pdkEixq` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/condos.webp |  |
+| Corporate Towers | `Compendium.sinlesscsb.sinlesscsb-item-templates.MfXn7gpdVQ8DqTnD` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/corporate_towers.webp |  |
+| Factory | `Compendium.sinlesscsb.sinlesscsb-item-templates.QF0OOHX1XgWn330s` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/factory.webp |  |
+| Gym | `Compendium.sinlesscsb.sinlesscsb-item-templates.0ziuyvWTwZwEZOea` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/gym.webp |  |
+| Headquarters | `Compendium.sinlesscsb.sinlesscsb-item-templates.KBTRReB8weZT4qgE` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/headquarters.webp |  |
+| Hospital/Surgery Center | `Compendium.sinlesscsb.sinlesscsb-item-templates.RFaPzL2GsPt5QbHl` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/hospital_surgery_center.webp |  |
+| Housing | `Compendium.sinlesscsb.sinlesscsb-item-templates.4rMYmmcqR7PoriQb` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/housing.webp |  |
+| Mass Media Station | `Compendium.sinlesscsb.sinlesscsb-item-templates.wP3jtHz1vOj0xGrj` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/mass_media_station.webp |  |
+| Museum | `Compendium.sinlesscsb.sinlesscsb-item-templates.9SyF4qbfCfg9cQPW` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/museum.webp |  |
+| Offices | `Compendium.sinlesscsb.sinlesscsb-item-templates.x3NvsZMrCjWvtXXP` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/offices.webp |  |
+| Research Lab | `Compendium.sinlesscsb.sinlesscsb-item-templates.2jq96QNoBiHYIYxd` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/research_lab.webp |  |
 | ResourceTest | `Compendium.sinlesscsb.sinlesscsb-item-templates.WFTBh6F3W11sBXdI` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | icons/svg/item-bag.svg |  |
+| Science Center | `Compendium.sinlesscsb.sinlesscsb-item-templates.Hfx5VhDee81DexzD` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/science_center.webp |  |
+| Store | `Compendium.sinlesscsb.sinlesscsb-item-templates.pnxba3G7zPMbSOFl` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/store.webp |  |
+| Temple | `Compendium.sinlesscsb.sinlesscsb-item-templates.yzzNdPkdWPYCkyk8` | Brand/Resources | tH4sjhPKYwIEC0KT | equippableItem | modules/sinlesscsb/assets/images/resources/temple.webp |  |
 | Fujitsu Edge | `Compendium.sinlesscsb.sinlesscsb-item-templates.EXplZQVrK4Iuq2Cs` | Decking/Cyberdecks | TpyOdo9rRmcJZwT2 | equippableItem | modules/sinlesscsb/assets/icons/cpRed/gear/tech_scanner.svg |  |
 | Mars Claymore | `Compendium.sinlesscsb.sinlesscsb-item-templates.fzQqP7oUYtJb8rHo` | Decking/Cyberdecks | TpyOdo9rRmcJZwT2 | equippableItem | modules/sinlesscsb/assets/icons/cpRed/gear/radar_detector.svg |  |
 | MasterDeck | `Compendium.sinlesscsb.sinlesscsb-item-templates.tn1WVRqrAoPCjIWp` | Decking/Cyberdecks | TpyOdo9rRmcJZwT2 | equippableItem | modules/sinlesscsb/assets/icons/SR5/importer/device.svg |  |
@@ -734,14 +757,14 @@ Foundry: 13.351
 - Duplicate names in this pack: 0
 
 #### Folder Tree
-- [FOLDER] SYSTEM_SUPPORT {folderId:brwI6FNxjxJq9H1r, parentFolderId:null, depth:0, path:"SYSTEM_SUPPORT"}
 - [FOLDER] Player Bar Macros {folderId:hE39SdlYGegRigDw, parentFolderId:null, depth:0, path:"Player Bar Macros"}
+- [FOLDER] SYSTEM_SUPPORT {folderId:brwI6FNxjxJq9H1r, parentFolderId:null, depth:0, path:"SYSTEM_SUPPORT"}
 
 #### Folder Index
 | path | folderId | parentFolderId | depth | sort |
 | --- | --- | --- | ---: | ---: |
-| Player Bar Macros | hE39SdlYGegRigDw |  | 0 | 200000 |
-| SYSTEM_SUPPORT | brwI6FNxjxJq9H1r |  | 0 | 100000 |
+| Player Bar Macros | hE39SdlYGegRigDw |  | 0 | 100000 |
+| SYSTEM_SUPPORT | brwI6FNxjxJq9H1r |  | 0 | 200000 |
 
 #### Document Index
 | Name | UUID | folderPath | folderId | subtype | img | tokenImg |

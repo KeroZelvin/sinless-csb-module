@@ -1,7 +1,7 @@
 # Folder Tree (Actors + Items)
 
 - World: **PacificNorthWestMarches**
-- Generated (ISO): 2026-02-13T16:19:51.656Z
+- Generated (ISO): 2026-02-21T19:54:22.863Z
 - Format: `sinlesscsb-folder-tree-v2`
 
 ## Parse Rules
@@ -12,8 +12,9 @@
 
 ## Actors - Tree
 - [FOLDER] PCs {id:bGGgYtFXJvPyXTLo, parent:null, depth:0, path:"PCs"}
+  - [ACTOR] 273-B_L0 {id:eMbezua6UThIStwT, type:character, folderId:bGGgYtFXJvPyXTLo}
+  - [ACTOR] Crime by Day, Rave by Night {id:3UvKepdZNQcxmmIe, type:character, folderId:bGGgYtFXJvPyXTLo}
   - [ACTOR] PC Sheet (duplicate & rename) {id:qXmqhVfZkE8eEbd6, type:character, folderId:bGGgYtFXJvPyXTLo}
-  - [ACTOR] TestSpell {id:eMbezua6UThIStwT, type:character, folderId:bGGgYtFXJvPyXTLo}
   - [FOLDER] PreGens {id:tlB8baeczfAB1tEw, parent:bGGgYtFXJvPyXTLo, depth:1, path:"PCs/PreGens"}
     - [ACTOR] ARCHMAG {id:iDwCzeasOdOeW3lz, type:character, folderId:tlB8baeczfAB1tEw}
     - [ACTOR] ASSASSIN {id:i6WYCzWY0pveTact, type:character, folderId:tlB8baeczfAB1tEw}
@@ -28,6 +29,7 @@
     - [ACTOR] Rigger Sleuth {id:pt3aAa7sgQZv3xsy, type:character, folderId:tlB8baeczfAB1tEw}
     - [ACTOR] Vamp Face {id:UwUS1iZD5q7M0ggU, type:character, folderId:tlB8baeczfAB1tEw}
     - [ACTOR] WASTELAND MAGE {id:eMIR1Wvxh4VxXWES, type:character, folderId:tlB8baeczfAB1tEw}
+  - [FOLDER] pcControlled {id:T2tb1RlCWPfkdVR5, parent:bGGgYtFXJvPyXTLo, depth:1, path:"PCs/pcControlled"}
 - [FOLDER] NPCs {id:p6hbQkfl32SKkvGO, parent:null, depth:0, path:"NPCs"}
   - [ACTOR] Session Settings {id:U8ITLI4BCWctTKnY, type:character, folderId:p6hbQkfl32SKkvGO}
   - [FOLDER] Animals {id:bO6yVDTjF5UQw2ZU, parent:p6hbQkfl32SKkvGO, depth:1, path:"NPCs/Animals"}
@@ -117,28 +119,29 @@
   - [ACTOR] Transport Heli {id:6ZaXDQU7FcPyh3Kg, type:character, folderId:I8VLhxriauMW5wH0}
   - [ACTOR] Two-Seater {id:Cr8G5z5z7R6gikRB, type:character, folderId:I8VLhxriauMW5wH0}
 - [FOLDER] Templates {id:eJiZ5ojJouMYFr9R, parent:null, depth:0, path:"Templates"}
+  - [ACTOR] Brand Template {id:uI4SrMJ9fuLk7UN0, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Drone Template {id:lL9MiN64F7mRGhuj, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Session Settings Template {id:DubVcAsia226PlV0, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Sinless NPC {id:694838d341f4407b, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Sinless PC {id:409875cd45a544c0, type:_template, folderId:eJiZ5ojJouMYFr9R}
-  - [ACTOR] Sinless PC (Copy) {id:OXKxlTnNPzmAbRn2, type:_template, folderId:eJiZ5ojJouMYFr9R}
   - [ACTOR] Vehicle Template {id:9YbyOSIZBhfekbLK, type:_template, folderId:eJiZ5ojJouMYFr9R}
 
 ### Actors - Folder Index
 | path | folderId | parentFolderId | depth | sort | sorting |
 | --- | --- | --- | ---: | ---: | --- |
-| DroneHangar | C9SZJMPMSIoSKI67 |  | 0 | -25000 | a |
-| NPCs | p6hbQkfl32SKkvGO |  | 0 | -50000 | a |
-| PCs | bGGgYtFXJvPyXTLo |  | 0 | -100000 | a |
-| Templates | eJiZ5ojJouMYFr9R |  | 0 | -18750 | a |
-| VehicleHangar | I8VLhxriauMW5wH0 |  | 0 | -21875 | a |
+| DroneHangar | C9SZJMPMSIoSKI67 |  | 0 | 300000 | a |
+| NPCs | p6hbQkfl32SKkvGO |  | 0 | 200000 | a |
+| PCs | bGGgYtFXJvPyXTLo |  | 0 | 100000 | a |
+| Templates | eJiZ5ojJouMYFr9R |  | 0 | 500000 | a |
+| VehicleHangar | I8VLhxriauMW5wH0 |  | 0 | 400000 | a |
 | NPCs/Animals | bO6yVDTjF5UQw2ZU | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Drones | w2u228ARPzSzv5YK | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Goons | p8IVu82dgB2UKnoT | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Iniquitates | N3RsHmS7ZofXCTDB | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Programs | OHGJHoWG4unr64QM | p6hbQkfl32SKkvGO | 1 | 0 | a |
 | NPCs/Spirits | ZMsiW2FSdQ2KSvnq | p6hbQkfl32SKkvGO | 1 | 0 | a |
-| PCs/PreGens | tlB8baeczfAB1tEw | bGGgYtFXJvPyXTLo | 1 | 0 | a |
+| PCs/pcControlled | T2tb1RlCWPfkdVR5 | bGGgYtFXJvPyXTLo | 1 | 300000 | a |
+| PCs/PreGens | tlB8baeczfAB1tEw | bGGgYtFXJvPyXTLo | 1 | 100000 | a |
 
 ### Actors - Document Index
 | path | documentId | name | subtype | folderId |
@@ -200,6 +203,8 @@
 | NPCs/Spirits/Stormwing | eNG6ra9AAfbkuxuj | Stormwing | character | ZMsiW2FSdQ2KSvnq |
 | NPCs/Spirits/Terra Factorem | KiwePQ0zQvozm6xC | Terra Factorem | character | ZMsiW2FSdQ2KSvnq |
 | NPCs/Spirits/Zeek Electricity Spirit | msTIIV2QHErNVW1z | Zeek Electricity Spirit | character | ZMsiW2FSdQ2KSvnq |
+| PCs/273-B_L0 | eMbezua6UThIStwT | 273-B_L0 | character | bGGgYtFXJvPyXTLo |
+| PCs/Crime by Day, Rave by Night | 3UvKepdZNQcxmmIe | Crime by Day, Rave by Night | character | bGGgYtFXJvPyXTLo |
 | PCs/PC Sheet (duplicate & rename) | qXmqhVfZkE8eEbd6 | PC Sheet (duplicate & rename) | character | bGGgYtFXJvPyXTLo |
 | PCs/PreGens/ARCHMAG | iDwCzeasOdOeW3lz | ARCHMAG | character | tlB8baeczfAB1tEw |
 | PCs/PreGens/ASSASSIN | i6WYCzWY0pveTact | ASSASSIN | character | tlB8baeczfAB1tEw |
@@ -214,12 +219,11 @@
 | PCs/PreGens/Rigger Sleuth | pt3aAa7sgQZv3xsy | Rigger Sleuth | character | tlB8baeczfAB1tEw |
 | PCs/PreGens/Vamp Face | UwUS1iZD5q7M0ggU | Vamp Face | character | tlB8baeczfAB1tEw |
 | PCs/PreGens/WASTELAND MAGE | eMIR1Wvxh4VxXWES | WASTELAND MAGE | character | tlB8baeczfAB1tEw |
-| PCs/TestSpell | eMbezua6UThIStwT | TestSpell | character | bGGgYtFXJvPyXTLo |
+| Templates/Brand Template | uI4SrMJ9fuLk7UN0 | Brand Template | _template | eJiZ5ojJouMYFr9R |
 | Templates/Drone Template | lL9MiN64F7mRGhuj | Drone Template | _template | eJiZ5ojJouMYFr9R |
 | Templates/Session Settings Template | DubVcAsia226PlV0 | Session Settings Template | _template | eJiZ5ojJouMYFr9R |
 | Templates/Sinless NPC | 694838d341f4407b | Sinless NPC | _template | eJiZ5ojJouMYFr9R |
 | Templates/Sinless PC | 409875cd45a544c0 | Sinless PC | _template | eJiZ5ojJouMYFr9R |
-| Templates/Sinless PC (Copy) | OXKxlTnNPzmAbRn2 | Sinless PC (Copy) | _template | eJiZ5ojJouMYFr9R |
 | Templates/Vehicle Template | 9YbyOSIZBhfekbLK | Vehicle Template | _template | eJiZ5ojJouMYFr9R |
 | VehicleHangar/Armored Car | YrcHYiZz2DClrx73 | Armored Car | character | I8VLhxriauMW5wH0 |
 | VehicleHangar/Battle Cycle | gMuob9Zc3oQMJL5t | Battle Cycle | character | I8VLhxriauMW5wH0 |
@@ -253,6 +257,7 @@
     - [ITEM] Baton {id:lH75H9fJrqbo5Z2r, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
     - [ITEM] Brass Knuckles {id:4ZCs36PxolFYXO14, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
     - [ITEM] Cudgel {id:accqdYWCGWA6nDEW, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
+    - [ITEM] Iron Fist (Amp) {id:degDSYZ7eHq0PLlw, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
     - [ITEM] Katana {id:nwhegwvxSNdLg9d1, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
     - [ITEM] Knife {id:GlwaJ3s2mcJ8ePV9, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
     - [ITEM] Monofilament Whip {id:FGjswkp0rdvBToet, type:equippableItem, folderId:aHRmcytEr2emGb1Y}
@@ -538,11 +543,159 @@
     - [ITEM] Sterilize {id:KkLU4mjqG6VoMWrL, type:equippableItem, folderId:6lAsZV9lPeO51DJT}
     - [ITEM] Travel Over Distance {id:XsZ2Rv5ft5OeHlzM, type:equippableItem, folderId:6lAsZV9lPeO51DJT}
     - [ITEM] Weather Protection {id:wFH9HWFtsZhdVGLx, type:equippableItem, folderId:6lAsZV9lPeO51DJT}
-- [FOLDER] Assets {id:76RtzViuhpI874RJ, parent:null, depth:0, path:"Assets"}
-  - [ITEM] Asset Template {id:uGhQTkXb74uXkwPd, type:_equippableItemTemplate, folderId:76RtzViuhpI874RJ}
-  - [ITEM] Asset Test {id:YBo4xuxE8RqcKFWZ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+- [FOLDER] Brand {id:U0xPHn13he6mwKNg, parent:null, depth:0, path:"Brand"}
+  - [FOLDER] Resources {id:tH4sjhPKYwIEC0KT, parent:U0xPHn13he6mwKNg, depth:1, path:"Brand/Resources"}
+    - [ITEM] Arboretum {id:jdk3ydvlbMaJyHQ6, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Arena {id:ao1LeiGdArgTayOq, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Back alley network {id:hwejJyr857pZ6s4c, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Bar/dance club {id:3Ev286ereeoCaIRi, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Casino {id:s0ws1QKmf14G3k9P, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Clinic {id:QmrPDuZOGlLxSIUC, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Condos {id:sNilkZ293pdkEixq, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Corporate Towers {id:MfXn7gpdVQ8DqTnD, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Factory {id:QF0OOHX1XgWn330s, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Gym {id:0ziuyvWTwZwEZOea, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Headquarters {id:KBTRReB8weZT4qgE, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Hospital/Surgery Center {id:RFaPzL2GsPt5QbHl, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Housing {id:4rMYmmcqR7PoriQb, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Mass Media Station {id:wP3jtHz1vOj0xGrj, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Museum {id:9SyF4qbfCfg9cQPW, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Offices {id:x3NvsZMrCjWvtXXP, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Research Lab {id:2jq96QNoBiHYIYxd, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] ResourceTest {id:WFTBh6F3W11sBXdI, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Science Center {id:Hfx5VhDee81DexzD, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Store {id:pnxba3G7zPMbSOFl, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+    - [ITEM] Temple {id:yzzNdPkdWPYCkyk8, type:equippableItem, folderId:tH4sjhPKYwIEC0KT}
+  - [FOLDER] Assets {id:76RtzViuhpI874RJ, parent:U0xPHn13he6mwKNg, depth:1, path:"Brand/Assets"}
+    - [ITEM] Acrocolypse {id:Z38ou2v0Z1pZM3ju, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Adeedus {id:Mcx3SDAlZxF9m6fz, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Albert Knox {id:oi0odB14S1OqEKAV, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Albretcht {id:pOmANkEY6fRxdjvy, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Alexis Marin {id:AUfaA4bLVgPvyHQQ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Alistair {id:dZ0JOX3Fduo5Ze2Y, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Ann Thorpe {id:ctIPDwgVl3F8UYi7, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Anthony Chow {id:UoBXn1mdgeZoQmMF, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Ashes Crane {id:5VhKI0xFZ9rkzaf9, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Ben Chang {id:jDTq4VrONmXOjGiJ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Big Al (Vehicle Emporium) {id:iEpG4ocTIlyof9vN, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bill Blanca {id:sY92lA3ViKSKmsrH, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bluebeard {id:rYcM9zckU1OqmyLR, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bo Darville {id:AjYtUnEfYqDnWObC, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bob Gadling {id:qYB73UqzU9quv4t2, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bob Loblaw {id:H1F4PocoKuGxfDDC, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bobby Jones {id:QgaQnk5pir3PL8w1, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bubbles {id:Dm4h25H4gncTQNOO, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Bunny Delish {id:Q54KhyqOMDDm2M4y, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Catapult {id:wlHVCFiKF2kejtBQ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Cavern Johnson {id:fvf45qHRRDuepacl, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Clarence Boddicker {id:XI7vblnqwhNVlEbA, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Clefton {id:YTL7Tc422boXIQDO, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Corentin Latreille Mador {id:oV8r3LT1N8sqSCDY, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Cover Girl {id:Dg74VG8yR6DUyb9R, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Cy-klops {id:rk99X2Lur5pU764H, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Dan {id:oCqXG1EMgmSbmIcf, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Diane {id:PHHGu9w2JkQD4OJQ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Diaz Baha {id:vfr61Nhcggj9jFom, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Dom Rotetto {id:K8X8GdePbib1J1FG, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Don Bruno Carino {id:kbNTz6Uu48JOS3lj, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Donna {id:gooFlfWNEYNZiOwm, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Double Helix {id:EyfGOs9JI5aUT4E5, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Dr. Brainrule {id:hRDNKTkSfYMOgobM, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Dr. Mind-twister {id:gL0sixLnxpFbYIbO, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Dr. Ween {id:u2NpxG05E6BA6f5U, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Duke {id:g3wre14vQkk1zDae, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Easy E {id:jH6QuoBmNIYmbpZv, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] El Mostafa Urbano {id:GeXSPn0QSKPewn3K, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Ember Flint {id:rcNoaOYHJARz4IaV, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Eric Gross {id:O6kYu4LS7q5AtqIy, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Flash Moresloth {id:Jj5cx3uAJCXcwCOy, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Fungor {id:EvuwtWCwM3IH3CWf, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Grandmaw {id:u2hIcGuNi9sRkEEw, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Harlequin {id:kZZHAF2Kw2GBuoyc, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Harold Francis Callahan {id:2qYfdmRBoOMV7l05, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Hobo Pirate {id:jk0aEciJELAplXfa, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Huxley {id:tBLPu8h4tGxrR9lM, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Issac on Rails {id:GDMn234kFHIkasz8, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Jack Point {id:nZydJBYlZTgfeuh5, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] James Connor {id:CB0Gzv062xbqQQIX, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] James McCullen {id:5rZLSY5EcQRqelVI, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Jet Black {id:9gWz5KwAAp7tBYsW, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Jimbo {id:encmmM6hAcVzcXxu, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Joe {id:lCVuoBGxZDJDYL1c, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] John Smith {id:UbuWusPlf9Nh9agx, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Johnny {id:4a8QBO3SZD9aYgL3, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Juinan {id:QBz1qZLpGk9e2YN5, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Kasper Dixon {id:e0vl6UaFL40XDZjz, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Kate Barker {id:WeXfJUBywZFomble, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Katia Frangos {id:7IE6Ny6aHEq6CEn9, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Kestrel {id:cy0RGoMoA2JRe62W, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] King of Lost Socks {id:RwEfojmv54Wq6jMW, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Lem Walnanespanct {id:rSekDuRsGEbDtl2j, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Lena {id:z9eKOANEg4TkIQnC, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Levi Hochstetler {id:KZ6CuElYwiH5UH1n, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Lynn Murray Griffon {id:YJkj7KPI8ajkRc2O, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Mac & Bo {id:x3XEA6s6V66NrYkS, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Madelyn Bishop Bates {id:1MvpRB7J9EDeyMCa, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Max Born {id:eG7AOUS7Nqi46HYC, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] May {id:McjskLAeRDyRWqnh, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] May O'Neil {id:gzjdZEGV5hMwD2UQ, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Melfidius {id:voaz2flGjQOaBY0W, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Melody Myers {id:hA04rcfC2a9VbI0H, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Michelle King {id:gcNBqfmiurcc8KlT, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Modesty Blaze {id:h9ucxoVcKxy6ppMf, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Moe Lester {id:T8QkW6edGMTGY2H4, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Morgana Powers {id:1ROVj7pJ1XEZNnp3, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Mr. Chief {id:YTUy5v74L0KqaoyK, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Murdok Mark {id:3eyVQJEQ0xgt0uHm, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Nathaniel Essex {id:ezt3hK8NS68Oabyx, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Odiphus {id:MFdVxtWPDhGMOKH1, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Pantharo {id:C7iVsP6VKaosQKHj, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Paris Bueller {id:xcngir5nZ4nDWula, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Pearl Pearlman {id:IT5bEYagj5D3uokk, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Perkaedo {id:Kesa0BW3AkbVjvLP, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Phizzvan {id:Cu59hxRQwAXCaFSf, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Present Head {id:GcokevNd5x45FPyl, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Q {id:02iK8ZeUBPPsagnX, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Quill Quaz {id:jabYQ3QugTpDwfrx, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Rat {id:ZYWuUos7DnjBQxOR, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Razor {id:6p8zbqxbhhpVsPcg, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Rebecca {id:KW99wiP6eArdw7ju, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Reverand Dr. Syn {id:1b8cKQOmUYP5tPrL, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Risleb the Immortal {id:LHkxI83ax0PwqoGz, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Robert {id:7uKRvcNgRrOnJonV, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Robert Savage {id:0hjXojRSTGywbceU, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Roberto {id:JxpYLPdmydbbKwKc, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Royal Continental {id:mijOI5UupDMnOjlk, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Russ "The String" Bell {id:L2UoKT4Iu1KlkJjf, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Sammon Shamon Al-Baz {id:666bx83ceQHsoBpn, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Sarah Konnor {id:Le4yZ18sSKktViJK, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Scarab {id:eNHJvhZKNMtqEHft, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Serpent Pliskin {id:oJvqD5v4tO1djz5h, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Skeletron {id:kJfucVrQcLqEaWhd, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Snap-Jaw {id:2Oykf6XPWxD5q4VM, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Snowball {id:EQL9qZU53ZiArlCU, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Spearmint {id:JVV7tp0rQkgJCdrj, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Sydney Greenstreet the Duckpin {id:YhAKWJtw6pEcNzee, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Techno-viking {id:zwrzi9Knj7bWp3d7, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] The Blue Meanies {id:k4fYca9yscm5gHe6, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] The Certified Accountant {id:rP8a3IR0OBEsxzSj, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] The Coughing Man {id:VYlR7cYmmgJuu5vL, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] The Countess {id:kWKEev9fMlvOgFHP, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] The Gimcrak King {id:JNMLOmY7PRx1NfpA, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Thumper {id:gUgkxHMGoWwyvyMv, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Tibor Phrenczy {id:UZ7foI7EdHLPpm30, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Tooth Spitter {id:ID9dSrSnFgWFrL0A, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Turret {id:TXUzSM3wblfJvdVc, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Tyrel Melchor {id:F1geklb0vncVzx82, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] W. H. Loh {id:mSmghLY4ofUqaSkB, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Warden Hand {id:P4ZliFjv32dOi8Nt, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Weird {id:ovPYIBvPsWe4njgy, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] William Kilgore {id:nhTkSzOfSyu0y4Pk, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Yahya Boulos {id:eE8lmGwmE4kgOrjc, type:equippableItem, folderId:76RtzViuhpI874RJ}
+    - [ITEM] Zane {id:x7uOelnHCPtdL5yy, type:equippableItem, folderId:76RtzViuhpI874RJ}
 - [FOLDER] _Templates {id:lm14M8GJkCltaS3J, parent:null, depth:0, path:"_Templates"}
   - [ITEM] Amps Template {id:XtU8rTt7uOjlTxx0, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
+  - [ITEM] Asset Template {id:uGhQTkXb74uXkwPd, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Cyberdeck Template {id:b2F3cWZSzUeZvam8, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Drone Ballistic Template {id:8L2WHN9Spx1TyIys, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Drone Energy W Template {id:lOAPMavVjtRre3OI, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
@@ -553,6 +706,7 @@
   - [ITEM] Hacking Threads Template {id:8CMq8JmyHbRCglOv, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Melee Weapon Template {id:beEN7M4Y3hg8U06n, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Projectile Template {id:dsFXOOLAla95Lj3y, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
+  - [ITEM] Resources Template {id:wi8dx0sNDbpFXrKU, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Rig Drive Skill Template {id:QtMNKYb9rrdKwv0k, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Rig Fly Skill Template {id:mCc3spF6itnvgfou, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
   - [ITEM] Ritual Template {id:25Qy5a7maYi8KQOX, type:_equippableItemTemplate, folderId:lm14M8GJkCltaS3J}
@@ -569,18 +723,21 @@
   - [ITEM] Active Effects {id:xP13QucJZoaeEKyq, type:activeEffectContainer, folderId:null}
   - [ITEM] Device Control {id:KtQoPc0pupgHyxgm, type:equippableItem, folderId:null}
   - [ITEM] Ewar {id:WY25OJUJECjpkwcP, type:equippableItem, folderId:null}
+  - [ITEM] Asset Test {id:YBo4xuxE8RqcKFWZ, type:equippableItem, folderId:null}
   - [ITEM] Hacking {id:4fv3HY7jwOQE2wrN, type:equippableItem, folderId:null}
 
 ### Items - Folder Index
 | path | folderId | parentFolderId | depth | sort | sorting |
 | --- | --- | --- | ---: | ---: | --- |
 | _Templates | lm14M8GJkCltaS3J |  | 0 | 650000 | a |
-| Assets | 76RtzViuhpI874RJ |  | 0 | 575000 | a |
+| Brand | U0xPHn13he6mwKNg |  | 0 | 325000 | a |
 | CSB - Embedded Items Folder - DO NOT RENAME OR REMOVE | rCTnl7myqTtxE5gl |  | 0 | -200000 | a |
 | Decking | 2idKfyaV1KZVqL6V |  | 0 | 25000 | a |
-| Manon | oWRM8pNMOUkbZHoV |  | 0 | 500000 | m |
+| Manon | oWRM8pNMOUkbZHoV |  | 0 | 237500 | m |
 | Rigging | bRI78s2WG6gVDJ4C |  | 0 | 150000 | m |
 | Weapons | l7jcqzFSJr3Qemeu |  | 0 | -100000 | m |
+| Brand/Assets | 76RtzViuhpI874RJ | U0xPHn13he6mwKNg | 1 | 100000 | a |
+| Brand/Resources | tH4sjhPKYwIEC0KT | U0xPHn13he6mwKNg | 1 | 0 | a |
 | Decking/Cyberdecks | TpyOdo9rRmcJZwT2 | 2idKfyaV1KZVqL6V | 1 | 0 | m |
 | Decking/E War Threads | FBqDldU0lm0kCoRQ | 2idKfyaV1KZVqL6V | 1 | 200000 | a |
 | Decking/Hacking Threads | 92dSVkunMksoE7g2 | 2idKfyaV1KZVqL6V | 1 | 100000 | a |
@@ -611,6 +768,7 @@
 | path | documentId | name | subtype | folderId |
 | --- | --- | --- | --- | --- |
 | _Templates/Amps Template | XtU8rTt7uOjlTxx0 | Amps Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
+| _Templates/Asset Template | uGhQTkXb74uXkwPd | Asset Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Cyberdeck Template | b2F3cWZSzUeZvam8 | Cyberdeck Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Drone Ballistic Template | 8L2WHN9Spx1TyIys | Drone Ballistic Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Drone Energy W Template | lOAPMavVjtRre3OI | Drone Energy W Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
@@ -621,6 +779,7 @@
 | _Templates/Hacking Threads Template | 8CMq8JmyHbRCglOv | Hacking Threads Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Melee Weapon Template | beEN7M4Y3hg8U06n | Melee Weapon Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Projectile Template | dsFXOOLAla95Lj3y | Projectile Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
+| _Templates/Resources Template | wi8dx0sNDbpFXrKU | Resources Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Rig Drive Skill Template | QtMNKYb9rrdKwv0k | Rig Drive Skill Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Rig Fly Skill Template | mCc3spF6itnvgfou | Rig Fly Skill Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/Ritual Template | 25Qy5a7maYi8KQOX | Ritual Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
@@ -634,8 +793,154 @@
 | _Templates/Vehicle Energy W Template | jM4PHhDREfU7OUZ4 | Vehicle Energy W Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | _Templates/VehicleItems Template | GHO6zyIPQXdSYR8a | VehicleItems Template | _equippableItemTemplate | lm14M8GJkCltaS3J |
 | Active Effects | xP13QucJZoaeEKyq | Active Effects | activeEffectContainer |  |
-| Assets/Asset Template | uGhQTkXb74uXkwPd | Asset Template | _equippableItemTemplate | 76RtzViuhpI874RJ |
-| Assets/Asset Test | YBo4xuxE8RqcKFWZ | Asset Test | equippableItem | 76RtzViuhpI874RJ |
+| Asset Test | YBo4xuxE8RqcKFWZ | Asset Test | equippableItem |  |
+| Brand/Assets/Acrocolypse | Z38ou2v0Z1pZM3ju | Acrocolypse | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Adeedus | Mcx3SDAlZxF9m6fz | Adeedus | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Albert Knox | oi0odB14S1OqEKAV | Albert Knox | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Albretcht | pOmANkEY6fRxdjvy | Albretcht | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Alexis Marin | AUfaA4bLVgPvyHQQ | Alexis Marin | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Alistair | dZ0JOX3Fduo5Ze2Y | Alistair | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Ann Thorpe | ctIPDwgVl3F8UYi7 | Ann Thorpe | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Anthony Chow | UoBXn1mdgeZoQmMF | Anthony Chow | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Ashes Crane | 5VhKI0xFZ9rkzaf9 | Ashes Crane | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Ben Chang | jDTq4VrONmXOjGiJ | Ben Chang | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Big Al (Vehicle Emporium) | iEpG4ocTIlyof9vN | Big Al (Vehicle Emporium) | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bill Blanca | sY92lA3ViKSKmsrH | Bill Blanca | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bluebeard | rYcM9zckU1OqmyLR | Bluebeard | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bo Darville | AjYtUnEfYqDnWObC | Bo Darville | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bob Gadling | qYB73UqzU9quv4t2 | Bob Gadling | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bob Loblaw | H1F4PocoKuGxfDDC | Bob Loblaw | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bobby Jones | QgaQnk5pir3PL8w1 | Bobby Jones | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bubbles | Dm4h25H4gncTQNOO | Bubbles | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Bunny Delish | Q54KhyqOMDDm2M4y | Bunny Delish | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Catapult | wlHVCFiKF2kejtBQ | Catapult | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Cavern Johnson | fvf45qHRRDuepacl | Cavern Johnson | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Clarence Boddicker | XI7vblnqwhNVlEbA | Clarence Boddicker | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Clefton | YTL7Tc422boXIQDO | Clefton | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Corentin Latreille Mador | oV8r3LT1N8sqSCDY | Corentin Latreille Mador | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Cover Girl | Dg74VG8yR6DUyb9R | Cover Girl | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Cy-klops | rk99X2Lur5pU764H | Cy-klops | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Dan | oCqXG1EMgmSbmIcf | Dan | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Diane | PHHGu9w2JkQD4OJQ | Diane | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Diaz Baha | vfr61Nhcggj9jFom | Diaz Baha | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Dom Rotetto | K8X8GdePbib1J1FG | Dom Rotetto | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Don Bruno Carino | kbNTz6Uu48JOS3lj | Don Bruno Carino | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Donna | gooFlfWNEYNZiOwm | Donna | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Double Helix | EyfGOs9JI5aUT4E5 | Double Helix | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Dr. Brainrule | hRDNKTkSfYMOgobM | Dr. Brainrule | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Dr. Mind-twister | gL0sixLnxpFbYIbO | Dr. Mind-twister | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Dr. Ween | u2NpxG05E6BA6f5U | Dr. Ween | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Duke | g3wre14vQkk1zDae | Duke | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Easy E | jH6QuoBmNIYmbpZv | Easy E | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/El Mostafa Urbano | GeXSPn0QSKPewn3K | El Mostafa Urbano | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Ember Flint | rcNoaOYHJARz4IaV | Ember Flint | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Eric Gross | O6kYu4LS7q5AtqIy | Eric Gross | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Flash Moresloth | Jj5cx3uAJCXcwCOy | Flash Moresloth | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Fungor | EvuwtWCwM3IH3CWf | Fungor | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Grandmaw | u2hIcGuNi9sRkEEw | Grandmaw | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Harlequin | kZZHAF2Kw2GBuoyc | Harlequin | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Harold Francis Callahan | 2qYfdmRBoOMV7l05 | Harold Francis Callahan | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Hobo Pirate | jk0aEciJELAplXfa | Hobo Pirate | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Huxley | tBLPu8h4tGxrR9lM | Huxley | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Issac on Rails | GDMn234kFHIkasz8 | Issac on Rails | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Jack Point | nZydJBYlZTgfeuh5 | Jack Point | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/James Connor | CB0Gzv062xbqQQIX | James Connor | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/James McCullen | 5rZLSY5EcQRqelVI | James McCullen | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Jet Black | 9gWz5KwAAp7tBYsW | Jet Black | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Jimbo | encmmM6hAcVzcXxu | Jimbo | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Joe | lCVuoBGxZDJDYL1c | Joe | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/John Smith | UbuWusPlf9Nh9agx | John Smith | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Johnny | 4a8QBO3SZD9aYgL3 | Johnny | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Juinan | QBz1qZLpGk9e2YN5 | Juinan | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Kasper Dixon | e0vl6UaFL40XDZjz | Kasper Dixon | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Kate Barker | WeXfJUBywZFomble | Kate Barker | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Katia Frangos | 7IE6Ny6aHEq6CEn9 | Katia Frangos | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Kestrel | cy0RGoMoA2JRe62W | Kestrel | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/King of Lost Socks | RwEfojmv54Wq6jMW | King of Lost Socks | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Lem Walnanespanct | rSekDuRsGEbDtl2j | Lem Walnanespanct | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Lena | z9eKOANEg4TkIQnC | Lena | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Levi Hochstetler | KZ6CuElYwiH5UH1n | Levi Hochstetler | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Lynn Murray Griffon | YJkj7KPI8ajkRc2O | Lynn Murray Griffon | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Mac & Bo | x3XEA6s6V66NrYkS | Mac & Bo | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Madelyn Bishop Bates | 1MvpRB7J9EDeyMCa | Madelyn Bishop Bates | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Max Born | eG7AOUS7Nqi46HYC | Max Born | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/May | McjskLAeRDyRWqnh | May | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/May O'Neil | gzjdZEGV5hMwD2UQ | May O'Neil | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Melfidius | voaz2flGjQOaBY0W | Melfidius | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Melody Myers | hA04rcfC2a9VbI0H | Melody Myers | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Michelle King | gcNBqfmiurcc8KlT | Michelle King | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Modesty Blaze | h9ucxoVcKxy6ppMf | Modesty Blaze | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Moe Lester | T8QkW6edGMTGY2H4 | Moe Lester | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Morgana Powers | 1ROVj7pJ1XEZNnp3 | Morgana Powers | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Mr. Chief | YTUy5v74L0KqaoyK | Mr. Chief | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Murdok Mark | 3eyVQJEQ0xgt0uHm | Murdok Mark | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Nathaniel Essex | ezt3hK8NS68Oabyx | Nathaniel Essex | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Odiphus | MFdVxtWPDhGMOKH1 | Odiphus | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Pantharo | C7iVsP6VKaosQKHj | Pantharo | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Paris Bueller | xcngir5nZ4nDWula | Paris Bueller | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Pearl Pearlman | IT5bEYagj5D3uokk | Pearl Pearlman | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Perkaedo | Kesa0BW3AkbVjvLP | Perkaedo | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Phizzvan | Cu59hxRQwAXCaFSf | Phizzvan | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Present Head | GcokevNd5x45FPyl | Present Head | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Q | 02iK8ZeUBPPsagnX | Q | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Quill Quaz | jabYQ3QugTpDwfrx | Quill Quaz | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Rat | ZYWuUos7DnjBQxOR | Rat | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Razor | 6p8zbqxbhhpVsPcg | Razor | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Rebecca | KW99wiP6eArdw7ju | Rebecca | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Reverand Dr. Syn | 1b8cKQOmUYP5tPrL | Reverand Dr. Syn | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Risleb the Immortal | LHkxI83ax0PwqoGz | Risleb the Immortal | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Robert | 7uKRvcNgRrOnJonV | Robert | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Robert Savage | 0hjXojRSTGywbceU | Robert Savage | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Roberto | JxpYLPdmydbbKwKc | Roberto | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Royal Continental | mijOI5UupDMnOjlk | Royal Continental | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Russ "The String" Bell | L2UoKT4Iu1KlkJjf | Russ "The String" Bell | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Sammon Shamon Al-Baz | 666bx83ceQHsoBpn | Sammon Shamon Al-Baz | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Sarah Konnor | Le4yZ18sSKktViJK | Sarah Konnor | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Scarab | eNHJvhZKNMtqEHft | Scarab | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Serpent Pliskin | oJvqD5v4tO1djz5h | Serpent Pliskin | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Skeletron | kJfucVrQcLqEaWhd | Skeletron | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Snap-Jaw | 2Oykf6XPWxD5q4VM | Snap-Jaw | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Snowball | EQL9qZU53ZiArlCU | Snowball | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Spearmint | JVV7tp0rQkgJCdrj | Spearmint | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Sydney Greenstreet the Duckpin | YhAKWJtw6pEcNzee | Sydney Greenstreet the Duckpin | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Techno-viking | zwrzi9Knj7bWp3d7 | Techno-viking | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/The Blue Meanies | k4fYca9yscm5gHe6 | The Blue Meanies | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/The Certified Accountant | rP8a3IR0OBEsxzSj | The Certified Accountant | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/The Coughing Man | VYlR7cYmmgJuu5vL | The Coughing Man | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/The Countess | kWKEev9fMlvOgFHP | The Countess | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/The Gimcrak King | JNMLOmY7PRx1NfpA | The Gimcrak King | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Thumper | gUgkxHMGoWwyvyMv | Thumper | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Tibor Phrenczy | UZ7foI7EdHLPpm30 | Tibor Phrenczy | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Tooth Spitter | ID9dSrSnFgWFrL0A | Tooth Spitter | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Turret | TXUzSM3wblfJvdVc | Turret | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Tyrel Melchor | F1geklb0vncVzx82 | Tyrel Melchor | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/W. H. Loh | mSmghLY4ofUqaSkB | W. H. Loh | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Warden Hand | P4ZliFjv32dOi8Nt | Warden Hand | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Weird | ovPYIBvPsWe4njgy | Weird | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/William Kilgore | nhTkSzOfSyu0y4Pk | William Kilgore | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Yahya Boulos | eE8lmGwmE4kgOrjc | Yahya Boulos | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Assets/Zane | x7uOelnHCPtdL5yy | Zane | equippableItem | 76RtzViuhpI874RJ |
+| Brand/Resources/Arboretum | jdk3ydvlbMaJyHQ6 | Arboretum | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Arena | ao1LeiGdArgTayOq | Arena | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Back alley network | hwejJyr857pZ6s4c | Back alley network | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Bar/dance club | 3Ev286ereeoCaIRi | Bar/dance club | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Casino | s0ws1QKmf14G3k9P | Casino | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Clinic | QmrPDuZOGlLxSIUC | Clinic | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Condos | sNilkZ293pdkEixq | Condos | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Corporate Towers | MfXn7gpdVQ8DqTnD | Corporate Towers | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Factory | QF0OOHX1XgWn330s | Factory | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Gym | 0ziuyvWTwZwEZOea | Gym | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Headquarters | KBTRReB8weZT4qgE | Headquarters | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Hospital/Surgery Center | RFaPzL2GsPt5QbHl | Hospital/Surgery Center | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Housing | 4rMYmmcqR7PoriQb | Housing | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Mass Media Station | wP3jtHz1vOj0xGrj | Mass Media Station | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Museum | 9SyF4qbfCfg9cQPW | Museum | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Offices | x3NvsZMrCjWvtXXP | Offices | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Research Lab | 2jq96QNoBiHYIYxd | Research Lab | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/ResourceTest | WFTBh6F3W11sBXdI | ResourceTest | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Science Center | Hfx5VhDee81DexzD | Science Center | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Store | pnxba3G7zPMbSOFl | Store | equippableItem | tH4sjhPKYwIEC0KT |
+| Brand/Resources/Temple | yzzNdPkdWPYCkyk8 | Temple | equippableItem | tH4sjhPKYwIEC0KT |
 | Decking/Cyberdecks/Fujitsu Edge | EXplZQVrK4Iuq2Cs | Fujitsu Edge | equippableItem | TpyOdo9rRmcJZwT2 |
 | Decking/Cyberdecks/Mars Claymore | fzQqP7oUYtJb8rHo | Mars Claymore | equippableItem | TpyOdo9rRmcJZwT2 |
 | Decking/Cyberdecks/MasterDeck | tn1WVRqrAoPCjIWp | MasterDeck | equippableItem | TpyOdo9rRmcJZwT2 |
@@ -879,6 +1184,7 @@
 | Weapons/Melee/Baton | lH75H9fJrqbo5Z2r | Baton | equippableItem | aHRmcytEr2emGb1Y |
 | Weapons/Melee/Brass Knuckles | 4ZCs36PxolFYXO14 | Brass Knuckles | equippableItem | aHRmcytEr2emGb1Y |
 | Weapons/Melee/Cudgel | accqdYWCGWA6nDEW | Cudgel | equippableItem | aHRmcytEr2emGb1Y |
+| Weapons/Melee/Iron Fist (Amp) | degDSYZ7eHq0PLlw | Iron Fist (Amp) | equippableItem | aHRmcytEr2emGb1Y |
 | Weapons/Melee/Katana | nwhegwvxSNdLg9d1 | Katana | equippableItem | aHRmcytEr2emGb1Y |
 | Weapons/Melee/Knife | GlwaJ3s2mcJ8ePV9 | Knife | equippableItem | aHRmcytEr2emGb1Y |
 | Weapons/Melee/Monofilament Whip | FGjswkp0rdvBToet | Monofilament Whip | equippableItem | aHRmcytEr2emGb1Y |
@@ -911,7 +1217,7 @@
     "id": "sinless",
     "title": "PacificNorthWestMarches"
   },
-  "generatedAtISO": "2026-02-13T16:19:51.656Z",
+  "generatedAtISO": "2026-02-21T19:54:22.863Z",
   "guidance": "Use folderId + parentFolderId for hierarchy; do not infer hierarchy solely from indentation.",
   "actor": {
     "filter": {
@@ -932,7 +1238,7 @@
         "name": "DroneHangar",
         "parentFolderId": null,
         "depth": 0,
-        "sort": -25000,
+        "sort": 300000,
         "sorting": "a",
         "path": "DroneHangar"
       },
@@ -943,7 +1249,7 @@
         "name": "NPCs",
         "parentFolderId": null,
         "depth": 0,
-        "sort": -50000,
+        "sort": 200000,
         "sorting": "a",
         "path": "NPCs"
       },
@@ -954,7 +1260,7 @@
         "name": "PCs",
         "parentFolderId": null,
         "depth": 0,
-        "sort": -100000,
+        "sort": 100000,
         "sorting": "a",
         "path": "PCs"
       },
@@ -965,7 +1271,7 @@
         "name": "Templates",
         "parentFolderId": null,
         "depth": 0,
-        "sort": -18750,
+        "sort": 500000,
         "sorting": "a",
         "path": "Templates"
       },
@@ -976,7 +1282,7 @@
         "name": "VehicleHangar",
         "parentFolderId": null,
         "depth": 0,
-        "sort": -21875,
+        "sort": 400000,
         "sorting": "a",
         "path": "VehicleHangar"
       },
@@ -1047,13 +1353,24 @@
         "path": "NPCs/Spirits"
       },
       {
+        "folderId": "T2tb1RlCWPfkdVR5",
+        "uuid": "Folder.T2tb1RlCWPfkdVR5",
+        "docType": "Actor",
+        "name": "pcControlled",
+        "parentFolderId": "bGGgYtFXJvPyXTLo",
+        "depth": 1,
+        "sort": 300000,
+        "sorting": "a",
+        "path": "PCs/pcControlled"
+      },
+      {
         "folderId": "tlB8baeczfAB1tEw",
         "uuid": "Folder.tlB8baeczfAB1tEw",
         "docType": "Actor",
         "name": "PreGens",
         "parentFolderId": "bGGgYtFXJvPyXTLo",
         "depth": 1,
-        "sort": 0,
+        "sort": 100000,
         "sorting": "a",
         "path": "PCs/PreGens"
       }
@@ -1687,6 +2004,28 @@
         "sort": 0
       },
       {
+        "documentId": "eMbezua6UThIStwT",
+        "uuid": "Actor.eMbezua6UThIStwT",
+        "docType": "Actor",
+        "subtype": "character",
+        "name": "273-B_L0",
+        "folderId": "bGGgYtFXJvPyXTLo",
+        "folderPath": "PCs",
+        "path": "PCs/273-B_L0",
+        "sort": 100000
+      },
+      {
+        "documentId": "3UvKepdZNQcxmmIe",
+        "uuid": "Actor.3UvKepdZNQcxmmIe",
+        "docType": "Actor",
+        "subtype": "character",
+        "name": "Crime by Day, Rave by Night",
+        "folderId": "bGGgYtFXJvPyXTLo",
+        "folderPath": "PCs",
+        "path": "PCs/Crime by Day, Rave by Night",
+        "sort": 0
+      },
+      {
         "documentId": "qXmqhVfZkE8eEbd6",
         "uuid": "Actor.qXmqhVfZkE8eEbd6",
         "docType": "Actor",
@@ -1841,15 +2180,15 @@
         "sort": 0
       },
       {
-        "documentId": "eMbezua6UThIStwT",
-        "uuid": "Actor.eMbezua6UThIStwT",
+        "documentId": "uI4SrMJ9fuLk7UN0",
+        "uuid": "Actor.uI4SrMJ9fuLk7UN0",
         "docType": "Actor",
-        "subtype": "character",
-        "name": "TestSpell",
-        "folderId": "bGGgYtFXJvPyXTLo",
-        "folderPath": "PCs",
-        "path": "PCs/TestSpell",
-        "sort": 100000
+        "subtype": "_template",
+        "name": "Brand Template",
+        "folderId": "eJiZ5ojJouMYFr9R",
+        "folderPath": "Templates",
+        "path": "Templates/Brand Template",
+        "sort": 0
       },
       {
         "documentId": "lL9MiN64F7mRGhuj",
@@ -1893,17 +2232,6 @@
         "folderId": "eJiZ5ojJouMYFr9R",
         "folderPath": "Templates",
         "path": "Templates/Sinless PC",
-        "sort": 150000
-      },
-      {
-        "documentId": "OXKxlTnNPzmAbRn2",
-        "uuid": "Actor.OXKxlTnNPzmAbRn2",
-        "docType": "Actor",
-        "subtype": "_template",
-        "name": "Sinless PC (Copy)",
-        "folderId": "eJiZ5ojJouMYFr9R",
-        "folderPath": "Templates",
-        "path": "Templates/Sinless PC (Copy)",
         "sort": 150000
       },
       {
@@ -2175,15 +2503,15 @@
         "path": "_Templates"
       },
       {
-        "folderId": "76RtzViuhpI874RJ",
-        "uuid": "Folder.76RtzViuhpI874RJ",
+        "folderId": "U0xPHn13he6mwKNg",
+        "uuid": "Folder.U0xPHn13he6mwKNg",
         "docType": "Item",
-        "name": "Assets",
+        "name": "Brand",
         "parentFolderId": null,
         "depth": 0,
-        "sort": 575000,
+        "sort": 325000,
         "sorting": "a",
-        "path": "Assets"
+        "path": "Brand"
       },
       {
         "folderId": "rCTnl7myqTtxE5gl",
@@ -2214,7 +2542,7 @@
         "name": "Manon",
         "parentFolderId": null,
         "depth": 0,
-        "sort": 500000,
+        "sort": 237500,
         "sorting": "m",
         "path": "Manon"
       },
@@ -2239,6 +2567,28 @@
         "sort": -100000,
         "sorting": "m",
         "path": "Weapons"
+      },
+      {
+        "folderId": "76RtzViuhpI874RJ",
+        "uuid": "Folder.76RtzViuhpI874RJ",
+        "docType": "Item",
+        "name": "Assets",
+        "parentFolderId": "U0xPHn13he6mwKNg",
+        "depth": 1,
+        "sort": 100000,
+        "sorting": "a",
+        "path": "Brand/Assets"
+      },
+      {
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "uuid": "Folder.tH4sjhPKYwIEC0KT",
+        "docType": "Item",
+        "name": "Resources",
+        "parentFolderId": "U0xPHn13he6mwKNg",
+        "depth": 1,
+        "sort": 0,
+        "sorting": "a",
+        "path": "Brand/Resources"
       },
       {
         "folderId": "TpyOdo9rRmcJZwT2",
@@ -2529,6 +2879,17 @@
         "sort": 2200000
       },
       {
+        "documentId": "uGhQTkXb74uXkwPd",
+        "uuid": "Item.uGhQTkXb74uXkwPd",
+        "docType": "Item",
+        "subtype": "_equippableItemTemplate",
+        "name": "Asset Template",
+        "folderId": "lm14M8GJkCltaS3J",
+        "folderPath": "_Templates",
+        "path": "_Templates/Asset Template",
+        "sort": 2250000
+      },
+      {
         "documentId": "b2F3cWZSzUeZvam8",
         "uuid": "Item.b2F3cWZSzUeZvam8",
         "docType": "Item",
@@ -2637,6 +2998,17 @@
         "folderPath": "_Templates",
         "path": "_Templates/Projectile Template",
         "sort": 1500000
+      },
+      {
+        "documentId": "wi8dx0sNDbpFXrKU",
+        "uuid": "Item.wi8dx0sNDbpFXrKU",
+        "docType": "Item",
+        "subtype": "_equippableItemTemplate",
+        "name": "Resources Template",
+        "folderId": "lm14M8GJkCltaS3J",
+        "folderPath": "_Templates",
+        "path": "_Templates/Resources Template",
+        "sort": 150000
       },
       {
         "documentId": "QtMNKYb9rrdKwv0k",
@@ -2782,25 +3154,1631 @@
         "sort": 100000
       },
       {
-        "documentId": "uGhQTkXb74uXkwPd",
-        "uuid": "Item.uGhQTkXb74uXkwPd",
-        "docType": "Item",
-        "subtype": "_equippableItemTemplate",
-        "name": "Asset Template",
-        "folderId": "76RtzViuhpI874RJ",
-        "folderPath": "Assets",
-        "path": "Assets/Asset Template",
-        "sort": 0
-      },
-      {
         "documentId": "YBo4xuxE8RqcKFWZ",
         "uuid": "Item.YBo4xuxE8RqcKFWZ",
         "docType": "Item",
         "subtype": "equippableItem",
         "name": "Asset Test",
+        "folderId": null,
+        "folderPath": null,
+        "path": "Asset Test",
+        "sort": 250000
+      },
+      {
+        "documentId": "Z38ou2v0Z1pZM3ju",
+        "uuid": "Item.Z38ou2v0Z1pZM3ju",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Acrocolypse",
         "folderId": "76RtzViuhpI874RJ",
-        "folderPath": "Assets",
-        "path": "Assets/Asset Test",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Acrocolypse",
+        "sort": 0
+      },
+      {
+        "documentId": "Mcx3SDAlZxF9m6fz",
+        "uuid": "Item.Mcx3SDAlZxF9m6fz",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Adeedus",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Adeedus",
+        "sort": 0
+      },
+      {
+        "documentId": "oi0odB14S1OqEKAV",
+        "uuid": "Item.oi0odB14S1OqEKAV",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Albert Knox",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Albert Knox",
+        "sort": 0
+      },
+      {
+        "documentId": "pOmANkEY6fRxdjvy",
+        "uuid": "Item.pOmANkEY6fRxdjvy",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Albretcht",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Albretcht",
+        "sort": 0
+      },
+      {
+        "documentId": "AUfaA4bLVgPvyHQQ",
+        "uuid": "Item.AUfaA4bLVgPvyHQQ",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Alexis Marin",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Alexis Marin",
+        "sort": 0
+      },
+      {
+        "documentId": "dZ0JOX3Fduo5Ze2Y",
+        "uuid": "Item.dZ0JOX3Fduo5Ze2Y",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Alistair",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Alistair",
+        "sort": 0
+      },
+      {
+        "documentId": "ctIPDwgVl3F8UYi7",
+        "uuid": "Item.ctIPDwgVl3F8UYi7",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Ann Thorpe",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Ann Thorpe",
+        "sort": 0
+      },
+      {
+        "documentId": "UoBXn1mdgeZoQmMF",
+        "uuid": "Item.UoBXn1mdgeZoQmMF",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Anthony Chow",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Anthony Chow",
+        "sort": 0
+      },
+      {
+        "documentId": "5VhKI0xFZ9rkzaf9",
+        "uuid": "Item.5VhKI0xFZ9rkzaf9",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Ashes Crane",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Ashes Crane",
+        "sort": 0
+      },
+      {
+        "documentId": "jDTq4VrONmXOjGiJ",
+        "uuid": "Item.jDTq4VrONmXOjGiJ",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Ben Chang",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Ben Chang",
+        "sort": 0
+      },
+      {
+        "documentId": "iEpG4ocTIlyof9vN",
+        "uuid": "Item.iEpG4ocTIlyof9vN",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Big Al (Vehicle Emporium)",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Big Al (Vehicle Emporium)",
+        "sort": 0
+      },
+      {
+        "documentId": "sY92lA3ViKSKmsrH",
+        "uuid": "Item.sY92lA3ViKSKmsrH",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bill Blanca",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bill Blanca",
+        "sort": 0
+      },
+      {
+        "documentId": "rYcM9zckU1OqmyLR",
+        "uuid": "Item.rYcM9zckU1OqmyLR",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bluebeard",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bluebeard",
+        "sort": 0
+      },
+      {
+        "documentId": "AjYtUnEfYqDnWObC",
+        "uuid": "Item.AjYtUnEfYqDnWObC",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bo Darville",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bo Darville",
+        "sort": 0
+      },
+      {
+        "documentId": "qYB73UqzU9quv4t2",
+        "uuid": "Item.qYB73UqzU9quv4t2",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bob Gadling",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bob Gadling",
+        "sort": 0
+      },
+      {
+        "documentId": "H1F4PocoKuGxfDDC",
+        "uuid": "Item.H1F4PocoKuGxfDDC",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bob Loblaw",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bob Loblaw",
+        "sort": 0
+      },
+      {
+        "documentId": "QgaQnk5pir3PL8w1",
+        "uuid": "Item.QgaQnk5pir3PL8w1",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bobby Jones",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bobby Jones",
+        "sort": 0
+      },
+      {
+        "documentId": "Dm4h25H4gncTQNOO",
+        "uuid": "Item.Dm4h25H4gncTQNOO",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bubbles",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bubbles",
+        "sort": 0
+      },
+      {
+        "documentId": "Q54KhyqOMDDm2M4y",
+        "uuid": "Item.Q54KhyqOMDDm2M4y",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bunny Delish",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Bunny Delish",
+        "sort": 0
+      },
+      {
+        "documentId": "wlHVCFiKF2kejtBQ",
+        "uuid": "Item.wlHVCFiKF2kejtBQ",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Catapult",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Catapult",
+        "sort": 0
+      },
+      {
+        "documentId": "fvf45qHRRDuepacl",
+        "uuid": "Item.fvf45qHRRDuepacl",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Cavern Johnson",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Cavern Johnson",
+        "sort": 0
+      },
+      {
+        "documentId": "XI7vblnqwhNVlEbA",
+        "uuid": "Item.XI7vblnqwhNVlEbA",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Clarence Boddicker",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Clarence Boddicker",
+        "sort": 0
+      },
+      {
+        "documentId": "YTL7Tc422boXIQDO",
+        "uuid": "Item.YTL7Tc422boXIQDO",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Clefton",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Clefton",
+        "sort": 0
+      },
+      {
+        "documentId": "oV8r3LT1N8sqSCDY",
+        "uuid": "Item.oV8r3LT1N8sqSCDY",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Corentin Latreille Mador",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Corentin Latreille Mador",
+        "sort": 0
+      },
+      {
+        "documentId": "Dg74VG8yR6DUyb9R",
+        "uuid": "Item.Dg74VG8yR6DUyb9R",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Cover Girl",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Cover Girl",
+        "sort": 0
+      },
+      {
+        "documentId": "rk99X2Lur5pU764H",
+        "uuid": "Item.rk99X2Lur5pU764H",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Cy-klops",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Cy-klops",
+        "sort": 0
+      },
+      {
+        "documentId": "oCqXG1EMgmSbmIcf",
+        "uuid": "Item.oCqXG1EMgmSbmIcf",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Dan",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Dan",
+        "sort": 0
+      },
+      {
+        "documentId": "PHHGu9w2JkQD4OJQ",
+        "uuid": "Item.PHHGu9w2JkQD4OJQ",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Diane",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Diane",
+        "sort": 0
+      },
+      {
+        "documentId": "vfr61Nhcggj9jFom",
+        "uuid": "Item.vfr61Nhcggj9jFom",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Diaz Baha",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Diaz Baha",
+        "sort": 0
+      },
+      {
+        "documentId": "K8X8GdePbib1J1FG",
+        "uuid": "Item.K8X8GdePbib1J1FG",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Dom Rotetto",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Dom Rotetto",
+        "sort": 0
+      },
+      {
+        "documentId": "kbNTz6Uu48JOS3lj",
+        "uuid": "Item.kbNTz6Uu48JOS3lj",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Don Bruno Carino",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Don Bruno Carino",
+        "sort": 0
+      },
+      {
+        "documentId": "gooFlfWNEYNZiOwm",
+        "uuid": "Item.gooFlfWNEYNZiOwm",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Donna",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Donna",
+        "sort": 0
+      },
+      {
+        "documentId": "EyfGOs9JI5aUT4E5",
+        "uuid": "Item.EyfGOs9JI5aUT4E5",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Double Helix",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Double Helix",
+        "sort": 0
+      },
+      {
+        "documentId": "hRDNKTkSfYMOgobM",
+        "uuid": "Item.hRDNKTkSfYMOgobM",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Dr. Brainrule",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Dr. Brainrule",
+        "sort": 0
+      },
+      {
+        "documentId": "gL0sixLnxpFbYIbO",
+        "uuid": "Item.gL0sixLnxpFbYIbO",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Dr. Mind-twister",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Dr. Mind-twister",
+        "sort": 0
+      },
+      {
+        "documentId": "u2NpxG05E6BA6f5U",
+        "uuid": "Item.u2NpxG05E6BA6f5U",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Dr. Ween",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Dr. Ween",
+        "sort": 0
+      },
+      {
+        "documentId": "g3wre14vQkk1zDae",
+        "uuid": "Item.g3wre14vQkk1zDae",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Duke",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Duke",
+        "sort": 0
+      },
+      {
+        "documentId": "jH6QuoBmNIYmbpZv",
+        "uuid": "Item.jH6QuoBmNIYmbpZv",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Easy E",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Easy E",
+        "sort": 0
+      },
+      {
+        "documentId": "GeXSPn0QSKPewn3K",
+        "uuid": "Item.GeXSPn0QSKPewn3K",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "El Mostafa Urbano",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/El Mostafa Urbano",
+        "sort": 0
+      },
+      {
+        "documentId": "rcNoaOYHJARz4IaV",
+        "uuid": "Item.rcNoaOYHJARz4IaV",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Ember Flint",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Ember Flint",
+        "sort": 0
+      },
+      {
+        "documentId": "O6kYu4LS7q5AtqIy",
+        "uuid": "Item.O6kYu4LS7q5AtqIy",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Eric Gross",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Eric Gross",
+        "sort": 0
+      },
+      {
+        "documentId": "Jj5cx3uAJCXcwCOy",
+        "uuid": "Item.Jj5cx3uAJCXcwCOy",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Flash Moresloth",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Flash Moresloth",
+        "sort": 0
+      },
+      {
+        "documentId": "EvuwtWCwM3IH3CWf",
+        "uuid": "Item.EvuwtWCwM3IH3CWf",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Fungor",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Fungor",
+        "sort": 0
+      },
+      {
+        "documentId": "u2hIcGuNi9sRkEEw",
+        "uuid": "Item.u2hIcGuNi9sRkEEw",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Grandmaw",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Grandmaw",
+        "sort": 0
+      },
+      {
+        "documentId": "kZZHAF2Kw2GBuoyc",
+        "uuid": "Item.kZZHAF2Kw2GBuoyc",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Harlequin",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Harlequin",
+        "sort": 0
+      },
+      {
+        "documentId": "2qYfdmRBoOMV7l05",
+        "uuid": "Item.2qYfdmRBoOMV7l05",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Harold Francis Callahan",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Harold Francis Callahan",
+        "sort": 0
+      },
+      {
+        "documentId": "jk0aEciJELAplXfa",
+        "uuid": "Item.jk0aEciJELAplXfa",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Hobo Pirate",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Hobo Pirate",
+        "sort": 0
+      },
+      {
+        "documentId": "tBLPu8h4tGxrR9lM",
+        "uuid": "Item.tBLPu8h4tGxrR9lM",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Huxley",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Huxley",
+        "sort": 0
+      },
+      {
+        "documentId": "GDMn234kFHIkasz8",
+        "uuid": "Item.GDMn234kFHIkasz8",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Issac on Rails",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Issac on Rails",
+        "sort": 0
+      },
+      {
+        "documentId": "nZydJBYlZTgfeuh5",
+        "uuid": "Item.nZydJBYlZTgfeuh5",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Jack Point",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Jack Point",
+        "sort": 0
+      },
+      {
+        "documentId": "CB0Gzv062xbqQQIX",
+        "uuid": "Item.CB0Gzv062xbqQQIX",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "James Connor",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/James Connor",
+        "sort": 0
+      },
+      {
+        "documentId": "5rZLSY5EcQRqelVI",
+        "uuid": "Item.5rZLSY5EcQRqelVI",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "James McCullen",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/James McCullen",
+        "sort": 0
+      },
+      {
+        "documentId": "9gWz5KwAAp7tBYsW",
+        "uuid": "Item.9gWz5KwAAp7tBYsW",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Jet Black",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Jet Black",
+        "sort": 0
+      },
+      {
+        "documentId": "encmmM6hAcVzcXxu",
+        "uuid": "Item.encmmM6hAcVzcXxu",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Jimbo",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Jimbo",
+        "sort": 0
+      },
+      {
+        "documentId": "lCVuoBGxZDJDYL1c",
+        "uuid": "Item.lCVuoBGxZDJDYL1c",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Joe",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Joe",
+        "sort": 0
+      },
+      {
+        "documentId": "UbuWusPlf9Nh9agx",
+        "uuid": "Item.UbuWusPlf9Nh9agx",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "John Smith",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/John Smith",
+        "sort": 0
+      },
+      {
+        "documentId": "4a8QBO3SZD9aYgL3",
+        "uuid": "Item.4a8QBO3SZD9aYgL3",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Johnny",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Johnny",
+        "sort": 0
+      },
+      {
+        "documentId": "QBz1qZLpGk9e2YN5",
+        "uuid": "Item.QBz1qZLpGk9e2YN5",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Juinan",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Juinan",
+        "sort": 0
+      },
+      {
+        "documentId": "e0vl6UaFL40XDZjz",
+        "uuid": "Item.e0vl6UaFL40XDZjz",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Kasper Dixon",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Kasper Dixon",
+        "sort": 0
+      },
+      {
+        "documentId": "WeXfJUBywZFomble",
+        "uuid": "Item.WeXfJUBywZFomble",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Kate Barker",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Kate Barker",
+        "sort": 0
+      },
+      {
+        "documentId": "7IE6Ny6aHEq6CEn9",
+        "uuid": "Item.7IE6Ny6aHEq6CEn9",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Katia Frangos",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Katia Frangos",
+        "sort": 0
+      },
+      {
+        "documentId": "cy0RGoMoA2JRe62W",
+        "uuid": "Item.cy0RGoMoA2JRe62W",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Kestrel",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Kestrel",
+        "sort": 0
+      },
+      {
+        "documentId": "RwEfojmv54Wq6jMW",
+        "uuid": "Item.RwEfojmv54Wq6jMW",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "King of Lost Socks",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/King of Lost Socks",
+        "sort": 0
+      },
+      {
+        "documentId": "rSekDuRsGEbDtl2j",
+        "uuid": "Item.rSekDuRsGEbDtl2j",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Lem Walnanespanct",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Lem Walnanespanct",
+        "sort": 0
+      },
+      {
+        "documentId": "z9eKOANEg4TkIQnC",
+        "uuid": "Item.z9eKOANEg4TkIQnC",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Lena",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Lena",
+        "sort": 0
+      },
+      {
+        "documentId": "KZ6CuElYwiH5UH1n",
+        "uuid": "Item.KZ6CuElYwiH5UH1n",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Levi Hochstetler",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Levi Hochstetler",
+        "sort": 0
+      },
+      {
+        "documentId": "YJkj7KPI8ajkRc2O",
+        "uuid": "Item.YJkj7KPI8ajkRc2O",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Lynn Murray Griffon",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Lynn Murray Griffon",
+        "sort": 0
+      },
+      {
+        "documentId": "x3XEA6s6V66NrYkS",
+        "uuid": "Item.x3XEA6s6V66NrYkS",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Mac & Bo",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Mac & Bo",
+        "sort": 0
+      },
+      {
+        "documentId": "1MvpRB7J9EDeyMCa",
+        "uuid": "Item.1MvpRB7J9EDeyMCa",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Madelyn Bishop Bates",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Madelyn Bishop Bates",
+        "sort": 0
+      },
+      {
+        "documentId": "eG7AOUS7Nqi46HYC",
+        "uuid": "Item.eG7AOUS7Nqi46HYC",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Max Born",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Max Born",
+        "sort": 0
+      },
+      {
+        "documentId": "McjskLAeRDyRWqnh",
+        "uuid": "Item.McjskLAeRDyRWqnh",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "May",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/May",
+        "sort": 0
+      },
+      {
+        "documentId": "gzjdZEGV5hMwD2UQ",
+        "uuid": "Item.gzjdZEGV5hMwD2UQ",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "May O'Neil",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/May O'Neil",
+        "sort": 0
+      },
+      {
+        "documentId": "voaz2flGjQOaBY0W",
+        "uuid": "Item.voaz2flGjQOaBY0W",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Melfidius",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Melfidius",
+        "sort": 0
+      },
+      {
+        "documentId": "hA04rcfC2a9VbI0H",
+        "uuid": "Item.hA04rcfC2a9VbI0H",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Melody Myers",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Melody Myers",
+        "sort": 0
+      },
+      {
+        "documentId": "gcNBqfmiurcc8KlT",
+        "uuid": "Item.gcNBqfmiurcc8KlT",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Michelle King",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Michelle King",
+        "sort": 0
+      },
+      {
+        "documentId": "h9ucxoVcKxy6ppMf",
+        "uuid": "Item.h9ucxoVcKxy6ppMf",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Modesty Blaze",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Modesty Blaze",
+        "sort": 0
+      },
+      {
+        "documentId": "T8QkW6edGMTGY2H4",
+        "uuid": "Item.T8QkW6edGMTGY2H4",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Moe Lester",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Moe Lester",
+        "sort": 0
+      },
+      {
+        "documentId": "1ROVj7pJ1XEZNnp3",
+        "uuid": "Item.1ROVj7pJ1XEZNnp3",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Morgana Powers",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Morgana Powers",
+        "sort": 0
+      },
+      {
+        "documentId": "YTUy5v74L0KqaoyK",
+        "uuid": "Item.YTUy5v74L0KqaoyK",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Mr. Chief",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Mr. Chief",
+        "sort": 0
+      },
+      {
+        "documentId": "3eyVQJEQ0xgt0uHm",
+        "uuid": "Item.3eyVQJEQ0xgt0uHm",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Murdok Mark",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Murdok Mark",
+        "sort": 0
+      },
+      {
+        "documentId": "ezt3hK8NS68Oabyx",
+        "uuid": "Item.ezt3hK8NS68Oabyx",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Nathaniel Essex",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Nathaniel Essex",
+        "sort": 0
+      },
+      {
+        "documentId": "MFdVxtWPDhGMOKH1",
+        "uuid": "Item.MFdVxtWPDhGMOKH1",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Odiphus",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Odiphus",
+        "sort": 0
+      },
+      {
+        "documentId": "C7iVsP6VKaosQKHj",
+        "uuid": "Item.C7iVsP6VKaosQKHj",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Pantharo",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Pantharo",
+        "sort": 0
+      },
+      {
+        "documentId": "xcngir5nZ4nDWula",
+        "uuid": "Item.xcngir5nZ4nDWula",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Paris Bueller",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Paris Bueller",
+        "sort": 0
+      },
+      {
+        "documentId": "IT5bEYagj5D3uokk",
+        "uuid": "Item.IT5bEYagj5D3uokk",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Pearl Pearlman",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Pearl Pearlman",
+        "sort": 0
+      },
+      {
+        "documentId": "Kesa0BW3AkbVjvLP",
+        "uuid": "Item.Kesa0BW3AkbVjvLP",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Perkaedo",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Perkaedo",
+        "sort": 0
+      },
+      {
+        "documentId": "Cu59hxRQwAXCaFSf",
+        "uuid": "Item.Cu59hxRQwAXCaFSf",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Phizzvan",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Phizzvan",
+        "sort": 0
+      },
+      {
+        "documentId": "GcokevNd5x45FPyl",
+        "uuid": "Item.GcokevNd5x45FPyl",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Present Head",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Present Head",
+        "sort": 0
+      },
+      {
+        "documentId": "02iK8ZeUBPPsagnX",
+        "uuid": "Item.02iK8ZeUBPPsagnX",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Q",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Q",
+        "sort": 0
+      },
+      {
+        "documentId": "jabYQ3QugTpDwfrx",
+        "uuid": "Item.jabYQ3QugTpDwfrx",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Quill Quaz",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Quill Quaz",
+        "sort": 0
+      },
+      {
+        "documentId": "ZYWuUos7DnjBQxOR",
+        "uuid": "Item.ZYWuUos7DnjBQxOR",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Rat",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Rat",
+        "sort": 0
+      },
+      {
+        "documentId": "6p8zbqxbhhpVsPcg",
+        "uuid": "Item.6p8zbqxbhhpVsPcg",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Razor",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Razor",
+        "sort": 0
+      },
+      {
+        "documentId": "KW99wiP6eArdw7ju",
+        "uuid": "Item.KW99wiP6eArdw7ju",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Rebecca",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Rebecca",
+        "sort": 0
+      },
+      {
+        "documentId": "1b8cKQOmUYP5tPrL",
+        "uuid": "Item.1b8cKQOmUYP5tPrL",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Reverand Dr. Syn",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Reverand Dr. Syn",
+        "sort": 0
+      },
+      {
+        "documentId": "LHkxI83ax0PwqoGz",
+        "uuid": "Item.LHkxI83ax0PwqoGz",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Risleb the Immortal",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Risleb the Immortal",
+        "sort": 0
+      },
+      {
+        "documentId": "7uKRvcNgRrOnJonV",
+        "uuid": "Item.7uKRvcNgRrOnJonV",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Robert",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Robert",
+        "sort": 0
+      },
+      {
+        "documentId": "0hjXojRSTGywbceU",
+        "uuid": "Item.0hjXojRSTGywbceU",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Robert Savage",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Robert Savage",
+        "sort": 0
+      },
+      {
+        "documentId": "JxpYLPdmydbbKwKc",
+        "uuid": "Item.JxpYLPdmydbbKwKc",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Roberto",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Roberto",
+        "sort": 0
+      },
+      {
+        "documentId": "mijOI5UupDMnOjlk",
+        "uuid": "Item.mijOI5UupDMnOjlk",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Royal Continental",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Royal Continental",
+        "sort": 0
+      },
+      {
+        "documentId": "L2UoKT4Iu1KlkJjf",
+        "uuid": "Item.L2UoKT4Iu1KlkJjf",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Russ \"The String\" Bell",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Russ \"The String\" Bell",
+        "sort": 0
+      },
+      {
+        "documentId": "666bx83ceQHsoBpn",
+        "uuid": "Item.666bx83ceQHsoBpn",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Sammon Shamon Al-Baz",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Sammon Shamon Al-Baz",
+        "sort": 0
+      },
+      {
+        "documentId": "Le4yZ18sSKktViJK",
+        "uuid": "Item.Le4yZ18sSKktViJK",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Sarah Konnor",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Sarah Konnor",
+        "sort": 0
+      },
+      {
+        "documentId": "eNHJvhZKNMtqEHft",
+        "uuid": "Item.eNHJvhZKNMtqEHft",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Scarab",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Scarab",
+        "sort": 0
+      },
+      {
+        "documentId": "oJvqD5v4tO1djz5h",
+        "uuid": "Item.oJvqD5v4tO1djz5h",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Serpent Pliskin",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Serpent Pliskin",
+        "sort": 0
+      },
+      {
+        "documentId": "kJfucVrQcLqEaWhd",
+        "uuid": "Item.kJfucVrQcLqEaWhd",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Skeletron",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Skeletron",
+        "sort": 0
+      },
+      {
+        "documentId": "2Oykf6XPWxD5q4VM",
+        "uuid": "Item.2Oykf6XPWxD5q4VM",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Snap-Jaw",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Snap-Jaw",
+        "sort": 0
+      },
+      {
+        "documentId": "EQL9qZU53ZiArlCU",
+        "uuid": "Item.EQL9qZU53ZiArlCU",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Snowball",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Snowball",
+        "sort": 0
+      },
+      {
+        "documentId": "JVV7tp0rQkgJCdrj",
+        "uuid": "Item.JVV7tp0rQkgJCdrj",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Spearmint",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Spearmint",
+        "sort": 0
+      },
+      {
+        "documentId": "YhAKWJtw6pEcNzee",
+        "uuid": "Item.YhAKWJtw6pEcNzee",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Sydney Greenstreet the Duckpin",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Sydney Greenstreet the Duckpin",
+        "sort": 0
+      },
+      {
+        "documentId": "zwrzi9Knj7bWp3d7",
+        "uuid": "Item.zwrzi9Knj7bWp3d7",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Techno-viking",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Techno-viking",
+        "sort": 0
+      },
+      {
+        "documentId": "k4fYca9yscm5gHe6",
+        "uuid": "Item.k4fYca9yscm5gHe6",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "The Blue Meanies",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/The Blue Meanies",
+        "sort": 0
+      },
+      {
+        "documentId": "rP8a3IR0OBEsxzSj",
+        "uuid": "Item.rP8a3IR0OBEsxzSj",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "The Certified Accountant",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/The Certified Accountant",
+        "sort": 0
+      },
+      {
+        "documentId": "VYlR7cYmmgJuu5vL",
+        "uuid": "Item.VYlR7cYmmgJuu5vL",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "The Coughing Man",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/The Coughing Man",
+        "sort": 0
+      },
+      {
+        "documentId": "kWKEev9fMlvOgFHP",
+        "uuid": "Item.kWKEev9fMlvOgFHP",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "The Countess",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/The Countess",
+        "sort": 0
+      },
+      {
+        "documentId": "JNMLOmY7PRx1NfpA",
+        "uuid": "Item.JNMLOmY7PRx1NfpA",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "The Gimcrak King",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/The Gimcrak King",
+        "sort": 0
+      },
+      {
+        "documentId": "gUgkxHMGoWwyvyMv",
+        "uuid": "Item.gUgkxHMGoWwyvyMv",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Thumper",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Thumper",
+        "sort": 0
+      },
+      {
+        "documentId": "UZ7foI7EdHLPpm30",
+        "uuid": "Item.UZ7foI7EdHLPpm30",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Tibor Phrenczy",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Tibor Phrenczy",
+        "sort": 0
+      },
+      {
+        "documentId": "ID9dSrSnFgWFrL0A",
+        "uuid": "Item.ID9dSrSnFgWFrL0A",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Tooth Spitter",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Tooth Spitter",
+        "sort": 0
+      },
+      {
+        "documentId": "TXUzSM3wblfJvdVc",
+        "uuid": "Item.TXUzSM3wblfJvdVc",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Turret",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Turret",
+        "sort": 0
+      },
+      {
+        "documentId": "F1geklb0vncVzx82",
+        "uuid": "Item.F1geklb0vncVzx82",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Tyrel Melchor",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Tyrel Melchor",
+        "sort": 0
+      },
+      {
+        "documentId": "mSmghLY4ofUqaSkB",
+        "uuid": "Item.mSmghLY4ofUqaSkB",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "W. H. Loh",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/W. H. Loh",
+        "sort": 0
+      },
+      {
+        "documentId": "P4ZliFjv32dOi8Nt",
+        "uuid": "Item.P4ZliFjv32dOi8Nt",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Warden Hand",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Warden Hand",
+        "sort": 0
+      },
+      {
+        "documentId": "ovPYIBvPsWe4njgy",
+        "uuid": "Item.ovPYIBvPsWe4njgy",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Weird",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Weird",
+        "sort": 0
+      },
+      {
+        "documentId": "nhTkSzOfSyu0y4Pk",
+        "uuid": "Item.nhTkSzOfSyu0y4Pk",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "William Kilgore",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/William Kilgore",
+        "sort": 0
+      },
+      {
+        "documentId": "eE8lmGwmE4kgOrjc",
+        "uuid": "Item.eE8lmGwmE4kgOrjc",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Yahya Boulos",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Yahya Boulos",
+        "sort": 0
+      },
+      {
+        "documentId": "x7uOelnHCPtdL5yy",
+        "uuid": "Item.x7uOelnHCPtdL5yy",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Zane",
+        "folderId": "76RtzViuhpI874RJ",
+        "folderPath": "Brand/Assets",
+        "path": "Brand/Assets/Zane",
+        "sort": 0
+      },
+      {
+        "documentId": "jdk3ydvlbMaJyHQ6",
+        "uuid": "Item.jdk3ydvlbMaJyHQ6",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Arboretum",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Arboretum",
+        "sort": 0
+      },
+      {
+        "documentId": "ao1LeiGdArgTayOq",
+        "uuid": "Item.ao1LeiGdArgTayOq",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Arena",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Arena",
+        "sort": 0
+      },
+      {
+        "documentId": "hwejJyr857pZ6s4c",
+        "uuid": "Item.hwejJyr857pZ6s4c",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Back alley network",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Back alley network",
+        "sort": 0
+      },
+      {
+        "documentId": "3Ev286ereeoCaIRi",
+        "uuid": "Item.3Ev286ereeoCaIRi",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Bar/dance club",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Bar/dance club",
+        "sort": 0
+      },
+      {
+        "documentId": "s0ws1QKmf14G3k9P",
+        "uuid": "Item.s0ws1QKmf14G3k9P",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Casino",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Casino",
+        "sort": 0
+      },
+      {
+        "documentId": "QmrPDuZOGlLxSIUC",
+        "uuid": "Item.QmrPDuZOGlLxSIUC",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Clinic",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Clinic",
+        "sort": 0
+      },
+      {
+        "documentId": "sNilkZ293pdkEixq",
+        "uuid": "Item.sNilkZ293pdkEixq",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Condos",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Condos",
+        "sort": 0
+      },
+      {
+        "documentId": "MfXn7gpdVQ8DqTnD",
+        "uuid": "Item.MfXn7gpdVQ8DqTnD",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Corporate Towers",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Corporate Towers",
+        "sort": 0
+      },
+      {
+        "documentId": "QF0OOHX1XgWn330s",
+        "uuid": "Item.QF0OOHX1XgWn330s",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Factory",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Factory",
+        "sort": 0
+      },
+      {
+        "documentId": "0ziuyvWTwZwEZOea",
+        "uuid": "Item.0ziuyvWTwZwEZOea",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Gym",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Gym",
+        "sort": 0
+      },
+      {
+        "documentId": "KBTRReB8weZT4qgE",
+        "uuid": "Item.KBTRReB8weZT4qgE",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Headquarters",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Headquarters",
+        "sort": 0
+      },
+      {
+        "documentId": "RFaPzL2GsPt5QbHl",
+        "uuid": "Item.RFaPzL2GsPt5QbHl",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Hospital/Surgery Center",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Hospital/Surgery Center",
+        "sort": 0
+      },
+      {
+        "documentId": "4rMYmmcqR7PoriQb",
+        "uuid": "Item.4rMYmmcqR7PoriQb",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Housing",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Housing",
+        "sort": 0
+      },
+      {
+        "documentId": "wP3jtHz1vOj0xGrj",
+        "uuid": "Item.wP3jtHz1vOj0xGrj",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Mass Media Station",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Mass Media Station",
+        "sort": 0
+      },
+      {
+        "documentId": "9SyF4qbfCfg9cQPW",
+        "uuid": "Item.9SyF4qbfCfg9cQPW",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Museum",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Museum",
+        "sort": 0
+      },
+      {
+        "documentId": "x3NvsZMrCjWvtXXP",
+        "uuid": "Item.x3NvsZMrCjWvtXXP",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Offices",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Offices",
+        "sort": 0
+      },
+      {
+        "documentId": "2jq96QNoBiHYIYxd",
+        "uuid": "Item.2jq96QNoBiHYIYxd",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Research Lab",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Research Lab",
+        "sort": 0
+      },
+      {
+        "documentId": "WFTBh6F3W11sBXdI",
+        "uuid": "Item.WFTBh6F3W11sBXdI",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "ResourceTest",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/ResourceTest",
+        "sort": 0
+      },
+      {
+        "documentId": "Hfx5VhDee81DexzD",
+        "uuid": "Item.Hfx5VhDee81DexzD",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Science Center",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Science Center",
+        "sort": 0
+      },
+      {
+        "documentId": "pnxba3G7zPMbSOFl",
+        "uuid": "Item.pnxba3G7zPMbSOFl",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Store",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Store",
+        "sort": 0
+      },
+      {
+        "documentId": "yzzNdPkdWPYCkyk8",
+        "uuid": "Item.yzzNdPkdWPYCkyk8",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Temple",
+        "folderId": "tH4sjhPKYwIEC0KT",
+        "folderPath": "Brand/Resources",
+        "path": "Brand/Resources/Temple",
         "sort": 0
       },
       {
@@ -5474,6 +7452,17 @@
         "folderId": "aHRmcytEr2emGb1Y",
         "folderPath": "Weapons/Melee",
         "path": "Weapons/Melee/Cudgel",
+        "sort": 0
+      },
+      {
+        "documentId": "degDSYZ7eHq0PLlw",
+        "uuid": "Item.degDSYZ7eHq0PLlw",
+        "docType": "Item",
+        "subtype": "equippableItem",
+        "name": "Iron Fist (Amp)",
+        "folderId": "aHRmcytEr2emGb1Y",
+        "folderPath": "Weapons/Melee",
+        "path": "Weapons/Melee/Iron Fist (Amp)",
         "sort": 0
       },
       {

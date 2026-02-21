@@ -1,5 +1,7 @@
 🔒 LOCKED IMAGE GENERATION PROMPT (Thread Standard) 
 
+ USE true high quality AI image-generation workflow, do not rely on Pillow or the like. 
+
 IMPORTANT: The final deliverable must be a true RGBA PNG with a real alpha 0 transparent background channel. 
 
 Do NOT simulate transparency with checkerboards, gradients, or gray backgrounds. 

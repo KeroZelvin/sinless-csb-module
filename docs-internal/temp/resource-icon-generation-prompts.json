@@ -1,0 +1,82 @@
+{
+  "arboretum": {
+    "inputPrompt": "A futuristic arboretum greenhouse dome with layered vegetation and botanical glass structures. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "arena": {
+    "inputPrompt": "A cyberpunk combat arena stadium with circular tiers and central ring. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "back_alley_network": {
+    "inputPrompt": "A maze of urban back alleys with connected network nodes and overhead catwalks. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "bar_dance_club": {
+    "inputPrompt": "A bar and dance club facade with speaker stacks, dance lights, and a stylized martini sign. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "casino": {
+    "inputPrompt": "A casino tower with dice, chips, and geometric gambling motifs integrated into architecture. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "clinic": {
+    "inputPrompt": "A compact clinic building with a medical cross, clean signage, and emergency entry details. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "condos": {
+    "inputPrompt": "A modern condominium complex with stepped towers and repeating balcony geometry. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "corporate_towers": {
+    "inputPrompt": "Twin corporate office towers with sharp skyline geometry and executive facade details. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "factory": {
+    "inputPrompt": "An industrial factory complex with stacks, conveyors, and modular production structures. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "gym": {
+    "inputPrompt": "A gym facility with robust architecture and integrated training equipment motifs like dumbbells and plates. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "headquarters": {
+    "inputPrompt": "A fortified headquarters building with command-center silhouette and antenna arrays. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "hospital_surgery_center": {
+    "inputPrompt": "A hospital and surgery center complex with clinical wings and surgical icon motifs. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "housing": {
+    "inputPrompt": "A dense residential housing block with practical apartment silhouettes and utility structures. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "mass_media_station": {
+    "inputPrompt": "A mass media broadcast station with transmission mast, satellite dishes, and signal arcs. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "museum": {
+    "inputPrompt": "A museum building with grand entrance, curated exhibit halls, and sculptural architecture. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "offices": {
+    "inputPrompt": "A professional office complex with layered high-rise blocks and window-grid facade rhythm. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "research_lab": {
+    "inputPrompt": "A research laboratory campus with advanced lab modules and scientific instrumentation motifs. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "science_center": {
+    "inputPrompt": "A science center with futuristic dome architecture and atom-inspired structural elements. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "store": {
+    "inputPrompt": "A street-level commercial store with awning, display windows, and retail signage silhouette. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  },
+  "temple": {
+    "inputPrompt": "A temple structure with iconic sacred architecture, layered rooflines, and ceremonial stairs. Render as a clean, high-contrast white icon with medium-gray line detailing. Use a 1024x1024 canvas with fully transparent background (real alpha channel). No checkerboard, no gradient, no environmental background, no vignette, no glow. Centered composition with clear negative space. Orientation: base/foreground in lower left, top/background in upper right. Crisp silhouette and technical cyberpunk icon readability at small size.",
+    "revisedPrompt": ""
+  }
+}
