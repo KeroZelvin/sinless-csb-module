@@ -273,18 +273,34 @@ export async function openDialogV2(cfg = {}) {
         _onRender(context, options) {
           super._onRender(context, options);
 
-          const tryBind = () => {
+          const tryBind = (attempt = "initial") => {
             const root = getDialogRoot(this, options);
             if (root) {
-            try { onRender(this, root); } catch (e) { console.error("SinlessCSB | onRender failed", e); }
-            return true;
-    }
-    return false;
-  };
+              try {
+                onRender(this, root);
+              } catch (e) {
+                console.error("SinlessCSB | onRender failed", e);
+              }
+              return true;
+            }
 
-  // Try immediately; if the element is populated slightly later, retry once.
-  if (!tryBind()) queueMicrotask(tryBind);
-}
+            if (attempt === "retry") {
+              console.warn("SinlessCSB | Dialog root not found for onRender binding", {
+                title,
+                appId: this?.appId ?? null
+              });
+            }
+
+            return false;
+          };
+
+          // Try immediately; if the element is populated slightly later, retry once.
+          if (!tryBind()) {
+            queueMicrotask(() => {
+              tryBind("retry");
+            });
+          }
+        }
 
 
         async close(options) {

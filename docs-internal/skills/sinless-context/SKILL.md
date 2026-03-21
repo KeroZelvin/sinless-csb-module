@@ -1,4 +1,4 @@
-﻿---
+---
 name: sinless-context
 description: Use only for Sinless rules/lore review from local PDFs (core rules, quickstart, tools). Trigger when the user asks to interpret/implement rules or locate rule text.
 ---
