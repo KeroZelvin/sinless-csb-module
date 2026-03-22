@@ -1,3 +1,8 @@
+v0.1.1
+    -fixed 0 logic errors when pools are 0.
+    -module updates should now auto refresh existing templates
+    -built toggle to disable auto updates if GM wishes
+
 v0.1.0
     Soak / Dodge / Resist Buttons
     Fixed Speaker rolls, new Invoke api

@@ -4,6 +4,7 @@ Thumbs.db
 
 # VS Code
 .vscode/
+.claude/
 
 # Node (future-proof)
 node_modules/
@@ -25,6 +26,9 @@ dist-snapshot/
 
 # Logs
 *.log
+
+# Local temp/cache
+.tmp/csb-wiki/
 
 # Local sync status marker
 docs-internal/temp/export-sync-last-run.md

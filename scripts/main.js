@@ -15,6 +15,10 @@ import { registerActorInitHooks } from "./hooks/actor-init.js";
 import { registerVcrBonusHooks } from "./hooks/vcr-bonus-sync.js";
 import { registerMcpDeckHooks } from "./hooks/mcp-deck-sync.js";
 import { registerPoolMaxSyncHooks } from "./hooks/pool-max-sync.js";
+import {
+  registerTemplateRefreshHooks,
+  refreshActorTemplatesFromModule
+} from "./hooks/template-refresh.js";
 
 // NEW: Token bar mirroring + token-HUD editing for stunCur/physicalCur
 import { registerTokenBarsBidirectionalHooks } from "./hooks/token-bars-bidirectional.js";
@@ -200,7 +204,8 @@ function exposeModuleAPI() {
     openOwnedVehicleSheet,
     exportCompendiumIndexMarkdown,
     exportFolderTreeMarkdown,
-    exportDevReferenceMarkdowns
+    exportDevReferenceMarkdowns,
+    refreshActorTemplatesFromModule
   });
 
   console.log("SinlessCSB | API exposed", Object.keys(mod.api));
@@ -257,6 +262,7 @@ Hooks.once("init", () => {
   registerVcrBonusHooks();
   registerMcpDeckHooks();
   registerPoolMaxSyncHooks();
+  registerTemplateRefreshHooks();
 
   // Drone ownership + deploy helpers
   registerDroneOwnershipHooks();
