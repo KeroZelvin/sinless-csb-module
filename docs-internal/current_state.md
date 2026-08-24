@@ -1,8 +1,9 @@
 # SinlessCSB – Current State (API-first)
 
 ## Runtime and constraints
-- Foundry: **v13**
-- System: **CSB v5**
+- Foundry: **v14** (target stable 14.367+). Migration from v13 is in progress on branch `feat/v14-csb6-migration`; the live production install still runs v13 + CSB 5.2.1 until the migration lands.
+- System: **CSB 6.0.x** (v14-only). CSB 6 removed Item Modifiers and Status Effect Modifiers — pack census found zero modifier data in this module's packs (`docs-internal/v14-migration/modifier-census.md`).
+- Platform note: `build.ps1`, `Snapshot.ps1`, and the skill's PowerShell export-sync scripts are **Windows-only**; on a Linux clone they do not run without porting or WSL.
 - Live values: **`actor.system.props`** (CSB props root may be configurable; default `system.props`)
 
 ## Module direction

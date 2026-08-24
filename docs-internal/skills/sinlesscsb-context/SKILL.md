@@ -1,6 +1,6 @@
 ---
 name: sinlesscsb-context
-description: Synthesize and apply SinlessCSB repo context for Foundry v13 + CSB v5; use when working on the sinlesscsb module, API, dialogs, macros, CSS, templates, or when bootstrapping a task without re-stating project background.
+description: Synthesize and apply SinlessCSB repo context for Foundry v14 + CSB 6; use when working on the sinlesscsb module, API, dialogs, macros, CSS, templates, or when bootstrapping a task without re-stating project background.
 ---
 
 # SinlessCSB Context
@@ -9,6 +9,8 @@ description: Synthesize and apply SinlessCSB repo context for Foundry v13 + CSB 
 Bootstrap new tasks by synthesizing repo context, known-good patterns, and review notes for the SinlessCSB module.
 
 ## Startup checklist
+
+> **Platform note (2026-08-24):** Runtime target is now **Foundry v14 + CSB 6.0.x** (module 0.1.1, `compatibility` minimum/verified 14). The PowerShell scripts referenced below (`sync-recent-foundry-exports.ps1`, `select-latest-folder-tree.ps1`) plus repo-root `build.ps1` and `Snapshot.ps1` are **Windows-only**; on the Linux clone they do not run without porting or WSL — skip the sync steps there and read exports directly from disk.
 1) Confirm you are in the SinlessCSB repo. If not, locate it by searching for `module.json` and `scripts/main.js`, or ask the user for the repo path.
 2) Sync recent Foundry JSON exports from Downloads into the repo template folder:
    - Run:

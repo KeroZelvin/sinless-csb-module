@@ -1,7 +1,7 @@
 # SinlessCSB – Review Notes (API-first)
 
 ## Snapshot context
-- Runtime: **Foundry VTT v13** + **Custom System Builder (CSB) v5**
+- Runtime: **Foundry VTT v14** + **Custom System Builder (CSB) 6.0.x** (updated 2026-08-24 from v13 + CSB v5; migration tracked in `docs-internal/v14-migration/`). Historical references to v13 below describe decisions made under v13 unless re-verified.
 - Project direction: migrate from “large world macros” to a **module API** surface (`game.modules.get("sinlesscsb").api.*`)
 - Still true: “snapshot-based review” is the safest workflow for ChatGPT—paste code, console errors, and JSON fragments into repo docs, not Foundry journals.
 
