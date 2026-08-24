@@ -32,3 +32,6 @@ dist-snapshot/
 
 # Local sync status marker
 docs-internal/temp/export-sync-last-run.md
+
+# Stale recovery artifact (archived at ~/git/sinless-backups/codex-recovery.patch)
+codex-recovery.patch
