@@ -1,4 +1,7 @@
 v0.1.1
+    -MIGRATION: Foundry VTT v14 + Custom System Builder 6 (CSB 6.0.2).
+    -packs re-exported CSB-6-native (empty legacy modifier keys stripped; 731 docs).
+    -fixed TableResult#text deprecation (v15-safe) in table-to-tile / chase draws.
     -fixed 0 logic errors when pools are 0.
     -module updates should now auto refresh existing templates
     -built toggle to disable auto updates if GM wishes
