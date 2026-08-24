@@ -2,7 +2,9 @@
 // Foundry v13: draw a RollTable result and place the card face as a Tile.
 // Preferences:
 // 1) Use result.img if it's a real image (not the d20 placeholder)
-// 2) Else, parse <img src="..."> from result.description or result.text
+// 2) Else, parse <img src="..."> from result.description
+//    (legacy TableResult#text getter is deprecated since v13 and removed in v15;
+//     its data lives in name/description — description is handled above, name below)
 // Optional hardening:
 // - strictModuleAssets: require src to start with "modules/sinlesscsb/"
 
@@ -65,8 +67,11 @@ function pickCardImageFromResult(result, { strictModuleAssets = false } = {}) {
     return enforceStrictModuleAssets(descSrc, strictModuleAssets);
   }
 
-  // 3) Fallback: parse from text
-  const textSrc = extractFirstImgSrcFromHTML(result?.text);
+  // 3) Fallback: parse from the result's text content.
+  //    `TableResult#text` is deprecated (since v13) and removed in v15; the getter
+  //    returned `type === "text" ? description : name`, so reading `name` here is
+  //    behavior-preserving for non-text results (description already handled above).
+  const textSrc = extractFirstImgSrcFromHTML(result?.name);
   if (textSrc && looksLikeImagePath(textSrc)) {
     return enforceStrictModuleAssets(textSrc, strictModuleAssets);
   }
