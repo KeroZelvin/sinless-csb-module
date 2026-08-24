@@ -1,0 +1,117 @@
+{
+  "name": "Car Chase",
+  "navigation": false,
+  "navOrder": 0,
+  "thumb": "worlds/sinless/assets/scenes/wDv1e3CsiYJUbIch-thumb.webp",
+  "width": 955,
+  "height": 1286,
+  "padding": 0.25,
+  "initial": {
+    "x": 659,
+    "y": 1341,
+    "scale": 0.764
+  },
+  "grid": {
+    "type": 0,
+    "size": 60,
+    "style": "solidLines",
+    "thickness": 1,
+    "color": "#000000",
+    "alpha": 0,
+    "distance": 2,
+    "units": "m"
+  },
+  "tokenVision": false,
+  "fog": {
+    "colors": {
+      "explored": null,
+      "unexplored": null
+    },
+    "mode": 0
+  },
+  "environment": {
+    "darknessLevel": 0,
+    "darknessLock": false,
+    "globalLight": {
+      "enabled": false,
+      "alpha": 0.5,
+      "bright": false,
+      "color": null,
+      "coloration": 1,
+      "luminosity": 0,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "cycle": true,
+    "base": {
+      "hue": 0,
+      "intensity": 0,
+      "luminosity": 0.1,
+      "saturation": 0.2,
+      "shadows": 0.25
+    },
+    "dark": {
+      "hue": 0.7138888888888889,
+      "intensity": 0,
+      "luminosity": -0.2,
+      "saturation": 0.1,
+      "shadows": 0.65
+    }
+  },
+  "drawings": [],
+  "tokens": [],
+  "lights": [],
+  "notes": [],
+  "sounds": [],
+  "regions": [],
+  "tiles": [
+    "p3DJGBIRHHgO5bQ3"
+  ],
+  "walls": [],
+  "playlist": null,
+  "playlistSound": null,
+  "journal": null,
+  "journalEntryPage": null,
+  "weather": "",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {
+    "sinlesscsb": {
+      "carchasePaths": 3
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "14.367",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1768695632460,
+    "modifiedTime": 1771174103425,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "navName": "",
+  "_id": "wDCY5jFqLQGsyNkg",
+  "active": false,
+  "sort": 0,
+  "levels": [
+    "defaultLevel0000"
+  ],
+  "shiftX": 0,
+  "shiftY": -300,
+  "initialLevel": "defaultLevel0000",
+  "transition": {
+    "type": null,
+    "duration": 1500,
+    "activeOnly": false
+  }
+}

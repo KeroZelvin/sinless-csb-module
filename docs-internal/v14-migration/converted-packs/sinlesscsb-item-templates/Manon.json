@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Manon",
+  "color": "#b0116e",
+  "sorting": "m",
+  "_id": "oWRM8pNMOUkbZHoV",
+  "description": "",
+  "sort": 400000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703564284,
+    "modifiedTime": 1771703566084,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

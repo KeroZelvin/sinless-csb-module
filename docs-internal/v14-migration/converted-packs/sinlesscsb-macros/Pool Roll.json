@@ -1,0 +1,27 @@
+{
+  "folder": "hE39SdlYGegRigDw",
+  "name": "Pool Roll",
+  "type": "script",
+  "_id": "5f1q7hwqfXwyHxrJ",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "(async () => {\n  const api = game.modules.get(\"sinlesscsb\")?.api;\n  if (typeof api?.rollPools !== \"function\") {\n    ui.notifications?.error?.(\"SinlessCSB: rollPools API not available.\");\n    return;\n  }\n\n  const tokenActor = canvas?.tokens?.controlled?.[0]?.actor ?? null;\n  const actor = tokenActor ?? game.user?.character ?? null;\n\n  if (!actor) {\n    ui.notifications?.warn?.(\"No token selected and no owned character.\");\n    return;\n  }\n\n  const ownerLevel = actor.ownership?.[game.user?.id] ?? 0;\n  const isOwner = ownerLevel >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;\n  if (!isOwner) {\n    ui.notifications?.warn?.(\"Pool roll blocked: you do not own this actor.\");\n    return;\n  }\n\n  const isNpc = Object.prototype.hasOwnProperty.call(actor.system?.props ?? {}, \"NPCinit\");\n  if (isNpc) {\n    ui.notifications?.warn?.(\"Pool roll blocked: NPC actor.\");\n    return;\n  }\n\n  await api.rollPools({ actorUuid: actor.uuid });\n})();",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703630524,
+    "modifiedTime": 1771703630524,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

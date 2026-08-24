@@ -1,0 +1,108 @@
+{
+  "name": "Shield Drone",
+  "type": "equippableItem",
+  "folder": "DswGzl1e1TynhREL",
+  "img": "modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img3_xref764.webp",
+  "system": {
+    "template": "UOzfdwCey4axeP6O",
+    "templateSystemUniqueVersion": 3930338538,
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "sinlesscsb-marker",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "findItemdrone",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "findItemdrone",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "props": {
+      "findItemdrone": "Shield Drone"
+    },
+    "unique": false,
+    "uniqueId": "N0nGXBPq2IZtEQhK"
+  },
+  "_id": "7nvUQQfXYQChzrbd",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    },
+    "sinlesscsb": {
+      "droneActorUuid": "Actor.Po0rfSm4pE28nhBT",
+      "rigType": "drone",
+      "rigOwnerActorUuid": "Actor.8vzQkDQUAT7qEO2m",
+      "rigSourceFindKey": "Shield Drone",
+      "droneOwnerActorUuid": "Actor.8vzQkDQUAT7qEO2m",
+      "droneSourceFindDrone": "Shield Drone"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "14.367",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "lastModifiedBy": null,
+    "createdTime": null,
+    "modifiedTime": null
+  }
+}

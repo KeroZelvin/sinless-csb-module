@@ -1,0 +1,27 @@
+{
+  "folder": "brwI6FNxjxJq9H1r",
+  "name": "update template portrait size",
+  "type": "script",
+  "_id": "sYUO9dFxALh4AoSH",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "// Macro: update template portrait size (CSB v5)\n// Sets profile picture size on Actor/Item templates (and optionally existing docs).\n\n(async () => {\n  const SIZE = 200;\n\n  // Toggle these as needed\n  const UPDATE_TEMPLATES = true;\n  const UPDATE_ACTORS = true; // set true to update existing actor docs\n  const UPDATE_ITEMS = true;  // set true to update existing item docs\n\n  // Optional name filter (case-sensitive). Leave empty to update all.\n  const TEMPLATE_NAMES = new Set([\n    // \"Sinless PC\",\n    // \"Sinless NPC\",\n    // \"Session Settings\",\n    // \"Firearms Template\",\n    // \"Melee Weapon Template\",\n    // \"Cyberdeck Template\"\n  ]);\n\n  const shouldUpdateName = (doc) =>\n    TEMPLATE_NAMES.size === 0 || TEMPLATE_NAMES.has(String(doc?.name ?? \"\"));\n\n  const isTemplate = (doc) => doc?.type === \"_template\" && doc?.system?.display;\n\n  async function updateDoc(doc, label) {\n    if (!doc) return false;\n    if (!shouldUpdateName(doc)) return false;\n    const updateData = {\n      \"system.display.pp_width\": 200,\n      \"system.display.pp_height\": 200\n    };\n    try {\n      await doc.update(updateData);\n      return true;\n    } catch (e) {\n      console.warn(`${label}: failed`, doc?.name, e);\n      return false;\n    }\n  }\n\n  let updated = 0;\n\n  if (UPDATE_TEMPLATES) {\n    for (const a of game.actors ?? []) {\n      if (!isTemplate(a)) continue;\n      if (await updateDoc(a, \"Actor template\")) updated += 1;\n    }\n    for (const i of game.items ?? []) {\n      if (!isTemplate(i)) continue;\n      if (await updateDoc(i, \"Item template\")) updated += 1;\n    }\n  }\n\n  if (UPDATE_ACTORS) {\n    for (const a of game.actors ?? []) {\n      if (a?.type === \"_template\") continue;\n      if (!a?.system?.display) continue;\n      if (await updateDoc(a, \"Actor\")) updated += 1;\n    }\n  }\n\n  if (UPDATE_ITEMS) {\n    for (const i of game.items ?? []) {\n      if (i?.type === \"_template\") continue;\n      if (!i?.system?.display) continue;\n      if (await updateDoc(i, \"Item\")) updated += 1;\n    }\n  }\n\n  ui.notifications?.info?.(`Portrait size update complete. Updated ${updated} document(s).`);\n})();",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703632875,
+    "modifiedTime": 1771703632875,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

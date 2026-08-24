@@ -1,0 +1,24 @@
+{
+  "type": "text",
+  "weight": 1,
+  "range": [
+    11,
+    11
+  ],
+  "_id": "wgWsmd295nq6H3WY",
+  "name": "",
+  "img": "modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B90_result.webp",
+  "description": "<img src=\"modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B90_result.webp\" />",
+  "drawn": false,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "lastModifiedBy": null
+  },
+  "documentUuid": null
+}

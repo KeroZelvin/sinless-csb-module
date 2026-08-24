@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "bRI78s2WG6gVDJ4C",
+  "name": "VCR",
+  "color": "#0dd5d9",
+  "sorting": "m",
+  "_id": "d3QnO994LfRud9yy",
+  "description": "",
+  "sort": -200000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703560931,
+    "modifiedTime": 1771703560931,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

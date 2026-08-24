@@ -1,0 +1,37 @@
+{
+  "_id": "defaultLevel0000",
+  "name": "Car Chase",
+  "background": {
+    "color": "#340057",
+    "src": "modules/sinlesscsb/assets/images/tiles/CarChasePurp.webp",
+    "tint": "#ffffff",
+    "alphaThreshold": 0.75
+  },
+  "elevation": {
+    "bottom": 0,
+    "top": 20
+  },
+  "foreground": {
+    "src": null,
+    "tint": "#ffffff",
+    "alphaThreshold": 0.75
+  },
+  "fog": {
+    "src": null
+  },
+  "textures": {
+    "anchorX": 0.5,
+    "anchorY": 0.5,
+    "offsetX": 0,
+    "offsetY": 0,
+    "fit": "fill",
+    "scaleX": 1,
+    "scaleY": 1,
+    "rotation": 0
+  },
+  "visibility": {
+    "levels": []
+  },
+  "sort": 0,
+  "flags": {}
+}

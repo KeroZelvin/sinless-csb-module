@@ -1,0 +1,27 @@
+{
+  "folder": "brwI6FNxjxJq9H1r",
+  "name": "Delete all items in Folder",
+  "type": "script",
+  "_id": "nxXMjkNOQr02F3rQ",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "(async () => {\n  const parentName = \"Decking\";\n  const folderName = \"Hacking Threads\"; // change to \"Hacking Threads\" as needed\n\n  const parent = game.folders?.find(f => f.type===\"Item\" && f.name===parentName && !f.folder);\n  const folder = game.folders?.find(f => f.type===\"Item\" && f.name===folderName && f.folder?.id===parent?.id);\n\n  if (!folder) {\n    ui.notifications?.warn?.(`Folder not found: ${parentName} > ${folderName}`);\n    return;\n  }\n\n  const items = game.items.filter(i => i.folder?.id === folder.id);\n  if (!items.length) {\n    ui.notifications?.info?.(`No items in ${folderName}.`);\n    return;\n  }\n\n  await Item.deleteDocuments(items.map(i => i.id));\n  ui.notifications?.info?.(`Deleted ${items.length} items from ${folderName}.`);\n})();",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703632875,
+    "modifiedTime": 1771703632875,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

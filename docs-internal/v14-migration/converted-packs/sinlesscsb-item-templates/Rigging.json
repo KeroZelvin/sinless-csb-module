@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Rigging",
+  "color": "#1487ad",
+  "sorting": "m",
+  "_id": "bRI78s2WG6gVDJ4C",
+  "description": "",
+  "sort": 300000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703560931,
+    "modifiedTime": 1771703561836,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

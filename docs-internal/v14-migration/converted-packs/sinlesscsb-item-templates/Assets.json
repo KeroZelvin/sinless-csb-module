@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "U0xPHn13he6mwKNg",
+  "name": "Assets",
+  "color": "#8603ab",
+  "sorting": "a",
+  "_id": "76RtzViuhpI874RJ",
+  "description": "",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703568731,
+    "modifiedTime": 1771703568731,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

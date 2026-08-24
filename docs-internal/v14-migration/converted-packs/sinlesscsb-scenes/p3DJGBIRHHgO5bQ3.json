@@ -1,0 +1,38 @@
+{
+  "texture": {
+    "src": "modules/sinlesscsb/assets/images/TarotLand/gear%2Btarot%2Bcards%2B-%2B3.webp",
+    "anchorX": 0,
+    "anchorY": 0,
+    "fit": "fill",
+    "scaleX": 1,
+    "scaleY": 1,
+    "tint": "#ffffff",
+    "alphaThreshold": 0.75
+  },
+  "x": 960,
+  "y": 1617,
+  "width": 234,
+  "height": 327,
+  "elevation": 0,
+  "sort": 0,
+  "occlusion": {
+    "alpha": 0,
+    "modes": []
+  },
+  "_id": "p3DJGBIRHHgO5bQ3",
+  "rotation": 0,
+  "alpha": 1,
+  "hidden": false,
+  "locked": false,
+  "restrictions": {
+    "light": false,
+    "weather": false
+  },
+  "video": {
+    "loop": true,
+    "autoplay": true,
+    "volume": 0
+  },
+  "flags": {},
+  "levels": []
+}

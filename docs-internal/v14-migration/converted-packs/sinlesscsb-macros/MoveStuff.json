@@ -1,0 +1,27 @@
+{
+  "folder": "brwI6FNxjxJq9H1r",
+  "name": "MoveStuff",
+  "type": "script",
+  "_id": "kHYw3FGVoyCnDMPe",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "(async () => {\n  if (!game.user?.isGM) {\n    ui.notifications?.warn?.(\"GM only: cannot move Items.\");\n    return;\n  }\n\n  const DOC_TYPE = \"Item\"; // Change to \"Actor\", \"JournalEntry\", etc. if needed.\n\n  const folders = (game.folders?.contents ?? []).filter(f => f.type === DOC_TYPE);\n  const folderById = new Map(folders.map(f => [f.id, f]));\n\n  const getParentId = (f) => f.folder?.id ?? f.parent?.id ?? null;\n\n  const pathFor = (f) => {\n    const parts = [f.name];\n    let cur = f;\n    let guard = 0;\n    while (guard++ < 50) {\n      const pid = getParentId(cur);\n      if (!pid) break;\n      const p = folderById.get(pid);\n      if (!p) break;\n      parts.unshift(p.name);\n      cur = p;\n    }\n    return parts.join(\"/\");\n  };\n\n  const folderRows = folders\n    .map(f => ({ id: f.id, label: pathFor(f) }))\n    .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: \"base\" }));\n\n  const labelById = new Map(folderRows.map(r => [r.id, r.label]));\n\n  const optionsHtml = (includeRoot) => {\n    const rootOpt = includeRoot ? `<option value=\"\">(top level / no folder)</option>` : \"\";\n    return rootOpt + folderRows.map(r => `<option value=\"${r.id}\">${r.label}</option>`).join(\"\");\n  };\n\n  const content = `\n<form>\n  <div class=\"form-group\">\n    <label>Source folder</label>\n    <select name=\"sourceFolder\">${optionsHtml(true)}</select>\n  </div>\n  <div class=\"form-group\">\n    <label>Destination folder</label>\n    <select name=\"destFolder\">${optionsHtml(true)}</select>\n  </div>\n  <div class=\"form-group\">\n    <label>Options</label>\n    <div class=\"form-fields\">\n      <label><input type=\"checkbox\" name=\"includeSubfolders\"> Include subfolders</label>\n    </div>\n  </div>\n</form>\n  `;\n\n  const collectFolderTree = (rootId) => {\n    const ids = new Set();\n    const stack = [rootId];\n    while (stack.length) {\n      const id = stack.pop();\n      if (!id || ids.has(id)) continue;\n      ids.add(id);\n      for (const f of folders) {\n        if (getParentId(f) === id) stack.push(f.id);\n      }\n    }\n    return ids;\n  };\n\n  const getCollection = () => (\n    game.collections?.get(DOC_TYPE) ||\n    (DOC_TYPE === \"Item\" ? game.items : null)\n  );\n\n  new Dialog({\n    title: `Move ${DOC_TYPE} documents`,\n    content,\n    buttons: {\n      move: {\n        label: \"Move\",\n        callback: async (html) => {\n          const srcId = String(html.find('[name=\"sourceFolder\"]').val() ?? \"\");\n          const destId = String(html.find('[name=\"destFolder\"]').val() ?? \"\");\n          const includeSub = Boolean(html.find('[name=\"includeSubfolders\"]').is(\":checked\"));\n\n          if (srcId === destId) {\n            ui.notifications?.warn?.(\"Source and destination are the same. Nothing to do.\");\n            return;\n          }\n\n          const collection = getCollection();\n          if (!collection) {\n            ui.notifications?.error?.(`No collection found for type: ${DOC_TYPE}`);\n            return;\n          }\n\n          const docs = collection.contents ?? Array.from(collection ?? []);\n          const folderIds = srcId\n            ? (includeSub ? collectFolderTree(srcId) : new Set([srcId]))\n            : null;\n\n          const toMove = docs.filter(doc => {\n            const fid = doc.folder?.id ?? doc.folder ?? null;\n            if (srcId) return fid && folderIds?.has(fid);\n            return !fid; // top-level only\n          });\n\n          if (!toMove.length) {\n            ui.notifications?.info?.(\"No documents found to move.\");\n            return;\n          }\n\n          const srcLabel = srcId ? (labelById.get(srcId) || srcId) : \"(top level)\";\n          const dstLabel = destId ? (labelById.get(destId) || destId) : \"(top level)\";\n\n          const ok = await Dialog.confirm({\n            title: \"Confirm move\",\n            content: `<p>Move ${toMove.length} ${DOC_TYPE} document(s) from <strong>${srcLabel}</strong> to <strong>${dstLabel}</strong>?</p>`\n          });\n          if (!ok) return;\n\n          const updates = toMove.map(d => ({ _id: d.id, folder: destId || null }));\n\n          const docClass = collection.documentClass ?? globalThis[DOC_TYPE];\n          if (docClass?.updateDocuments) {\n            await docClass.updateDocuments(updates);\n          } else {\n            for (const doc of toMove) {\n              await doc.update({ folder: destId || null });\n            }\n          }\n\n          ui.notifications?.info?.(`Moved ${updates.length} ${DOC_TYPE} document(s) to ${dstLabel}.`);\n        }\n      },\n      cancel: { label: \"Cancel\" }\n    },\n    default: \"move\"\n  }).render(true);\n})();",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703632875,
+    "modifiedTime": 1771703632875,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

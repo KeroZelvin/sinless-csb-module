@@ -1,0 +1,27 @@
+{
+  "folder": "brwI6FNxjxJq9H1r",
+  "name": "Reload All Sheets",
+  "type": "script",
+  "_id": "VO7gBmlwwyHrkco6",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "// Macro: reload all Actor + Item sheets (open, refresh, close)\n// Use after template changes to force sheets to re-render.\n\n(async () => {\n  const INCLUDE_ACTORS = true;\n  const INCLUDE_ITEMS = true;\n  const OPEN_IF_CLOSED = true;\n  const CLOSE_AFTER_OPEN = true;\n  const RENDER_DELAY_MS = 50;\n\n  const queue = [];\n  const seen = new Set();\n\n  const addDoc = (doc) => {\n    if (!doc?.uuid || seen.has(doc.uuid)) return;\n    seen.add(doc.uuid);\n    queue.push(doc);\n  };\n\n  if (INCLUDE_ACTORS) {\n    for (const a of game.actors ?? []) addDoc(a);\n  }\n  if (INCLUDE_ITEMS) {\n    for (const i of game.items ?? []) addDoc(i);\n    for (const a of game.actors ?? []) {\n      for (const i of a.items ?? []) addDoc(i);\n    }\n  }\n\n  let refreshed = 0;\n  let opened = 0;\n  let closed = 0;\n\n  for (const doc of queue) {\n    const sheet = doc.sheet;\n    if (!sheet) continue;\n\n    if (sheet.rendered) {\n      sheet.render(true);\n      refreshed += 1;\n      continue;\n    }\n\n    if (OPEN_IF_CLOSED) {\n      await sheet.render(true);\n      opened += 1;\n      if (RENDER_DELAY_MS > 0) {\n        await new Promise(r => setTimeout(r, RENDER_DELAY_MS));\n      }\n      if (CLOSE_AFTER_OPEN) {\n        try { await sheet.close(); } catch (_e) { sheet.close(); }\n        closed += 1;\n      }\n    }\n  }\n\n  ui.notifications?.info?.(\n    `Reload sheets complete. Refreshed ${refreshed} open, opened ${opened}, closed ${closed}.`\n  );\n})();",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703632875,
+    "modifiedTime": 1771703632875,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

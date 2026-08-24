@@ -1,0 +1,22 @@
+{
+  "name": "Goons",
+  "type": "Actor",
+  "folder": "p6hbQkfl32SKkvGO",
+  "_id": "p8IVu82dgB2UKnoT",
+  "description": "",
+  "sorting": "a",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703263326,
+    "modifiedTime": 1771703263326,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

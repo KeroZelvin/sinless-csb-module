@@ -1,0 +1,37 @@
+{
+  "_id": "defaultLevel0000",
+  "name": "Sinless",
+  "background": {
+    "color": "#2e1442",
+    "src": "modules/sinlesscsb/assets/images/tiles/sinless_logo.webp",
+    "tint": "#ffffff",
+    "alphaThreshold": 0.75
+  },
+  "elevation": {
+    "bottom": 0,
+    "top": 20
+  },
+  "foreground": {
+    "src": null,
+    "tint": "#ffffff",
+    "alphaThreshold": 0.75
+  },
+  "fog": {
+    "src": null
+  },
+  "textures": {
+    "anchorX": 0.5,
+    "anchorY": 0.5,
+    "offsetX": 0,
+    "offsetY": 0,
+    "fit": "fill",
+    "scaleX": 1,
+    "scaleY": 1,
+    "rotation": 0
+  },
+  "visibility": {
+    "levels": []
+  },
+  "sort": 0,
+  "flags": {}
+}

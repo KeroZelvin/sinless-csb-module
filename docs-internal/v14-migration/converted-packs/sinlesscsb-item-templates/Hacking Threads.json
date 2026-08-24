@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "2idKfyaV1KZVqL6V",
+  "name": "Hacking Threads",
+  "color": "#a0d926",
+  "sorting": "a",
+  "_id": "92dSVkunMksoE7g2",
+  "description": "",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703555569,
+    "modifiedTime": 1771703555569,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

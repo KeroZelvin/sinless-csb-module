@@ -1,0 +1,27 @@
+{
+  "name": "rollNPCinitiative",
+  "type": "script",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "// SinlessCSB — GM Hotbar Macro: Roll NPC Initiative (scene-wide)\n// Uses the module API (no legacy macro glue, no _initActorUuid handoff)\n\n(async () => {\n  const api = game.modules.get(\"sinlesscsb\")?.api;\n\n  if (!api?.rollNpcInitiative) {\n    ui.notifications?.error(\"SinlessCSB: rollNpcInitiative API not found. Is the module active and up to date?\");\n    return;\n  }\n\n  // Optionally pass { sceneId: canvas.scene.id } — API already defaults to active scene\n  await api.rollNpcInitiative({});\n})();",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1770412620016,
+    "modifiedTime": 1770412620016,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  },
+  "_id": "oMkSR1maUNshumT9",
+  "sort": 0
+}

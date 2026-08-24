@@ -1,0 +1,26 @@
+{
+  "sinlesscsb-actor-templates": {
+    "docs": 315,
+    "docsWithModifierChanges": 296
+  },
+  "sinlesscsb-item-templates": {
+    "docs": 469,
+    "docsWithModifierChanges": 435
+  },
+  "sinlesscsb-macros": {
+    "docs": 11,
+    "docsWithModifierChanges": 0
+  },
+  "sinlesscsb-journal": {
+    "docs": 0,
+    "docsWithModifierChanges": 0
+  },
+  "sinlesscsb-rollabletables": {
+    "docs": 23,
+    "docsWithModifierChanges": 0
+  },
+  "sinlesscsb-scenes": {
+    "docs": 5,
+    "docsWithModifierChanges": 0
+  }
+}

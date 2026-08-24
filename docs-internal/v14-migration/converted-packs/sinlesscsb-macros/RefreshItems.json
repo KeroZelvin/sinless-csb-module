@@ -1,0 +1,27 @@
+{
+  "folder": "brwI6FNxjxJq9H1r",
+  "name": "RefreshItems",
+  "type": "script",
+  "_id": "MQHI1LItmOKRiJyL",
+  "author": "KoiB8oaGNkPdgzdM",
+  "img": "icons/svg/dice-target.svg",
+  "scope": "global",
+  "command": "// one‑time macro to refresh all items that use a given template. It updates // the template version and injects any missing props (so your new field or  // edit gets added), without overwriting existing values.\n\n(async () => {\n  const TEMPLATE_ID = \"WpDhy1PMWFkO6tOc\";\n  const TEMPLATE_NAME = \"Firearms Template\";\n\n  const template =\n    game.items?.get?.(TEMPLATE_ID) ||\n    game.items?.find?.(i => i?.name === TEMPLATE_NAME && i?.type === \"_equippableItemTemplate\") ||\n    null;\n\n  if (!template) {\n    ui.notifications?.error?.(\n      `Template refresh: template not found. Expected id ${TEMPLATE_ID} or name \"${TEMPLATE_NAME}\".`\n    );\n    return;\n  }\n\n  const tProps = template.system?.props ?? {};\n  const tVersion = template.system?.templateSystemUniqueVersion;\n\n  const items = (game.items?.filter?.(i => i?.system?.template === template.id) ?? []);\n  if (!items.length) {\n    ui.notifications?.warn?.(\"Template refresh: no items found using this template.\");\n    return;\n  }\n\n  let updated = 0;\n  let addedFields = 0;\n  let refreshed = 0;\n\n  for (const item of items) {\n    const update = {};\n\n    if (tVersion && item.system?.templateSystemUniqueVersion !== tVersion) {\n      update[\"system.templateSystemUniqueVersion\"] = tVersion;\n    }\n\n    if (item.system?.template !== template.id) {\n      update[\"system.template\"] = template.id;\n    }\n\n    for (const [k, v] of Object.entries(tProps)) {\n      if (item.system?.props?.[k] === undefined) {\n        update[`system.props.${k}`] = v ?? \"\";\n        addedFields += 1;\n      }\n    }\n\n    if (Object.keys(update).length) {\n      await item.update(update);\n      updated += 1;\n\n      if (item.sheet?.rendered) {\n        item.sheet.render(true);\n        refreshed += 1;\n      }\n    }\n  }\n\n  ui.notifications?.info?.(\n    `Template refresh: updated ${updated} item(s), added ${addedFields} missing field(s), refreshed ${refreshed} open sheet(s).`\n  );\n})();",
+  "sort": 400000,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703632875,
+    "modifiedTime": 1771703632875,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

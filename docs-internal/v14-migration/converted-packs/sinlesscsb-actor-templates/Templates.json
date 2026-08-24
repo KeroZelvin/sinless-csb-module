@@ -1,0 +1,22 @@
+{
+  "type": "Actor",
+  "folder": null,
+  "name": "Templates",
+  "color": "#ef01bb",
+  "sorting": "a",
+  "_id": "eJiZ5ojJouMYFr9R",
+  "description": "",
+  "sort": 500000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703273471,
+    "modifiedTime": 1771703273471,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

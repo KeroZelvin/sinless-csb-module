@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Weapons",
+  "color": "#ecf000",
+  "sorting": "m",
+  "_id": "l7jcqzFSJr3Qemeu",
+  "description": "",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703553332,
+    "modifiedTime": 1771703553791,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

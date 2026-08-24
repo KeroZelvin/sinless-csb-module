@@ -1,0 +1,106 @@
+{
+  "name": "Racing Bike",
+  "type": "equippableItem",
+  "folder": "ic8w75E9GFrktS4x",
+  "img": "modules/sinlesscsb/assets/images/SinlessVehicles/white/RacingBike_white.webp",
+  "system": {
+    "template": "GHO6zyIPQXdSYR8a",
+    "templateSystemUniqueVersion": 1437143398,
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "sinlesscsb-marker",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "findItemvehicle",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "findItemvehicle",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "props": {
+      "findItemvehicle": "Racing Bike"
+    },
+    "unique": false,
+    "uniqueId": "Z1Yju9ro1qZ6tiKM"
+  },
+  "_id": "25MTlXdDA0kqxzyF",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    },
+    "sinlesscsb": {
+      "vehicleActorUuid": "Actor.prTzrmm00tA6o6YS",
+      "rigType": "vehicle",
+      "rigOwnerActorUuid": "Actor.9HqlPECYxaacY01V",
+      "rigSourceFindKey": "Racing Bike"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "14.367",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "lastModifiedBy": null,
+    "createdTime": null,
+    "modifiedTime": null
+  }
+}

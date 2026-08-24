@@ -1,0 +1,108 @@
+{
+  "name": "VSTOL Bird",
+  "type": "equippableItem",
+  "folder": "DswGzl1e1TynhREL",
+  "img": "modules/sinlesscsb/assets/images/SinlessDrones/white/p146_img1_xref756.webp",
+  "system": {
+    "template": "UOzfdwCey4axeP6O",
+    "templateSystemUniqueVersion": 3930338538,
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "sinlesscsb-marker",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "findItemdrone",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "findItemdrone",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "props": {
+      "findItemdrone": "VSTOL Bird"
+    },
+    "unique": false,
+    "uniqueId": "M7So1h7MRAT1YZg6"
+  },
+  "_id": "G8IJSg9iAx8MZ1QV",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "KoiB8oaGNkPdgzdM": 3
+  },
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    },
+    "sinlesscsb": {
+      "droneActorUuid": "Actor.muhhHjSCdNL9ATJH",
+      "rigType": "drone",
+      "rigOwnerActorUuid": "Actor.pt3aAa7sgQZv3xsy",
+      "rigSourceFindKey": "VSTOL Bird",
+      "droneOwnerActorUuid": "Actor.pt3aAa7sgQZv3xsy",
+      "droneSourceFindDrone": "VSTOL Bird"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "14.367",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "lastModifiedBy": null,
+    "createdTime": null,
+    "modifiedTime": null
+  }
+}

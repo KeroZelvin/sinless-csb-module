@@ -1,0 +1,107 @@
+{
+  "name": "Aerial Warden",
+  "type": "equippableItem",
+  "folder": "rCTnl7myqTtxE5gl",
+  "img": "modules/sinlesscsb/assets/images/SinlessDrones/white/p148_img3_xref802.png",
+  "system": {
+    "template": "UOzfdwCey4axeP6O",
+    "templateSystemUniqueVersion": 3146761765,
+    "body": {
+      "contents": [
+        {
+          "key": "",
+          "colSpan": 1,
+          "rowSpan": 1,
+          "cssClass": "",
+          "role": 0,
+          "editRole": 0,
+          "permission": 0,
+          "tooltip": "",
+          "visibilityFormula": "",
+          "editableFormula": "",
+          "escapeHTML": false,
+          "type": "panel",
+          "contents": [
+            {
+              "key": "findItemdrone",
+              "colSpan": 1,
+              "rowSpan": 1,
+              "cssClass": "",
+              "role": 0,
+              "editRole": 0,
+              "permission": 0,
+              "tooltip": "",
+              "visibilityFormula": "",
+              "editableFormula": "",
+              "escapeHTML": false,
+              "type": "textField",
+              "size": "full-size",
+              "label": "findItemdrone",
+              "defaultValue": "",
+              "charList": "",
+              "maxLength": null,
+              "autocomplete": ""
+            }
+          ],
+          "flow": "vertical",
+          "align": "left",
+          "verticalAlign": "top",
+          "collapsible": false,
+          "defaultCollapsed": false,
+          "title": "",
+          "titleStyle": "default"
+        }
+      ],
+      "key": "custom_body",
+      "type": "panel"
+    },
+    "display": {
+      "width": 600,
+      "height": 600,
+      "fix_size": false,
+      "pp_width": 200,
+      "pp_height": 200
+    },
+    "header": {
+      "contents": [],
+      "key": "custom_header",
+      "type": "panel"
+    },
+    "hidden": [],
+    "props": {
+      "findItemdrone": "Aerial Warden"
+    },
+    "unique": false,
+    "uniqueId": "j2TO3k0UCvhq0zMp"
+  },
+  "_id": "v4r6RaVFq7jMUXtZ",
+  "effects": [],
+  "sort": 0,
+  "flags": {
+    "custom-system-builder": {
+      "version": "5.1.0"
+    },
+    "sinlesscsb": {
+      "droneActorUuid": "Actor.VANzRLH2vtborQwF",
+      "rigType": "drone",
+      "rigOwnerActorUuid": "Actor.eMbezua6UThIStwT",
+      "rigOwnerUserId": "nHvvuymJXZEaNAmr",
+      "rigSourceFindKey": "Aerial Warden",
+      "droneOwnerActorUuid": "Actor.eMbezua6UThIStwT",
+      "droneOwnerUserId": "nHvvuymJXZEaNAmr",
+      "droneSourceFindDrone": "Aerial Warden"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "lastModifiedBy": null
+  },
+  "ownership": {
+    "default": 0
+  }
+}

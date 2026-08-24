@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "bRI78s2WG6gVDJ4C",
+  "name": "Drive / Fly Skills",
+  "color": "#00a8f0",
+  "sorting": "a",
+  "_id": "wpNVoTaalbsoL0Lv",
+  "description": "",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703560931,
+    "modifiedTime": 1771703560931,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}

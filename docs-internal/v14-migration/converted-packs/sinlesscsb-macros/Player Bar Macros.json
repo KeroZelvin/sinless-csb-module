@@ -1,0 +1,22 @@
+{
+  "type": "Macro",
+  "folder": null,
+  "name": "Player Bar Macros",
+  "color": "#c20f93",
+  "sorting": "a",
+  "_id": "hE39SdlYGegRigDw",
+  "description": "",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "custom-system-builder",
+    "systemVersion": "5.1.0",
+    "createdTime": 1771703630521,
+    "modifiedTime": 1771703630531,
+    "lastModifiedBy": "KoiB8oaGNkPdgzdM"
+  }
+}
